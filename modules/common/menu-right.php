@@ -13,7 +13,7 @@
 	<?}if(availableForm('terms')){?>
 	<div style="padding-left:10px;"><a href="../setting/terms.php">Terms</a></div>
 	<?}if(availableForm('listCountry')){?>
-	<div style="padding-left:10px;"><a href="../country/listCountry.php"><?=Countries?></a></div>
+	<div style="padding-left:10px;"><a href="../country/listCountry.php"><?php echo Countries; ?></a></div>
 	<?}?>
 	</td>
 </tr>

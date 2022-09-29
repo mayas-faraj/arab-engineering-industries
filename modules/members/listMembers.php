@@ -48,18 +48,18 @@ $i=0;?>
 <TABLE class="selectable" CELLSPACING="0" CELLPADDING="0" BORDER="0" WIDTH="100%" id="list">
 <thead>
 <tr>
-<th width="277"><?=print_AdminRecordHead("name_en", "Name", $sb, $so)?></th>
+<th width="277"><?php echo print_AdminRecordHead("name_en", "Name", $sb, $so); ?></th>
 <?
 ?>
-<th width="277"><?=print_AdminRecordHead("specialization", "Sub Sector", $sb, $so)?></th>
+<th width="277"><?php echo print_AdminRecordHead("specialization", "Sub Sector", $sb, $so); ?></th>
 <?
 ?>
-<th width="277"><?=print_AdminRecordHead("country", "Country", $sb, $so)?></th>
+<th width="277"><?php echo print_AdminRecordHead("country", "Country", $sb, $so); ?></th>
 
-<th width="277"><?=print_AdminRecordHead("creator_id", "Creator", $sb, $so)?></th>
+<th width="277"><?php echo print_AdminRecordHead("creator_id", "Creator", $sb, $so); ?></th>
 <?
 ?>
-<th width="277"><?=print_AdminRecordHead("active", "Active", $sb, $so)?></th>
+<th width="277"><?php echo print_AdminRecordHead("active", "Active", $sb, $so); ?></th>
 <?
 ?>
 <th colspan="4">Controls  </th>
@@ -77,18 +77,18 @@ $active= MYSQL_RESULT($result,$i,"active");
 $creator_id= MYSQL_RESULT($result,$i,"creator_id");
 ?>
 <TR>
-<TD><?=stripslashes($name_en)?><br/><?=stripslashes($name_ar)?></TD>
+<TD><?php echo stripslashes($name_en); ?><br/><?php echo stripslashes($name_ar); ?></TD>
 <?
 ?>
-<TD><?=lookupField('specialization','id','specialization_en',$specialization);?></TD>
+<TD><?php echo lookupField('specialization','id','specialization_en',$specialization);; ?></TD>
 <?
 ?>
-<TD><?=lookupField('country','id','country_en',$country);?></TD>
+<TD><?php echo lookupField('country','id','country_en',$country);; ?></TD>
 
-<TD><?=lookupField("users", "user_id", "username", $creator_id)?></TD>
+<TD><?php echo lookupField("users", "user_id", "username", $creator_id); ?></TD>
 <?
 ?>
-<td><a href="../includes/checkbox.php?t=mem_members&fn=active&idn=id&idv=<?=$id?>&fv=<?=!($active)?>" class="checkb" ><img src="<?=_PREF?>images/icons/_<?php echo $active?>_.png" border="0"  fv="<?=!($active)?>"/></a></td>
+<td><a href="../includes/checkbox.php?t=mem_members&fn=active&idn=id&idv=<?php echo $id; ?>&fv=<?php echo !($active); ?>" class="checkb" ><img src="<?php echo _PREF; ?>images/icons/_<?php echo $active?>_.png" border="0"  fv="<?php echo !($active); ?>"/></a></td>
 <?
 ?>
 <td align="center" width="30"></td>

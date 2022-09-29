@@ -1,6 +1,6 @@
-<link rel="stylesheet" type="text/css" href='<?=_PREF?>wedgits/bod/bod_<?=$pageLang?>.css'/>	
-<div class="page_content" dir='<?=_DIR?>'>
-	<div class="title2"><?=bod?></div>
+<link rel="stylesheet" type="text/css" href='<?php echo _PREF; ?>wedgits/bod/bod_<?php echo $pageLang; ?>.css'/>	
+<div class="page_content" dir='<?php echo _DIR; ?>'>
+	<div class="title2"><?php echo bod; ?></div>
 
 	<?
 $photo_path ="../../uploads/";
@@ -77,13 +77,13 @@ if ($numrows>0) {
 	<div class="bod_item">
 		
 		<div class="bod_content">
-			<div onclick='document.location="<?=_PREF?>view/bod/viewBod.php?id=<?=$id?>"' class="bod_img_all"><img src=<?=$src ?> /></div>
+			<div onclick='document.location="<?php echo _PREF; ?>view/bod/viewBod.php?id=<?php echo $id; ?>"' class="bod_img_all"><img src=<?php echo $src ; ?> /></div>
 			<div class="bod_txt">
-				<div onclick='document.location="<?=_PREF?>view/bod/viewBod.php?id=<?=$id?>"' class="bod_title"><?=$name?> <?if($country){ echo ' - '.$country;}?></div>
-				<div class='pos_div'> <?=$position?></div>
-				<div class='com_div'><?=$company?></div>
+				<div onclick='document.location="<?php echo _PREF; ?>view/bod/viewBod.php?id=<?php echo $id; ?>"' class="bod_title"><?php echo $name; ?> <?if($country){ echo ' - '.$country;}?></div>
+				<div class='pos_div'> <?php echo $position; ?></div>
+				<div class='com_div'><?php echo $company; ?></div>
 			</div>
-			<!--div class="more"><a href="<?=_PREF?>view/bod/viewBod.php?id=<?=$id?>"><?=More?><img src="<?=_PREF?>images/search_button_<?=$pageLang?>.png" /></a></div-->
+			<!--div class="more"><a href="<?php echo _PREF; ?>view/bod/viewBod.php?id=<?php echo $id; ?>"><?php echo More; ?><img src="<?php echo _PREF; ?>images/search_button_<?php echo $pageLang; ?>.png" /></a></div-->
 		</div>
 
 	

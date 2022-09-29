@@ -56,7 +56,7 @@ $sql = "SELECT * FROM site_settings  $whereStmt  $sort ";
 $result = MYSQL_QUERY($sql);
 $numberOfRows = MYSQL_NUMROWS($result);
 $i=0;?>
-<form method='post' name='main' action='<?=$_SERVER['PHP_SELF']?>' enctype='multipart/form-data'>
+<form method='post' name='main' action='<?php echo $_SERVER['PHP_SELF']; ?>' enctype='multipart/form-data'>
 <input type='hidden' name='action' value=''>
 <input type='hidden' name='ids' value=''>
 <input type="hidden" name="pro_id" value="<?php echo $pro_id;?>" class="required"/>
@@ -73,8 +73,8 @@ function addDel(par){
 <TABLE CELLSPACING="0" CELLPADDING="0" BORDER="0" WIDTH="100%" ID="list"><thead>
 <TR>
 	<tr>
-		<th width="277"><?=print_AdminRecordHead("label", "Name", $sb, $so)?></th>
-		<th width="277"><?=print_AdminRecordHead("value", "Value", $sb, $so)?></th>
+		<th width="277"><?php echo print_AdminRecordHead("label", "Name", $sb, $so); ?></th>
+		<th width="277"><?php echo print_AdminRecordHead("value", "Value", $sb, $so); ?></th>
 		<th colspan="1">Controls  </th>
 	</tr>
 </TR>
@@ -90,13 +90,13 @@ while ($i<$numberOfRows){
 			<input type="hidden" name="id" value="<?php echo $id;?>" class="required"/>
 			<TD><?php echo stripslashes($label)?></TD>
 			<?//if($id==4||$id==5){?>
-				<!--td><?=createComboBox("wedgits" , "id", "title" , $value , "value", "required");?></td-->
+				<!--td><?php echo createComboBox("wedgits" , "id", "title" , $value , "value", "required");; ?></td-->
 			<?//}else{?>
 				<TD><input type="Text" name="value" size="20" value="<?php echo stripslashes($value)?>" class="required"/>  </TD>
 			<?//}?>
 			
 			
-			<TD><img src="<?=_PREF?>images/icons/save.png" onClick="actionf('Update')" onMouseOver="over(this)" alt="<?=_Save?>" /></TD>
+			<TD><img src="<?php echo _PREF; ?>images/icons/save.png" onClick="actionf('Update')" onMouseOver="over(this)" alt="<?php echo _Save; ?>" /></TD>
 			
 		</TR>
    	  <? 
@@ -105,7 +105,7 @@ else{?>
 <TR>
 	<TD><?php echo stripslashes($label)?></TD>
 	<?//if($id==4||$id==5){?>
-		<!--TD><?=lookupField('wedgits' , 'id', "title" ,$value);?></TD-->
+		<!--TD><?php echo lookupField('wedgits' , 'id', "title" ,$value);; ?></TD-->
 	<?//}else{?>
 		<TD><?php echo stripslashes($value)?></TD>
 	<?//}?>

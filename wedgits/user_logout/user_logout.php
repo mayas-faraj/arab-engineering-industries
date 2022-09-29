@@ -1,5 +1,5 @@
-<script src="<?=_PREF?>wedgits/user_logout/user_logout.js" language="javascript" type="text/javascript"></script>
-<link rel="stylesheet" type="text/css" href='<?=_PREF?>wedgits/user_logout/user_logout_<?=$pageLang?>.css'/>
+<script src="<?php echo _PREF; ?>wedgits/user_logout/user_logout.js" language="javascript" type="text/javascript"></script>
+<link rel="stylesheet" type="text/css" href='<?php echo _PREF; ?>wedgits/user_logout/user_logout_<?php echo $pageLang; ?>.css'/>
 <?
 $page_name = getCurrentFormName();
 	if($page_name=='index'){
@@ -8,10 +8,10 @@ $page_name = getCurrentFormName();
 		$paths='../../';
 	}
 ?>
-<input type='hidden' name='paths' value='<?=$paths?>' class='paths'/>
+<input type='hidden' name='paths' value='<?php echo $paths; ?>' class='paths'/>
 <div class='logout_form' style=''>
 
-	<div class='ajax_msgs'><?=logging_out?></div>
+	<div class='ajax_msgs'><?php echo logging_out; ?></div>
 </div>
 
 

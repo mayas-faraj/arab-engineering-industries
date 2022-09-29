@@ -62,10 +62,10 @@ $result = MYSQL_QUERY($sql);
 $numberOfRows = MYSQL_NUMROWS($result);
 $i=0;?>
 <div class="data">
-<form method='post' name='main' action='<?=$_SERVER['PHP_SELF']?>' enctype='multipart/form-data'>
+<form method='post' name='main' action='<?php echo $_SERVER['PHP_SELF']; ?>' enctype='multipart/form-data'>
 <input type='hidden' name='action' value=''>
-<input type="hidden" name="p_id" size="20" value="<?=$p_id?>" />
-<input type="Hidden" name="lang" size="20" value="<?=$lang?>" />
+<input type="hidden" name="p_id" size="20" value="<?php echo $p_id; ?>" />
+<input type="Hidden" name="lang" size="20" value="<?php echo $lang; ?>" />
 <script>
 function actionf(act){
 main.action.value = act;
@@ -77,10 +77,10 @@ main.submit();
 <TR>
 <?
 ?>
-<th width="100px;"><?=print_AdminRecordHead("item_label", "Item Label", $sb, $so, $static_order)?></th>
+<th width="100px;"><?php echo print_AdminRecordHead("item_label", "Item Label", $sb, $so, $static_order); ?></th>
 <?
 ?>
-<th><?=print_AdminRecordHead("item_link", "Item Link", $sb, $so, $static_order)?></th>
+<th><?php echo print_AdminRecordHead("item_link", "Item Link", $sb, $so, $static_order); ?></th>
 <th colspan="5">&nbsp;</th>
 </TR>
 </thead>
@@ -89,11 +89,11 @@ main.submit();
 <TR>
 <?
 ?>
-<TD><input type="Text" name="item_label" size="20" value="<?=stripslashes($item_label)?>"/></TD>
+<TD><input type="Text" name="item_label" size="20" value="<?php echo stripslashes($item_label); ?>"/></TD>
 <?
 ?>
-<TD><?=getLinks($item_link , $lang);?></TD>
-<TD><?=print_save_icon("Insert")?></TD>
+<TD><?php echo getLinks($item_link , $lang);; ?></TD>
+<TD><?php echo print_save_icon("Insert"); ?></TD>
 <TD colspan="4">&nbsp;</TD>
 </TR>
 <?}// Enter record
@@ -109,13 +109,13 @@ if($action=="Edit"  && $_REQUEST['menu_id'] == $menu_id){?>
 <TR>
 <?
 ?>
-<TD><input type="Text" name="item_label" size="20" value="<?=stripslashes($item_label)?>" />
-<input type="Hidden" name="menu_id" size="20" value="<?=$menu_id?>" />
+<TD><input type="Text" name="item_label" size="20" value="<?php echo stripslashes($item_label); ?>" />
+<input type="Hidden" name="menu_id" size="20" value="<?php echo $menu_id; ?>" />
 </TD>
 <?
 ?>
-<TD><?=getLinks($item_link , $lang);?></TD>
-<TD><?=print_save_icon("Update")?></TD>
+<TD><?php echo getLinks($item_link , $lang);; ?></TD>
+<TD><?php echo print_save_icon("Update"); ?></TD>
 <TD colspan="4">&nbsp;</TD>
 </TR>
 <?}// Edit record
@@ -123,10 +123,10 @@ else{?>
 <TR>
 <?
 ?>
-<TD><?=stripslashes($item_label)?></TD>
+<TD><?php echo stripslashes($item_label); ?></TD>
 <?
 ?>
-<TD>&nbsp;<?=print_internal_Link($item_link);?></TD>
+<TD>&nbsp;<?php echo print_internal_Link($item_link);; ?></TD>
 <?
 /**Ordering_functions(part 2 of 2)********************************************/
 showUpDownIcons($result, $i, "menu_id", "item_order", "&p_id=".$p_id);
@@ -135,7 +135,7 @@ showUpDownIcons($result, $i, "menu_id", "item_order", "&p_id=".$p_id);
 <TD width="42" align="center"><?=print_subItems_icon("listMenus.php?p_id=$menu_id")?></TD>
 <TD width="42" align="center"><?=print_edit_icon($_SERVER['PHP_SELF']."?action=Edit&menu_id=".$menu_id."&p_id=".$p_id)?></TD>
 <?/**delete_grp_functions(part 1 of 2)********************************************/?>
-<TD width="29" align="center"><?=print_delete_ckbox($menu_id)?></TD>
+<TD width="29" align="center"><?php echo print_delete_ckbox($menu_id); ?></TD>
 <?//-------------------------------------------------------?>
 </TR>
 <?}//end else
@@ -146,7 +146,7 @@ $i++;
 <br><br>
 <div align="CENTER"><?
 if($p_id){ ?>
-<input type="button" value="<?=_GoBack?>" onClick="document.location='listMenus.php?p_id=<?=lookupField('menus','menu_id','p_id',$p_id)?>';" /><? } ?></div>
+<input type="button" value="<?php echo _GoBack; ?>" onClick="document.location='listMenus.php?p_id=<?php echo lookupField('menus','menu_id','p_id',$p_id); ?>';" /><? } ?></div>
 </form>
 </div>
 <? include_once("../common/footer-admin.php"); ?>

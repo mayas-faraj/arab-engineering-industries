@@ -1,4 +1,4 @@
-<link rel="stylesheet" type="text/css" href='<?=_PREF?>wedgits/resources/resources_<?=$pageLang?>.css'/>	
+<link rel="stylesheet" type="text/css" href='<?php echo _PREF; ?>wedgits/resources/resources_<?php echo $pageLang; ?>.css'/>	
 
 <div class='page_content'>
 <?
@@ -48,6 +48,6 @@ if ($numberOfRows>0) {
 }
 	
 ?>
-<input type='button' value='<?=Back?>' class='more_btn' onClick='history.back()'/>
+<input type='button' value='<?php echo Back; ?>' class='more_btn' onClick='history.back()'/>
 </div>
 

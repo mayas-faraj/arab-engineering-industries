@@ -66,10 +66,10 @@ Show Report From:
 
 
 <script type="text/javascript">
-	var myData = new Array(<?=$pie_data?>);
+	var myData = new Array(<?php echo $pie_data; ?>);
 	var myChart = new JSChart('graph', 'line');
 	myChart.setDataArray(myData);
-	myChart.setTitle('<?=$_REQUEST['filename']?>');
+	myChart.setTitle('<?php echo $_REQUEST['filename']; ?>');
 	myChart.setTitleColor('#8E8E8E');
 	myChart.setTitleFontSize(11);
 	myChart.setAxisNameX('');
@@ -93,7 +93,7 @@ Show Report From:
 	for($i=0; $i<=$wid; $i++)
 		echo "myChart.setTooltip([$i, '$i']);";
 	?>
-	myChart.setSize(<?=max($wid*30,600)?>, 321);
+	myChart.setSize(<?php echo max($wid*30,600); ?>, 321);
 	myChart.draw();
 </script>
 <?php include_once("../common/footer-admin.php"); ?>

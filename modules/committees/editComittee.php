@@ -74,65 +74,65 @@ $active= MYSQL_RESULT($result,$i,"active");
 $ord= MYSQL_RESULT($result,$i,"ord");
 $creator_id= MYSQL_RESULT($result,$i,"creator_id");
 }?>
-<form name="subForm" method="post" action="<?=$_SERVER['PHP_SELF']?>" enctype="multipart/form-data">
-<input type="Hidden" name="id" size="20" value="<?=$id?>" />
+<form name="subForm" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>" enctype="multipart/form-data">
+<input type="Hidden" name="id" size="20" value="<?php echo $id; ?>" />
 <?
 ?>
 <table>
 
 <?if($_SESSION['USER'] == 2){?>
 	<tr>
-		<td align="<?=_ALI?>"><span class="field_title">Creator:</span></td>
+		<td align="<?php echo _ALI; ?>"><span class="field_title">Creator:</span></td>
 		<td width="5" class="required">*</td>
 		<td>
-			<?=createComboBoxFiltered("users" , "user_id", "full_name" , $creator_id , "creator_id", ' grp_id <> "3" ' ,"required");?>
+			<?php echo createComboBoxFiltered("users" , "user_id", "full_name" , $creator_id , "creator_id", ' grp_id <> "3" ' ,"required");; ?>
 		</td>
 	</tr>
 <?}?>
 
 <tr>
-<td align="<?=_ALI?>"><span class="field_title">Name(En):</span></td><td width="5" class="required">*</td>
-<td><input type="Text" name="name_en" size="50" value="<?=stripslashes($name_en)?>" class="required" /></td>
+<td align="<?php echo _ALI; ?>"><span class="field_title">Name(En):</span></td><td width="5" class="required">*</td>
+<td><input type="Text" name="name_en" size="50" value="<?php echo stripslashes($name_en); ?>" class="required" /></td>
 </tr>
 <tr>
-<td align="<?=_ALI?>"><span class="field_title">Name(Ar):</span></td><td width="5" class="required">*</td>
-<td><input type="Text" name="name_ar" size="50" value="<?=stripslashes($name_ar)?>" class="required " /></td>
-</tr>
-
-<tr>
-<td valign="top" align="<?=_ALI?>"><span class="field_title"><?=Creation_Date?>:</span></td><td width="5" class="required">*</td>
-<td><input type="Text" name="creation_date" size="20" value="<?=stripslashes($creation_date)?>" class="required dateF" /></td>
+<td align="<?php echo _ALI; ?>"><span class="field_title">Name(Ar):</span></td><td width="5" class="required">*</td>
+<td><input type="Text" name="name_ar" size="50" value="<?php echo stripslashes($name_ar); ?>" class="required " /></td>
 </tr>
 
 <tr>
-<td valign="top" align="<?=_ALI?>"><span class="field_title">Brief (En):</span></td><td width="5" class="required"></td>
-<td><textarea name="brief_en" class="simpleEditor" ><?=stripslashes($brief_en)?></textarea></td>
-</tr>
-<tr>
-<td valign="top" align="<?=_ALI?>"><span class="field_title">Brief (Ar):</span></td><td width="5" class="required"></td>
-<td><textarea name="brief_ar" class="simpleEditor" ><?=stripslashes($brief_ar)?></textarea></td>
+<td valign="top" align="<?php echo _ALI; ?>"><span class="field_title"><?php echo Creation_Date; ?>:</span></td><td width="5" class="required">*</td>
+<td><input type="Text" name="creation_date" size="20" value="<?php echo stripslashes($creation_date); ?>" class="required dateF" /></td>
 </tr>
 
 <tr>
-<td valign="top" align="<?=_ALI?>"><span class="field_title">Description (En):</span></td><td width="5" class="required"></td>
-<td><textarea name="description_en" class="mceEditor" ><?=stripslashes($description_en)?></textarea></td>
+<td valign="top" align="<?php echo _ALI; ?>"><span class="field_title">Brief (En):</span></td><td width="5" class="required"></td>
+<td><textarea name="brief_en" class="simpleEditor" ><?php echo stripslashes($brief_en); ?></textarea></td>
 </tr>
 <tr>
-<td valign="top" align="<?=_ALI?>"><span class="field_title">Description (Ar):</span></td><td width="5" class="required"></td>
-<td><textarea name="description_ar" class="mceEditor" ><?=stripslashes($description_ar)?></textarea></td>
-</tr>
-
-<tr>
-<td valign="top" align="<?=_ALI?>"><span class="field_title">Private (En):</span></td><td width="5" class="required"></td>
-<td><textarea name="private_en" class="mceEditor" ><?=stripslashes($private_en)?></textarea></td>
-</tr>
-<tr>
-<td valign="top" align="<?=_ALI?>"><span class="field_title">Private (Ar):</span></td><td width="5" class="required"></td>
-<td><textarea name="private_ar" class="mceEditor" ><?=stripslashes($private_ar)?></textarea></td>
+<td valign="top" align="<?php echo _ALI; ?>"><span class="field_title">Brief (Ar):</span></td><td width="5" class="required"></td>
+<td><textarea name="brief_ar" class="simpleEditor" ><?php echo stripslashes($brief_ar); ?></textarea></td>
 </tr>
 
 <tr>
-<td align="<?=_ALI?>"><span class="field_title"><?=Active?>:</span></td>
+<td valign="top" align="<?php echo _ALI; ?>"><span class="field_title">Description (En):</span></td><td width="5" class="required"></td>
+<td><textarea name="description_en" class="mceEditor" ><?php echo stripslashes($description_en); ?></textarea></td>
+</tr>
+<tr>
+<td valign="top" align="<?php echo _ALI; ?>"><span class="field_title">Description (Ar):</span></td><td width="5" class="required"></td>
+<td><textarea name="description_ar" class="mceEditor" ><?php echo stripslashes($description_ar); ?></textarea></td>
+</tr>
+
+<tr>
+<td valign="top" align="<?php echo _ALI; ?>"><span class="field_title">Private (En):</span></td><td width="5" class="required"></td>
+<td><textarea name="private_en" class="mceEditor" ><?php echo stripslashes($private_en); ?></textarea></td>
+</tr>
+<tr>
+<td valign="top" align="<?php echo _ALI; ?>"><span class="field_title">Private (Ar):</span></td><td width="5" class="required"></td>
+<td><textarea name="private_ar" class="mceEditor" ><?php echo stripslashes($private_ar); ?></textarea></td>
+</tr>
+
+<tr>
+<td align="<?php echo _ALI; ?>"><span class="field_title"><?php echo Active; ?>:</span></td>
 <td width="5" class=""></td>
 <TD><input type="Checkbox" name="active" size="20" value="1" <?php echo ($active)? "checked" : ""?>  /></TD>
 </tr>
@@ -140,7 +140,7 @@ $creator_id= MYSQL_RESULT($result,$i,"creator_id");
 <input name="sub" type="submit" id="sub" value="Save">
 <?
 ?>
-<input name="sub4" type="button" id="sub3" value="All Committees" onClick=" document.location='listComittees.php?<?=$url?>'">
+<input name="sub4" type="button" id="sub3" value="All Committees" onClick=" document.location='listComittees.php?<?php echo $url; ?>'">
 </form><?
 }
 include_once("../common/footer-admin.php"); ?>

@@ -2,11 +2,11 @@
 $user_name = lookupField('users','user_id','full_name',cleanString($_SESSION["us_id"]));
 $cat_id = cleanString($_REQUEST['id']);
 ?>	
-<link rel="stylesheet" type="text/css" href='<?=_PREF?>wedgits/forum/articles_<?=$pageLang?>.css'/>
+<link rel="stylesheet" type="text/css" href='<?php echo _PREF; ?>wedgits/forum/articles_<?php echo $pageLang; ?>.css'/>
 <div class= "page_content">
 	
 	
-	<div class="title2"><?=form_members_inner?> (<?=lookupField('art_categories','id','name',$cat_id)?>) <span><?echo Welcome.' <font><a href="myPage.php?mem_id='.$_SESSION["us_id"].'&cat_id='.$cat_id.'">'.$user_name.'</a></font>'?></span></div>
+	<div class="title2"><?php echo form_members_inner; ?> (<?php echo lookupField('art_categories','id','name',$cat_id); ?>) <span><?echo Welcome.' <font><a href="myPage.php?mem_id='.$_SESSION["us_id"].'&cat_id='.$cat_id.'">'.$user_name.'</a></font>'?></span></div>
 	
 <?
 
@@ -75,9 +75,9 @@ if(cleanString($_REQUEST['pn']))	$pn = cleanString($_REQUEST['pn']);
 								}
 							?>						
 						</td>
-						<td ><?=$full_name?></td>
-						<td width='300px' align='<?=_SALI?>'><?=$user_desc?></td>
-						<td ><?=$email?></td>
+						<td ><?php echo $full_name; ?></td>
+						<td width='300px' align='<?php echo _SALI; ?>'><?php echo $user_desc; ?></td>
+						<td ><?php echo $email; ?></td>
 					
 					</tr>
 				<?

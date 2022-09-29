@@ -56,7 +56,7 @@ $result = MYSQL_QUERY($sql);
 $numberOfRows = MYSQL_NUMROWS($result);
 $i=0;?>
 <div class="data">
-<form method='post' name='main' action='<?=$_SERVER['PHP_SELF']?>' enctype='multipart/form-data'>
+<form method='post' name='main' action='<?php echo $_SERVER['PHP_SELF']; ?>' enctype='multipart/form-data'>
 <input type='hidden' name='action' value=''>
 <script>
 function actionf(act){
@@ -67,10 +67,10 @@ function actionf(act){
 <TABLE CELLSPACING="0" CELLPADDING="0" BORDER="0" WIDTH="100%" ID="list">
 <thead>
 	<TR>
-		<th width="150px;"><?=print_AdminRecordHead("username", "Username", $sb, $so)?></th>
-		<th width="150px;"><?=print_AdminRecordHead("password", "Password", $sb, $so, 1)?></th>
-		<th width="150px;"><?=print_AdminRecordHead("full_name", "Full Name", $sb, $so, 1)?></th>
-		<th width="150px;"><?=print_AdminRecordHead("email", "E-mail", $sb, $so, 1)?></th>
+		<th width="150px;"><?php echo print_AdminRecordHead("username", "Username", $sb, $so); ?></th>
+		<th width="150px;"><?php echo print_AdminRecordHead("password", "Password", $sb, $so, 1); ?></th>
+		<th width="150px;"><?php echo print_AdminRecordHead("full_name", "Full Name", $sb, $so, 1); ?></th>
+		<th width="150px;"><?php echo print_AdminRecordHead("email", "E-mail", $sb, $so, 1); ?></th>
 		<th colspan="2">&nbsp;</th>
 </TR>
 </thead>
@@ -84,13 +84,13 @@ while ($i<$numberOfRows){
 	$email= MYSQL_RESULT($result,$i,"email");
 	$grp_id= MYSQL_RESULT($result,$i,"grp_id");?>
     	<TR>
-			<TD><input type="Text" name="username" size="20" value="<?=stripslashes($username)?>" />
-				<input type="Hidden" name="user_id" size="20" value="<?=$user_id?>" />
+			<TD><input type="Text" name="username" size="20" value="<?php echo stripslashes($username); ?>" />
+				<input type="Hidden" name="user_id" size="20" value="<?php echo $user_id; ?>" />
 			</TD>
-			<TD><input type="password" name="password" size="20" value="<?=stripslashes($password)?>" /></TD>
-			<TD><input type="Text" name="full_name" size="20" value="<?=stripslashes($full_name)?>" /></TD>
-			<TD><input type="Text" name="email" size="20" value="<?=stripslashes($email)?>" /></TD>
-			<TD><?=print_save_icon("Update")?></TD>
+			<TD><input type="password" name="password" size="20" value="<?php echo stripslashes($password); ?>" /></TD>
+			<TD><input type="Text" name="full_name" size="20" value="<?php echo stripslashes($full_name); ?>" /></TD>
+			<TD><input type="Text" name="email" size="20" value="<?php echo stripslashes($email); ?>" /></TD>
+			<TD><?php echo print_save_icon("Update"); ?></TD>
 			<TD colspan="1">&nbsp;</TD>
 		</TR>
    <?

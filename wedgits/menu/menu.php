@@ -1,7 +1,7 @@
-<link rel="stylesheet" type="text/css" href='<?=_PREF?>wedgits/menu/menu_<?=$pageLang?>.css'/>
-<script src="<?=_PREF?>wedgits/menu/menu.js" language="javascript" type="text/javascript"></script>
+<link rel="stylesheet" type="text/css" href='<?php echo _PREF; ?>wedgits/menu/menu_<?php echo $pageLang; ?>.css'/>
+<script src="<?php echo _PREF; ?>wedgits/menu/menu.js" language="javascript" type="text/javascript"></script>
 
-<div class='menu' dir='<?=_DIR?>'>
+<div class='menu' dir='<?php echo _DIR; ?>'>
 	<ul id="cssdropdown">
 	<?
 	$act = cleanString($_REQUEST['act']);

@@ -39,7 +39,7 @@ if ($numberOfRows<=0) echo _Sorry;
 if ($numberOfRows>0) {
 $i=0;
 ?>
-<form name="subForm" action="<?=$_SERVER['PHP_SELF']?>" method="POST">
+<form name="subForm" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
 <input name="permissions" type="hidden">
 <input name="permission" type="hidden">
 <input type="hidden" value="<?php echo $grp_id?>" name="grp_id" />
@@ -51,7 +51,7 @@ while ($i<$numberOfRows){
 
 ?>
 	<TR>
-		<TD class="tableData"><input name="permission" type="checkbox" value="<?=$r?>" <?=($r==$p) ? "checked" : "" ?>  onClick="f();"> <?php echo lookupField('roles','role_id','role_name',$r) ?> </TD>
+		<TD class="tableData"><input name="permission" type="checkbox" value="<?php echo $r; ?>" <?=($r==$p) ? "checked" : "" ?>  onClick="f();"> <?php echo lookupField('roles','role_id','role_name',$r) ?> </TD>
 	</TR>
 <?php 	$i++;
 	}//End While

@@ -60,18 +60,18 @@ $i=0;?>
 <TABLE class="selectable" CELLSPACING="0" CELLPADDING="0" BORDER="0" WIDTH="100%" id="list">
 <thead>
 <tr>
-<th width="277"><?=print_AdminRecordHead("subject", "Subject", $sb, $so)?></th>
+<th width="277"><?php echo print_AdminRecordHead("subject", "Subject", $sb, $so); ?></th>
 <?
 ?>
-<th width="277"><?=print_AdminRecordHead("activity_date", "Activity Date", $sb, $so)?></th>
+<th width="277"><?php echo print_AdminRecordHead("activity_date", "Activity Date", $sb, $so); ?></th>
 
-<th width="277"><?=print_AdminRecordHead("creator_id", "Creator", $sb, $so)?></th>
+<th width="277"><?php echo print_AdminRecordHead("creator_id", "Creator", $sb, $so); ?></th>
 
 <?
 ?>
-<th width="277"><?=print_AdminRecordHead("active", "Active", $sb, $so)?></th>
+<th width="277"><?php echo print_AdminRecordHead("active", "Active", $sb, $so); ?></th>
 <?if($_SESSION['USER'] == 2){?>
-	<th width="277"><?=print_AdminRecordHead("special", "Special", $sb, $so)?></th>
+	<th width="277"><?php echo print_AdminRecordHead("special", "Special", $sb, $so); ?></th>
 <?}?>
 <th colspan="5">Controls  </th>
 </tr>
@@ -87,16 +87,16 @@ $active= MYSQL_RESULT($result,$i,"active");
 $creator_id= MYSQL_RESULT($result,$i,"creator_id");
 ?>
 <TR>
-<TD><?=stripslashes($subject)?></TD>
+<TD><?php echo stripslashes($subject); ?></TD>
 <?
 ?>
-<TD><?=stripslashes($activity_date)?></TD>
-<TD><?=lookupField("users", "user_id", "username", $creator_id)?></TD>
+<TD><?php echo stripslashes($activity_date); ?></TD>
+<TD><?php echo lookupField("users", "user_id", "username", $creator_id); ?></TD>
 <?
 ?>
-<td><a href="../includes/checkbox.php?t=mem_activities&fn=active&idn=id&idv=<?=$id?>&fv=<?=!($active)?>" class="checkb" ><img src="<?=_PREF?>images/icons/_<?php echo $active?>_.png" border="0"  fv="<?=!($active)?>"/></a></td>
+<td><a href="../includes/checkbox.php?t=mem_activities&fn=active&idn=id&idv=<?php echo $id; ?>&fv=<?php echo !($active); ?>" class="checkb" ><img src="<?php echo _PREF; ?>images/icons/_<?php echo $active?>_.png" border="0"  fv="<?php echo !($active); ?>"/></a></td>
 <?if($_SESSION['USER'] == 2){?>
-<td><a href="../includes/checkbox.php?t=mem_activities&fn=special&idn=id&idv=<?=$id?>&fv=<?=!($special)?>" class="checkb" ><img src="<?=_PREF?>images/icons/_<?php echo $special?>_.png" border="0"  fv="<?=!($special)?>"/></a></td>
+<td><a href="../includes/checkbox.php?t=mem_activities&fn=special&idn=id&idv=<?php echo $id; ?>&fv=<?php echo !($special); ?>" class="checkb" ><img src="<?php echo _PREF; ?>images/icons/_<?php echo $special?>_.png" border="0"  fv="<?php echo !($special); ?>"/></a></td>
 <?}?>
 <?
 ?>

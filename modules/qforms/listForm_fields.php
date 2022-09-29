@@ -78,16 +78,16 @@ echo createPagination($tp,$pn,$LPP);
 <form method='post' name='subForm' action='<?php echo $_SERVER['PHP_SELF']?>' enctype='multipart/form-data'>
 <input type='hidden' name='action' value=''>
 <input type='hidden' name='ids' value=''>
-<input type='hidden' name='id' value='<?=$_REQUEST['id']?>'>
+<input type='hidden' name='id' value='<?php echo $_REQUEST['id']; ?>'>
 <input type="Hidden" name="form_id" size="20" value="<?php echo $form_id?>" />
 <input type="hidden" value="<?php echo $form_id?>" name="form_id" />
 <TABLE CELLSPACING="0" CELLPADDING="0" BORDER="0" WIDTH="100%" ID="list">
 <thead>
 <TR>
-<th width="100px;"><?=print_AdminRecordHead("field_label", "Field Label", $sb, $so, $static_order)?></th>
-<th width="100px;"><?=print_AdminRecordHead("type", "Type", $sb, $so, $static_order)?></th>
-<th width="100px;"><?=print_AdminRecordHead("plus", "Plus", $sb, $so, $static_order)?></th>
-<th width="100px;"><?=print_AdminRecordHead("required", "Required", $sb, $so, $static_order)?></th>
+<th width="100px;"><?php echo print_AdminRecordHead("field_label", "Field Label", $sb, $so, $static_order); ?></th>
+<th width="100px;"><?php echo print_AdminRecordHead("type", "Type", $sb, $so, $static_order); ?></th>
+<th width="100px;"><?php echo print_AdminRecordHead("plus", "Plus", $sb, $so, $static_order); ?></th>
+<th width="100px;"><?php echo print_AdminRecordHead("required", "Required", $sb, $so, $static_order); ?></th>
 <th colspan="4">&nbsp;</th>
 </TR>
 </thead>
@@ -107,7 +107,7 @@ if($action=="Enter"){?>
 </TD>
 <TD><input type="Text" name="plus" size="20" value="<?php echo stripslashes($plus)?>" /></TD>
 <TD><input type="Checkbox" name="required" size="20" value="1" <?php echo ($required)? "checked" : ""?>  /></TD>
-<TD colspan="4"><?=print_save_icon("Insert")?></TD>
+<TD colspan="4"><?php echo print_save_icon("Insert"); ?></TD>
 </TR><?php
 }// Enter record
 $i=0;
@@ -135,21 +135,21 @@ if($action=="Edit"  && $_REQUEST['id'] == $id){?>
 </TD>
 <TD><input type="Text" name="plus" size="20" value="<?php echo stripslashes($plus)?>" /></TD>
 <TD><input type="Checkbox" name="required" size="20" value="1" <?php echo ($required)? "checked" : ""?>  /></TD>
-<TD colspan="4"><?=print_save_icon("Update")?></TD>
+<TD colspan="4"><?php echo print_save_icon("Update"); ?></TD>
 </TR><?php
 }else{?>
 <TR>
 <TD><?php echo stripslashes($field_label)?></TD>
 <TD><?php echo stripslashes($type)?></TD>
 <TD>&nbsp;<?php echo stripslashes($plus)?></TD>
-<td><a href="../includes/checkbox.php?t=form_fields&fn=required&idn=id&idv=<?=$id?>&fv=<?=!($required)?>" class="checkb" ><img src="<?=_PREF?>images/icons/_<?php echo $required?>_.png" border="0"  fv="<?=!($required)?>"/></a></td>
+<td><a href="../includes/checkbox.php?t=form_fields&fn=required&idn=id&idv=<?php echo $id; ?>&fv=<?php echo !($required); ?>" class="checkb" ><img src="<?php echo _PREF; ?>images/icons/_<?php echo $required?>_.png" border="0"  fv="<?php echo !($required); ?>"/></a></td>
 <?
 /**Ordering_functions(part 2 of 2)********************************************/
 showUpDownIcons($result, $i, "id", "item_order", "&form_id=".$form_id);
 /**Ordering_functions********************************************/
 ?>
 <TD width="42" align="center"><?=print_edit_icon($_SERVER['PHP_SELF']."?action=Edit&id=".$id."&form_id=".$form_id)?></TD>
-<TD width="29" align="center"><?=print_delete_ckbox($id)?></TD>
+<TD width="29" align="center"><?php echo print_delete_ckbox($id); ?></TD>
 </TR>
 <?php
 }//end else

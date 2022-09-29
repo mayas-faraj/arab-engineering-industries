@@ -51,15 +51,15 @@ if ($numberOfRows>0) {
 $i=0;?>
 
 <div class="data">
-<form method='post' name='main' action='<?=$_SERVER['PHP_SELF']?>' enctype='multipart/form-data'>
+<form method='post' name='main' action='<?php echo $_SERVER['PHP_SELF']; ?>' enctype='multipart/form-data'>
 <input type='hidden' name='action' value=''>
 <TABLE class="selectable" CELLSPACING="0" CELLPADDING="0" BORDER="0" WIDTH="100%" id="list">
 <thead>
 <tr>
-<th width="277"><?=print_AdminRecordHead("title", "Title", $sb, $so)?></th>
+<th width="277"><?php echo print_AdminRecordHead("title", "Title", $sb, $so); ?></th>
 <?
 ?>
-<th width="277"><?=print_AdminRecordHead("lang", "Language", $sb, $so)?></th>
+<th width="277"><?php echo print_AdminRecordHead("lang", "Language", $sb, $so); ?></th>
 <?
 ?>
 <th colspan="5">Controls</th>
@@ -74,10 +74,10 @@ $is_static= MYSQL_RESULT($result,$i,"is_static");
 $lang= MYSQL_RESULT($result,$i,"lang");
 ?>
 <TR>
-<TD><?=stripslashes($title)?>&nbsp;</TD>
+<TD><?php echo stripslashes($title); ?>&nbsp;</TD>
 <?
 ?>
-<TD><?=stripslashes($lang)?>&nbsp;</TD>
+<TD><?php echo stripslashes($lang); ?>&nbsp;</TD>
 
 <?
 ?>

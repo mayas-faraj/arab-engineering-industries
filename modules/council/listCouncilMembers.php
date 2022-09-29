@@ -59,15 +59,15 @@ $i=0;?>
 <TABLE class="selectable" CELLSPACING="0" CELLPADDING="0" BORDER="0" WIDTH="100%" id="list">
 <thead>
 <tr>
-<th width="277"><?=print_AdminRecordHead("name_en", "Name", $sb, $so)?></th>
+<th width="277"><?php echo print_AdminRecordHead("name_en", "Name", $sb, $so); ?></th>
 <?
 ?>
-<th width="277"><?=print_AdminRecordHead("position_en", "Position", $sb, $so)?></th>
+<th width="277"><?php echo print_AdminRecordHead("position_en", "Position", $sb, $so); ?></th>
 <?
 ?>
-<th width="277"><?=print_AdminRecordHead("company_en", "Company", $sb, $so)?></th>
+<th width="277"><?php echo print_AdminRecordHead("company_en", "Company", $sb, $so); ?></th>
 
-<th width="277"><?=print_AdminRecordHead("creator_id", "Creator", $sb, $so)?></th>
+<th width="277"><?php echo print_AdminRecordHead("creator_id", "Creator", $sb, $so); ?></th>
 
 <th colspan="3">Controls</th>
 </tr>
@@ -86,16 +86,16 @@ $creator_id= MYSQL_RESULT($result,$i,"creator_id");
 $ord= MYSQL_RESULT($result,$i,"ord");
 ?>
 <TR>
-<TD><?=stripslashes($name_en)?><br/><?=stripslashes($name_ar)?></TD>
+<TD><?php echo stripslashes($name_en); ?><br/><?php echo stripslashes($name_ar); ?></TD>
 <?
 ?>
-<TD><?=stripslashes($position_en)?><br/><?=stripslashes($position_ar)?></TD>
+<TD><?php echo stripslashes($position_en); ?><br/><?php echo stripslashes($position_ar); ?></TD>
 <?
 ?>
-<TD><?=$company_en?></TD>
+<TD><?php echo $company_en; ?></TD>
 
-<TD><?=lookupField("users", "user_id", "username", $creator_id)?></TD>
-<td><a href="../includes/checkbox.php?t=mem_council&fn=active&idn=id&idv=<?=$id?>&fv=<?=!($active)?>" class="checkb" ><img src="<?=_PREF?>images/icons/_<?php echo $active?>_.png" border="0"  fv="<?=!($active)?>"/></a></td>
+<TD><?php echo lookupField("users", "user_id", "username", $creator_id); ?></TD>
+<td><a href="../includes/checkbox.php?t=mem_council&fn=active&idn=id&idv=<?php echo $id; ?>&fv=<?php echo !($active); ?>" class="checkb" ><img src="<?php echo _PREF; ?>images/icons/_<?php echo $active?>_.png" border="0"  fv="<?php echo !($active); ?>"/></a></td>
 
 
 <?//=showUpDownIcons($result, $i, "id", "ord", "&term=".$term);?>

@@ -39,7 +39,7 @@
    
 						<tr>
 								  <td>
-								    <?=getLinks($id_value , "","href", "mceFocus", "onchange=\"selectByValue(this.form,'linklisthref',this.value);\"" , "../../")?>							  
+								    <?php echo getLinks($id_value , "","href", "mceFocus", "onchange=\"selectByValue(this.form,'linklisthref',this.value);\"" , "../../"); ?>							  
 	                      </td>
                                    
 						  <td id="hrefbrowsercontainer" style="display:none;">&nbsp;</td>

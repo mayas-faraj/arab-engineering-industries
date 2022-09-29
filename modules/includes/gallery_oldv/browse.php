@@ -55,22 +55,22 @@ $(document).ready(function(){
 	$('#delDiv').dialog({
 		autoOpen: false,
 		width:420,
-		title:'<?=Delete?>',
+		title:'<?php echo Delete; ?>',
 		modal: true, 
 		buttons: {
-			"<?=Delete?>": function() {del_file()} ,
-			"<?=Cancel?>": function() {$(this).dialog("close");} 
+			"<?php echo Delete; ?>": function() {del_file()} ,
+			"<?php echo Cancel; ?>": function() {$(this).dialog("close");} 
 		}
 	});
 	
 	$('#editDiv').dialog({
 	autoOpen: false,
 	width:420,
-	title:'<?=Edit?>',
+	title:'<?php echo Edit; ?>',
 	modal: true, 
 	buttons: {
-		"<?=Save?>": function() {edit_file()} ,
-		"<?=Cancel?>": function() {$(this).dialog("close");} 
+		"<?php echo Save; ?>": function() {edit_file()} ,
+		"<?php echo Cancel; ?>": function() {$(this).dialog("close");} 
 	}
 });
 	
@@ -135,16 +135,16 @@ while ($i<$numberOfRows){
 	//$gallery_folder = lookupField('galleries_galleries','id','folder',$gid);
 	//if($gallery_folder){$folder = $gallery_folder.'/';}
 	$thumb= MYSQL_RESULT($result,$i,"thumb");?>
-		<div class="thumb" align="center" id="box<?=$id?>">
+		<div class="thumb" align="center" id="box<?php echo $id; ?>">
 		<div class="img" align="center">
-        <img src="<?=_PREF?>uploads/<?=$thumb?>" alt="<?=stripslashes($description)?>" /></div>
+        <img src="<?php echo _PREF; ?>uploads/<?php echo $thumb; ?>" alt="<?php echo stripslashes($description); ?>" /></div>
         <div class="label" align="right">
-          <input type="checkbox" <? if(in_array($id,$resPhotos)){echo " checked ";}?> name="sel_pho[]" value="<?=$id?>" />
-        <img src="../../../images/icons/Delete.png" width="20" hspace="3"style="cursor:pointer" onClick="del_conform(<?=$id?>)"/>
-        <img src="../../../images/icons/Edit.png"   width="20" hspace="3" style="cursor:pointer" onClick="edit_conform(<?=$id?>)"/>
+          <input type="checkbox" <? if(in_array($id,$resPhotos)){echo " checked ";}?> name="sel_pho[]" value="<?php echo $id; ?>" />
+        <img src="../../../images/icons/Delete.png" width="20" hspace="3"style="cursor:pointer" onClick="del_conform(<?php echo $id; ?>)"/>
+        <img src="../../../images/icons/Edit.png"   width="20" hspace="3" style="cursor:pointer" onClick="edit_conform(<?php echo $id; ?>)"/>
         </div>
         <div class="label" align="right">
-        <input type="radio" name="main_pho" <?	if($id==$mph){echo " checked ";}?> value="<?=$id?>" /> Main photo</div>
+        <input type="radio" name="main_pho" <?	if($id==$mph){echo " checked ";}?> value="<?php echo $id; ?>" /> Main photo</div>
 		<!--<div><a href=\"editPhoto.php?id=$id\" class=\"popup\">Edit</a></div>-->
         </div>
         <?

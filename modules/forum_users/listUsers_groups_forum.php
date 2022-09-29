@@ -53,7 +53,7 @@ $result = MYSQL_QUERY($sql);
 $numberOfRows = MYSQL_NUMROWS($result);
 $i=0;?>
 <div class="data">
-<form method='post' name='main' action='<?=$_SERVER['PHP_SELF']?>' enctype='multipart/form-data'>
+<form method='post' name='main' action='<?php echo $_SERVER['PHP_SELF']; ?>' enctype='multipart/form-data'>
 <input type='hidden' name='action' value=''>
 <script>
 function actionf(act){
@@ -64,17 +64,17 @@ function actionf(act){
 <TABLE CELLSPACING="0" CELLPADDING="0" BORDER="0" WIDTH="100%" ID="list">
 <thead>
 	<TR>
-		<th width="100px;"><?=print_AdminRecordHead("name_en", "Group Name (EN)", $sb, $so, $static_order)?></th>
-		<th width="100px;"><?=print_AdminRecordHead("name_ar", "Group Name (AR)", $sb, $so, $static_order)?></th>
+		<th width="100px;"><?php echo print_AdminRecordHead("name_en", "Group Name (EN)", $sb, $so, $static_order); ?></th>
+		<th width="100px;"><?php echo print_AdminRecordHead("name_ar", "Group Name (AR)", $sb, $so, $static_order); ?></th>
 		<th colspan="3">&nbsp;</th>
 </TR>
 </thead>
 <tbody>
 <? if($action=="Enter"){ ?>
 <TR>
-	<TD><input type="Text" name="name_en"  size="20" value="<?=stripslashes($name_en)?>" /></TD>
-	<TD><input type="Text" name="name_ar" size="20" value="<?=stripslashes($name_ar)?>" /></TD>
-	<TD><?=print_save_icon("Insert")?></TD>
+	<TD><input type="Text" name="name_en"  size="20" value="<?php echo stripslashes($name_en); ?>" /></TD>
+	<TD><input type="Text" name="name_ar" size="20" value="<?php echo stripslashes($name_ar); ?>" /></TD>
+	<TD><?php echo print_save_icon("Insert"); ?></TD>
 	<TD colspan="2">&nbsp;</TD>
 </TR>
 <?}// Enter record
@@ -85,22 +85,22 @@ while ($i<$numberOfRows){
 	$name_ar= MYSQL_RESULT($result,$i,"name_ar");
 	if($action=="Edit"  && $_REQUEST['id'] == $id){?>
     	<TR>
-			<input type="Hidden" name="id" size="20" value="<?=$id?>" />
-			<TD><input type="Text" name="name_en" size="20" value="<?=stripslashes($name_en)?>" /></TD>
-			<TD><input type="Text" name="name_ar" size="20" value="<?=stripslashes($name_ar)?>" /></TD>
-			<TD><?=print_save_icon("Update")?></TD>
+			<input type="Hidden" name="id" size="20" value="<?php echo $id; ?>" />
+			<TD><input type="Text" name="name_en" size="20" value="<?php echo stripslashes($name_en); ?>" /></TD>
+			<TD><input type="Text" name="name_ar" size="20" value="<?php echo stripslashes($name_ar); ?>" /></TD>
+			<TD><?php echo print_save_icon("Update"); ?></TD>
 			<TD colspan="2">&nbsp;</TD>
 		</TR>
    	<?}// Edit record
 	else{?>
 		<TR>
-			<TD class='query'><?=stripslashes($name_en)?></TD>
-			<TD><?=stripslashes($name_ar)?></TD>
+			<TD class='query'><?php echo stripslashes($name_en); ?></TD>
+			<TD><?php echo stripslashes($name_ar); ?></TD>
 			
 			<TD width="42" align="center"><?=print_edit_icon($_SERVER['PHP_SELF']."?action=Edit&id=".$id)?></TD>
 			<TD width="30" align="center"><a href="listForumUsers.php?grp_id=<?php echo $id?>">Group Users</a></TD>
 			<?/**delete_grp_functions(part 1 of 2)********************************************/?>
-			<TD width="29" align="center"><?=print_delete_ckbox($id)?></TD>
+			<TD width="29" align="center"><?php echo print_delete_ckbox($id); ?></TD>
 			<?//-------------------------------------------------------?>
 		</TR>
 	<?}//end else

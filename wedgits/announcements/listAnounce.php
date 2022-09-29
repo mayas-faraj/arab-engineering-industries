@@ -1,8 +1,8 @@
-<link rel="stylesheet" type="text/css" href='<?=_PREF?>wedgits/announcements/announcements_<?=$pageLang?>.css'/>	
+<link rel="stylesheet" type="text/css" href='<?php echo _PREF; ?>wedgits/announcements/announcements_<?php echo $pageLang; ?>.css'/>	
 
 
 <div class='page_content'>
-<div class='title2'><?=Announcements?></div>
+<div class='title2'><?php echo Announcements; ?></div>
 <?
 $photo_path ="../../uploads/";
 

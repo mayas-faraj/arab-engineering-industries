@@ -88,60 +88,60 @@ echo '<script>correctMessage("'.Record_Update.'")</script>';
 else echo '<script>errorMessage("'.CantInsert.'")</script>' ;
 }
 if((!$sub) || (!$result)){ ?>
-<form name="subForm" method="post" action="<?=$_SERVER['PHP_SELF']?>" enctype="multipart/form-data">
-<input type="Hidden" name="id" size="20" value="<?=$id?>" />
-<input type="Hidden" name="term" size="20" value="<?=$term?>" />
+<form name="subForm" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>" enctype="multipart/form-data">
+<input type="Hidden" name="id" size="20" value="<?php echo $id; ?>" />
+<input type="Hidden" name="term" size="20" value="<?php echo $term; ?>" />
 <?
 ?>
 <table>
 
 <?if($_SESSION['USER'] == 2){?>
 	<tr>
-		<td align="<?=_ALI?>"><span class="field_title">Creator:</span></td>
+		<td align="<?php echo _ALI; ?>"><span class="field_title">Creator:</span></td>
 		<td width="5" class="required">*</td>
 		<td>
-			<?=createComboBoxFiltered("users" , "user_id", "full_name" , $creator_id , "creator_id", ' grp_id <> "3" ' ,"required");?>
+			<?php echo createComboBoxFiltered("users" , "user_id", "full_name" , $creator_id , "creator_id", ' grp_id <> "3" ' ,"required");; ?>
 		</td>
 	</tr>
 <?}?>
 
 <tr>
-	<td align="<?=_ALI?>"><span class="field_title">Name: </span></td><td width="5" class="required">*</td>
-	<td> En: <input type="Text" name="name_en" size="50" value="<?=stripslashes($name_en)?>" class="required" />
-		 Ar: <input type="Text" name="name_ar" size="50" value="<?=stripslashes($name_ar)?>" class="required" /></td>
+	<td align="<?php echo _ALI; ?>"><span class="field_title">Name: </span></td><td width="5" class="required">*</td>
+	<td> En: <input type="Text" name="name_en" size="50" value="<?php echo stripslashes($name_en); ?>" class="required" />
+		 Ar: <input type="Text" name="name_ar" size="50" value="<?php echo stripslashes($name_ar); ?>" class="required" /></td>
 </tr>
 
 <tr>
-<td align="<?=_ALI?>"><span class="field_title">Phone: </span></td><td width="5" class=""></td>
-<td><input type="Text" name="tel" size="50" value="<?=stripslashes($tel)?>" class="" /></td>
+<td align="<?php echo _ALI; ?>"><span class="field_title">Phone: </span></td><td width="5" class=""></td>
+<td><input type="Text" name="tel" size="50" value="<?php echo stripslashes($tel); ?>" class="" /></td>
 </tr>
 
 <tr>
-<td align="<?=_ALI?>"><span class="field_title">fax: </span></td><td width="5" class=""></td>
-<td><input type="Text" name="fax" size="50" value="<?=stripslashes($fax)?>" class="" /></td>
+<td align="<?php echo _ALI; ?>"><span class="field_title">fax: </span></td><td width="5" class=""></td>
+<td><input type="Text" name="fax" size="50" value="<?php echo stripslashes($fax); ?>" class="" /></td>
 </tr>
 
 <tr>
-<td align="<?=_ALI?>"><span class="field_title">email: </span></td><td width="5" class=""></td>
-<td><input type="Text" name="email" size="50" value="<?=stripslashes($email)?>" class="" /></td>
+<td align="<?php echo _ALI; ?>"><span class="field_title">email: </span></td><td width="5" class=""></td>
+<td><input type="Text" name="email" size="50" value="<?php echo stripslashes($email); ?>" class="" /></td>
 </tr>
 
 <tr>
-<td align="<?=_ALI?>"><span class="field_title">website: </span></td><td width="5" class=""></td>
-<td><input type="Text" name="website" size="50" value="<?=stripslashes($website)?>" class="" /></td>
+<td align="<?php echo _ALI; ?>"><span class="field_title">website: </span></td><td width="5" class=""></td>
+<td><input type="Text" name="website" size="50" value="<?php echo stripslashes($website); ?>" class="" /></td>
 </tr>
 
 
 <tr>
-	<td align="<?=_ALI?>"><span class="field_title">Position: </span></td><td width="5" class="required">*</td>
-	<td> En: <input type="Text" name="position_en" size="50" value="<?=stripslashes($position_en)?>" class="required" />
-		 Ar: <input type="Text" name="position_ar" size="50" value="<?=stripslashes($position_ar)?>" class="required" /></td>
+	<td align="<?php echo _ALI; ?>"><span class="field_title">Position: </span></td><td width="5" class="required">*</td>
+	<td> En: <input type="Text" name="position_en" size="50" value="<?php echo stripslashes($position_en); ?>" class="required" />
+		 Ar: <input type="Text" name="position_ar" size="50" value="<?php echo stripslashes($position_ar); ?>" class="required" /></td>
 </tr>
 
 <?
 ?>
 <tr>
-<td valign="top" align="<?=_ALI?>"><span class="field_title"><?=Country?>:</span></td><td width="5" class="required">*</td>
+<td valign="top" align="<?php echo _ALI; ?>"><span class="field_title"><?php echo Country; ?>:</span></td><td width="5" class="required">*</td>
 <td><?php echo createComboBox("country", "id", "country_en", $country, "country","required");?></td>
 </tr>
 <?
@@ -149,15 +149,15 @@ if((!$sub) || (!$result)){ ?>
 
 
 <tr>
-	<td align="<?=_ALI?>"><span class="field_title">Company: </span></td><td width="5" class="required">*</td>
-	<td> En: <input type="Text" name="company_en" size="50" value="<?=stripslashes($company_en)?>" class="required" />
-		 Ar: <input type="Text" name="company_ar" size="50" value="<?=stripslashes($company_ar)?>" class="required" /></td>
+	<td align="<?php echo _ALI; ?>"><span class="field_title">Company: </span></td><td width="5" class="required">*</td>
+	<td> En: <input type="Text" name="company_en" size="50" value="<?php echo stripslashes($company_en); ?>" class="required" />
+		 Ar: <input type="Text" name="company_ar" size="50" value="<?php echo stripslashes($company_ar); ?>" class="required" /></td>
 </tr>
 
 <?
 ?>
 <tr>
-<td valign="top" align="<?=_ALI?>"><span class="field_title"><?=Photo?>:</span></td><td width="5" class="required"></td>
+<td valign="top" align="<?php echo _ALI; ?>"><span class="field_title"><?php echo Photo; ?>:</span></td><td width="5" class="required"></td>
  <td><input type="Text" name="photo" size="20" value="<?php echo stripslashes($photo)?>" class=""/>
 <a href="javascript:mcImageManager.open('subForm','photo','','',{relative_urls : true});">[Select file]</a></td>
 </tr>
@@ -165,31 +165,31 @@ if((!$sub) || (!$result)){ ?>
 
 
 <tr>
-	<td align="<?=_ALI?>"><span class="field_title">Address: </span></td><td width="5" class="required">*</td>
-	<td> En: <input type="Text" name="address_en" size="50" value="<?=stripslashes($address_en)?>" class="" />
-		 Ar: <input type="Text" name="address_ar" size="50" value="<?=stripslashes($address_ar)?>" class="" /></td>
+	<td align="<?php echo _ALI; ?>"><span class="field_title">Address: </span></td><td width="5" class="required">*</td>
+	<td> En: <input type="Text" name="address_en" size="50" value="<?php echo stripslashes($address_en); ?>" class="" />
+		 Ar: <input type="Text" name="address_ar" size="50" value="<?php echo stripslashes($address_ar); ?>" class="" /></td>
 </tr>
 
 
 
 
 <tr>
-<td align="<?=_ALI?>"><span class="field_title">Biography (En):</span></td><td width="5" class="required"></td>
-<td><textarea name="biography_en" class="simpleEditor" ><?=stripslashes($biography_en)?></textarea></td>
+<td align="<?php echo _ALI; ?>"><span class="field_title">Biography (En):</span></td><td width="5" class="required"></td>
+<td><textarea name="biography_en" class="simpleEditor" ><?php echo stripslashes($biography_en); ?></textarea></td>
 </tr>
 <tr>
-<td align="<?=_ALI?>"><span class="field_title">Biography (Ar):</span></td><td width="5" class="required"></td>
-<td><textarea name="biography_ar" class="simpleEditor" ><?=stripslashes($biography_ar)?></textarea></td>
+<td align="<?php echo _ALI; ?>"><span class="field_title">Biography (Ar):</span></td><td width="5" class="required"></td>
+<td><textarea name="biography_ar" class="simpleEditor" ><?php echo stripslashes($biography_ar); ?></textarea></td>
 </tr>
 <tr>
-<td align="<?=_ALI?>"><span class="field_title"><?=Active?>:</span></td>
+<td align="<?php echo _ALI; ?>"><span class="field_title"><?php echo Active; ?>:</span></td>
 <td width="5" class=""></td>
 <TD><input type="Checkbox" name="active" size="20" value="1" <?php echo ($active)? "checked" : ""?>  /></TD>
 </tr>
 
 <!--tr>
-<td valign="top" align="<?=_ALI?>"><span class="field_title"><?=Terms?>:</span></td><td width="5" class="required">*</td>
-<td><?=createCheckBox("terms", "id", "name_en", $terms, "terms");?></td>
+<td valign="top" align="<?php echo _ALI; ?>"><span class="field_title"><?php echo Terms; ?>:</span></td><td width="5" class="required">*</td>
+<td><?php echo createCheckBox("terms", "id", "name_en", $terms, "terms");; ?></td>
 </tr-->
 
 
@@ -199,7 +199,7 @@ if((!$sub) || (!$result)){ ?>
 <?
 $url = 'term='.$term;
 ?>
-<input name="sub4" type="button" id="sub3" value="All BOD Member" onClick=" document.location='listCouncilMembers.php?<?=$url?>'">
+<input name="sub4" type="button" id="sub3" value="All BOD Member" onClick=" document.location='listCouncilMembers.php?<?php echo $url; ?>'">
 </form><?
 }
 include_once("../common/footer-admin.php"); ?>

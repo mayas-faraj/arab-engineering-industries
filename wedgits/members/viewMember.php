@@ -1,5 +1,5 @@
-<link rel="stylesheet" type="text/css" href='<?=_PREF?>wedgits/members/members_<?=$pageLang?>.css'/>
-<div class="page_content" dir='<?=_DIR?>'>
+<link rel="stylesheet" type="text/css" href='<?php echo _PREF; ?>wedgits/members/members_<?php echo $pageLang; ?>.css'/>
+<div class="page_content" dir='<?php echo _DIR; ?>'>
 	
 	<?
 	$mid = cleanString($_REQUEST['id']);
@@ -26,34 +26,34 @@
 			$logo= MYSQL_RESULT($result,$i,"logo_".$pageLang);
 	}
 	?>
-	<div class="title2"><?=$name?></div>
+	<div class="title2"><?php echo $name; ?></div>
 
-	<table cellpadding='0' cellspacing='0' style='float:<?=_SALI?>; margin-bottom:15px; width:100%; '>
+	<table cellpadding='0' cellspacing='0' style='float:<?php echo _SALI; ?>; margin-bottom:15px; width:100%; '>
 		
 		<tr>
 			
 			<td>
 				<table width='420px' border='0' cellpadding='0' cellspacing='0'>
-					<tr><td class='bod_lb' valign="top"><?=Country?>: </td><td><?=$country?></td></tr>
-					<?if($representer){?><tr><td class='bod_lb' valign="top"><span><?=Representer?>: </span></td><td><span><?=$representer?></span></td></tr><?}?>
+					<tr><td class='bod_lb' valign="top"><?php echo Country; ?>: </td><td><?php echo $country; ?></td></tr>
+					<?if($representer){?><tr><td class='bod_lb' valign="top"><span><?php echo Representer; ?>: </span></td><td><span><?php echo $representer; ?></span></td></tr><?}?>
 					
-					<?if($tel){?><tr><td class='bod_lb' valign="top"><?=Telephon?>: </td><td dir='ltr'><span dir='ltr'><?=$tel?></span></td></tr><?}?>
-					<?if($fax){?><tr><td class='bod_lb' valign="top"><?=Fax?>: </td><td dir='ltr'><span dir='ltr'><?=$fax?></span></td></tr><?}?>
-					<?if($email){?><tr><td class='bod_lb' valign="top"><?=E_mail?>: </td><td><?=$email?></td></tr><?}?>
+					<?if($tel){?><tr><td class='bod_lb' valign="top"><?php echo Telephon; ?>: </td><td dir='ltr'><span dir='ltr'><?php echo $tel; ?></span></td></tr><?}?>
+					<?if($fax){?><tr><td class='bod_lb' valign="top"><?php echo Fax; ?>: </td><td dir='ltr'><span dir='ltr'><?php echo $fax; ?></span></td></tr><?}?>
+					<?if($email){?><tr><td class='bod_lb' valign="top"><?php echo E_mail; ?>: </td><td><?php echo $email; ?></td></tr><?}?>
 					
-					<?if($website){?><tr><td class='bod_lb' valign="top"><span><?=Website?>: </span></td><td><a href='<?='http://'.str_replace('http://','',$website)?>' target=''><?=$website?></a></td></tr><?}?>
+					<?if($website){?><tr><td class='bod_lb' valign="top"><span><?php echo Website; ?>: </span></td><td><a href='<?php echo 'http://'.str_replace('http://','',$website); ?>' target=''><?php echo $website; ?></a></td></tr><?}?>
 					
 				</table>
 			</td>
 			<td valign='top'>
-				<div class="logo" style="height:130px; width:300px; float:<?=_ALI?>;"><?if($logo){?><img src="../../uploads/<?=$logo?>"  style="max-width:300px; max-height:130px; float:<?=_ALI?>;"><?}?></div>
+				<div class="logo" style="height:130px; width:300px; float:<?php echo _ALI; ?>;"><?if($logo){?><img src="../../uploads/<?php echo $logo; ?>"  style="max-width:300px; max-height:130px; float:<?php echo _ALI; ?>;"><?}?></div>
 			</td>
 		</tr>
 		<tr>
 			<td colspan='2' >
 				<table width='100%' cellpadding='0' cellspacing='0'>
-					<?if($address){?><tr><td class='bod_lb'  valign="top"><span><?=Address?>: </span></td><td align='<?=_SALI?>'><span><?=$address?></span></td></tr><?}?>
-					<?if($specialization){?><tr><td class='bod_lb'  valign="top"><span><?=_FTR_SPECIALIZATION?>: </span></td><td align='<?=_SALI?>'><span><?=$specialization?></span></td></tr><?}?>
+					<?if($address){?><tr><td class='bod_lb'  valign="top"><span><?php echo Address; ?>: </span></td><td align='<?php echo _SALI; ?>'><span><?php echo $address; ?></span></td></tr><?}?>
+					<?if($specialization){?><tr><td class='bod_lb'  valign="top"><span><?php echo _FTR_SPECIALIZATION; ?>: </span></td><td align='<?php echo _SALI; ?>'><span><?php echo $specialization; ?></span></td></tr><?}?>
 				</table>
 			</td>
 		</tr>
@@ -64,12 +64,12 @@
 	
 	<br/><br/>
 
-	<div class="page_dt" ><?=$brief?></div>
-	<table style='float:<?=_SALI?>; width:100%'>
+	<div class="page_dt" ><?php echo $brief; ?></div>
+	<table style='float:<?php echo _SALI; ?>; width:100%'>
 			<td></td> 
 		<tr>
 		</tr>
 	</table>
-<input type='button' value='<?=Back?>' class='more_btn' onClick='history.back()'/>
+<input type='button' value='<?php echo Back; ?>' class='more_btn' onClick='history.back()'/>
 
 </div>

@@ -65,9 +65,9 @@ $result = MYSQL_QUERY($sql);
 $numberOfRows = MYSQL_NUMROWS($result);
 $i=0;?>
 <div class="data">
-<form method='post' name='main' action='<?=$_SERVER['PHP_SELF']?>' enctype='multipart/form-data'>
+<form method='post' name='main' action='<?php echo $_SERVER['PHP_SELF']; ?>' enctype='multipart/form-data'>
 <input type='hidden' name='action' value=''>
-<input type='hidden' name='term' value='<?=$term?>'>
+<input type='hidden' name='term' value='<?php echo $term; ?>'>
 <script>
 function actionf(act){
 	main.action.value = act;
@@ -75,13 +75,13 @@ function actionf(act){
 }
 </script>
 <TABLE CELLSPACING="0" CELLPADDING="0" BORDER="0" WIDTH="100%" ID="list">
-<input type='hidden' value='<?=$term?>' name='term'/>
+<input type='hidden' value='<?php echo $term; ?>' name='term'/>
 <thead>
 	<TR>
-		<th width="100px;"><?=print_AdminRecordHead("member_id", "Member", $sb, $so, $static_order,"&term=".$term)?></th>
-		<th width="100px;"><?=print_AdminRecordHead("position_en", "Position (EN)", $sb, $so, $static_order,"&term=".$term)?></th>
-		<th width="100px;"><?=print_AdminRecordHead("position_ar", "Position (AR)", $sb, $so, $static_order,"&term=".$term)?></th>
-		<th width="100px;"><?=print_AdminRecordHead("ord", "Order", $sb, $so, $static_order,"&term=".$term)?></th>
+		<th width="100px;"><?php echo print_AdminRecordHead("member_id", "Member", $sb, $so, $static_order,"&term=".$term); ?></th>
+		<th width="100px;"><?php echo print_AdminRecordHead("position_en", "Position (EN)", $sb, $so, $static_order,"&term=".$term); ?></th>
+		<th width="100px;"><?php echo print_AdminRecordHead("position_ar", "Position (AR)", $sb, $so, $static_order,"&term=".$term); ?></th>
+		<th width="100px;"><?php echo print_AdminRecordHead("ord", "Order", $sb, $so, $static_order,"&term=".$term); ?></th>
 
 		<th colspan="4">&nbsp;</th>
 </TR>
@@ -89,12 +89,12 @@ function actionf(act){
 <tbody>
 <? if($action=="Enter"){ ?>
 <TR>
-	<TD><?=createComboBox("mem_council", "id", "name_en", $member_id, "member" , "required");?></TD>
-	<TD><input type="Text" name="position_en" size="20" value="<?=stripslashes($position_en)?>"/></TD>
-	<TD><input type="Text" name="position_ar" size="20" value="<?=stripslashes($position_ar)?>"/></TD>
-	<TD><input type="Text" name="ord" size="20" value="<?=stripslashes($ord)?>"/></TD>
+	<TD><?php echo createComboBox("mem_council", "id", "name_en", $member_id, "member" , "required");; ?></TD>
+	<TD><input type="Text" name="position_en" size="20" value="<?php echo stripslashes($position_en); ?>"/></TD>
+	<TD><input type="Text" name="position_ar" size="20" value="<?php echo stripslashes($position_ar); ?>"/></TD>
+	<TD><input type="Text" name="ord" size="20" value="<?php echo stripslashes($ord); ?>"/></TD>
 
-	<TD><?=print_save_icon("Insert")?></TD>
+	<TD><?php echo print_save_icon("Insert"); ?></TD>
 	<TD colspan="2">&nbsp;</TD>
 </TR>
 <?}// Enter record
@@ -107,26 +107,26 @@ while ($i<$numberOfRows){
 
 	if($action=="Edit"  && $_REQUEST['id'] == $id){?>
     	<TR>
-			<input type="Hidden" name="id" size="20" value="<?=$id?>" />
-			<TD><?=createComboBox("mem_council", "id", "name_en", $member_id, "member" , "required");?></TD>		
-			<TD><input type="Text" name="position_en" size="20" value="<?=stripslashes($position_en)?>" /></TD>
-			<TD><input type="Text" name="position_ar" size="20" value="<?=stripslashes($position_ar)?>" /></TD>
-			<TD><input type="Text" name="ord" size="20" value="<?=stripslashes($ord)?>" /></TD>
+			<input type="Hidden" name="id" size="20" value="<?php echo $id; ?>" />
+			<TD><?php echo createComboBox("mem_council", "id", "name_en", $member_id, "member" , "required");; ?></TD>		
+			<TD><input type="Text" name="position_en" size="20" value="<?php echo stripslashes($position_en); ?>" /></TD>
+			<TD><input type="Text" name="position_ar" size="20" value="<?php echo stripslashes($position_ar); ?>" /></TD>
+			<TD><input type="Text" name="ord" size="20" value="<?php echo stripslashes($ord); ?>" /></TD>
 
-			<TD><?=print_save_icon("Update")?></TD>
+			<TD><?php echo print_save_icon("Update"); ?></TD>
 			<TD colspan="2">&nbsp;</TD>
 		</TR>
    	<?}// Edit record
 	else{?>
 		<TR>
-			<TD><?=lookupField('mem_council','id','name_en',$member_id)?></TD>
-			<TD><?=stripslashes($position_en)?></TD>
-			<TD><?=stripslashes($position_ar)?></TD>
-			<TD><?=stripslashes($ord)?></TD>
+			<TD><?php echo lookupField('mem_council','id','name_en',$member_id); ?></TD>
+			<TD><?php echo stripslashes($position_en); ?></TD>
+			<TD><?php echo stripslashes($position_ar); ?></TD>
+			<TD><?php echo stripslashes($ord); ?></TD>
 			<?//=showUpDownIcons($result, $i, "id", "ord", "&term=".$term);?>
 			<TD width="42" align="center"><?=print_edit_icon($_SERVER['PHP_SELF']."?term=$term&action=Edit&id=".$id)?></TD>
 			<?/**delete_grp_functions(part 1 of 2)********************************************/?>
-			<TD width="29" align="center"><?=print_delete_ckbox($id)?></TD>
+			<TD width="29" align="center"><?php echo print_delete_ckbox($id); ?></TD>
 			<?//-------------------------------------------------------?>
 		</TR>
 	<?}//end else

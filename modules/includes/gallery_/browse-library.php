@@ -46,22 +46,22 @@ $(document).ready(function(){
 	$('#delDiv').dialog({
 		autoOpen: false,
 		width:420,
-		title:'<?=Delete?>',
+		title:'<?php echo Delete; ?>',
 		modal: true, 
 		buttons: {
-			"<?=Delete?>": function() {del_file()} ,
-			"<?=Cancel?>": function() {$(this).dialog("close");} 
+			"<?php echo Delete; ?>": function() {del_file()} ,
+			"<?php echo Cancel; ?>": function() {$(this).dialog("close");} 
 		}
 	});
 	
 	$('#editDiv').dialog({
 	autoOpen: false,
 	width:420,
-	title:'<?=Edit?>',
+	title:'<?php echo Edit; ?>',
 	modal: true, 
 	buttons: {
-		"<?=Save?>": function() {edit_file()} ,
-		"<?=Cancel?>": function() {$(this).dialog("close");} 
+		"<?php echo Save; ?>": function() {edit_file()} ,
+		"<?php echo Cancel; ?>": function() {$(this).dialog("close");} 
 	}
 });
 	
@@ -95,11 +95,11 @@ while ($i<$numberOfRows){
 	}
 	$file_path='../../../uploads/'.$folder.$photo;
 	if(file_exists($file_path)){?>
-        <div class="thumb" align="center" id="box<?=$id?>">
-        <div class="img_des" id="des<?=$id?>"  
-        onMouseOut="viewDes(<?=$id?>,0)"><div><?=$photo.'<br>'.stripslashes($description)?></div></div>
-        <div class="thumb_img" align="center" style="background-image:url(<?=$thumbN?>)" 
-        onMouseOver="viewDes(<?=$id?>,1)" ></div>
+        <div class="thumb" align="center" id="box<?php echo $id; ?>">
+        <div class="img_des" id="des<?php echo $id; ?>"  
+        onMouseOut="viewDes(<?php echo $id; ?>,0)"><div><?php echo $photo.'<br>'.stripslashes($description); ?></div></div>
+        <div class="thumb_img" align="center" style="background-image:url(<?php echo $thumbN; ?>)" 
+        onMouseOver="viewDes(<?php echo $id; ?>,1)" ></div>
         <? 
 		$bgcol='ccc';
 		$checked='';
@@ -107,15 +107,15 @@ while ($i<$numberOfRows){
 			$checked= " checked ";
 			$bgcol='abe656';
 		}?>
-        <div class="thumb_tools" style="background-color:#<?=$bgcol?>" id="tools_<?=$id?>" >
+        <div class="thumb_tools" style="background-color:#<?php echo $bgcol; ?>" id="tools_<?php echo $id; ?>" >
         <div>
-        <input type="checkbox" id="ch_<?=$id?>"  value="<?=$id?>" <?=$checked?> onClick="addToGallery(<?=$id?>,1)" />
+        <input type="checkbox" id="ch_<?php echo $id; ?>"  value="<?php echo $id; ?>" <?php echo $checked; ?> onClick="addToGallery(<?php echo $id; ?>,1)" />
         </div><div>	
         <img src="../css/images/icons/Delete.png" width="20" hspace="3" style="cursor:pointer" 
-        onClick="del_photo(<?=$id?>,'info',1)"/>
+        onClick="del_photo(<?php echo $id; ?>,'info',1)"/>
         </div><div>
         <img src="../css/images/icons/Edit.png" width="20" hspace="3" style="cursor:pointer" 
-        onClick="edit_photo(<?=$id?>,'<?=$description?>','<?=$thumb?>',1)"/>
+        onClick="edit_photo(<?php echo $id; ?>,'<?php echo $description; ?>','<?php echo $thumb; ?>',1)"/>
         </div></div>
         </div><?		
 	}

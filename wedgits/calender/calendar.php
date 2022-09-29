@@ -119,7 +119,7 @@ $next_year_text = date("F \'y", $next_year);
 $previous_year = mktime(0,0,0,$current_month,1,$current_year-1);
 $previous_year_text = date("F \'y", $previous_year);
 ?>
-<script src="<?=_PREF?>wedgits/calender/js/coda.js" type="text/javascript"> </script>
+<script src="<?php echo _PREF; ?>wedgits/calender/js/coda.js" type="text/javascript"> </script>
 
 
 <div id="Evt" style="display:none"></div>
@@ -129,13 +129,13 @@ $previous_year_text = date("F \'y", $previous_year);
 
 		
 		<?if($pl=='en'){?>
-			<td width="13"><a href="javascript:getNextTime(<?=$previous_month?>)"><img src="<?=_PREF?>wedgits/calender/left_arrow.png"  border="0" /></a></td>
-			<td width="160" align="center"><?=$current_month_text[$current_month].' - '.$current_year?></td>
-			<td width="13"><a href="javascript:getNextTime(<?=$next_month?>)"><img src="<?=_PREF?>wedgits/calender/right_arrow.png"  border="0" /></a></td>
+			<td width="13"><a href="javascript:getNextTime(<?php echo $previous_month; ?>)"><img src="<?php echo _PREF; ?>wedgits/calender/left_arrow.png"  border="0" /></a></td>
+			<td width="160" align="center"><?php echo $current_month_text[$current_month].' - '.$current_year; ?></td>
+			<td width="13"><a href="javascript:getNextTime(<?php echo $next_month; ?>)"><img src="<?php echo _PREF; ?>wedgits/calender/right_arrow.png"  border="0" /></a></td>
 		<?}else{?>
-			<td width="13"><a href="javascript:getNextTime(<?=$next_month?>)"><img src="<?=_PREF?>wedgits/calender/left_arrow.png"  border="0" /></a></td>
-			<td width="160" align="center"><?=$current_month_text_ar[$current_month].' - '.$current_month_text[$current_month].' - '.$current_year?></td>
-			<td width="13"><a href="javascript:getNextTime(<?=$previous_month?>)"><img src="<?=_PREF?>wedgits/calender/right_arrow.png"  border="0" /></a></td>
+			<td width="13"><a href="javascript:getNextTime(<?php echo $next_month; ?>)"><img src="<?php echo _PREF; ?>wedgits/calender/left_arrow.png"  border="0" /></a></td>
+			<td width="160" align="center"><?php echo $current_month_text_ar[$current_month].' - '.$current_month_text[$current_month].' - '.$current_year; ?></td>
+			<td width="13"><a href="javascript:getNextTime(<?php echo $previous_month; ?>)"><img src="<?php echo _PREF; ?>wedgits/calender/right_arrow.png"  border="0" /></a></td>
 		<?}?>
 		
 		
@@ -146,7 +146,7 @@ $previous_year_text = date("F \'y", $previous_year);
 
 <div class='cal_header'></div>
 <table align="center" cellspacing="0" cellpadding="0" border="0" class="cal" >
-<tr id='days_title'><td><?=$days[0]?></td><td><?=$days[1]?></td><td><?=$days[2]?></td><td><?=$days[3]?></td><td><?=$days[4]?></td><td><?=$days[5]?></td><td><?=$days[6]?></td></tr>
+<tr id='days_title'><td><?php echo $days[0]; ?></td><td><?php echo $days[1]; ?></td><td><?php echo $days[2]; ?></td><td><?php echo $days[3]; ?></td><td><?php echo $days[4]; ?></td><td><?php echo $days[5]; ?></td><td><?php echo $days[6]; ?></td></tr>
 <tr style="height:5px;"></tr>
 <tr class="first_row">
 <?
@@ -203,10 +203,10 @@ for($i=0; $i< $total_rows; $i++){
 		}
 		
 		?><script>
-		if(document.getElementById('eee<?=$day?>')){
-			//$('#eee<?=$day?>').innerHTML= '<?=$ee?>';
-			//alert($('#eee<?=$day?>').css('background-color','red'))//innerHTML= '<?=$ee?>';
-			//alert('<?=$day?>');
+		if(document.getElementById('eee<?php echo $day; ?>')){
+			//$('#eee<?php echo $day; ?>').innerHTML= '<?php echo $ee; ?>';
+			//alert($('#eee<?php echo $day; ?>').css('background-color','red'))//innerHTML= '<?php echo $ee; ?>';
+			//alert('<?php echo $day; ?>');
 		}
         </script> <?
 	}
@@ -241,9 +241,9 @@ function s(s,D){
 	}
 }
 function Swin(id){
-	document.location='http://'+'<?=$link?>'
+	document.location='http://'+'<?php echo $link; ?>'
 	/*var rn =Math.random();
-	ajaxPage='<?=_PREF?>all/viewEvents.php';
+	ajaxPage='<?php echo _PREF; ?>all/viewEvents.php';
 	$.get(ajaxPage,{ id:id ,rndom:rn }, function(data){
 		$('#Evt').html(data);
 		$('#Evt').dialog("open");

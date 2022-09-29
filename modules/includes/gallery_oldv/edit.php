@@ -20,7 +20,7 @@ if(isset($_REQUEST['id'])){
 	if ($rows>0) {
 		$id= mysql_result($res,$i,"id");
 		$des= mysql_result($res,$i,"description");
-		?>معلومات عن الصور :<br><textarea cols="40" rows="4" id="des1" onkeyup="loadData()" ><?=$des?></textarea><?
+		?>معلومات عن الصور :<br><textarea cols="40" rows="4" id="des1" onkeyup="loadData()" ><?php echo $des; ?></textarea><?
 	}
 }
 else if(isset($_SESSION['Mid'])&&$_SESSION['Mid']!=0){

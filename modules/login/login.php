@@ -99,7 +99,7 @@ if (mysql_num_rows($result) > 0 ) {
 	echo "<div style='color:red; width:100%; float:left; margin-left:-200px; text-align:center;'>Sorry: You been blocked because you exceeded the allowed number of login attempts</div>";
 }else{?>
 
-<form action="<?=$_SERVER['PHP_SELF']?>" method="post">
+<form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
 <input type="hidden" name="logAction" value="login">
 <table width="960" height="78" border="0" align="center">
   <tr>

@@ -52,7 +52,7 @@ $(function (){
 });
 
 function showGallery(all){
-	$("#gallery_admin").load("browse.php?all="+all+"&ph=<?=$photos?>&mph=<?=$main_photo?>");
+	$("#gallery_admin").load("browse.php?all="+all+"&ph=<?php echo $photos; ?>&mph=<?php echo $main_photo; ?>");
 }
 </script>
 </head>
@@ -124,7 +124,7 @@ if($action){
 }// Insert record
 
 ?>
-<form method='post' name='main' action='<?= $_SERVER['PHP_SELF']?>' enctype='multipart/form-data' onsubmit='return formValidator()'>
+<form method='post' name='main' action='<?php echo  $_SERVER['PHP_SELF']; ?>' enctype='multipart/form-data' onsubmit='return formValidator()'>
 	 <br /> <br /> <br /> <br />
 	 Please write the new Gallery:  <br /> <br />
 	 <table>
@@ -132,7 +132,7 @@ if($action){
 		<tr><td>Name: (AR)</td><td><input type="text" name="gallery_name_ar"  /></td></tr>
 		<tr><td> Folder path: uploads/</td><td><input type="text" name="folder"  /></td></tr>
 		<?if($_SESSION['USER'] == 2){?>
-			<tr><td> Creator</td><td><?=createComboBoxFiltered("users" , "user_id", "full_name" , $creator_id , "creator_id", ' grp_id <> "3" ' ,"required");?></td></tr>
+			<tr><td> Creator</td><td><?php echo createComboBoxFiltered("users" , "user_id", "full_name" , $creator_id , "creator_id", ' grp_id <> "3" ' ,"required");; ?></td></tr>
 		<?}?>
 		
 	 </table>

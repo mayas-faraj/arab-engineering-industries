@@ -47,12 +47,12 @@ if ($numberOfRows>0) {
    <TABLE class="selectable" CELLSPACING="0" CELLPADDING="0" BORDER="0" WIDTH="100%" id="list">
    <thead>
 	<tr>
-		<th width="277"><?=print_AdminRecordHead("art_id", "Article_id", $sb, $so)?></th>
-		<th width="277"><?=print_AdminRecordHead("pub_name", "Publisher name", $sb, $so)?></th>
-		<th width="277"><?=print_AdminRecordHead("pub_email", "Publisher email", $sb, $so)?></th>
-		<th width="277"><?=print_AdminRecordHead("publish_date", "Publish Date", $sb, $so)?></th>
-		<th width="277"><?=print_AdminRecordHead("comment", "comment", $sb, $so)?></th>
-		<th width="277"><?=print_AdminRecordHead("active", "Active", $sb, $so)?></th>
+		<th width="277"><?php echo print_AdminRecordHead("art_id", "Article_id", $sb, $so); ?></th>
+		<th width="277"><?php echo print_AdminRecordHead("pub_name", "Publisher name", $sb, $so); ?></th>
+		<th width="277"><?php echo print_AdminRecordHead("pub_email", "Publisher email", $sb, $so); ?></th>
+		<th width="277"><?php echo print_AdminRecordHead("publish_date", "Publish Date", $sb, $so); ?></th>
+		<th width="277"><?php echo print_AdminRecordHead("comment", "comment", $sb, $so); ?></th>
+		<th width="277"><?php echo print_AdminRecordHead("active", "Active", $sb, $so); ?></th>
 		<th colspan="2">Controls  </th>
 	</tr>
 	</thead>
@@ -73,12 +73,12 @@ if ($numberOfRows>0) {
 		$ord = mysql_result($result,$i,"ord");
         ?>
 		<TR>
-			<TD><?=stripslashes($article)?></TD>
-			<TD><?=stripslashes($pub_name)?></TD>
-			<TD><?=stripslashes($pub_email)?></TD>
-			<TD><?=stripslashes($publish_date)?></TD>
-			<TD><?=stripslashes($comment)?></TD>
-			<td><a href="../includes/checkbox.php?t=art_comments&fn=active&idn=id&idv=<?=$id?>&fv=<?=!($active)?>" class="checkb" ><img src="<?=_PREF?>images/icons/_<?php echo $active?>_.png" border="0"  fv="<?=!($active)?>"/></a></td>
+			<TD><?php echo stripslashes($article); ?></TD>
+			<TD><?php echo stripslashes($pub_name); ?></TD>
+			<TD><?php echo stripslashes($pub_email); ?></TD>
+			<TD><?php echo stripslashes($publish_date); ?></TD>
+			<TD><?php echo stripslashes($comment); ?></TD>
+			<td><a href="../includes/checkbox.php?t=art_comments&fn=active&idn=id&idv=<?php echo $id; ?>&fv=<?php echo !($active); ?>" class="checkb" ><img src="<?php echo _PREF; ?>images/icons/_<?php echo $active?>_.png" border="0"  fv="<?php echo !($active); ?>"/></a></td>
 			<?//=showUpDownIcons($result, $i, "id", "ord", " art_id=$art_id ");?>
 			<TD align="center" WIDTH="42"><?=print_edit_icon("editArticlesComments.php?id=".$id);?></TD>
 			<TD align="center" WIDTH="42"><?=print_delete_icon("?id=".$id."&sub=del&art_id=$art_id");?></TD>

@@ -39,7 +39,7 @@ $(document).ready(function(){
 <body style="margin:10px; overflow:hidden">
 <div id="upload_div" ></div>
 <div id="loading">LOADING ...</div>
-<div class="head"><h1 class="title"><?=$gallery_name?> &raquo; Add photos</h1></div>
+<div class="head"><h1 class="title"><?php echo $gallery_name; ?> &raquo; Add photos</h1></div>
 
 <div style="margin:5px; width:700px; height:25px;">
 <div class="steps_inact_act"> Step1: Add gallery Info. </div>
@@ -76,10 +76,10 @@ if($action){
     <div onClick="newFolder()" class="newFolder navbutt">New Folder</div>
     <div onClick="sync()" class="sync navbutt">synchronise</div>
     </div>	
-    <div class="foldersList"><div id="foldersList"><?=loadFolders();?></div></div>    
+    <div class="foldersList"><div id="foldersList"><?php echo loadFolders();; ?></div></div>    
     <div id="gallery_admin" ></div>
     <div style="clear:both">
-    <div class="next" onClick="document.location='editGallery.php?gid=<?=$gid?>'">Back</div>
+    <div class="next" onClick="document.location='editGallery.php?gid=<?php echo $gid; ?>'">Back</div>
     <div class="next"  style="margin-left:10px;" onClick="document.location='saveGallery.php'">Next</div>
     </div><?
 	} 

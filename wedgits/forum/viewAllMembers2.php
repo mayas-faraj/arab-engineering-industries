@@ -2,19 +2,19 @@
 $user_name = lookupField('users','user_id','full_name',cleanString($_SESSION["us_id"]));
 $cat_id = cleanString($_REQUEST['id']);
 ?>	
-<link rel="stylesheet" type="text/css" href='<?=_PREF?>wedgits/forum/articles_<?=$pageLang?>.css'/>
+<link rel="stylesheet" type="text/css" href='<?php echo _PREF; ?>wedgits/forum/articles_<?php echo $pageLang; ?>.css'/>
 <div class= "page_content">
 	<?$user_name = lookupField('users','user_id','full_name',cleanString($_SESSION["us_id"]));
 	$publish = lookupField('art_categories','id','publish',cleanString($_REQUEST['cat_id']));?>
-	<div class="title2"><?=forum_members?> <span><?echo Welcome.' <font>'.$user_name.'</font>'?></span></div>
+	<div class="title2"><?php echo forum_members; ?> <span><?echo Welcome.' <font>'.$user_name.'</font>'?></span></div>
 	
 	<?if($publish){?>
-		<div class="add_link"><a href='<?=_PREF?>view/forum/addArticle.php?cat_id=<?=cleanString($_REQUEST['cat_id'])?>'><img src='<?=_PREF?>wedgits/forum/addArticle.png'/><?//=AddArticle?></a> </div>
+		<div class="add_link"><a href='<?php echo _PREF; ?>view/forum/addArticle.php?cat_id=<?php echo cleanString($_REQUEST['cat_id']); ?>'><img src='<?php echo _PREF; ?>wedgits/forum/addArticle.png'/><?//=AddArticle?></a> </div>
 		<div class="add_link">&nbsp;</div>
 	<?}?>			
-	<div class="add_link"><a href='<?=_PREF?>view/forum/myPage.php?cat_id=<?=cleanString($_REQUEST['cat_id'])?>'><img src='<?=_PREF?>wedgits/forum/myPage.png'/><?//=MyAricles?></a></div>
+	<div class="add_link"><a href='<?php echo _PREF; ?>view/forum/myPage.php?cat_id=<?php echo cleanString($_REQUEST['cat_id']); ?>'><img src='<?php echo _PREF; ?>wedgits/forum/myPage.png'/><?//=MyAricles?></a></div>
 	<div class="add_link">&nbsp;</div>
-	<div class="add_link"><a href='<?=_PREF?>view/forum/changePass.php?cat_id=<?=cleanString($_REQUEST['cat_id'])?>'><img src='<?=_PREF?>wedgits/forum/changePass.png'/><?//=changePass?></a></div>
+	<div class="add_link"><a href='<?php echo _PREF; ?>view/forum/changePass.php?cat_id=<?php echo cleanString($_REQUEST['cat_id']); ?>'><img src='<?php echo _PREF; ?>wedgits/forum/changePass.png'/><?//=changePass?></a></div>
 
 
 	
@@ -66,9 +66,9 @@ if(cleanString($_REQUEST['pn']))	$pn = cleanString($_REQUEST['pn']);
 					$signature= basename(MYSQL_RESULT($result,$i,"signature"));
 				?>
 					<tr>
-						<td ><?=$full_name?></td>
-						<td ><?=$signature?></td>
-						<td><?=$email?></td>
+						<td ><?php echo $full_name; ?></td>
+						<td ><?php echo $signature; ?></td>
+						<td><?php echo $email; ?></td>
 						<td width='100px' align='center'>
 							<?
 								if($photo){

@@ -1,6 +1,6 @@
-<link rel="stylesheet" type="text/css" href="<?= _PREF ?>wedgits/search/search_<?= $pageLang ?>.css" />
-<div class="page_content" dir='<?= _DIR ?>'>
-    <div class="title2"><?= search_result ?></div>
+<link rel="stylesheet" type="text/css" href="<?php echo  _PREF ; ?>wedgits/search/search_<?php echo  $pageLang ; ?>.css" />
+<div class="page_content" dir='<?php echo  _DIR ; ?>'>
+    <div class="title2"><?php echo  search_result ; ?></div>
     <div class="search_result">
         <TABLE CELLSPACING="0" CELLPADDING="0" BORDER="0" WIDTH="100%" >
             <?
@@ -14,7 +14,7 @@
                 $color = 0;
                 if ($rows_pages > 0) {
                     ?>
-                    <TR  height="40"><td colspan="2" class="subtitle"><?= Pages . " (" . ($rows_pages) . ")" ?></td></TR><?
+                    <TR  height="40"><td colspan="2" class="subtitle"><?php echo  Pages . " (" . ($rows_pages) . ")" ; ?></td></TR><?
                     if ($rows_pages > 0) {
                         $i = 0;
                         while ($i < $rows_pages) {
@@ -28,10 +28,10 @@
                             ?>
                             <TR>
                                 <TD >
-                                    <a  href='<?= _PREF ?>view/page/page.php?id=<?= $id ?>'><?= stripslashes($title1) ?></a>
+                                    <a  href='<?php echo  _PREF ; ?>view/page/page.php?id=<?php echo  $id ; ?>'><?php echo  stripslashes($title1) ; ?></a>
                                 </TD>
                                 <TD width="10" >
-                                        <!--a href='<?= _PREF ?>view/page/page.php?id=<?= $id ?>' class='more'><?= _View ?></a-->
+                                        <!--a href='<?php echo  _PREF ; ?>view/page/page.php?id=<?php echo  $id ; ?>' class='more'><?php echo  _View ; ?></a-->
                                 </TD>
                             </TR>
 
@@ -53,7 +53,7 @@
                 $rows_news = mysql_num_rows($res_news);
                 if ($rows_news > 0) {
                     ?>
-                    <TR height="40"><td colspan="2" class="subtitle"><?= Announcements ?> (<?= $rows_news ?>)</td></TR><?
+                    <TR height="40"><td colspan="2" class="subtitle"><?php echo  Announcements ; ?> (<?php echo  $rows_news ; ?>)</td></TR><?
                     $i = 0;
                     while ($i < $rows_news) {
                         if ($color) {
@@ -74,10 +74,10 @@
 
                         <TR >
                             <TD>
-                                <a  href='<?= _PREF ?>view/Anouncements/viewAnnounceDetails.php?id=<?= $id ?>'><?= stripslashes($title . '  (' . $publish_date . ')') ?></a>
+                                <a  href='<?php echo  _PREF ; ?>view/Anouncements/viewAnnounceDetails.php?id=<?php echo  $id ; ?>'><?php echo  stripslashes($title . '  (' . $publish_date . ')') ; ?></a>
                             </TD>
                             <TD width="10" >
-                                    <!--a href='<?= _PREF ?>view/Anouncements/viewAnnounceDetails.php?id=<?= $id ?>' class='more'><?= _View ?></a-->
+                                    <!--a href='<?php echo  _PREF ; ?>view/Anouncements/viewAnnounceDetails.php?id=<?php echo  $id ; ?>' class='more'><?php echo  _View ; ?></a-->
                             </TD>
                         </TR>
                         <?
@@ -96,7 +96,7 @@
                 $rows_activities = mysql_num_rows($res_activities);
                 if ($rows_activities > 0) {
                     ?>
-                    <TR height="40"><td colspan="2" class="subtitle"><?= Activities ?> (<?= $rows_activities ?>)</td></TR><?
+                    <TR height="40"><td colspan="2" class="subtitle"><?php echo  Activities ; ?> (<?php echo  $rows_activities ; ?>)</td></TR><?
                     $i = 0;
                     while ($i < $rows_activities) {
                         if ($color) {
@@ -115,10 +115,10 @@
 
                         <TR >
                             <TD>
-                                <a  href='<?= _PREF ?>view/activities/viewActivities.php?id=<?= $id ?>'><?= stripslashes($title) ?></a>
+                                <a  href='<?php echo  _PREF ; ?>view/activities/viewActivities.php?id=<?php echo  $id ; ?>'><?php echo  stripslashes($title) ; ?></a>
                             </TD>
                             <TD width="10" >
-                                    <!--a href='<?= _PREF ?>view/activities/viewActivities.php?id=<?= $id ?>' class='more'><?= _View ?></a-->
+                                    <!--a href='<?php echo  _PREF ; ?>view/activities/viewActivities.php?id=<?php echo  $id ; ?>' class='more'><?php echo  _View ; ?></a-->
                             </TD>
                         </TR>
                         <?
@@ -132,7 +132,7 @@
                 $rows_committees = mysql_num_rows($res_committees);
                 if ($rows_committees > 0) {
                     ?>
-                    <TR height="40"><td colspan="2" class="subtitle"><?= Committees ?> (<?= $rows_committees ?>)</td></TR><?
+                    <TR height="40"><td colspan="2" class="subtitle"><?php echo  Committees ; ?> (<?php echo  $rows_committees ; ?>)</td></TR><?
             $i = 0;
             while ($i < $rows_committees) {
                 if ($color) {
@@ -147,10 +147,10 @@
 
                         <TR >
                             <TD>
-                                <a  href='<?= _PREF ?>view/committees/viewCommittees.php?id=<?= $id ?>'><?= stripslashes($title) ?></a>
+                                <a  href='<?php echo  _PREF ; ?>view/committees/viewCommittees.php?id=<?php echo  $id ; ?>'><?php echo  stripslashes($title) ; ?></a>
                             </TD>
                             <TD width="10" >
-                                    <!--a href='<?= _PREF ?>view/committees/viewCommittees.php?id=<?= $id ?>' class='more'><?= _View ?></a-->
+                                    <!--a href='<?php echo  _PREF ; ?>view/committees/viewCommittees.php?id=<?php echo  $id ; ?>' class='more'><?php echo  _View ; ?></a-->
                             </TD>
                         </TR>
                         <?
@@ -166,7 +166,7 @@
                 $rows_members = mysql_num_rows($res_members);
                 if ($rows_members > 0) {
                     ?>
-                    <TR height="40"><td colspan="2" class="subtitle"><?= MEMBERS ?> (<?= $rows_members ?>)</td></TR><?
+                    <TR height="40"><td colspan="2" class="subtitle"><?php echo  MEMBERS ; ?> (<?php echo  $rows_members ; ?>)</td></TR><?
             $i = 0;
             while ($i < $rows_members) {
                 if ($color) {
@@ -181,10 +181,10 @@
 
                         <TR >
                             <TD>
-                                <a  href='<?= _PREF ?>view/members/viewMember.php?id=<?= $id ?>'><?= stripslashes($title) ?></a>
+                                <a  href='<?php echo  _PREF ; ?>view/members/viewMember.php?id=<?php echo  $id ; ?>'><?php echo  stripslashes($title) ; ?></a>
                             </TD>
                             <TD width="10" >
-                                    <!--a href='<?= _PREF ?>view/members/viewMember.php?id=<?= $id ?>' class='more'><?= _View ?></a-->
+                                    <!--a href='<?php echo  _PREF ; ?>view/members/viewMember.php?id=<?php echo  $id ; ?>' class='more'><?php echo  _View ; ?></a-->
                             </TD>
                         </TR>
                         <?
@@ -200,7 +200,7 @@
                 $rows_bod = mysql_num_rows($res_bod);
                 if ($rows_bod > 0) {
                     ?>
-                    <TR height="40"><td colspan="2" class="subtitle"><?= bod ?> (<?= $rows_bod ?>)</td></TR><?
+                    <TR height="40"><td colspan="2" class="subtitle"><?php echo  bod ; ?> (<?php echo  $rows_bod ; ?>)</td></TR><?
             $i = 0;
             while ($i < $rows_bod) {
                 if ($color) {
@@ -216,10 +216,10 @@
 
                         <TR >
                             <TD>
-                                <a  href='<?= _PREF ?>view/bod/viewBod.php?id=<?= $id ?>'><?= stripslashes($title) ?></a>
+                                <a  href='<?php echo  _PREF ; ?>view/bod/viewBod.php?id=<?php echo  $id ; ?>'><?php echo  stripslashes($title) ; ?></a>
                             </TD>
                             <TD width="10" >
-                                    <!--a href='<?= _PREF ?>view/bod/viewBod.php?id=<?= $id ?>' class='more'><?= _View ?></a-->
+                                    <!--a href='<?php echo  _PREF ; ?>view/bod/viewBod.php?id=<?php echo  $id ; ?>' class='more'><?php echo  _View ; ?></a-->
                             </TD>
                         </TR>
                         <?

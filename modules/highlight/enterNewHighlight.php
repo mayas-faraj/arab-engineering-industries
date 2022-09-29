@@ -128,17 +128,17 @@ else{ ?>
 <tr>
 <td align="<?php echo _ALI?>"><b><?php echo Description?> (EN):</b></td>
 <td width="5"></td>
-<td><textarea name="description_en" cols="40" rows="5"><?=$description_en?></textarea></td>
+<td><textarea name="description_en" cols="40" rows="5"><?php echo $description_en; ?></textarea></td>
 </tr>
 <tr>
 <td align="<?php echo _ALI?>"><b><?php echo Description?> (AR):</b></td>
 <td width="5"></td>
-<td><textarea name="description_ar" cols="40" rows="5"><?=$description_ar?></textarea></td>
+<td><textarea name="description_ar" cols="40" rows="5"><?php echo $description_ar; ?></textarea></td>
 </tr>
 <?
 ?>
 <tr>
-<td align="<?=_ALI?>"><span class="field_title_en"><?=Active?>:</span></td><td width="5" class=""></td>
+<td align="<?php echo _ALI; ?>"><span class="field_title_en"><?php echo Active; ?>:</span></td><td width="5" class=""></td>
 <TD><input type="Checkbox" name="active" size="20" value="1" <?php echo ($active)? "checked" : ""?>  /></TD>
 </tr>
 </table>

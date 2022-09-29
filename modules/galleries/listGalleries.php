@@ -47,8 +47,8 @@ $i=0;?>
 <TABLE CELLSPACING="0" CELLPADDING="0" BORDER="0" WIDTH="100%" ID="list"><thead>
 <TR>
 <tr>
-<th width="277"><?=print_AdminRecordHead("gallery_name_en", "Gallery name", $sb, $so)?></th>
-<th width="277"><?=print_AdminRecordHead("main_phto", "Main photo", $sb, $so)?></th>
+<th width="277"><?php echo print_AdminRecordHead("gallery_name_en", "Gallery name", $sb, $so); ?></th>
+<th width="277"><?php echo print_AdminRecordHead("main_phto", "Main photo", $sb, $so); ?></th>
 <th width="277"><?=print_AdminRecordHead("isGallery", "Is Gallery?", $sb, $so)?></th>
 <th colspan="4">Controls  </th>
 </tr>
@@ -64,11 +64,11 @@ $photos= mysql_result($result,$i,"photos");
 $isGallery= mysql_result($result,$i,"isGallery");
 ?>
 <TR>
-<input type='hidden' value='<?=$isGallery?>' name='isGallery'/>
-<TD><?=stripslashes($gallery_name)?></TD>
-<td><?= lookupGallery($id)?></td>
-<TD><a href="../includes/checkbox.php?t=galleries_galleries&fn=isGallery&idn=id&idv=<?=$id?>&fv=<?=!($isGallery)?>" class="checkb" ><img src="<?=_PREF?>images/icons/_<?php echo $isGallery?>_.png" border="0"  fv="<?=!($isGallery)?>"/></a></TD>
-<?=showUpDownIcons($result, $i, "id", "ord", "&term=".$term);?>
+<input type='hidden' value='<?php echo $isGallery; ?>' name='isGallery'/>
+<TD><?php echo stripslashes($gallery_name); ?></TD>
+<td><?php echo  lookupGallery($id); ?></td>
+<TD><a href="../includes/checkbox.php?t=galleries_galleries&fn=isGallery&idn=id&idv=<?php echo $id; ?>&fv=<?php echo !($isGallery); ?>" class="checkb" ><img src="<?php echo _PREF; ?>images/icons/_<?php echo $isGallery?>_.png" border="0"  fv="<?php echo !($isGallery); ?>"/></a></TD>
+<?php echo showUpDownIcons($result, $i, "id", "ord", "&term=".$term);; ?>
 <TD align="center" WIDTH="42"><?=print_edit_icon("javascript:winopen('../includes/gallery/editGallery.php?gid=$id',850,480)");?></TD>
 <TD align="center" WIDTH="42"><?=print_delete_icon("?id=".$id."&sub=del");?></TD>
 </TR>

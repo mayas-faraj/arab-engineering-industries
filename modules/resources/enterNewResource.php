@@ -34,54 +34,54 @@ echo '<script>correctMessage("'.Record_Update.'")</script>';
 else echo '<script>errorMessage("'.CantInsert.'")</script>' ;
 }
 if((!$sub) || (!$result)){ ?>
-<form name="subForm" method="post" action="<?=$_SERVER['PHP_SELF']?>" enctype="multipart/form-data">
-<input type="Hidden" name="id" size="40" value="<?=$id?>" />
+<form name="subForm" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>" enctype="multipart/form-data">
+<input type="Hidden" name="id" size="40" value="<?php echo $id; ?>" />
 
 <table>
 <tr>
-	<td align="<?=_ALI?>"><span class="field_title"><?=Title?> :</span></td>
+	<td align="<?php echo _ALI; ?>"><span class="field_title"><?php echo Title; ?> :</span></td>
 	<td width="5" class="required">*</td>
-	<td><input type="Text" name="title" size="40" value="<?=stripslashes($title)?>" class="required" /></td>
+	<td><input type="Text" name="title" size="40" value="<?php echo stripslashes($title); ?>" class="required" /></td>
 </tr>
 <!--tr>
-	<td align="<?=_ALI?>"><span class="field_title"><?=Link?> :</span></td>
+	<td align="<?php echo _ALI; ?>"><span class="field_title"><?php echo Link; ?> :</span></td>
 	<td width="5" class="required">*</td>
-	<td><input type="Text" name="link" size="40" value="<?=stripslashes($link)?>" class="required" /></td>
+	<td><input type="Text" name="link" size="40" value="<?php echo stripslashes($link); ?>" class="required" /></td>
 </tr-->
 <tr>
-	<td valign="top" align="<?=_ALI?>"><span class="field_title"><?=Photo?>:</span></td><td width="5" class=""></td>
+	<td valign="top" align="<?php echo _ALI; ?>"><span class="field_title"><?php echo Photo; ?>:</span></td><td width="5" class=""></td>
 	<td><input type="Text" name="photo" size="40" value="<?php echo stripslashes($photo)?>" class=""/>
 	<a href="javascript:mcImageManager.open('subForm','photo','','',{relative_urls : true});">[Select file]</a></td>
 </tr>
 <tr>
-	<td align="<?=_ALI?>" valign="top"><span class="field_title"><?=Keywords?> :</span></td>
+	<td align="<?php echo _ALI; ?>" valign="top"><span class="field_title"><?php echo Keywords; ?> :</span></td>
 	<td width="5" class=""></td>
-	<td><textarea name="keyword" rows='2' cols='140' class="" ><?=stripslashes($keyword)?></textarea></td>
+	<td><textarea name="keyword" rows='2' cols='140' class="" ><?php echo stripslashes($keyword); ?></textarea></td>
 </tr>
 <tr>
-	<td align="<?=_ALI?>" valign="top"><span class="field_title"><?=Brief?> :</span></td>
+	<td align="<?php echo _ALI; ?>" valign="top"><span class="field_title"><?php echo Brief; ?> :</span></td>
 	<td width="5" class=""></td>
-	<td><textarea name="brief"  rows='2' cols='140' class="" ><?=stripslashes($brief)?></textarea></td>
+	<td><textarea name="brief"  rows='2' cols='140' class="" ><?php echo stripslashes($brief); ?></textarea></td>
 </tr>
 <tr>
-	<td align="<?=_ALI?>" valign="top"><span class="field_title"><?=Details?> :</span></td>
+	<td align="<?php echo _ALI; ?>" valign="top"><span class="field_title"><?php echo Details; ?> :</span></td>
 	<td width="5" class=""></td>
-	<td><textarea name="details" cols="50" rows="4" class="mceEditor" ><?=stripslashes($details)?></textarea></td>
+	<td><textarea name="details" cols="50" rows="4" class="mceEditor" ><?php echo stripslashes($details); ?></textarea></td>
 </tr>
 <tr>
-	<td align="<?=_ALI?>" valign="top"><span class="field_title">Private :</span></td>
+	<td align="<?php echo _ALI; ?>" valign="top"><span class="field_title">Private :</span></td>
 	<td width="5" class=""></td>
-	<td><textarea name="private" cols="50" rows="4" class="mceEditor" ><?=stripslashes($private)?></textarea></td>
+	<td><textarea name="private" cols="50" rows="4" class="mceEditor" ><?php echo stripslashes($private); ?></textarea></td>
 </tr>
 <tr>
 <tr>
-	<td align="<?=_ALI?>" valign="top"><span class="field_title">Language:</span></td>
+	<td align="<?php echo _ALI; ?>" valign="top"><span class="field_title">Language:</span></td>
 	<td width="5" class="" valign="top">*</td>
-	<td><?=createComboBox("languages" , "lang", "lang_name" , $lang , "lang", "required");?></td>
+	<td><?php echo createComboBox("languages" , "lang", "lang_name" , $lang , "lang", "required");; ?></td>
 </tr>
 
 <!--tr>
-	<td align="<?=_ALI?>"><span class="field_title"><?=Special?>:</span></td><td width="5" class=""></td>
+	<td align="<?php echo _ALI; ?>"><span class="field_title"><?php echo Special; ?>:</span></td><td width="5" class=""></td>
 	<TD><input type="Checkbox" name="special" size="40" value="1" <?php echo ($special)? "checked" : ""?>  /></TD>
 </tr-->
 </table>
@@ -89,7 +89,7 @@ if((!$sub) || (!$result)){ ?>
 <input name="sub" type="submit" id="sub" value="Save">
 <?
 ?>
-<input name="sub4" type="button" id="sub3" value="Back" onClick=" document.location='listResources.php?<?=$url?>'">
+<input name="sub4" type="button" id="sub3" value="Back" onClick=" document.location='listResources.php?<?php echo $url; ?>'">
 </form></div><?
 }
 include_once("../common/footer-admin.php"); ?>

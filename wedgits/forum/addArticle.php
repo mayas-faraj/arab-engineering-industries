@@ -1,8 +1,8 @@
 <? if(!cleanString($_SESSION["us_id"])){echo"<script>document.location='"._PREF."index.php'</script>";exit();} ?>	
-<link rel="stylesheet" type="text/css" href='<?=_PREF?>wedgits/forum/articles_<?=$pageLang?>.css' />
+<link rel="stylesheet" type="text/css" href='<?php echo _PREF; ?>wedgits/forum/articles_<?php echo $pageLang; ?>.css' />
 
-<script src="<?=_PREF?>wedgits/forum/articles.js" language="javascript" type="text/javascript"></script>
-<script src="<?=_PREF?>wedgits/forum/tableRowsMgmt.js" language="javascript" type="text/javascript"></script>	
+<script src="<?php echo _PREF; ?>wedgits/forum/articles.js" language="javascript" type="text/javascript"></script>
+<script src="<?php echo _PREF; ?>wedgits/forum/tableRowsMgmt.js" language="javascript" type="text/javascript"></script>	
 
 
 <?php 
@@ -90,34 +90,34 @@ if($sub){
 
 	<?$user_name = lookupField('users','user_id','full_name',cleanString($_SESSION["us_id"]));
 	$publish = lookupField('art_categories','id','publish',cleanString($_REQUEST['cat_id']));?>
-	<div class="title2"><?=AddArticle?> <span><?echo Welcome.' <font><a href="myPage.php?mem_id='.cleanString($_SESSION["us_id"]).'&cat_id='.cleanString($_REQUEST['cat_id']).'">'.$user_name.'</a></font>'?></span></div>
+	<div class="title2"><?php echo AddArticle; ?> <span><?echo Welcome.' <font><a href="myPage.php?mem_id='.cleanString($_SESSION["us_id"]).'&cat_id='.cleanString($_REQUEST['cat_id']).'">'.$user_name.'</a></font>'?></span></div>
 
 		
 	
 	
 	
 	 <div class="add_article">
-		 <form  method="post" name="subForm" action="<?=$_SERVER['PHP_SELF']?>" enctype="multipart/form-data">
-			 <input type="hidden" name="art" value="<?=$article_id ?>" />
-			 <input type="hidden" name="cat_id" value="<?=$cat_id ?>" />
+		 <form  method="post" name="subForm" action="<?php echo $_SERVER['PHP_SELF']; ?>" enctype="multipart/form-data">
+			 <input type="hidden" name="art" value="<?php echo $article_id ; ?>" />
+			 <input type="hidden" name="cat_id" value="<?php echo $cat_id ; ?>" />
 			 <input type="hidden" name="sub" value="1" />
 			 
 			 <table border="0" cellpadding="0" cellspacing="0">
-			 <tr><td width="100px"><?=Title ?>:</td><td width=1>*&nbsp;</td><td><input type="text" name="title" id="title"  value='<?=stripslashes($title)?>' class="required1" /></td></tr>
+			 <tr><td width="100px"><?php echo Title ; ?>:</td><td width=1>*&nbsp;</td><td><input type="text" name="title" id="title"  value='<?php echo stripslashes($title); ?>' class="required1" /></td></tr>
 <!--
-			 <tr><td><?=Details?>: </td><td width=1>*&nbsp;</td><td>
-			 <textarea name="details" class="simpleEditor required1"><?=stripslashes($details)?></textarea>
+			 <tr><td><?php echo Details; ?>: </td><td width=1>*&nbsp;</td><td>
+			 <textarea name="details" class="simpleEditor required1"><?php echo stripslashes($details); ?></textarea>
 			 </td></tr>
 			 
 			 
 -->			 
-			 <tr><td>&nbsp;</td><td>&nbsp;</td><td><input type="button" name="save" value="<?=Post?>" class="" onclick='validate_form1(<?=$max_dis_size?>,"<?=$dis_files_type?>");' />
+			 <tr><td>&nbsp;</td><td>&nbsp;</td><td><input type="button" name="save" value="<?php echo Post; ?>" class="" onclick='validate_form1(<?php echo $max_dis_size; ?>,"<?php echo $dis_files_type; ?>");' />
 			  </td></tr>
 			 </table>
 			 
 			 
 		</form>
 	</div>	
-	<div class='add_result'><?=$results?></div>
+	<div class='add_result'><?php echo $results; ?></div>
 </div>
 	

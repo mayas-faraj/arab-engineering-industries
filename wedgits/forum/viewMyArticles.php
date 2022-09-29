@@ -1,17 +1,17 @@
 <?if(!$_SESSION["us_id"]){echo"<script>document.location='"._PREF."index.php'</script>";exit();}?>	
-<link rel="stylesheet" type="text/css" href='<?=_PREF?>wedgits/forum/articles_<?=$pageLang?>.css'/>
+<link rel="stylesheet" type="text/css" href='<?php echo _PREF; ?>wedgits/forum/articles_<?php echo $pageLang; ?>.css'/>
 <div class= "page_content">
 	<?$user_name = lookupField('users','user_id','full_name',cleanString($_SESSION["us_id"]));
 	$publish = lookupField('art_categories','id','publish',cleanString($_REQUEST['cat_id']));?>
 
-	<div class="title2"><?=MyAricles?> <span><?echo Welcome.' <font><a href="viewForumMember.php?mem_id='.$_SESSION["us_id"].'&id='.cleanString($_REQUEST['cat_id']).'">'.$user_name.'</a></font>'?></span></div>
+	<div class="title2"><?php echo MyAricles; ?> <span><?echo Welcome.' <font><a href="viewForumMember.php?mem_id='.$_SESSION["us_id"].'&id='.cleanString($_REQUEST['cat_id']).'">'.$user_name.'</a></font>'?></span></div>
 	<?if($publish){?>
-		<div class="add_link"><a href='<?=_PREF?>view/forum/addArticle.php?cat_id=<?=cleanString($_REQUEST['cat_id'])?>'><img src='<?=_PREF?>wedgits/forum/addArticle.png'/><?//=AddArticle?></a> </div>
+		<div class="add_link"><a href='<?php echo _PREF; ?>view/forum/addArticle.php?cat_id=<?php echo cleanString($_REQUEST['cat_id']); ?>'><img src='<?php echo _PREF; ?>wedgits/forum/addArticle.png'/><?//=AddArticle?></a> </div>
 		<div class="add_link">&nbsp;</div>
 	<?}?>			
-	<div class="add_link"><a href='<?=_PREF?>view/forum/myPage.php?cat_id=<?=cleanString($_REQUEST['cat_id'])?>'><img src='<?=_PREF?>wedgits/forum/myPage.png'/><?//=MyAricles?></a></div>
+	<div class="add_link"><a href='<?php echo _PREF; ?>view/forum/myPage.php?cat_id=<?php echo cleanString($_REQUEST['cat_id']); ?>'><img src='<?php echo _PREF; ?>wedgits/forum/myPage.png'/><?//=MyAricles?></a></div>
 	<div class="add_link">&nbsp;</div>
-	<div class="add_link"><a href='<?=_PREF?>view/forum/changePass.php?cat_id=<?=cleanString($_REQUEST['cat_id'])?>'><img src='<?=_PREF?>wedgits/forum/changePass.png'/><?//=changePass?></a></div>
+	<div class="add_link"><a href='<?php echo _PREF; ?>view/forum/changePass.php?cat_id=<?php echo cleanString($_REQUEST['cat_id']); ?>'><img src='<?php echo _PREF; ?>wedgits/forum/changePass.png'/><?//=changePass?></a></div>
 
 
 	
@@ -49,10 +49,10 @@
 		<tr class='no_hover'>
 
 			
-			<td class='art_title'><a href="viewMyArticles.php?cat_id=<?=cleanString($_REQUEST['id'])?>&so=<?=$soo?>&sb=title"><?=title?></a></td>
-			<td class='art_autor'><a href="viewMyArticles.php?cat_id=<?=cleanString($_REQUEST['id'])?>&so=<?=$soo?>&sb=user_id"><?=author?></a></td>
-			<td class='art_date'><a href="viewMyArticles.php?cat_id=<?=cleanString($_REQUEST['id'])?>&so=<?=$soo?>&sb=publish_date"><?=publish_date?></a></td>
-			<td class='art_date'><?=last_comment_date?></td>
+			<td class='art_title'><a href="viewMyArticles.php?cat_id=<?php echo cleanString($_REQUEST['id']); ?>&so=<?php echo $soo; ?>&sb=title"><?php echo title; ?></a></td>
+			<td class='art_autor'><a href="viewMyArticles.php?cat_id=<?php echo cleanString($_REQUEST['id']); ?>&so=<?php echo $soo; ?>&sb=user_id"><?php echo author; ?></a></td>
+			<td class='art_date'><a href="viewMyArticles.php?cat_id=<?php echo cleanString($_REQUEST['id']); ?>&so=<?php echo $soo; ?>&sb=publish_date"><?php echo publish_date; ?></a></td>
+			<td class='art_date'><?php echo last_comment_date; ?></td>
 		</tr>
 	<?
 		while ($i<$numrows){
@@ -66,10 +66,10 @@
 			?>
 			
 			
-				<tr onClick='document.location="<?=_PREF?>view/forum/viewArticles.php?cat_id=<?=cleanString($_REQUEST['cat_id'])?>&id=<?=$id?>"'>
-					<td class='art_title'><?=$title?></td>
-					<td class='art_autor'><?=$author?></td>
-					<td class='art_date'><?=$publish_date?></td>
+				<tr onClick='document.location="<?php echo _PREF; ?>view/forum/viewArticles.php?cat_id=<?php echo cleanString($_REQUEST['cat_id']); ?>&id=<?php echo $id; ?>"'>
+					<td class='art_title'><?php echo $title; ?></td>
+					<td class='art_autor'><?php echo $author; ?></td>
+					<td class='art_date'><?php echo $publish_date; ?></td>
 					<td class='last_art_date'>
 						<?
 							$com_sql =  "SELECT max(publish_date) FROM art_comments where art_id = '$id'";

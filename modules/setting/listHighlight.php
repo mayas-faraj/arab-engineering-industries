@@ -48,7 +48,7 @@ $result = MYSQL_QUERY($sql);
 $numberOfRows = MYSQL_NUMROWS($result);
 $i=0;?>
 <div class="data">
-<form method='post' name='main' action='<?=$_SERVER['PHP_SELF']?>' enctype='multipart/form-data'>
+<form method='post' name='main' action='<?php echo $_SERVER['PHP_SELF']; ?>' enctype='multipart/form-data'>
 <input type='hidden' name='action' value=''>
 <script>
 function actionf(act){
@@ -59,10 +59,10 @@ function actionf(act){
 <TABLE CELLSPACING="0" CELLPADDING="0" BORDER="0" WIDTH="100%" ID="list">
 <thead>
 	<TR>
-		<th width="100px;"><?=print_AdminRecordHead("table_name", "Table", $sb, $so, $static_order)?></th>
-		<th width="100px;"><?=print_AdminRecordHead("record_id", "Record name", $sb, $so, $static_order)?></th>
-		<th width="100px;"><?=print_AdminRecordHead("publish_date", "Publish date", $sb, $so, $static_order)?></th>
-		<th width="100px;"><?=print_AdminRecordHead("end_date", "End date", $sb, $so, $static_order)?></th>
+		<th width="100px;"><?php echo print_AdminRecordHead("table_name", "Table", $sb, $so, $static_order); ?></th>
+		<th width="100px;"><?php echo print_AdminRecordHead("record_id", "Record name", $sb, $so, $static_order); ?></th>
+		<th width="100px;"><?php echo print_AdminRecordHead("publish_date", "Publish date", $sb, $so, $static_order); ?></th>
+		<th width="100px;"><?php echo print_AdminRecordHead("end_date", "End date", $sb, $so, $static_order); ?></th>
 		<th colspan="2">&nbsp;</th>
 </TR>
 </thead>
@@ -78,16 +78,16 @@ while ($i<$numberOfRows){
 	$record_id= MYSQL_RESULT($result,$i,"record_id");
 	if($action=="Edit"  && $_REQUEST['id'] == $id){?>
     	<TR>
-			<TD><?=stripslashes($table_name)?></TD>	
-			<TD><?=stripslashes($record_id)?></TD>	
+			<TD><?php echo stripslashes($table_name); ?></TD>	
+			<TD><?php echo stripslashes($record_id); ?></TD>	
 			<TD>
-				<input type="Text" name="publish_date" size="20" class='dateF' value="<?=stripslashes($publish_date)?>" />
-				<input type="Hidden" name="id" size="20"  value="<?=$id?>" />
+				<input type="Text" name="publish_date" size="20" class='dateF' value="<?php echo stripslashes($publish_date); ?>" />
+				<input type="Hidden" name="id" size="20"  value="<?php echo $id; ?>" />
 			</TD>
 			<TD>
-				<input type="Text" name="end_date" size="20" class='dateF' value="<?=stripslashes($end_date)?>" />
+				<input type="Text" name="end_date" size="20" class='dateF' value="<?php echo stripslashes($end_date); ?>" />
 			</TD>
-			<TD><?=print_save_icon("Update")?></TD>
+			<TD><?php echo print_save_icon("Update"); ?></TD>
 			<th colspan="1">&nbsp;</th>
 		</TR>
    	<?}// Edit record
@@ -111,12 +111,12 @@ while ($i<$numberOfRows){
 					break;
 				}
 			?>
-			<TD><?=stripslashes($table_name)?></TD>	
-			<TD><?=stripslashes($title)?></TD>			
-			<TD><?=stripslashes($publish_date)?></TD>
-			<TD><?=stripslashes($end_date)?></TD>
+			<TD><?php echo stripslashes($table_name); ?></TD>	
+			<TD><?php echo stripslashes($title); ?></TD>			
+			<TD><?php echo stripslashes($publish_date); ?></TD>
+			<TD><?php echo stripslashes($end_date); ?></TD>
 			<TD width="42" align="center"><?=print_edit_icon($_SERVER['PHP_SELF']."?action=Edit&id=".$id)?></TD>
-			<TD width="29" align="center"><?=print_delete_ckbox($id)?></TD>
+			<TD width="29" align="center"><?php echo print_delete_ckbox($id); ?></TD>
 			<?//-------------------------------------------------------?>
 		</TR>
 	<?}//end else

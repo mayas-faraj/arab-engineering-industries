@@ -1,6 +1,6 @@
-<link rel="stylesheet" type="text/css" href='<?=_PREF?>wedgits/view_form/view_form_<?=$pageLang?>.css'/>	
-<script src="<?=_PREF?>wedgits/view_form/view_form.js" language="javascript" type="text/javascript"></script>
-<div class="page_content" dir='<?=_DIR?>'>
+<link rel="stylesheet" type="text/css" href='<?php echo _PREF; ?>wedgits/view_form/view_form_<?php echo $pageLang; ?>.css'/>	
+<script src="<?php echo _PREF; ?>wedgits/view_form/view_form.js" language="javascript" type="text/javascript"></script>
+<div class="page_content" dir='<?php echo _DIR; ?>'>
 <?
 	$page_name = getCurrentFormName();
 	if($page_name=='index'){
@@ -11,9 +11,9 @@
 	$sub = cleanString($_REQUEST['sub']);
 	$form_id = cleanString($_REQUEST['id']);
 ?>
-<input type='hidden' class='path' value='<?=$path?>'/>
+<input type='hidden' class='path' value='<?php echo $path; ?>'/>
 
-<div class='title'><?=lookupField('query_forms','form_id','form_name',$form_id);?></div>
+<div class='title'><?php echo lookupField('query_forms','form_id','form_name',$form_id);; ?></div>
 <? 
 	if($sub){
 		if( $_SESSION['security_code'] !=  cleanString($_REQUEST['code'])){
@@ -67,12 +67,12 @@ if ($numberOfRows>0) {
 
 	
     <div id="output1" style='width:100%'>
-	<form name="subForm" action="<?=$_SERVER['PHP_SELF']?>" method='POST'>
-	<input type="hidden" name="form_name" value="<?=$form_name?>">
-	<input type="hidden" name="id" value="<?=$from_id?>">
-	<input type="hidden" name="to" value="<?=_INFO?>">
-	<input type="hidden" name="no" value="<?=$numberOfRows?>">
-	<table width="100%" border="0" cellpadding="1" cellspacing="1" dir='<?=_DIR?>' style='float:Right;'><?
+	<form name="subForm" action="<?php echo $_SERVER['PHP_SELF']; ?>" method='POST'>
+	<input type="hidden" name="form_name" value="<?php echo $form_name; ?>">
+	<input type="hidden" name="id" value="<?php echo $from_id; ?>">
+	<input type="hidden" name="to" value="<?php echo _INFO; ?>">
+	<input type="hidden" name="no" value="<?php echo $numberOfRows; ?>">
+	<table width="100%" border="0" cellpadding="1" cellspacing="1" dir='<?php echo _DIR; ?>' style='float:Right;'><?
 	while ($i<$numberOfRows){
 		$label= MYSQL_RESULT($result,$i,"field_label");
 		$type= MYSQL_RESULT($result,$i,"type");
@@ -121,11 +121,11 @@ if ($numberOfRows>0) {
 		$i++;
 	}// end while
 	echo $str;?>
-	<tr><td>&nbsp;</td><td>&nbsp;</td><td><hr class='key_sep'/><div class='key_desc'><?=_keycode?></div></td></tr>
-	<tr><td>&nbsp;</td><td>&nbsp;</td><td><img src="<?=_PREF?>wedgits/security_img/securityimages.php" border="1" class="forms_image" />
+	<tr><td>&nbsp;</td><td>&nbsp;</td><td><hr class='key_sep'/><div class='key_desc'><?php echo _keycode; ?></div></td></tr>
+	<tr><td>&nbsp;</td><td>&nbsp;</td><td><img src="<?php echo _PREF; ?>wedgits/security_img/securityimages.php" border="1" class="forms_image" />
 	<br><input type="text" name="code" value=""  class="forms_input_code required" onFocus="this.value=''" /></td></tr>
 	<tr><td ></td ><td ><input type='hidden' name="sub" value='send'/></tr></table>
-		<input style='' type="button" name="sub" id='btn' class="btn form_submit" onclick='validate_form();' value="<?=_Send?>">
+		<input style='' type="button" name="sub" id='btn' class="btn form_submit" onclick='validate_form();' value="<?php echo _Send; ?>">
 	</form>
 	</div>
 

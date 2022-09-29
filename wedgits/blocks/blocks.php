@@ -1,4 +1,4 @@
-<link rel="stylesheet" type="text/css" href='<?=_PREF?>wedgits/blocks/blocks_<?=$pageLang?>.css'/>
+<link rel="stylesheet" type="text/css" href='<?php echo _PREF; ?>wedgits/blocks/blocks_<?php echo $pageLang; ?>.css'/>
 
 	<?
 		if($pageLang=='en'){
@@ -10,20 +10,20 @@
 	?>
 	<div class="blocks">
 	<div class="blocks_image">
-		<a href="http://<?=lookupField('site_settings','id','value',$links[0])?>" ><img src="<?=_PREF?>images/block1_<?=$pageLang?>.png" /></a>
-		<span><?=lookupField('site_settings','id','value',$ids[0])?></span>
+		<a href="http://<?php echo lookupField('site_settings','id','value',$links[0]); ?>" ><img src="<?php echo _PREF; ?>images/block1_<?php echo $pageLang; ?>.png" /></a>
+		<span><?php echo lookupField('site_settings','id','value',$ids[0]); ?></span>
 	</div>
 	
 	<div class="blocks_image">
-		<a href="http://<?=lookupField('site_settings','id','value',$links[1])?>" ><img src="<?=_PREF?>images/block2_<?=$pageLang?>.png" /></a>
-		<span><?=lookupField('site_settings','id','value',$ids[1])?></span>
+		<a href="http://<?php echo lookupField('site_settings','id','value',$links[1]); ?>" ><img src="<?php echo _PREF; ?>images/block2_<?php echo $pageLang; ?>.png" /></a>
+		<span><?php echo lookupField('site_settings','id','value',$ids[1]); ?></span>
 	</div>
 	
 	<div class="blocks_image">
-		<a href="http://<?=lookupField('site_settings','id','value',$links[2])?>" ><img src="<?=_PREF?>images/block3_<?=$pageLang?>.png" /></a>
-		<span><?=lookupField('site_settings','id','value',$ids[2])?></span>
+		<a href="http://<?php echo lookupField('site_settings','id','value',$links[2]); ?>" ><img src="<?php echo _PREF; ?>images/block3_<?php echo $pageLang; ?>.png" /></a>
+		<span><?php echo lookupField('site_settings','id','value',$ids[2]); ?></span>
 	</div>
 	
-	<!-- <div class="blocks_calender"><a href="#"><img src="<?=_PREF?>images/calender.png" /></a></div> -->
+	<!-- <div class="blocks_calender"><a href="#"><img src="<?php echo _PREF; ?>images/calender.png" /></a></div> -->
 	<?php include('wedgits/calender/calender.php');?>
 	</div>

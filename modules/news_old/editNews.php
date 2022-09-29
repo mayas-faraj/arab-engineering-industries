@@ -45,55 +45,55 @@ $end_date= MYSQL_RESULT($result,$i,"end_date");
 $special= MYSQL_RESULT($result,$i,"special");
 $active= MYSQL_RESULT($result,$i,"active");
 }?>
-<form name="subForm" method="post" action="<?=$_SERVER['PHP_SELF']?>" enctype="multipart/form-data">
-<input type="Hidden" name="id" size="20" value="<?=$id?>" />
+<form name="subForm" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>" enctype="multipart/form-data">
+<input type="Hidden" name="id" size="20" value="<?php echo $id; ?>" />
 <?
 ?>
 <table>
 <tr>
-<td align="<?=_ALI?>"><span class="field_title"><?=Subject?>:</span></td>
+<td align="<?php echo _ALI; ?>"><span class="field_title"><?php echo Subject; ?>:</span></td>
 <td width="5" class="required">*</td>
-<td><input type="Text" name="subject" size="20" value="<?=stripslashes($subject)?>" class="required" /></td>
+<td><input type="Text" name="subject" size="20" value="<?php echo stripslashes($subject); ?>" class="required" /></td>
 </tr>
 <?
 ?>
 <tr>
-<td align="<?=_ALI?>"><span class="field_title"><?=publish_date?>:</span></td>
+<td align="<?php echo _ALI; ?>"><span class="field_title"><?php echo publish_date; ?>:</span></td>
 <td width="5" class="">*</td>
-<td><input type="Text" name="publish_date" size="20" value="<?=stripslashes($publish_date)?>" class="required dateF" /></td>
+<td><input type="Text" name="publish_date" size="20" value="<?php echo stripslashes($publish_date); ?>" class="required dateF" /></td>
 </tr>
 <?
 ?>
 <tr>
-<td align="<?=_ALI?>"><span class="field_title"><?=end_date?>:</span></td>
+<td align="<?php echo _ALI; ?>"><span class="field_title"><?php echo end_date; ?>:</span></td>
 <td width="5" class="">*</td>
-<td><input type="Text" name="end_date" size="20" value="<?=stripslashes($end_date)?>" class="required dateF" /></td>
+<td><input type="Text" name="end_date" size="20" value="<?php echo stripslashes($end_date); ?>" class="required dateF" /></td>
 </tr>
 
 <?
 ?>
 <tr>
-<td align="<?=_ALI?>" valign="top"><span class="field_title"><?=Brief?>:</span></td>
+<td align="<?php echo _ALI; ?>" valign="top"><span class="field_title"><?php echo Brief; ?>:</span></td>
 <td width="5" class=""></td>
-<td><textarea name="brief"  class="simpleEditor" ><?=stripslashes($brief)?></textarea></td>
+<td><textarea name="brief"  class="simpleEditor" ><?php echo stripslashes($brief); ?></textarea></td>
 </tr>
 <?
 ?>
 <tr>
-<td align="<?=_ALI?>" valign="top"><span class="field_title"><?=Details?>:</span></td>
+<td align="<?php echo _ALI; ?>" valign="top"><span class="field_title"><?php echo Details; ?>:</span></td>
 <td width="5" class=""></td>
-<td><textarea name="details" cols="50" rows="4" class="mceEditor" ><?=stripslashes($details)?></textarea></td>
+<td><textarea name="details" cols="50" rows="4" class="mceEditor" ><?php echo stripslashes($details); ?></textarea></td>
 </tr>
 <?
 ?>
 <tr>
-<td align="<?=_ALI?>"><span class="field_title"><?=Special?>:</span></td><td width="5" class=""></td>
+<td align="<?php echo _ALI; ?>"><span class="field_title"><?php echo Special; ?>:</span></td><td width="5" class=""></td>
 <TD><input type="Checkbox" name="special" size="20" value="1" <?php echo ($special)? "checked" : ""?>  /></TD>
 </tr>
 <?
 ?>
 <tr>
-<td align="<?=_ALI?>"><span class="field_title"><?=Active?>:</span></td><td width="5" class=""></td>
+<td align="<?php echo _ALI; ?>"><span class="field_title"><?php echo Active; ?>:</span></td><td width="5" class=""></td>
 <TD><input type="Checkbox" name="active" size="20" value="1" <?php echo ($active)? "checked" : ""?>  /></TD>
 </tr>
 <?
@@ -102,7 +102,7 @@ $active= MYSQL_RESULT($result,$i,"active");
 <input name="sub" type="submit" id="sub" value="Save">
 <?
 ?>
-<input name="sub2" type="button" id="sub2" value="<?=all_news?>" onClick=" document.location='listNews.php?<?=$url?>'">
+<input name="sub2" type="button" id="sub2" value="<?php echo all_news; ?>" onClick=" document.location='listNews.php?<?php echo $url; ?>'">
 </form><?
 }
 include_once("../common/footer-admin.php"); ?>

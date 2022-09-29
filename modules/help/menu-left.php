@@ -21,9 +21,9 @@ if($currentTip){
 							$tip_id=mysql_result($result, $i,"tip_id");
 							$groupStyle=($id==$currentGroup)?"style='font-weight:bold'":"";
 							?>
-							<li id="<?="grp_$id"?>" >
-								<a href="<?=$_SERVER['PHP_SELF']?>?<?if (!$tip_id){echo "grp_id=$id";}else{echo "tip_id=$tip_id";}?>">
-									<?=$group_title?>
+							<li id="<?php echo "grp_$id"; ?>" >
+								<a href="<?php echo $_SERVER['PHP_SELF']; ?>?<?if (!$tip_id){echo "grp_id=$id";}else{echo "tip_id=$tip_id";}?>">
+									<?php echo $group_title; ?>
 								</a>
 							<?php 
 							$tips_sql="SELECT * FROM `help_tips` WHERE group_id='$id'";
@@ -39,7 +39,7 @@ if($currentTip){
 									$title =mysql_result($tips_result, $j,"title");
 									$tipStyle=($tip_id==$currentTip)?"style='font-weight:bold'":"";
 									?>
-									<li id="<?="tip_$tip_id"?>" <?=$tipStyle?> ><a href="<?=$_SERVER['PHP_SELF']?>?tip_id=<?=$tip_id?>"><?=$title?></a></li>
+									<li id="<?php echo "tip_$tip_id"; ?>" <?php echo $tipStyle; ?> ><a href="<?php echo $_SERVER['PHP_SELF']; ?>?tip_id=<?php echo $tip_id; ?>"><?php echo $title; ?></a></li>
 									<?
 									$j++;
 								}

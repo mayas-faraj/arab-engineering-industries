@@ -46,7 +46,7 @@ var _userPages=false;
 <body style="margin:0">
 <table width="100%" height="100%" border="0" cellspacing="0" cellpadding="0">
   <tr>
-    <td colspan="3" style="background:url(<?=_PREF?>images/icons/VOILA-LINE-CMS.gif) repeat-x"><img src="<?=_PREF?>images/icons/VOILA-LOGO-CMS.gif" height="100"/></td>
+    <td colspan="3" style="background:url(<?php echo _PREF; ?>images/icons/VOILA-LINE-CMS.gif) repeat-x"><img src="<?php echo _PREF; ?>images/icons/VOILA-LOGO-CMS.gif" height="100"/></td>
   </tr>
  <tr>
     <td width="200" height="100%" valign="top"><? include("menu-left.php")?></td>

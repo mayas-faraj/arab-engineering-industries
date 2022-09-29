@@ -1,8 +1,8 @@
-<link rel="stylesheet" type="text/css" href='<?=_PREF?>wedgits/sitemap/sitemap_<?=$pageLang?>.css'/>	
-<div class="page_content" dir='<?=_DIR?>'>
-<div class='title2'><?=Sitemap?></div>
+<link rel="stylesheet" type="text/css" href='<?php echo _PREF; ?>wedgits/sitemap/sitemap_<?php echo $pageLang; ?>.css'/>	
+<div class="page_content" dir='<?php echo _DIR; ?>'>
+<div class='title2'><?php echo Sitemap; ?></div>
 
-<table width="100%" border="0" cellspacing="0" dir='<?=_DIR?>' cellpadding="0">
+<table width="100%" border="0" cellspacing="0" dir='<?php echo _DIR; ?>' cellpadding="0">
 
 
 <?

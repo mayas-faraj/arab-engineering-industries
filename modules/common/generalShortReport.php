@@ -35,13 +35,13 @@ for($i=0; $i<=12; $i++){
 $pie_data = trim($pie_data,",");
 ?>	
 <div id="graph">Loading...</div>
-for more detailed report you can see <a href="../common/generalReport.php?filename=<?=$filename?>"style="color:red">this link.</a>
+for more detailed report you can see <a href="../common/generalReport.php?filename=<?php echo $filename; ?>"style="color:red">this link.</a>
 
 <script type="text/javascript">
-	var myData = new Array(<?=$pie_data?>);
+	var myData = new Array(<?php echo $pie_data; ?>);
 	var myChart = new JSChart('graph', 'line');
 	myChart.setDataArray(myData);
-	myChart.setTitle('<?=$_REQUEST['filename']?>');
+	myChart.setTitle('<?php echo $_REQUEST['filename']; ?>');
 	myChart.setTitleColor('#8E8E8E');
 	myChart.setTitleFontSize(11);
 	myChart.setAxisNameX('');

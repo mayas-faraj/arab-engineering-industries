@@ -1,11 +1,11 @@
 <? if(!$_SESSION["us_id"]){echo"<script>document.location='"._PREF."index.php'</script>";} ?>	
-<link rel="stylesheet" type="text/css" href='<?=_PREF?>wedgits/forum/articles_<?=$pageLang?>.css'/>
+<link rel="stylesheet" type="text/css" href='<?php echo _PREF; ?>wedgits/forum/articles_<?php echo $pageLang; ?>.css'/>
 
-<script src="<?=_PREF?>wedgits/forum/articles.js" language="javascript" type="text/javascript"></script>	
-<script src="<?=_PREF?>wedgits/forum/tableRowsMgmt.js" language="javascript" type="text/javascript"></script>	
+<script src="<?php echo _PREF; ?>wedgits/forum/articles.js" language="javascript" type="text/javascript"></script>	
+<script src="<?php echo _PREF; ?>wedgits/forum/tableRowsMgmt.js" language="javascript" type="text/javascript"></script>	
 
-<script src="<?=_PREF?>wedgits/forum/jquery.form.js" language="javascript" type="text/javascript"></script>	
-<script src="<?=_PREF?>wedgits/forum/file_demo.js" language="javascript" type="text/javascript"></script>	
+<script src="<?php echo _PREF; ?>wedgits/forum/jquery.form.js" language="javascript" type="text/javascript"></script>	
+<script src="<?php echo _PREF; ?>wedgits/forum/file_demo.js" language="javascript" type="text/javascript"></script>	
 <?php 
 $max_com_files = lookupField('site_settings','id','value',17);
 $max_com_size = lookupField('site_settings','id','value',18);
@@ -134,7 +134,7 @@ if($sub){
 
 ?>
 
-<div class="page_content" dir='<?=_DIR?>'>
+<div class="page_content" dir='<?php echo _DIR; ?>'>
 
 	<?
 //$photo_path ="../../uploads/";
@@ -161,18 +161,18 @@ if ($numrows>0) {
 
 	<?$user_name = lookupField('users','user_id','full_name',$_SESSION["us_id"]);
 	$publish = lookupField('art_categories','id','publish',$_REQUEST['cat_id']);?>
-	<div class="title2"><?=forum?>: &nbsp; <?=$forum?> <span><?echo Welcome.' <font><a href="myPage.php?mem_id='.$_SESSION["us_id"].'&cat_id='.$_REQUEST['cat_id'].'">'.$user_name.'</a></font>'?></span></div>
-	<div class="title2" <?if($pageLang=='ar'){?>style='font-size:18px;'<?}else{?>style='font-size:15px;'<?}?> ><?=Subject?>: &nbsp; <?=$title?></div>
+	<div class="title2"><?php echo forum; ?>: &nbsp; <?php echo $forum; ?> <span><?echo Welcome.' <font><a href="myPage.php?mem_id='.$_SESSION["us_id"].'&cat_id='.$_REQUEST['cat_id'].'">'.$user_name.'</a></font>'?></span></div>
+	<div class="title2" <?if($pageLang=='ar'){?>style='font-size:18px;'<?}else{?>style='font-size:15px;'<?}?> ><?php echo Subject; ?>: &nbsp; <?php echo $title; ?></div>
 	
 	<div class="annonce_details">
 		<div class="annonce_dinfo">
-		<!--<?=Author?> : <a href='viewAllForumMembers.php?id=<?=$cat_id?>#user<?=$art_u_id?>'><?=$author?></a>
+		<!--<?php echo Author; ?> : <a href='viewAllForumMembers.php?id=<?php echo $cat_id; ?>#user<?php echo $art_u_id; ?>'><?php echo $author; ?></a>
 		<br>
-		<?=PublishDate?> : <?=$publish_date?>-->
+		<?php echo PublishDate; ?> : <?php echo $publish_date; ?>-->
 		
 		</div>
 		<div class="annonce_details_body">
-			<!--div class="annonce_details_txt"><?=$details?></div-->
+			<!--div class="annonce_details_txt"><?php echo $details; ?></div-->
 			<div class="annonce_details_txt">
 				<?
 					$attach_sql =  "SELECT * FROM art_articles_files WHERE (art_id=$article_id) ";
@@ -202,7 +202,7 @@ if ($numrows>0) {
 ?>
 	
 	<div class="progList_comments">
-	<div class="progList_comments_title"><?=Comments?> :
+	<div class="progList_comments_title"><?php echo Comments; ?> :
 	
 	</div>
 	 <?
@@ -230,18 +230,18 @@ if ($numrows>0) {
 			?>
 				<div class="comment_item">
 					<div class="comment_header">
-						<div class="publisher"><?=$publisher?></div>
-						<div class="publisher"><?=$subject?></div>
+						<div class="publisher"><?php echo $publisher; ?></div>
+						<div class="publisher"><?php echo $subject; ?></div>
 						<?if($owner){?>
 							<!--div class="nav">
-								<a href="../../wedgits/forum/checkbox.php?t=art_comments&fn=active&idn=id&idv=<?=$id?>&fv=<?=!($active)?>" class="checkb" ><img src="<?=_PREF?>images/icons/_<?php echo $active?>_.png" border="0"  fv="<?=!($active)?>"/></a>
-								<a href="viewArticles.php?id=<?=$article_id?>&op=del&com_id=<?=$id?>" class="delete"><img src="<?=_PREF?>images/icons/Delete.png"  border=0></a>
+								<a href="../../wedgits/forum/checkbox.php?t=art_comments&fn=active&idn=id&idv=<?php echo $id; ?>&fv=<?php echo !($active); ?>" class="checkb" ><img src="<?php echo _PREF; ?>images/icons/_<?php echo $active?>_.png" border="0"  fv="<?php echo !($active); ?>"/></a>
+								<a href="viewArticles.php?id=<?php echo $article_id; ?>&op=del&com_id=<?php echo $id; ?>" class="delete"><img src="<?php echo _PREF; ?>images/icons/Delete.png"  border=0></a>
 							</div-->
 						<?}?>
-						<div class="comment_date"><?=$comment_date?></div>
+						<div class="comment_date"><?php echo $comment_date; ?></div>
 					</div>
 					<div class="comment_body">
-						<?=$comment?>
+						<?php echo $comment; ?>
 						<?
 							$attach_sql =  "SELECT * FROM art_comments_files WHERE (comment_id=$id) ";
 							$attach_result = MYSQL_QUERY($attach_sql);
@@ -302,34 +302,34 @@ if ($numrows>0) {
 
 	<? /*************************Add Comments***********************/?>
 	<div class="com_add">
-		<?if($publish && $publish_comment){?><a href="#" onclick="$('.progList_Addcomment').show();return false;"><?=AddComment?></a><?}?>
+		<?if($publish && $publish_comment){?><a href="#" onclick="$('.progList_Addcomment').show();return false;"><?php echo AddComment; ?></a><?}?>
 	</div>
 	 <div class="progList_Addcomment">
-	<form  method="post" name="subForm" id='uploadForm' action="<?=$_SERVER['PHP_SELF']?>" enctype="multipart/form-data">
-	 <input type="hidden" name="art" value="<?=$article_id ?>" />
-	 <input type="hidden" name="art_u_id" value="<?=$art_u_id ?>" />
-	 <input type="hidden" name="cat_id" value="<?=$_REQUEST['cat_id'] ?>" />
-	 <input type="hidden" name="id" value="<?=$_REQUEST['id'] ?>" />
+	<form  method="post" name="subForm" id='uploadForm' action="<?php echo $_SERVER['PHP_SELF']; ?>" enctype="multipart/form-data">
+	 <input type="hidden" name="art" value="<?php echo $article_id ; ?>" />
+	 <input type="hidden" name="art_u_id" value="<?php echo $art_u_id ; ?>" />
+	 <input type="hidden" name="cat_id" value="<?php echo $_REQUEST['cat_id'] ; ?>" />
+	 <input type="hidden" name="id" value="<?php echo $_REQUEST['id'] ; ?>" />
 	 <input type="hidden" name="sub" value="1" />
 	 <table border="0" cellpadding="0" cellspacing="0">
 	
 	 
-		 <tr><td valign='top'><?=Subject?>:</td><td><input type='text'  style='width:400px;' name='p_subject' class="required1"/></textarea></td></tr>
-		 <tr><td valign='top'><?=Comment?>:</td><td><textarea rows="5" style='height:100px; width:400px;' name="p_comment" id="p_comment"  /></textarea></td></tr>
+		 <tr><td valign='top'><?php echo Subject; ?>:</td><td><input type='text'  style='width:400px;' name='p_subject' class="required1"/></textarea></td></tr>
+		 <tr><td valign='top'><?php echo Comment; ?>:</td><td><textarea rows="5" style='height:100px; width:400px;' name="p_comment" id="p_comment"  /></textarea></td></tr>
 		 
 		 <tr>
-			 <td valign='top' width='150'><?=attached_files?></td><td>
-				<h6 style="float: <?php echo _ALI?>"><?=DELETE_SELECTED?> &nbsp;<img style="cursor:pointer" src="<?=_PREF?>wedgits/forum/x.png" title="Delete Selected Row(s)" onClick="deleteRow('list')" /></h6>				
-					<table dir='<?=_DIR?>' align="center" id="list" width="400px" class="list" border="0" cellpadding="0" cellspacing="0" style='float:<?=_SALI?>'>
+			 <td valign='top' width='150'><?php echo attached_files; ?></td><td>
+				<h6 style="float: <?php echo _ALI?>"><?php echo DELETE_SELECTED; ?> &nbsp;<img style="cursor:pointer" src="<?php echo _PREF; ?>wedgits/forum/x.png" title="Delete Selected Row(s)" onClick="deleteRow('list')" /></h6>				
+					<table dir='<?php echo _DIR; ?>' align="center" id="list" width="400px" class="list" border="0" cellpadding="0" cellspacing="0" style='float:<?php echo _SALI; ?>'>
 						<thead>
 							<tr>
 								<td >&nbsp;</td>
 								<td>&nbsp;</td>
-								<td align="<?=_SALI?>"> <?=allowed_files?> (<?=$com_files_type?>) <br/> <?=Maximum_allowed_size_for_each_file?> (<?=$max_com_size?>)<?=KB?> </td>
+								<td align="<?php echo _SALI; ?>"> <?php echo allowed_files; ?> (<?php echo $com_files_type; ?>) <br/> <?php echo Maximum_allowed_size_for_each_file; ?> (<?php echo $max_com_size; ?>)<?php echo KB; ?> </td>
 							</tr>
 						</thead>
 						<tr>
-							<td><img style="cursor:pointer" src="<?=_PREF?>wedgits/forum/plus.png" title="Add Row" onClick="addRow('list',<?=$max_com_files?>)"/></td>
+							<td><img style="cursor:pointer" src="<?php echo _PREF; ?>wedgits/forum/plus.png" title="Add Row" onClick="addRow('list',<?php echo $max_com_files; ?>)"/></td>
 							<td><input type="checkbox" name="chk"/></td>
 							<td><input type="file" name="attached_files[]" class='file'/></td>
 						</tr>
@@ -340,7 +340,7 @@ if ($numrows>0) {
 		 <tr><td>&nbsp;</td>
 		 <td>
 			<input value="Submit 1" name="uploadSubmitter1" type="submit" class='submit_it' >
-			<!--input  type="submit" name="save" value="<?=Save?>" class="save_com" onclick='validate_form1(<?=$max_com_size?>,"<?=$com_files_type?>");' /-->
+			<!--input  type="submit" name="save" value="<?php echo Save; ?>" class="save_com" onclick='validate_form1(<?php echo $max_com_size; ?>,"<?php echo $com_files_type; ?>");' /-->
 		</td></tr>
 	  
 	  
@@ -352,8 +352,8 @@ if ($numrows>0) {
 <div id='uploadOutput'></div>
 
 </div>
-<div class='result'><?=$results?></div>                          
-<input type='button' value='<?=Back?>' class='back' onClick='history.back()'/>
+<div class='result'><?php echo $results; ?></div>                          
+<input type='button' value='<?php echo Back; ?>' class='back' onClick='history.back()'/>
 </div>
 
 

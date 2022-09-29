@@ -70,23 +70,23 @@ if ($numberOfRows>0) {
 $i=0;?>
 
 <div class="data">
-<form method='post' name='main' action='<?=$_SERVER['PHP_SELF']?>' enctype='multipart/form-data'>
+<form method='post' name='main' action='<?php echo $_SERVER['PHP_SELF']; ?>' enctype='multipart/form-data'>
 <input type='hidden' name='action' value=''>
 <TABLE class="selectable" CELLSPACING="0" CELLPADDING="0" BORDER="0" WIDTH="100%" id="list">
 <thead>
 <tr>
 <?
 ?>
-<th width="277"><?=print_AdminRecordHead("photo_en", "Photo", $sb, $so, $static_order)?></th>
+<th width="277"><?php echo print_AdminRecordHead("photo_en", "Photo", $sb, $so, $static_order); ?></th>
 <?
 ?>
-<th width="277"><?=print_AdminRecordHead("link_en", "Link", $sb, $so, $static_order)?></th>
+<th width="277"><?php echo print_AdminRecordHead("link_en", "Link", $sb, $so, $static_order); ?></th>
 <?
 ?>
-<th width="277"><?=print_AdminRecordHead("title_en", "Title", $sb, $so, $static_order)?></th>
+<th width="277"><?php echo print_AdminRecordHead("title_en", "Title", $sb, $so, $static_order); ?></th>
 <?
 ?>
-<th width="277"><?=print_AdminRecordHead("active", "Active", $sb, $so)?></th>
+<th width="277"><?php echo print_AdminRecordHead("active", "Active", $sb, $so); ?></th>
 
 <th colspan="4">Controls</th>
 </tr>
@@ -106,7 +106,7 @@ $active = mysql_result($result,$i,"active");
 <TR>
 <?
 ?>
-<td><? if($photo_en!=""){?><img src="<?=resizeToFile('../../uploads/'.($photo_en),100,100,'../../uploads/mcith/mcith_'.basename($photo_en))?>"><? }else echo "&nbsp;"?></td>
+<td><? if($photo_en!=""){?><img src="<?php echo resizeToFile('../../uploads/'.($photo_en),100,100,'../../uploads/mcith/mcith_'.basename($photo_en)); ?>"><? }else echo "&nbsp;"?></td>
 <?
 ?>
 <td>&nbsp;<?php echo stripslashes($link_en)?>&nbsp;</td>
@@ -115,7 +115,7 @@ $active = mysql_result($result,$i,"active");
 <td>&nbsp;<?php echo stripslashes($title_en)?></td>
 <?
 ?>
-<td><a href="../includes/checkbox.php?t=highlight_highlight&fn=active&idn=id&idv=<?=$id?>&fv=<?=!($active)?>" class="checkb" ><img src="<?=_PREF?>images/icons/_<?php echo $active?>_.png" border="0"  fv="<?=!($active)?>"/></a></td>
+<td><a href="../includes/checkbox.php?t=highlight_highlight&fn=active&idn=id&idv=<?php echo $id; ?>&fv=<?php echo !($active); ?>" class="checkb" ><img src="<?php echo _PREF; ?>images/icons/_<?php echo $active?>_.png" border="0"  fv="<?php echo !($active); ?>"/></a></td>
 
 
 <TD align="center" WIDTH="42"><?=print_edit_icon("editHighlight.php?id=".$id);?></TD>

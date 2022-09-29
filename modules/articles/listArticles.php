@@ -51,11 +51,11 @@ if ($numberOfRows>0) {
    <TABLE class="selectable" CELLSPACING="0" CELLPADDING="0" BORDER="0" WIDTH="100%" id="list">
    <thead>
 	<tr>
-		<th width="277"><?=print_AdminRecordHead("title", "Title", $sb, $so)?></th>
-		<th width="277"><?=print_AdminRecordHead("author", "Author", $sb, $so)?></th>
-		<th width="277"><?=print_AdminRecordHead("publish_date", "Publish Date", $sb, $so)?></th>
-		<th width="277"><?=print_AdminRecordHead("active", "Show", $sb, $so)?></th>
-		<th width="277"><?=print_AdminRecordHead("publish", "Active", $sb, $so)?></th>
+		<th width="277"><?php echo print_AdminRecordHead("title", "Title", $sb, $so); ?></th>
+		<th width="277"><?php echo print_AdminRecordHead("author", "Author", $sb, $so); ?></th>
+		<th width="277"><?php echo print_AdminRecordHead("publish_date", "Publish Date", $sb, $so); ?></th>
+		<th width="277"><?php echo print_AdminRecordHead("active", "Show", $sb, $so); ?></th>
+		<th width="277"><?php echo print_AdminRecordHead("publish", "Active", $sb, $so); ?></th>
 		<th colspan="5">Controls  </th>
 	</tr>
 	</thead>
@@ -74,16 +74,16 @@ if ($numberOfRows>0) {
 		$ord = mysql_result($result,$i,"ord");
         ?>
 		<TR>
-			<TD><?=stripslashes($title)?></TD>
-			<TD><?=stripslashes($author)?></TD>
-			<TD><?=stripslashes($publish_date)?></TD>
-			<td><a href="../includes/checkbox.php?t=art_articles&fn=active&idn=id&idv=<?=$id?>&fv=<?=!($active)?>" class="checkb" ><img src="<?=_PREF?>images/icons/_<?php echo $active?>_.png" border="0"  fv="<?=!($active)?>"/></a></td>
-			<td><a href="../includes/checkbox.php?t=art_articles&fn=publish&idn=id&idv=<?=$id?>&fv=<?=!($publish)?>" class="checkb" ><img src="<?=_PREF?>images/icons/_<?php echo $publish?>_.png" border="0"  fv="<?=!($publish)?>"/></a></td>
+			<TD><?php echo stripslashes($title); ?></TD>
+			<TD><?php echo stripslashes($author); ?></TD>
+			<TD><?php echo stripslashes($publish_date); ?></TD>
+			<td><a href="../includes/checkbox.php?t=art_articles&fn=active&idn=id&idv=<?php echo $id; ?>&fv=<?php echo !($active); ?>" class="checkb" ><img src="<?php echo _PREF; ?>images/icons/_<?php echo $active?>_.png" border="0"  fv="<?php echo !($active); ?>"/></a></td>
+			<td><a href="../includes/checkbox.php?t=art_articles&fn=publish&idn=id&idv=<?php echo $id; ?>&fv=<?php echo !($publish); ?>" class="checkb" ><img src="<?php echo _PREF; ?>images/icons/_<?php echo $publish?>_.png" border="0"  fv="<?php echo !($publish); ?>"/></a></td>
 			<?//=showUpDownIcons($result, $i, "id", "ord", "");?>
 			<?
 				$comment_count = mysql_result(mysql_query("SELECT count(*) FROM art_comments where art_id = '$id'"),0,'count(*)');
 				if($comment_count>0){?>
-					<td align="center" width="30"><a href="listArticlesComments.php?art_id=<?=$id?>">Comments(<?=$comment_count?>)</a></td>
+					<td align="center" width="30"><a href="listArticlesComments.php?art_id=<?php echo $id; ?>">Comments(<?php echo $comment_count; ?>)</a></td>
 				<?}else{?>
 					<td align="center" width="30">No Comments</td>
 				<?}?>
@@ -103,5 +103,5 @@ if ($numberOfRows>0) {
 	
 }?>
 
-<input name="sub4" type="button" id="sub3" value="<?=Back?>" style='float:left; clear:both;' onClick=" document.location='listArticlesCat.php'">
+<input name="sub4" type="button" id="sub3" value="<?php echo Back; ?>" style='float:left; clear:both;' onClick=" document.location='listArticlesCat.php'">
 <?include_once("../common/footer-admin.php"); ?>

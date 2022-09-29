@@ -1,4 +1,4 @@
-<link rel="stylesheet" type="text/css" href='<?=_PREF?>wedgits/resources/resources_<?=$pageLang?>.css'/>	
+<link rel="stylesheet" type="text/css" href='<?php echo _PREF; ?>wedgits/resources/resources_<?php echo $pageLang; ?>.css'/>	
 <?
 if($pageLang=='en'){
 	$brief_count = 400;
@@ -25,7 +25,7 @@ $result = MYSQL_QUERY($sql);
 $numberOfRows = MYSQL_NUMROWS($result);
 ?>
 <div class='page_content'>
-<div class='title2'><?=Resources?></div>
+<div class='title2'><?php echo Resources; ?></div>
 <?
 if ($numberOfRows>0) {
 		echo "<table cellspacing='0' class='recTable'>";
@@ -37,8 +37,8 @@ if ($numberOfRows>0) {
 			$brief =  limit($brief, $brief_count);
 			
 		?>
-			<tr onClick='document.location="viewResources.php?id=<?=$id?>"'>
-				<td class='art_title' align="<?=_SALI?>"><?=$subject?></td>
+			<tr onClick='document.location="viewResources.php?id=<?php echo $id; ?>"'>
+				<td class='art_title' align="<?php echo _SALI; ?>"><?php echo $subject; ?></td>
 			</tr>
 		<?	
 						

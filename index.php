@@ -20,15 +20,15 @@ $seo = getSEO($pageLang);
 <html xmlns="http://www.w3.org/1999/xhtml"  charset="utf-8">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <head>
-	<TITLE><?=$seo[title]?></TITLE>
-	<meta name="title" content="<?=$seo[title]?>">
-	<meta name="keywords" content="<?=$seo[keywords]?>">
-	<meta name="description" content="<?=$seo[description]?>">
-	<link rel="stylesheet" type="text/css" href='css/main_<?=$pageLang?>.css'/>
+	<TITLE><?php echo $seo[title]; ?></TITLE>
+	<meta name="title" content="<?php echo $seo[title]; ?>">
+	<meta name="keywords" content="<?php echo $seo[keywords]; ?>">
+	<meta name="description" content="<?php echo $seo[description]; ?>">
+	<link rel="stylesheet" type="text/css" href='css/main_<?php echo $pageLang; ?>.css'/>
 	<script type="text/javascript" src="js/jquery-1.6.3.js"></script>
 	<!--***********************************Wedgits************************************-->	
 	<!--********************************Wedgits fonts*********************************-->	
-	<link rel="stylesheet" type="text/css" href='<?=_PREF?>wedgits/fonts/GE_SS_Two_Light/stylesheet.css'/>	
+	<link rel="stylesheet" type="text/css" href='<?php echo _PREF; ?>wedgits/fonts/GE_SS_Two_Light/stylesheet.css'/>	
 
 </head>
 <body>

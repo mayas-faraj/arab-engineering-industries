@@ -1,7 +1,7 @@
-<link rel="stylesheet" type="text/css" href='<?= _PREF ?>wedgits/activities/activities_<?= $pageLang ?>.css'/>	
-<link rel="stylesheet" type="text/css" href='<?= _PREF ?>wedgits/gallery/zoombox/zoombox.css'/>	
-<script src="<?= _PREF ?>wedgits/gallery/zoombox/zoombox.js" language="javascript" type="text/javascript"></script>
-<script src="<?= _PREF ?>wedgits/gallery/gallery.js" language="javascript" type="text/javascript"></script>
+<link rel="stylesheet" type="text/css" href='<?php echo  _PREF ; ?>wedgits/activities/activities_<?php echo  $pageLang ; ?>.css'/>	
+<link rel="stylesheet" type="text/css" href='<?php echo  _PREF ; ?>wedgits/gallery/zoombox/zoombox.css'/>	
+<script src="<?php echo  _PREF ; ?>wedgits/gallery/zoombox/zoombox.js" language="javascript" type="text/javascript"></script>
+<script src="<?php echo  _PREF ; ?>wedgits/gallery/gallery.js" language="javascript" type="text/javascript"></script>
 <div class='page_content'>
     <?
     $id = cleanString($_REQUEST['id']);
@@ -123,7 +123,7 @@
         }
     }
     ?>
-    <a class="addthis_button" href="http://www.addthis.com/bookmark.php?v=250&amp;username=tarabichi"><img src="http://s7.addthis.com/static/btn/v2/lg-share-en.gif" width="125" height="16" alt="Bookmark and Share" style="border:0;float:<?= _SALI ?>;"/></a><script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=tarabichi"></script>  
-    <input type='button' value='<?= Back ?>' class='more_btn' onClick='history.back()'/>
+    <a class="addthis_button" href="http://www.addthis.com/bookmark.php?v=250&amp;username=tarabichi"><img src="http://s7.addthis.com/static/btn/v2/lg-share-en.gif" width="125" height="16" alt="Bookmark and Share" style="border:0;float:<?php echo  _SALI ; ?>;"/></a><script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=tarabichi"></script>  
+    <input type='button' value='<?php echo  Back ; ?>' class='more_btn' onClick='history.back()'/>
 </div>
 

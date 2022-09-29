@@ -50,9 +50,9 @@ $i=0;?>
 <TABLE class="selectable" CELLSPACING="0" CELLPADDING="0" BORDER="0" WIDTH="100%" id="list">
 <thead>
 <tr>
-<th width="277"><?=print_AdminRecordHead("title", "Title", $sb, $so)?></th>
+<th width="277"><?php echo print_AdminRecordHead("title", "Title", $sb, $so); ?></th>
 <?if($_SESSION['USER'] == 2){?>
-	<th width="277"><?=print_AdminRecordHead("special", "special", $sb, $so)?></th>
+	<th width="277"><?php echo print_AdminRecordHead("special", "special", $sb, $so); ?></th>
 <?}?>
 <th colspan="4">Controls  </th>
 </tr>
@@ -65,9 +65,9 @@ $title= MYSQL_RESULT($result,$i,"title");
 $special= MYSQL_RESULT($result,$i,"special");
 ?>
 <TR>
-<TD><?=stripslashes($title)?></TD>
+<TD><?php echo stripslashes($title); ?></TD>
 <?if($_SESSION['USER'] == 2){?>
-	<td><a href="../includes/checkbox.php?t=resources&fn=special&idn=id&idv=<?=$id?>&fv=<?=!($special)?>" class="checkb" ><img src="<?=_PREF?>images/icons/_<?php echo $special?>_.png" border="0"  fv="<?=!($special)?>"/></a></td>
+	<td><a href="../includes/checkbox.php?t=resources&fn=special&idn=id&idv=<?php echo $id; ?>&fv=<?php echo !($special); ?>" class="checkb" ><img src="<?php echo _PREF; ?>images/icons/_<?php echo $special?>_.png" border="0"  fv="<?php echo !($special); ?>"/></a></td>
 <?}?>
 <TD align="center" WIDTH="42"><?=print_edit_icon("editResource.php?cat_id=$cat_id&id=".$id);?></TD>
 <TD align="center" WIDTH="42"><?=print_delete_icon("?id=".$id."&sub=del");?></TD>

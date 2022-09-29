@@ -17,7 +17,7 @@ $gal = $_SESSION['gal'];
 $(document).ready(function() {
 	$("#uploadify").uploadify({
 		'uploader'       : 'scripts/uploadify.swf',
-		'script'         : 'scripts/uploadify.php?gal=<?=$_REQUEST['gal']?>&creator_id=<?=$_REQUEST['creator_id']?>',
+		'script'         : 'scripts/uploadify.php?gal=<?php echo $_REQUEST['gal']; ?>&creator_id=<?php echo $_REQUEST['creator_id']; ?>',
 		'cancelImg'      : 'cancel.png',
 		'folder'         : '../../../uploads',
 		'queueID'        : 'fileQueue',

@@ -6,16 +6,16 @@ $dots='../../';
 <html xmlns="http://www.w3.org/1999/xhtml"  charset="utf-8">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <head>
-	<TITLE><?=$seo[title]?></TITLE>
-	<meta name="title" content="<?=$seo[title]?>">
-	<meta name="keywords" content="<?=$seo[keywords]?>">
-	<meta name="description" content="<?=$seo[description]?>">
-	<link rel="stylesheet" type="text/css" href='<?=_PREF?>css/main_<?=$pageLang?>.css'/>
-	<script type="text/javascript" src="<?=_PREF?>js/jquery-1.6.3.js"></script>
-	<script type="text/javascript" src="<?=_PREF?>modules/includes/jquery/jconfirmaction.jquery.js" ></script>
+	<TITLE><?php echo $seo[title]; ?></TITLE>
+	<meta name="title" content="<?php echo $seo[title]; ?>">
+	<meta name="keywords" content="<?php echo $seo[keywords]; ?>">
+	<meta name="description" content="<?php echo $seo[description]; ?>">
+	<link rel="stylesheet" type="text/css" href='<?php echo _PREF; ?>css/main_<?php echo $pageLang; ?>.css'/>
+	<script type="text/javascript" src="<?php echo _PREF; ?>js/jquery-1.6.3.js"></script>
+	<script type="text/javascript" src="<?php echo _PREF; ?>modules/includes/jquery/jconfirmaction.jquery.js" ></script>
 	<!--***********************************Wedgits************************************-->	
 	<!--********************************Wedgits fonts*********************************-->	
-	<link rel="stylesheet" type="text/css" href='<?=_PREF?>wedgits/fonts/GE_SS_Two_Light/stylesheet.css'/>	
+	<link rel="stylesheet" type="text/css" href='<?php echo _PREF; ?>wedgits/fonts/GE_SS_Two_Light/stylesheet.css'/>	
 	<?$page_name = getCurrentFormName();?>
 </head>
 
@@ -28,6 +28,6 @@ $dots='../../';
 		<?include($dots.'wedgits/preLoads/preLoads.php')?>
 		<?include($dots.'wedgits/header/index_header.php')?>
 		
-		<div class='page_path'><?=get_current_path()?></div>
+		<div class='page_path'><?php echo get_current_path(); ?></div>
 		<div class='site_inner_main_con'>
 			<?include($dots.'wedgits/left_menu/left_menu.php')?>

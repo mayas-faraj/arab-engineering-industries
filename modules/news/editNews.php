@@ -80,80 +80,80 @@ $special= MYSQL_RESULT($result,$i,"special");
 $creator_id= MYSQL_RESULT($result,$i,"creator_id");
 }?>
 
-<form name="subForm" method="post" action="<?=$_SERVER['PHP_SELF']?>" enctype="multipart/form-data">
-<input type="Hidden" name="id" size="20" value="<?=$id?>" />
+<form name="subForm" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>" enctype="multipart/form-data">
+<input type="Hidden" name="id" size="20" value="<?php echo $id; ?>" />
 <?
 ?>
 <table>
 <?if($_SESSION['USER'] == 2){?>
 	<tr>
-		<td align="<?=_ALI?>"><span class="field_title">Creator:</span></td>
+		<td align="<?php echo _ALI; ?>"><span class="field_title">Creator:</span></td>
 		<td width="5" class="required">*</td>
 		<td>
-			<?=createComboBoxFiltered("users" , "user_id", "full_name" , $creator_id , "creator_id", ' grp_id <> "3" ' ,"required");?>
+			<?php echo createComboBoxFiltered("users" , "user_id", "full_name" , $creator_id , "creator_id", ' grp_id <> "3" ' ,"required");; ?>
 		</td>
 	</tr>
 <?}?>
 <tr>
-<td align="<?=_ALI?>"><span class="field_title"><?=Subject?> (EN):</span></td>
+<td align="<?php echo _ALI; ?>"><span class="field_title"><?php echo Subject; ?> (EN):</span></td>
 <td width="5" class="required">*</td>
-<td><input type="Text" name="subject" size="20" value="<?=stripslashes($subject)?>" class="required" /></td>
+<td><input type="Text" name="subject" size="20" value="<?php echo stripslashes($subject); ?>" class="required" /></td>
 </tr>
 <tr>
-<td align="<?=_ALI?>"><span class="field_title"><?=Subject?> (AR):</span></td>
+<td align="<?php echo _ALI; ?>"><span class="field_title"><?php echo Subject; ?> (AR):</span></td>
 <td width="5" class="required">*</td>
-<td><input type="Text" name="subject_ar" size="20" value="<?=stripslashes($subject_ar)?>" class="required" /></td>
+<td><input type="Text" name="subject_ar" size="20" value="<?php echo stripslashes($subject_ar); ?>" class="required" /></td>
 </tr>
 
 <!--tr>
-	<td align="<?=_ALI?>"><span class="field_title"><?=Link?> :</span></td>
+	<td align="<?php echo _ALI; ?>"><span class="field_title"><?php echo Link; ?> :</span></td>
 	<td width="5" class="required">*</td>
-	<td><input type="Text" name="link" size="20" value="<?=stripslashes($link)?>" class="required" /></td>
+	<td><input type="Text" name="link" size="20" value="<?php echo stripslashes($link); ?>" class="required" /></td>
 </tr-->
 <?
 ?>
 <tr>
-<td align="<?=_ALI?>"><span class="field_title"> publish date :</span></td>
+<td align="<?php echo _ALI; ?>"><span class="field_title"> publish date :</span></td>
 <td width="5" class=""></td>
-<td><input type="Text" name="publish_date" size="20" value="<?=stripslashes($publish_date)?>" class=" dateF" /></td>
+<td><input type="Text" name="publish_date" size="20" value="<?php echo stripslashes($publish_date); ?>" class=" dateF" /></td>
 </tr>
 
 <tr>
-<td align="<?=_ALI?>" valign="top"><span class="field_title"><?=Brief?> (EN):</span></td>
+<td align="<?php echo _ALI; ?>" valign="top"><span class="field_title"><?php echo Brief; ?> (EN):</span></td>
 <td width="5" class=""></td>
-<td><textarea name="brief" rows='4' cols='140' class="" ><?=stripslashes($brief)?></textarea></td>
+<td><textarea name="brief" rows='4' cols='140' class="" ><?php echo stripslashes($brief); ?></textarea></td>
 </tr>
 
 <tr>
-<td align="<?=_ALI?>" valign="top"><span class="field_title"><?=Brief?> (AR):</span></td>
+<td align="<?php echo _ALI; ?>" valign="top"><span class="field_title"><?php echo Brief; ?> (AR):</span></td>
 <td width="5" class=""></td>
-<td><textarea name="brief_ar" rows='4' cols='140' class="" ><?=stripslashes($brief_ar)?></textarea></td>
+<td><textarea name="brief_ar" rows='4' cols='140' class="" ><?php echo stripslashes($brief_ar); ?></textarea></td>
 </tr>
 
 <tr>
-<td align="<?=_ALI?>" valign="top"><span class="field_title"><?=Details?> (EN):</span></td>
+<td align="<?php echo _ALI; ?>" valign="top"><span class="field_title"><?php echo Details; ?> (EN):</span></td>
 <td width="5" class=""></td>
-<td><textarea name="details" cols="50" rows="4" class="mceEditor" ><?=stripslashes($details)?></textarea></td>
+<td><textarea name="details" cols="50" rows="4" class="mceEditor" ><?php echo stripslashes($details); ?></textarea></td>
 </tr>
 
 <tr>
-<td align="<?=_ALI?>" valign="top"><span class="field_title"><?=Details?> (AR):</span></td>
+<td align="<?php echo _ALI; ?>" valign="top"><span class="field_title"><?php echo Details; ?> (AR):</span></td>
 <td width="5" class=""></td>
-<td><textarea name="details_ar" cols="50" rows="4" class="mceEditor" ><?=stripslashes($details_ar)?></textarea></td>
+<td><textarea name="details_ar" cols="50" rows="4" class="mceEditor" ><?php echo stripslashes($details_ar); ?></textarea></td>
 </tr>
 
 <tr>
-<td align="<?=_ALI?>"><span class="field_title"><?=Active?>:</span></td><td width="5" class=""></td>
+<td align="<?php echo _ALI; ?>"><span class="field_title"><?php echo Active; ?>:</span></td><td width="5" class=""></td>
 <TD><input type="Checkbox" name="active" size="20" value="1" <?php echo ($active)? "checked" : ""?>  /></TD>
 </tr>
 
 <!--tr>
-	<td align="<?=_ALI?>"><span class="field_title"><?=Special?>:</span></td><td width="5" class=""></td>
+	<td align="<?php echo _ALI; ?>"><span class="field_title"><?php echo Special; ?>:</span></td><td width="5" class=""></td>
 	<TD><input type="Checkbox" name="special" size="20" value="1" <?php echo ($special)? "checked" : ""?>  /></TD>
 </tr-->
 
 <tr>
-	<td align="<?=_ALI?>" valign="top"><span class="field_title">Gallery:</span></td>
+	<td align="<?php echo _ALI; ?>" valign="top"><span class="field_title">Gallery:</span></td>
 	<td width="5" class="" valign="top"></td>
 	<td><?php echo galleryComboBox($gallery, "gallery");?> &nbsp; &nbsp; Minimum photo size: 220px x 130px</td>
 </tr>
@@ -164,7 +164,7 @@ $creator_id= MYSQL_RESULT($result,$i,"creator_id");
 <input name="sub" type="submit" id="sub" value="Save">
 <?
 ?>
-<input name="sub2" type="button" id="sub2" value="<?=Back?>" onClick=" document.location='listNews.php?<?=$url?>'">
+<input name="sub2" type="button" id="sub2" value="<?php echo Back; ?>" onClick=" document.location='listNews.php?<?php echo $url; ?>'">
 </form><?
 }
 include_once("../common/footer-admin.php"); ?>

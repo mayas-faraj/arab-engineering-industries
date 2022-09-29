@@ -36,17 +36,17 @@ $pie_data = trim($pie_data,",");
 <br/>
 <div class="filtering">
 <form method='get' action=''>
-Show Report From:<input type="text" name="from" size="20" value="<?=$_REQUEST['from']?>" class="dateF" >&nbsp;&nbsp;To:<input type="text" name="to" size="20" value="<?=$_REQUEST['to']?>" class="dateF" >&nbsp;<input style='width:35px' type="submit" name="sub" value="Go">
+Show Report From:<input type="text" name="from" size="20" value="<?php echo $_REQUEST['from']; ?>" class="dateF" >&nbsp;&nbsp;To:<input type="text" name="to" size="20" value="<?php echo $_REQUEST['to']; ?>" class="dateF" >&nbsp;<input style='width:35px' type="submit" name="sub" value="Go">
 </form></div>
 <br/><br/><br/><br/>
 <div id="graph" >Loading...</div>
 
 
 <script type="text/javascript">
-	var myData = new Array(<?=$pie_data?>);
+	var myData = new Array(<?php echo $pie_data; ?>);
 	var myChart = new JSChart('graph', 'line');
 	myChart.setDataArray(myData);
-	myChart.setTitle('<?=$_REQUEST['filename']?>');
+	myChart.setTitle('<?php echo $_REQUEST['filename']; ?>');
 	myChart.setTitleColor('#8E8E8E');
 	myChart.setTitleFontSize(11);
 	myChart.setAxisNameX('');

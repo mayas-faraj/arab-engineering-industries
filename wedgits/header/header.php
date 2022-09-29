@@ -1,4 +1,4 @@
-<link rel="stylesheet" type="text/css" href='<?=_PREF?>wedgits/header/header_<?=$pageLang?>.css'/>
+<link rel="stylesheet" type="text/css" href='<?php echo _PREF; ?>wedgits/header/header_<?php echo $pageLang; ?>.css'/>
 	<div id="header">
 		<div id="header_logo"></div>
 		<div id="header_items">

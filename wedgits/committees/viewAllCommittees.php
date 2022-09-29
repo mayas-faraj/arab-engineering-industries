@@ -1,4 +1,4 @@
-<link rel="stylesheet" type="text/css" href='<?=_PREF?>wedgits/committees/committees_<?=$pageLang?>.css'/>	
+<link rel="stylesheet" type="text/css" href='<?php echo _PREF; ?>wedgits/committees/committees_<?php echo $pageLang; ?>.css'/>	
 <?
 if($pageLang=='en'){
 	$id = 2;
@@ -22,7 +22,7 @@ $result = MYSQL_QUERY($sql);
 $numberOfRows = MYSQL_NUMROWS($result);
 ?>
 <div class='page_content'>
-<div class='title2'><?=Committees?></div>
+<div class='title2'><?php echo Committees; ?></div>
 <?
 if ($numberOfRows>0) {
 	$i=0;

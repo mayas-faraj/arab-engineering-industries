@@ -2,12 +2,12 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 <HTML>
 <HEAD>
-<TITLE><?=$seo[title]?></TITLE>
+<TITLE><?php echo $seo[title]; ?></TITLE>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<meta name="title" content="<?=$seo[title]?>">
-<meta name="keywords" content="<?=$seo[keywords]?>">
-<meta name="description" content="<?=$seo[description]?>">
-<link rel="stylesheet" type="text/css"  href="../includes/css/style_<?=$pageLang?>.css">
+<meta name="title" content="<?php echo $seo[title]; ?>">
+<meta name="keywords" content="<?php echo $seo[keywords]; ?>">
+<meta name="description" content="<?php echo $seo[description]; ?>">
+<link rel="stylesheet" type="text/css"  href="../includes/css/style_<?php echo $pageLang; ?>.css">
 <link type="text/css" rel="stylesheet" href="../includes/jquery/smoothness/jquery-ui.css"/>	
 <script type="text/javascript" src="../includes/configView.js"></script>
 <script type="text/javascript" src="../includes/jquery/jquery.min.js"></script>

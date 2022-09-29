@@ -52,75 +52,75 @@ if((!$sub) || (!$result)){
         $link= MYSQL_RESULT($result,$i,"link");
         $lang= MYSQL_RESULT($result,$i,"lang");
 	}?>
-    <form name="subForm" method="post" action="<?=$_SERVER['PHP_SELF']?>" enctype="multipart/form-data">
-    <input type="Hidden" name="id" size="20" value="<?=$id?>" />
+    <form name="subForm" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>" enctype="multipart/form-data">
+    <input type="Hidden" name="id" size="20" value="<?php echo $id; ?>" />
 
     <table>
 		<!---------------------------------------------------------------------------------->
 		<tr>
-			<td align="<?=_ALI?>"><span class="field_title"><?=Subject?> (EN):</span></td><td width="5" class="required">*</td>
-			<td><input type="Text" name="subject" size="20" value="<?=stripslashes($subject)?>" class="required" /></td>
+			<td align="<?php echo _ALI; ?>"><span class="field_title"><?php echo Subject; ?> (EN):</span></td><td width="5" class="required">*</td>
+			<td><input type="Text" name="subject" size="20" value="<?php echo stripslashes($subject); ?>" class="required" /></td>
 		</tr>
 		
 		<tr>
-			<td align="<?=_ALI?>"><span class="field_title"><?=Subject?> (AR):</span></td><td width="5" class="required">*</td>
-			<td><input type="Text" name="subject_ar" size="20" value="<?=stripslashes($subject_ar)?>" class="required" /></td>
+			<td align="<?php echo _ALI; ?>"><span class="field_title"><?php echo Subject; ?> (AR):</span></td><td width="5" class="required">*</td>
+			<td><input type="Text" name="subject_ar" size="20" value="<?php echo stripslashes($subject_ar); ?>" class="required" /></td>
 		</tr>
 		<!---------------------------------------------------------------------------------->
 		<tr>
-			<td valign="top" align="<?=_ALI?>"><span class="field_title">Start date:</span></td><td width="5" class="required">*</td>
-			<td><input type="Text" name="publish_date" size="20" value="<?=stripslashes($publish_date)?>" class="required dateF" /></td>
+			<td valign="top" align="<?php echo _ALI; ?>"><span class="field_title">Start date:</span></td><td width="5" class="required">*</td>
+			<td><input type="Text" name="publish_date" size="20" value="<?php echo stripslashes($publish_date); ?>" class="required dateF" /></td>
 		</tr>
 		<!---------------------------------------------------------------------------------->
 		<tr>
-			<td align="<?=_ALI?>"><span class="field_title">Link:</span></td>
+			<td align="<?php echo _ALI; ?>"><span class="field_title">Link:</span></td>
 			<td width="5" class=""></td>
-			<td><input type="Text" name="link" size="20" value="<?=stripslashes($link)?>" class=" " /></td>
+			<td><input type="Text" name="link" size="20" value="<?php echo stripslashes($link); ?>" class=" " /></td>
 		</tr>
 		<!---------------------------------------------------------------------------------->
 		<!--tr>
-			<td valign="top" align="<?=_ALI?>"><span class="field_title">End date:</span></td><td width="5" class="required">*</td>
-			<td><input type="Text" name="end_date" size="20" value="<?=stripslashes($end_date)?>" class="required dateF" /></td>
+			<td valign="top" align="<?php echo _ALI; ?>"><span class="field_title">End date:</span></td><td width="5" class="required">*</td>
+			<td><input type="Text" name="end_date" size="20" value="<?php echo stripslashes($end_date); ?>" class="required dateF" /></td>
 		</tr-->
 		<!---------------------------------------------------------------------------------->
 		<tr>
-			<td align="<?=_ALI?>" valign="top"><span class="field_title"><?=Brief?> (EN):</span></td>
+			<td align="<?php echo _ALI; ?>" valign="top"><span class="field_title"><?php echo Brief; ?> (EN):</span></td>
 			<td width="5" class=""></td>
-			<td><textarea name="brief" rows='4' cols='140' class="" ><?=stripslashes($brief)?></textarea></td>
+			<td><textarea name="brief" rows='4' cols='140' class="" ><?php echo stripslashes($brief); ?></textarea></td>
 		</tr>
 		
 		<tr>
-			<td align="<?=_ALI?>" valign="top"><span class="field_title"><?=Brief?> (AR):</span></td>
+			<td align="<?php echo _ALI; ?>" valign="top"><span class="field_title"><?php echo Brief; ?> (AR):</span></td>
 			<td width="5" class=""></td>
-			<td><textarea name="brief_ar" rows='4' cols='140' class="" ><?=stripslashes($brief_ar)?></textarea></td>
+			<td><textarea name="brief_ar" rows='4' cols='140' class="" ><?php echo stripslashes($brief_ar); ?></textarea></td>
 		</tr>
 		<!---------------------------------------------------------------------------------->
 		<!--tr>
-			<td valign="top" align="<?=_ALI?>"><span class="field_title"><?=Details?> :</span></td><td width="5" class="required"></td>
-			<td><textarea name="details" class="mceEditor" ><?=stripslashes($details)?></textarea></td>
+			<td valign="top" align="<?php echo _ALI; ?>"><span class="field_title"><?php echo Details; ?> :</span></td><td width="5" class="required"></td>
+			<td><textarea name="details" class="mceEditor" ><?php echo stripslashes($details); ?></textarea></td>
 		</tr-->
 		<!---------------------------------------------------------------------------------->
 		<!--tr>
-			<td align="<?=_ALI?>"><span class="field_title"><?=Active?>:</span></td>
+			<td align="<?php echo _ALI; ?>"><span class="field_title"><?php echo Active; ?>:</span></td>
 			<td width="5" class=""></td>
 			<TD><input type="Checkbox" name="active" size="20" value="1" <?php echo ($active)? "checked" : ""?>  /></TD>
 		</tr-->
 		<!---------------------------------------------------------------------------------->
 		<!--tr>
-			<td align="<?=_ALI?>"><span class="field_title">Event type:</span></td>
+			<td align="<?php echo _ALI; ?>"><span class="field_title">Event type:</span></td>
 			<td width="5" class=""></td>
-			<TD><?=createComboBox("events_type" , "id", "type" , $event_type , "event_type", "required");?></TD>
+			<TD><?php echo createComboBox("events_type" , "id", "type" , $event_type , "event_type", "required");; ?></TD>
 		</tr-->
 		<!---------------------------------------------------------------------------------->
 		<!--tr>
-			<td align="<?=_ALI?>"><span class="field_title">Language:</span></td>
+			<td align="<?php echo _ALI; ?>"><span class="field_title">Language:</span></td>
 			<td width="5" class=""></td>
-			<TD><?=createComboBox("languages" , "lang", "lang_name" , $lang , "lang", "required");?></TD>
+			<TD><?php echo createComboBox("languages" , "lang", "lang_name" , $lang , "lang", "required");; ?></TD>
 		</tr-->
 		<!---------------------------------------------------------------------------------->
 	</table>
 	<input name="sub" type="submit" id="sub" value="Save">
-    <input name="sub2" type="button" id="sub2" value="<?=Back?>" onClick=" document.location='listEvents.php?cat_id=<?=$cat_id?>'">
+    <input name="sub2" type="button" id="sub2" value="<?php echo Back; ?>" onClick=" document.location='listEvents.php?cat_id=<?php echo $cat_id; ?>'">
     </form><?  
 }
 include_once("../common/footer-admin.php"); ?>

@@ -1,5 +1,5 @@
-<link rel="stylesheet" type="text/css" href='<?=_PREF?>wedgits/highlight/highlight_<?=$pageLang?>.css'/>	
-<script type="text/javascript" src="<?=_PREF?>wedgits/highlight/highlight.js"></script>
+<link rel="stylesheet" type="text/css" href='<?php echo _PREF; ?>wedgits/highlight/highlight_<?php echo $pageLang; ?>.css'/>	
+<script type="text/javascript" src="<?php echo _PREF; ?>wedgits/highlight/highlight.js"></script>
  
 	
 <?
@@ -104,7 +104,7 @@ if($numrows> 3 OR $numrows ==3){
 }
 
 ?>
-	<div class='temp_data'><?=$temps?></div>
+	<div class='temp_data'><?php echo $temps; ?></div>
 	<div class="highlight" >
 		<div class='high_nav_con'>
 			<div class="highlight_nav" >
@@ -128,20 +128,20 @@ if($numrows> 3 OR $numrows ==3){
 				<div class='nav'>
 					<?
 						if($numrows>2){?>
-							<img class='go_up' onClick='switch_highlight(<?=$item_num?>,"prev")' src='<?=_PREF?>wedgits/highlight/left_arrow_<?=$pageLang?>.png'/>
-							<span class='high_nums'><span class='curr_high'>2</span> <?=of?> <?=$item_num?></span>
-							<img class='go_down' onClick='switch_highlight(<?=$item_num?>,"next")' src='<?=_PREF?>wedgits/highlight/right_arrow_<?=$pageLang?>.png'/>
+							<img class='go_up' onClick='switch_highlight(<?php echo $item_num; ?>,"prev")' src='<?php echo _PREF; ?>wedgits/highlight/left_arrow_<?php echo $pageLang; ?>.png'/>
+							<span class='high_nums'><span class='curr_high'>2</span> <?php echo of; ?> <?php echo $item_num; ?></span>
+							<img class='go_down' onClick='switch_highlight(<?php echo $item_num; ?>,"next")' src='<?php echo _PREF; ?>wedgits/highlight/right_arrow_<?php echo $pageLang; ?>.png'/>
 						<?}elseif($numrows==2){?>
-							<img class='go_up' onClick='switch_highlights(<?=$item_num?>,"prev")' src='<?=_PREF?>wedgits/highlight/left_arrow_<?=$pageLang?>.png'/>
-							<span class='high_nums'><span class='curr_high'>2</span> <?=of?> <?=$item_num?></span>
-							<img class='go_down' onClick='switch_highlights(<?=$item_num?>,"next")' src='<?=_PREF?>wedgits/highlight/right_arrow_<?=$pageLang?>.png'/>
+							<img class='go_up' onClick='switch_highlights(<?php echo $item_num; ?>,"prev")' src='<?php echo _PREF; ?>wedgits/highlight/left_arrow_<?php echo $pageLang; ?>.png'/>
+							<span class='high_nums'><span class='curr_high'>2</span> <?php echo of; ?> <?php echo $item_num; ?></span>
+							<img class='go_down' onClick='switch_highlights(<?php echo $item_num; ?>,"next")' src='<?php echo _PREF; ?>wedgits/highlight/right_arrow_<?php echo $pageLang; ?>.png'/>
 						<?}?>
 					
 				</div>
 			</div>
 		</div>
 		<div class='desc_con'>
-			<?=$contents?>
+			<?php echo $contents; ?>
 		</div>
 		
 	</div>
@@ -150,9 +150,9 @@ if($numrows> 3 OR $numrows ==3){
 	
 	<?if($numrows>2){?>
 		<script>
-			count = <?=(73*$numrows)*10-73?>;
-			curr_count = <?=(10*$numrows)?>;
-			total_count = <?=(10*$numrows)?>;
+			count = <?php echo (73*$numrows)*10-73; ?>;
+			curr_count = <?php echo (10*$numrows); ?>;
+			total_count = <?php echo (10*$numrows); ?>;
 			
 			$('documents').ready(function(){
 				$('.nav_buttons').css('top',-count+'px');
@@ -161,9 +161,9 @@ if($numrows> 3 OR $numrows ==3){
 		<? echo"<script>var timer_news = setTimeout('switch_highlight($numrows,\"next\")',7000);</script>"?>
 	<?}elseif($numrows==2){?>
 		<script>
-			count = <?=(73*$numrows)*10-73?>;
-			curr_count = <?=(10*$numrows)?>;
-			total_count = <?=(10*$numrows)?>;
+			count = <?php echo (73*$numrows)*10-73; ?>;
+			curr_count = <?php echo (10*$numrows); ?>;
+			total_count = <?php echo (10*$numrows); ?>;
 			$('documents').ready(function(){
 				$('.nav_buttons').css('top','73px');
 			});

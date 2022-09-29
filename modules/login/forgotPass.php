@@ -56,7 +56,7 @@ else
 	
     <tr bordercolor="#3F71A4" align="center" > 
       <td colspan="2">	 
-<input type="button" name="cancel" value="<?=GoBack?>" onClick="javascript:window.location='../../index.php';">
+<input type="button" name="cancel" value="<?php echo GoBack; ?>" onClick="javascript:window.location='../../index.php';">
 <input type="submit" class="submit" value="Get New Password" name="action">  </td>
      </tr>
   </table>

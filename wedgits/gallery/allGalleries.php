@@ -1,9 +1,9 @@
-<link rel="stylesheet" type="text/css" href='<?=_PREF?>wedgits/gallery/gallery_<?=$pageLang?>.css'/>	
+<link rel="stylesheet" type="text/css" href='<?php echo _PREF; ?>wedgits/gallery/gallery_<?php echo $pageLang; ?>.css'/>	
 
 
 
-<div class="page_content" dir='<?=_DIR?>'>
-<div class='title2'><?=Galleries?></div>
+<div class="page_content" dir='<?php echo _DIR; ?>'>
+<div class='title2'><?php echo Galleries; ?></div>
 
 <?
 $sql='SELECT * FROM `galleries_galleries` where isGallery="1"';

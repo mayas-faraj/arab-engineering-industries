@@ -50,24 +50,24 @@ if($action){
 	}
 }// Insert record
 ?>
-<form method='post' name='main' action='<?= $_SERVER['PHP_SELF']?>' enctype='multipart/form-data' onsubmit='return formValidator()'>
+<form method='post' name='main' action='<?php echo  $_SERVER['PHP_SELF']; ?>' enctype='multipart/form-data' onsubmit='return formValidator()'>
     <div style="height:340px; margin-top:20px">    
         <div style="float:left">
         <div>Gallery Name (EN): </div>
-            <div><input type="text" name="gallery_name_en" class="inputText" value="<?=$gallery_name_en?>"/></div>
+            <div><input type="text" name="gallery_name_en" class="inputText" value="<?php echo $gallery_name_en; ?>"/></div>
             <div style="margin-top:10px">Gallery Description (EN): </div>
-            <div><textarea name="description_en" class="inputTextarea"><?=$description_en?></textarea></div>
+            <div><textarea name="description_en" class="inputTextarea"><?php echo $description_en; ?></textarea></div>
         </div>
         
         <div style="float:left; margin-left:25px;">
             <div>Gallery Name (AR):</div> 
-            <div><input type="text" name="gallery_name_ar" class="inputText"  value="<?=$gallery_name_ar?>"/></div>
+            <div><input type="text" name="gallery_name_ar" class="inputText"  value="<?php echo $gallery_name_ar; ?>"/></div>
             <div style="margin-top:10px">Gallery Description (AR):</div>
-            <div><textarea name="description_ar" class="inputTextarea"><?=$description_ar?></textarea></div>
+            <div><textarea name="description_ar" class="inputTextarea"><?php echo $description_ar; ?></textarea></div>
         </div>    
     </div>
 	<input type="submit" value="Next" name="sub" class="next" />
-    <input type="hidden" value="<?=$gid?>" name="gid" />
+    <input type="hidden" value="<?php echo $gid; ?>" name="gid" />
 </form>
 
 <?

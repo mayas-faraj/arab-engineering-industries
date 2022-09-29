@@ -16,7 +16,7 @@ $m_id = $_SESSION['m_id'];?>
 $(document).ready(function() {
 	$("#uploadify").uploadify({
 		'uploader'       : '../includes/gallery/scripts/uploadify.swf',
-		'script'         : '../includes/gallery/scripts/upload_magazin.php?m_id=<?=$m_id?>',
+		'script'         : '../includes/gallery/scripts/upload_magazin.php?m_id=<?php echo $m_id; ?>',
 		'cancelImg'      : '../includes/gallery/cancel.png',
 		'folder'         : '../../forms/Magazin/uploads',
 		'queueID'        : 'fileQueue',

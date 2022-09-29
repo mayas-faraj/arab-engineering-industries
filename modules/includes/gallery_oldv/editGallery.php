@@ -53,7 +53,7 @@ $(function (){
 					buttons: {
 						"Close": function() { 
 							$(this).dialog("close"); 
-							$("#gallery_admin").load("browse.php?gid=<?=$gid?>&ph=<?=$photos?>&mph=<?=$main_photo?>"); 
+							$("#gallery_admin").load("browse.php?gid=<?php echo $gid; ?>&ph=<?php echo $photos; ?>&mph=<?php echo $main_photo; ?>"); 
 						}
 					}
 				});
@@ -63,10 +63,10 @@ $(function (){
 		return false;
 	});
 });
-	$("#gallery_admin").load("browse.php?gid=<?=$gid?>&$ph=<?=$photos?>&mph=<?=$main_photo?>");
+	$("#gallery_admin").load("browse.php?gid=<?php echo $gid; ?>&$ph=<?php echo $photos; ?>&mph=<?php echo $main_photo; ?>");
 });
 function showGallery(all){
-	$("#gallery_admin").load("browse.php?all="+all+"&gid=<?=$gid?>&ph=<?=$photos?>&mph=<?=$main_photo?>");
+	$("#gallery_admin").load("browse.php?all="+all+"&gid=<?php echo $gid; ?>&ph=<?php echo $photos; ?>&mph=<?php echo $main_photo; ?>");
 }
 </script>
 </head>
@@ -103,29 +103,29 @@ if($action){
 	}
 }
 ?>
-<form method='post' name='main' action='<?= $_SERVER['PHP_SELF']?>' enctype='multipart/form-data' onsubmit='return formValidator()'>
-   <!-- 1- Please write the new Gallery name: (EN)<input name="gallery_name" type="text" value="<?=$gallery_name?>"  /> (AR)<input name="gallery_name_ar" type="text" value="<?=$gallery_name_ar?>"  /> <br />-->
+<form method='post' name='main' action='<?php echo  $_SERVER['PHP_SELF']; ?>' enctype='multipart/form-data' onsubmit='return formValidator()'>
+   <!-- 1- Please write the new Gallery name: (EN)<input name="gallery_name" type="text" value="<?php echo $gallery_name; ?>"  /> (AR)<input name="gallery_name_ar" type="text" value="<?php echo $gallery_name_ar; ?>"  /> <br />-->
 	<table>
 		<tr>
 			<td colspan='2'>1- Please write the new Gallery:</td>
 		</tr>
 		<tr>
 			<td>Name: (EN)</td>
-			<td><input type="text" name="gallery_name" value='<?=$gallery_name?>' /></td>
+			<td><input type="text" name="gallery_name" value='<?php echo $gallery_name; ?>' /></td>
 		</tr>
 		<tr>
 			<td>Name: (AR)</td>
-			<td><input type="text" name="gallery_name_ar" value='<?=$gallery_name_ar?>' /></td>
+			<td><input type="text" name="gallery_name_ar" value='<?php echo $gallery_name_ar; ?>' /></td>
 		</tr>
 		<tr>
 			<td>folder path: uploads/</td>
-			<td><input type="text" name="folder" value='<?=$folder?>' /></td>
+			<td><input type="text" name="folder" value='<?php echo $folder; ?>' /></td>
 		</tr>
 		
 	<?if($_SESSION['USER'] == 2){?>
 		<tr>
 			<td>Creator:</td>
-			<td><?=createComboBoxFiltered("users" , "user_id", "full_name" , $creator_id , "creator_id", ' grp_id <> "3" ' ,"required");?></td>
+			<td><?php echo createComboBoxFiltered("users" , "user_id", "full_name" , $creator_id , "creator_id", ' grp_id <> "3" ' ,"required");; ?></td>
 		</tr>
 	<?}?>
 		
@@ -133,13 +133,13 @@ if($action){
 	
     2- Select from the following images to add to this gallery or upload another photos by clicking
 	
-    <a href="index.php?creator_id=<?=$_SESSION['USER']?>&gal=<?=$gid?>" class="popup"> here </a>
+    <a href="index.php?creator_id=<?php echo $_SESSION['USER']; ?>&gal=<?php echo $gid; ?>" class="popup"> here </a>
 	<br/>  <a href="#" onclick="showGallery(0)"> show Gallery</a> &nbsp;&nbsp;&nbsp;&nbsp;<a href="#" onclick="showGallery(1)"> show all</a>
     <div id="gallery_admin" style="width:100%; height:400px; overflow:auto"></div>
     3- click the save buttom <input type="submit" value="Save" name="sub" />
-    <input type="hidden" value="<?=$gid?>" name="gid" />
-    <input type="hidden" value="<?=$gid?>" name="gid" />
-	<input type="hidden" value="<?=$_REQUEST['n']?>" name="n" />
+    <input type="hidden" value="<?php echo $gid; ?>" name="gid" />
+    <input type="hidden" value="<?php echo $gid; ?>" name="gid" />
+	<input type="hidden" value="<?php echo $_REQUEST['n']; ?>" name="n" />
 </form>
 <script>
 function formValidator(){

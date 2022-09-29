@@ -1,6 +1,6 @@
-<link rel="stylesheet" type="text/css" href='<?=_PREF?>wedgits/members/members_<?=$pageLang?>.css'/>
-<div class="page_content" dir='<?=_DIR?>'>
-	<div class="title2"><?=MEMBERS?></div>
+<link rel="stylesheet" type="text/css" href='<?php echo _PREF; ?>wedgits/members/members_<?php echo $pageLang; ?>.css'/>
+<div class="page_content" dir='<?php echo _DIR; ?>'>
+	<div class="title2"><?php echo MEMBERS; ?></div>
 	<?
 	$pn = 0;
 	if(cleanString($_REQUEST['pn']))	$pn = cleanString($_REQUEST['pn']);
@@ -58,12 +58,12 @@
 			?>
 			
 			
-				<tr onClick='document.location="viewMember.php?id=<?=$id?>"'>
-					<td class='art_title' align="<?=_SALI?>"><?=$name?></td>
+				<tr onClick='document.location="viewMember.php?id=<?php echo $id; ?>"'>
+					<td class='art_title' align="<?php echo _SALI; ?>"><?php echo $name; ?></td>
 					
-					<td class='art_autor'><?=$specialization?></td>
+					<td class='art_autor'><?php echo $specialization; ?></td>
 					
-					<td class='art_date' ><?=lookupField("country", "id", "country_".$pageLang, $country)?></td>
+					<td class='art_date' ><?php echo lookupField("country", "id", "country_".$pageLang, $country); ?></td>
 					
 				</tr>
 			

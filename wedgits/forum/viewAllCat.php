@@ -1,10 +1,10 @@
 <?if(!$_SESSION["us_id"]){echo"<script>document.location='"._PREF."index.php'</script>";exit();} 
 
 ?>	
-<link rel="stylesheet" type="text/css" href='<?=_PREF?>wedgits/forum/articles_<?=$pageLang?>.css'/>
+<link rel="stylesheet" type="text/css" href='<?php echo _PREF; ?>wedgits/forum/articles_<?php echo $pageLang; ?>.css'/>
 <div class= "page_content">
 	<?$user_name = lookupField('users','user_id','full_name',cleanString($_SESSION["us_id"]));?>
-	<div class="title2"><?=Topics?> <span><?echo Welcome.' <font><a href="myPage.php?mem_id='.cleanString($_SESSION["us_id"]).'&cat_id='.cleanString($_REQUEST['cat_id']).'">'.$user_name.'</a></font></font>'?></span></div>
+	<div class="title2"><?php echo Topics; ?> <span><?echo Welcome.' <font><a href="myPage.php?mem_id='.cleanString($_SESSION["us_id"]).'&cat_id='.cleanString($_REQUEST['cat_id']).'">'.$user_name.'</a></font></font>'?></span></div>
 
 	
 <?
@@ -41,10 +41,10 @@
 			}
 			?>
 				<tr>
-					<td ><a href="<?=_PREF?>view/forum/viewAllArticles.php?cat_id=<?=$id?>"> <?=$name?></a></td>
-					<td ><?=$create_date?></td>
-					<td><?=$grp_admin?></td>
-					<td width='100px' align='center'><a class='forum_admin' href='viewAllForumMembers.php?id=<?=$id?>'><img src='../../wedgits/forum/members_ico.png'/></a></td>
+					<td ><a href="<?php echo _PREF; ?>view/forum/viewAllArticles.php?cat_id=<?php echo $id; ?>"> <?php echo $name; ?></a></td>
+					<td ><?php echo $create_date; ?></td>
+					<td><?php echo $grp_admin; ?></td>
+					<td width='100px' align='center'><a class='forum_admin' href='viewAllForumMembers.php?id=<?php echo $id; ?>'><img src='../../wedgits/forum/members_ico.png'/></a></td>
 				</tr>
 			<?
 			$i++;

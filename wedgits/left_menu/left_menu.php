@@ -1,4 +1,4 @@
-<link rel="stylesheet" type="text/css" href='<?=_PREF?>wedgits/left_menu/left_menu_<?=$pageLang?>.css'/>
+<link rel="stylesheet" type="text/css" href='<?php echo _PREF; ?>wedgits/left_menu/left_menu_<?php echo $pageLang; ?>.css'/>
 <div class='left_menu'>
 	<?include('../../wedgits/left_menu_items/left_menu_items.php')?>
 <?if($page_name == "viewAllMembers"){?>

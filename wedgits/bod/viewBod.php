@@ -1,5 +1,5 @@
-<link rel="stylesheet" type="text/css" href='<?=_PREF?>wedgits/bod/bod_<?=$pageLang?>.css'/>	
-<div class="page_content" dir='<?=_DIR?>'>
+<link rel="stylesheet" type="text/css" href='<?php echo _PREF; ?>wedgits/bod/bod_<?php echo $pageLang; ?>.css'/>	
+<div class="page_content" dir='<?php echo _DIR; ?>'>
 
 	<?
 $photo_path ="../../uploads/";
@@ -45,15 +45,15 @@ if ($numrows>0) {
 		?>
 	
 	
-		<div class="bod_img"><img src=<?=$src?> /></div>
+		<div class="bod_img"><img src=<?php echo $src; ?> /></div>
 		
 		<table class="mem_info">
-			<tr><td colspan='3'><div class="title2"><?=$name?></div></td></tr>
-			<tr><td class='bod_lb' valign="top"><?=Company?>: </td><td colspan='2'><?=$company?></td></tr>
-			<tr><td class='bod_lb fixed_h' width="60px"  valign="top"><span><?=Position?>: </span></td><td width="230px"><span><?=$position?></span></td>
+			<tr><td colspan='3'><div class="title2"><?php echo $name; ?></div></td></tr>
+			<tr><td class='bod_lb' valign="top"><?php echo Company; ?>: </td><td colspan='2'><?php echo $company; ?></td></tr>
+			<tr><td class='bod_lb fixed_h' width="60px"  valign="top"><span><?php echo Position; ?>: </span></td><td width="230px"><span><?php echo $position; ?></span></td>
 				<td rowspan="7" valign="top">
 				<table class="term_block"><tr><td valign="top">	
-				<h2><?=TERMS?></h2>
+				<h2><?php echo TERMS; ?></h2>
 				<?
 					$sql =  "SELECT * FROM  terms t, term_members tm where tm.term_id=t.id AND tm.member_id='$id' ORDER BY t.id DESC";
 					$result = MYSQL_QUERY($sql);
@@ -73,13 +73,13 @@ if ($numrows>0) {
 				</td></tr></table>
 				</td>
 			</tr>
-			<tr><td class='bod_lb fixed_h' valign="top"><?=Country?>: </td><td><?=$country?></td></tr>
+			<tr><td class='bod_lb fixed_h' valign="top"><?php echo Country; ?>: </td><td><?php echo $country; ?></td></tr>
 			
-			<?if($tel){?><tr><td class='bod_lb fixed_h'  valign="top"><?=Phone?>: </td><td  dir='ltr'><span dir='ltr'><?=$tel?></span></td></tr><?}?>
-			<?if($fax){?><tr><td class='bod_lb fixed_h'  valign="top"><?=Fax?>: </td><td  dir='ltr'><span dir='ltr'><?=$fax?></span></td></tr><?}?>
-			<?if($email){?><tr><td class='bod_lb fixed_h'  valign="top"><?=E_mail?>: </td><td><?=$email?></td></tr><?}?>
-			<?if($website){?><tr><td class='bod_lb fixed_h'  valign="top"><?=Website?>: </td><td><a href='<?='http://'.str_replace('http://','',$website)?>' target=''><?=$website?></a></td></tr><?}?>
-			<?if($address){?><tr><td class='bod_lb'  valign="top"><span><?=Address?>: </span></td><td colspan='2' align='<?=_SALI?>'><span><?=$address?></span></td></tr><?}?>
+			<?if($tel){?><tr><td class='bod_lb fixed_h'  valign="top"><?php echo Phone; ?>: </td><td  dir='ltr'><span dir='ltr'><?php echo $tel; ?></span></td></tr><?}?>
+			<?if($fax){?><tr><td class='bod_lb fixed_h'  valign="top"><?php echo Fax; ?>: </td><td  dir='ltr'><span dir='ltr'><?php echo $fax; ?></span></td></tr><?}?>
+			<?if($email){?><tr><td class='bod_lb fixed_h'  valign="top"><?php echo E_mail; ?>: </td><td><?php echo $email; ?></td></tr><?}?>
+			<?if($website){?><tr><td class='bod_lb fixed_h'  valign="top"><?php echo Website; ?>: </td><td><a href='<?php echo 'http://'.str_replace('http://','',$website); ?>' target=''><?php echo $website; ?></a></td></tr><?}?>
+			<?if($address){?><tr><td class='bod_lb'  valign="top"><span><?php echo Address; ?>: </span></td><td colspan='2' align='<?php echo _SALI; ?>'><span><?php echo $address; ?></span></td></tr><?}?>
 			<tr><td class='bod_lb'  valign="top" colspan="2"></td></tr>
 		</table>
 		
@@ -104,5 +104,5 @@ if ($numrows>0) {
 
 ?>                                                   
                             
-<input type='button' value='<?=Back?>' class='more_btn' onClick='history.back()'/>
+<input type='button' value='<?php echo Back; ?>' class='more_btn' onClick='history.back()'/>
 </div>

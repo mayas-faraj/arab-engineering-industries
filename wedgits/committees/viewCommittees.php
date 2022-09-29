@@ -1,7 +1,7 @@
-<link rel="stylesheet" type="text/css" href='<?=_PREF?>wedgits/committees/committees_<?=$pageLang?>.css'/>	
-<link rel="stylesheet" type="text/css" href='<?=_PREF?>wedgits/gallery/zoombox/zoombox.css'/>	
-<script src="<?=_PREF?>wedgits/gallery/zoombox/zoombox.js" language="javascript" type="text/javascript"></script>
-<script src="<?=_PREF?>wedgits/gallery/gallery.js" language="javascript" type="text/javascript"></script>
+<link rel="stylesheet" type="text/css" href='<?php echo _PREF; ?>wedgits/committees/committees_<?php echo $pageLang; ?>.css'/>	
+<link rel="stylesheet" type="text/css" href='<?php echo _PREF; ?>wedgits/gallery/zoombox/zoombox.css'/>	
+<script src="<?php echo _PREF; ?>wedgits/gallery/zoombox/zoombox.js" language="javascript" type="text/javascript"></script>
+<script src="<?php echo _PREF; ?>wedgits/gallery/gallery.js" language="javascript" type="text/javascript"></script>
 <div class='page_content'>
 <?
 $id = cleanString($_REQUEST['id']);
@@ -42,6 +42,6 @@ if ($numberOfRows>0) {
 }
 	
 ?>
-<input type='button' value='<?=Back?>' class='more_btn' onClick='history.back()'/>
+<input type='button' value='<?php echo Back; ?>' class='more_btn' onClick='history.back()'/>
 </div>
 

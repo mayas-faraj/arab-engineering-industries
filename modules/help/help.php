@@ -20,7 +20,7 @@ if($tip_id){
 	
 */
 	function openCurrent(){
-		$('#span_grp_<?=$grp_id?>').click();
+		$('#span_grp_<?php echo $grp_id; ?>').click();
 	}
 this.sitemapstyler = function(){
 	var sitemap = document.getElementById("sitemap")
@@ -52,17 +52,17 @@ this.sitemapstyler = function(){
 };
 window.onload = sitemapstyler;
 	</script>
-	<div class="head"><h1 class="title"><?=$title?></h1></div>
+	<div class="head"><h1 class="title"><?php echo $title; ?></h1></div>
 	<TABLE CELLSPACING="0" CELLPADDING="0" BORDER="0" WIDTH="100%">
 		<tbody>
 			<tr>
-				<TD width="100%"><?=stripslashes($brief)?></TD>
+				<TD width="100%"><?php echo stripslashes($brief); ?></TD>
 			</tr>
 			<tr>
 				<TD>&nbsp;</TD>
 			</tr>
 			<tr>
-				<TD width="100%"><?=stripslashes($details)?></TD>
+				<TD width="100%"><?php echo stripslashes($details); ?></TD>
 			</tr>
 	    </tbody>
 	</TABLE>
@@ -78,7 +78,7 @@ else
 	if($tips_numRows>0){
 		$j=0;
 		?>
-		<div class="head"><h1 class="title"><?=$group_title?></h1></div>
+		<div class="head"><h1 class="title"><?php echo $group_title; ?></h1></div>
 		<TABLE CELLSPACING="0" CELLPADDING="0" BORDER="0" WIDTH="100%">
 		<tbody>
 		<?
@@ -86,7 +86,7 @@ else
 			$tip_id=mysql_result($tips_result, $j,"id");
 			$title =mysql_result($tips_result, $j,"title");
 			?>
-			<tr><TD width="100%">* &nbsp;<a href="<?=$_SERVER['PHP_SELF']?>?tip_id=<?=$tip_id?>"><?=$title?></a></TD></tr>
+			<tr><TD width="100%">* &nbsp;<a href="<?php echo $_SERVER['PHP_SELF']; ?>?tip_id=<?php echo $tip_id; ?>"><?php echo $title; ?></a></TD></tr>
 			<?
 			$j++;
 		}

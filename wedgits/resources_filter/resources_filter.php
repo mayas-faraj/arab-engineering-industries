@@ -14,7 +14,7 @@
 	
 		echo "<div class='filter_title' dir='"._DIR."'>".Filter_By.":</div>";
 		echo "<div class='styled-select'>";
-			?><input type='text' id='keyword' name='keyword'  value='<?=$keyword?>' onfocus='$(this).attr("value","")' onblur='if($(this).attr("value")=="" && $(this).attr("value")!="<?=$keyword?>"){$(this).attr("value","<?=$keyword?>");}'/> <?
+			?><input type='text' id='keyword' name='keyword'  value='<?php echo $keyword; ?>' onfocus='$(this).attr("value","")' onblur='if($(this).attr("value")=="" && $(this).attr("value")!="<?php echo $keyword; ?>"){$(this).attr("value","<?php echo $keyword; ?>");}'/> <?
 		echo "</div>";
 		?>
 		<div class="side_filter">

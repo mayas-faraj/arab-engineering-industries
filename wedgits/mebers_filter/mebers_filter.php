@@ -21,7 +21,7 @@
 	echo "<div class='styled-select'>".createComboBox("country", "id", "country_".$pageLang, cleanString($_REQUEST['country']), "country" , "styled-select", "", "",  _FTR_COUNTRY)."</div>";
 
 	?>
-	<div class='styled-select'><input type='text' id='keyword' name='com'  value='<?=$keyword?>' onfocus='$(this).attr("value","")' onblur='if($(this).attr("value")=="" && $(this).attr("value")!="<?=$keyword?>"){$(this).attr("value","<?=$keyword?>");}'/></div>
+	<div class='styled-select'><input type='text' id='keyword' name='com'  value='<?php echo $keyword; ?>' onfocus='$(this).attr("value","")' onblur='if($(this).attr("value")=="" && $(this).attr("value")!="<?php echo $keyword; ?>"){$(this).attr("value","<?php echo $keyword; ?>");}'/></div>
 	<div class="side_filter">
 	<?
 	echo "<input type='button' value='".reset_filter."' onClick='document.location=\"viewAllMembers.php\"' class='filter' />";

@@ -45,9 +45,9 @@ if ($numberOfRows>0) {
    <TABLE class="selectable" CELLSPACING="0" CELLPADDING="0" BORDER="0" WIDTH="100%" id="list">
    <thead>
 	<tr>
-		<th width="277"><?=print_AdminRecordHead("subject", "Subject", $sb, $so)?></th>
-		<th width="277"><?=print_AdminRecordHead("publish_date", "Start Date", $sb, $so)?></th>
-		<!--th width="277"><?=print_AdminRecordHead("active", "Active", $sb, $so)?></th-->
+		<th width="277"><?php echo print_AdminRecordHead("subject", "Subject", $sb, $so); ?></th>
+		<th width="277"><?php echo print_AdminRecordHead("publish_date", "Start Date", $sb, $so); ?></th>
+		<!--th width="277"><?php echo print_AdminRecordHead("active", "Active", $sb, $so); ?></th-->
 		<th colspan="2">Controls  </th>
 	</tr>
 	</thead>
@@ -63,9 +63,9 @@ if ($numberOfRows>0) {
         $active= MYSQL_RESULT($result,$i,"active");
         ?>
 		<TR>
-			<TD><?=stripslashes($subject)?></TD>
-			<TD><?=stripslashes($publish_date)?></TD>
-			<!--td><a href="../includes/checkbox.php?t=events_events&fn=active&idn=id&idv=<?=$id?>&fv=<?=!($active)?>" class="checkb" ><img src="<?=_PREF?>images/icons/_<?php echo $active?>_.png" border="0"  fv="<?=!($active)?>"/></a></td-->
+			<TD><?php echo stripslashes($subject); ?></TD>
+			<TD><?php echo stripslashes($publish_date); ?></TD>
+			<!--td><a href="../includes/checkbox.php?t=events_events&fn=active&idn=id&idv=<?php echo $id; ?>&fv=<?php echo !($active); ?>" class="checkb" ><img src="<?php echo _PREF; ?>images/icons/_<?php echo $active?>_.png" border="0"  fv="<?php echo !($active); ?>"/></a></td-->
 
 			<!--td align="center" width="30"><?=print_seo_icon("viewEvents.php?id=".$id);?></td-->
 			<TD align="center" WIDTH="42"><?=print_edit_icon("editEvents.php?cat_id=$cat_id&id=".$id);?></TD>

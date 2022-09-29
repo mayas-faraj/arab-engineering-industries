@@ -56,7 +56,7 @@ $result = MYSQL_QUERY($sql);
 $numberOfRows = MYSQL_NUMROWS($result);
 $i=0;?>
 <div class="data">
-<form method='post' name='main' action='<?=$_SERVER['PHP_SELF']?>' enctype='multipart/form-data'>
+<form method='post' name='main' action='<?php echo $_SERVER['PHP_SELF']; ?>' enctype='multipart/form-data'>
 <input type='hidden' name='action' value=''>
 <script>
 function actionf(act){
@@ -67,17 +67,17 @@ function actionf(act){
 <TABLE CELLSPACING="0" CELLPADDING="0" BORDER="0" WIDTH="100%" ID="list">
 <thead>
 	<TR>
-		<th width="100px;"><?=print_AdminRecordHead("specialization_en", "Sub Sector (EN)", $sb, $so, $static_order)?></th>
-		<th width="100px;"><?=print_AdminRecordHead("specialization_ar", "Sub Sector (AR)", $sb, $so, $static_order)?></th>
+		<th width="100px;"><?php echo print_AdminRecordHead("specialization_en", "Sub Sector (EN)", $sb, $so, $static_order); ?></th>
+		<th width="100px;"><?php echo print_AdminRecordHead("specialization_ar", "Sub Sector (AR)", $sb, $so, $static_order); ?></th>
 		<th colspan="4">&nbsp;</th>
 </TR>
 </thead>
 <tbody>
 <? if($action=="Enter"){ ?>
 <TR>
-	<TD><input type="Text" name="specialization_en" size="20" value="<?=stripslashes($specialization_en)?>"/></TD>
-	<TD><input type="Text" name="specialization_ar" size="20" value="<?=stripslashes($specialization_ar)?>"/></TD>
-	<TD><?=print_save_icon("Insert")?></TD>
+	<TD><input type="Text" name="specialization_en" size="20" value="<?php echo stripslashes($specialization_en); ?>"/></TD>
+	<TD><input type="Text" name="specialization_ar" size="20" value="<?php echo stripslashes($specialization_ar); ?>"/></TD>
+	<TD><?php echo print_save_icon("Insert"); ?></TD>
 	<TD colspan="3">&nbsp;</TD>
 </TR>
 <?}// Enter record
@@ -88,23 +88,23 @@ while ($i<$numberOfRows){
 	if($action=="Edit"  && $_REQUEST['id'] == $id){?>
     	<TR>
 			<TD>
-				<input type="Text" name="specialization_en" size="20" value="<?=stripslashes($specialization_en)?>" />
-				<input type="Hidden" name="id" size="20" value="<?=$id?>" />
+				<input type="Text" name="specialization_en" size="20" value="<?php echo stripslashes($specialization_en); ?>" />
+				<input type="Hidden" name="id" size="20" value="<?php echo $id; ?>" />
 			</TD>
 			<TD>
-				<input type="Text" name="specialization_ar" size="20" value="<?=stripslashes($specialization_ar)?>" />
+				<input type="Text" name="specialization_ar" size="20" value="<?php echo stripslashes($specialization_ar); ?>" />
 			</TD>	
-			<TD><?=print_save_icon("Update")?></TD>
+			<TD><?php echo print_save_icon("Update"); ?></TD>
 			<TD colspan="3">&nbsp;</TD>
 		</TR>
    	<?}// Edit record
 	else{?>
 		<TR>
-			<TD><?=stripslashes($specialization_en)?></TD>
-			<TD><?=stripslashes($specialization_ar)?></TD>
+			<TD><?php echo stripslashes($specialization_en); ?></TD>
+			<TD><?php echo stripslashes($specialization_ar); ?></TD>
 			<TD width="42" align="center"><?=print_edit_icon($_SERVER['PHP_SELF']."?action=Edit&id=".$id)?></TD>
 			<?/**delete_grp_functions(part 1 of 2)********************************************/?>
-			<TD width="29" align="center"><?=print_delete_ckbox($id)?></TD>
+			<TD width="29" align="center"><?php echo print_delete_ckbox($id); ?></TD>
 			<?//-------------------------------------------------------?>
 		</TR>
 	<?}//end else

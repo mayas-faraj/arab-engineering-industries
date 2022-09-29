@@ -74,11 +74,11 @@ echo createPagination($tp,$pn,$LPP);
 <TABLE class="selectable" CELLSPACING="0" CELLPADDING="0" BORDER="0" WIDTH="100%" id="list">
 <thead>
 <TR>
-<th><?=print_AdminRecordHead("form_name", "Form Name", $sb, $so)?></th>
-<th><?=print_AdminRecordHead("send_mail_to", "Send Mail To", $sb, $so)?></th>
+<th><?php echo print_AdminRecordHead("form_name", "Form Name", $sb, $so); ?></th>
+<th><?php echo print_AdminRecordHead("send_mail_to", "Send Mail To", $sb, $so); ?></th>
 <?
 ?>
-<th><?=print_AdminRecordHead("lang", "Lang", $sb, $so)?></th>
+<th><?php echo print_AdminRecordHead("lang", "Lang", $sb, $so); ?></th>
 <?
 ?>
 <th colspan="4">&nbsp;</th>
@@ -95,7 +95,7 @@ if($action=="Enter"){ ?>
 <?
 ?>
 <TD>&nbsp;</TD>
-<TD><?=print_save_icon("Insert")?></TD>
+<TD><?php echo print_save_icon("Insert"); ?></TD>
 <TD colspan="2">&nbsp;</TD>
 </TR><?php
 }// Enter record
@@ -115,7 +115,7 @@ if($action=="Edit"  && $_REQUEST['form_id'] == $form_id){?>
 <?
 ?>
 <TD>&nbsp;</TD>
-<TD><?=print_save_icon("Update")?></TD>
+<TD><?php echo print_save_icon("Update"); ?></TD>
 <TD colspan="2">&nbsp;</TD>
 </TR><?
 }else{?>
@@ -130,7 +130,7 @@ if($action=="Edit"  && $_REQUEST['form_id'] == $form_id){?>
 <TD width="299" align="center"><a href="listForm_fields.php?form_id=<?php echo $form_id?>"><?php echo Form_fields?></a></TD>
 <TD width="42" align="center"><?=print_edit_icon($_SERVER['PHP_SELF']."?action=Edit&form_id=".$form_id)?></TD>
 <TD align="center" WIDTH="42"><?=print_view_icon(_PREF."view/forms/viewForm.php?id=".$form_id);?></TD>
-<TD width="29" align="center"><?=print_delete_ckbox($form_id)?></TD>
+<TD width="29" align="center"><?php echo print_delete_ckbox($form_id); ?></TD>
 </TR><?
 }//end else
 $i++;

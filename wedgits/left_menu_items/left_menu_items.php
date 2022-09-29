@@ -1,4 +1,4 @@
-<link rel="stylesheet" type="text/css" href='<?=_PREF?>wedgits/left_menu_items/left_menu_items_<?=$pageLang?>.css'/>
+<link rel="stylesheet" type="text/css" href='<?php echo _PREF; ?>wedgits/left_menu_items/left_menu_items_<?php echo $pageLang; ?>.css'/>
 <?
 	$page_name = getCurrentFormName();
 	if($page_name=='index'){

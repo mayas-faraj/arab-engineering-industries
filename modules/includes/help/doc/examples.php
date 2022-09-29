@@ -77,13 +77,13 @@ CODE;
 
 ?>
 <div class="example">
-	<div class="left"><?=$code;?></div>
+	<div class="left"><?php echo $code;; ?></div>
 	<h2>Non-Ajax Balloon</h2>
 	<br style="clear: both"/>
 	<p>
 	This example illustrates how to populate a balloon's content using the object's properties
 	</p>
-	<code style="white-space:pre"><?=htmlspecialchars($code);?></code>
+	<code style="white-space:pre"><?php echo htmlspecialchars($code);; ?></code>
 </div>
 
 <!-- Second Static Balloon -->
@@ -99,12 +99,12 @@ $code = <<<CODE
 CODE;
 ?>
 <div class="example">
-	<div class="left"><?=$code; ?></div>
+	<div class="left"><?php echo $code; ; ?></div>
 	<h2>Another Static Balloon</h2>
 	<br style="clear: both"/>
 	This balloon and the balloon above are identical. The reason I put this one here is so you can see the balloons ability to
 	automatically choose it's position based on available realestate.
-	<code style="white-space:pre"><?=htmlspecialchars($code);?></code>
+	<code style="white-space:pre"><?php echo htmlspecialchars($code);; ?></code>
 </div>
 
 <!-- External Controls -->
@@ -128,12 +128,12 @@ $code2 = <<<CODE
 CODE;
 ?>
 <div class="example">
-	<div class="left"><?=$code;?></div>
+	<div class="left"><?php echo $code;; ?></div>
 	<h2>Toggling Balloons Externally</h2>
 	<br style="clear: both"/>
 	Use the show and hide methods to toggle the balloons externally:
-	<?=$code2;?>
-	<code style="white-space:pre"><?=htmlspecialchars($code."\n".$code2);?></code>
+	<?php echo $code2;; ?>
+	<code style="white-space:pre"><?php echo htmlspecialchars($code."\n".$code2);; ?></code>
 </div>
 
 
@@ -159,9 +159,9 @@ CODE;
 	set the icon instantiation option to the element you want to use.
 	<p>
 		For example:  
-		<?=$code; ?>						
+		<?php echo $code; ; ?>						
 	</p>
-	<code style="white-space: pre;"><?=htmlspecialchars($code); ?></code>
+	<code style="white-space: pre;"><?php echo htmlspecialchars($code); ; ?></code>
 </div>
 				
 <!-- Other Events -->
@@ -178,14 +178,14 @@ $code = <<<CODE
 CODE;
 ?>
 <div class="example">
-	<div class="left"><?=$code;?></div>
+	<div class="left"><?php echo $code;; ?></div>
 	<h2>Using other events to trigger the balloon</h2>
 	<br style="clear: both"/>
 	If you'd like to use a different event to trigger the balloon's appearing
 	use the <span class="code">useEvent</span> initialization parameter. This parameter is
 	an array of strings so you can use multiple event types to trigger the
 	balloon.
-	<code style="white-space: pre;"><?=htmlspecialchars($code); ?></code>
+	<code style="white-space: pre;"><?php echo htmlspecialchars($code); ; ?></code>
 </div>
 
 <!-- Other Icons #2 -->
@@ -268,9 +268,9 @@ CODE;
 	</p>
 	<br/>
 	<div style="vertical-align: middle; text-align: center;"><br/>
-		<?=$code;?><br/>&nbsp;
+		<?php echo $code;; ?><br/>&nbsp;
 	</div>
-	<code style="white-space: pre;"><?=htmlspecialchars($code); ?></code>
+	<code style="white-space: pre;"><?php echo htmlspecialchars($code); ; ?></code>
 </div>
 	
 				</td>
@@ -287,11 +287,11 @@ $code = <<<CODE
 CODE;
 ?>
 <div class="example">
-	<div class="right"><?=$code;?></div>
+	<div class="right"><?php echo $code;; ?></div>
 	<h2>Using XML to populate a balloon.</h2>
 	<br style="clear: both"/>
 	This example illustrates how to populate a balloon's using and XML document (AJAX)
-	<code style="white-space:pre"><?=htmlspecialchars($code);?></code>
+	<code style="white-space:pre"><?php echo htmlspecialchars($code);; ?></code>
 </div>
 
 <!-- HTML Balloon -->
@@ -305,11 +305,11 @@ $code = <<<CODE
 CODE;
 ?>
 <div class="example">
-	<div class="right"><?=$code;?></div>
+	<div class="right"><?php echo $code;; ?></div>
 	<h2>Using HTML to populate a balloon.</h2>
 	<br style="clear: both"/>
 	This example illustrates how to populate a balloon's using a regular HTML page (AJAX)
-	<code style="white-space:pre"><?=htmlspecialchars($code);?></code>
+	<code style="white-space:pre"><?php echo htmlspecialchars($code);; ?></code>
 </div>
 
 <!-- Non-Cached HTML Balloon -->
@@ -324,11 +324,11 @@ $code = <<<CODE
 CODE;
 ?>
 <div class="example">
-	<div class="right"><?=$code;?></div>
+	<div class="right"><?php echo $code;; ?></div>
 	<h2>Forcing a new Request on each showing</h2>
 	<br style="clear: both"/>
 	This example illustrates how to populate a balloon's using a regular HTML page, but forcing it to refresh before every showing.
-	<code style="white-space:pre"><?=htmlspecialchars($code);?></code>
+	<code style="white-space:pre"><?php echo htmlspecialchars($code);; ?></code>
 </div>
 
 <!-- Appending thru javascript -->
@@ -347,12 +347,12 @@ $code = <<<CODE
 CODE;
 ?>
 <div class="example">
-	<?=$code;?>
+	<?php echo $code;; ?>
 	<h2>Manually Appending the Balloon Icon</h2>
 	<br style="clear: both"/>
 	In some instances the default behavior of creating the balloon element does not work (ajax-loads, etc), because
 	the script depends on document.write to output the code for the icon. This is how you can still use balloons in that case:
-	<code style="white-space: pre;"><?=htmlspecialchars($code); ?></code>
+	<code style="white-space: pre;"><?php echo htmlspecialchars($code); ; ?></code>
 </div>
 
 <!-- Other Icons #1 -->
@@ -374,8 +374,8 @@ CODE;
 	<h2>Using a different icon example #1</h2>
 	<br style="clear:both;"/>
 	If you'd like to reference an existing image in your page as the icon for the balloon:
-	<?=$code;?>
-	<code style="white-space: pre;"><?=htmlspecialchars($code); ?></code>
+	<?php echo $code;; ?>
+	<code style="white-space: pre;"><?php echo htmlspecialchars($code); ; ?></code>
 </div>
 
 <!-- Other Icons #2 -->
@@ -395,8 +395,8 @@ CODE;
 <div class="example">
 	<h2>Using a different icon example #2</h2>
 	If you'd just like to use a different image as your icon, and not one that already exists:
-	<?=$code;?>
-	<code style="white-space: pre;"><?=htmlspecialchars($code); ?></code>
+	<?php echo $code;; ?>
+	<code style="white-space: pre;"><?php echo htmlspecialchars($code); ; ?></code>
 </div>
 
 <!-- Other Icons #2 -->
@@ -459,9 +459,9 @@ CODE;
 	</p>
 	<br/>
 	<div>
-		<?=$code;?><br/>&nbsp;
+		<?php echo $code;; ?><br/>&nbsp;
 	</div>
-	<code style="white-space: pre;"><?=htmlspecialchars($code); ?></code>
+	<code style="white-space: pre;"><?php echo htmlspecialchars($code); ; ?></code>
 </div>
 
 					</td>

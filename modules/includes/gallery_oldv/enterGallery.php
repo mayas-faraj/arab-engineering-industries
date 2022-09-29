@@ -51,7 +51,7 @@ $(function (){
 });
 
 function showGallery(all){
-	$("#gallery_admin").load("browse.php?all="+all+"&$ph=<?=$photos?>&mph=<?=$main_photo?>");
+	$("#gallery_admin").load("browse.php?all="+all+"&$ph=<?php echo $photos; ?>&mph=<?php echo $main_photo; ?>");
 }
 </script>
 </head>
@@ -116,7 +116,7 @@ if($action){
 	}
 }// Insert record
 ?>
-<form method='post' name='main' action='<?= $_SERVER['PHP_SELF']?>' enctype='multipart/form-data' onsubmit='return formValidator()'>
+<form method='post' name='main' action='<?php echo  $_SERVER['PHP_SELF']; ?>' enctype='multipart/form-data' onsubmit='return formValidator()'>
 	<table>
 		<tr>
 			<td colspan='2'>Please write the new Gallery:</td>

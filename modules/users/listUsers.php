@@ -69,7 +69,7 @@ $numberOfRows = MYSQL_NUMROWS($result);
 $i = 0;
 ?>
 <div class="data">
-    <form method='post' name='main' action='<?= $_SERVER['PHP_SELF'] ?>' enctype='multipart/form-data'>
+    <form method='post' name='main' action='<?php echo  $_SERVER['PHP_SELF'] ; ?>' enctype='multipart/form-data'>
         <input type='hidden' name='action' value=''>
         <script>
             function actionf(act) {
@@ -80,25 +80,25 @@ $i = 0;
         <TABLE CELLSPACING="0" CELLPADDING="0" BORDER="0" WIDTH="100%" ID="list">
             <thead>
                 <TR>
-                    <th width="150px;"><?= print_AdminRecordHead("username", "Username", $sb, $so) ?></th>
-                    <th width="150px;"><?= print_AdminRecordHead("password", "Password", $sb, $so, 1) ?></th>
-                    <th width="150px;"><?= print_AdminRecordHead("full_name", "Full Name", $sb, $so, 1) ?></th>
-                    <th width="150px;"><?= print_AdminRecordHead("email", "E-mail", $sb, $so, 1) ?></th>
-                    <th width="150px;"><?= print_AdminRecordHead("grp_id", "Group", $sb, $so, 1) ?></th>
-                    <th width="150px;"><?= print_AdminRecordHead("uploads_folder", "Directory", $sb, $so, 1) ?></th>
+                    <th width="150px;"><?php echo  print_AdminRecordHead("username", "Username", $sb, $so) ; ?></th>
+                    <th width="150px;"><?php echo  print_AdminRecordHead("password", "Password", $sb, $so, 1) ; ?></th>
+                    <th width="150px;"><?php echo  print_AdminRecordHead("full_name", "Full Name", $sb, $so, 1) ; ?></th>
+                    <th width="150px;"><?php echo  print_AdminRecordHead("email", "E-mail", $sb, $so, 1) ; ?></th>
+                    <th width="150px;"><?php echo  print_AdminRecordHead("grp_id", "Group", $sb, $so, 1) ; ?></th>
+                    <th width="150px;"><?php echo  print_AdminRecordHead("uploads_folder", "Directory", $sb, $so, 1) ; ?></th>
                     <th colspan="2">&nbsp;</th>
                 </TR>
             </thead>
             <tbody>
                 <? if ($action == "Enter") { ?>
                     <TR>
-                        <TD><input type="Text" name="username" size="20" value="<?= stripslashes($username) ?>"/></TD>
-                        <TD><input type="Password" name="password" size="20" value="<?= stripslashes($password) ?>"/></TD>
-                        <TD><input type="Text" name="full_name" size="20" value="<?= stripslashes($full_name) ?>"/></TD>
-                        <TD><input type="Text" name="email" size="20" value="<?= stripslashes($email) ?>"/></TD>
-                        <TD><?= createComboBoxFiltered("users_groups", "grp_id", "grp_name", $grp_id, "grp_id", "grp_id>1", "required") ?></TD>
-                        <TD><input type="Text" name="uploads_folder" size="20" value="<?= stripslashes($uploads_folder) ?>"/></TD>
-                        <TD><?= print_save_icon("Insert") ?></TD>
+                        <TD><input type="Text" name="username" size="20" value="<?php echo  stripslashes($username) ; ?>"/></TD>
+                        <TD><input type="Password" name="password" size="20" value="<?php echo  stripslashes($password) ; ?>"/></TD>
+                        <TD><input type="Text" name="full_name" size="20" value="<?php echo  stripslashes($full_name) ; ?>"/></TD>
+                        <TD><input type="Text" name="email" size="20" value="<?php echo  stripslashes($email) ; ?>"/></TD>
+                        <TD><?php echo  createComboBoxFiltered("users_groups", "grp_id", "grp_name", $grp_id, "grp_id", "grp_id>1", "required") ; ?></TD>
+                        <TD><input type="Text" name="uploads_folder" size="20" value="<?php echo  stripslashes($uploads_folder) ; ?>"/></TD>
+                        <TD><?php echo  print_save_icon("Insert") ; ?></TD>
                         <TD colspan="1">&nbsp;</TD>
                     </TR>
                     <?
@@ -115,15 +115,15 @@ $i = 0;
                     if ($action == "Edit" && $_REQUEST['user_id'] == $user_id) {
                         ?>
                         <TR>
-                            <TD><input type="Text" name="username" size="20" value="<?= stripslashes($username) ?>" />
-                                <input type="Hidden" name="user_id" size="20" value="<?= $user_id ?>" />
+                            <TD><input type="Text" name="username" size="20" value="<?php echo  stripslashes($username) ; ?>" />
+                                <input type="Hidden" name="user_id" size="20" value="<?php echo  $user_id ; ?>" />
                             </TD>
                             <TD><input type="password" name="password" size="20" value="XXXXXXXX" /></TD>
-                            <TD><input type="Text" name="full_name" size="20" value="<?= stripslashes($full_name) ?>" /></TD>
-                            <TD><input type="Text" name="email" size="20" value="<?= stripslashes($email) ?>" /></TD>
-                            <TD><?= createComboBoxFiltered("users_groups", "grp_id", "grp_name", $grp_id, "grp_id", "grp_id>1", "required") ?></TD>
-                            <TD><input type="Text" name="uploads_folder" size="20" value="<?= stripslashes($uploads_folder) ?>"/></TD>
-                            <TD><?= print_save_icon("Update") ?></TD>
+                            <TD><input type="Text" name="full_name" size="20" value="<?php echo  stripslashes($full_name) ; ?>" /></TD>
+                            <TD><input type="Text" name="email" size="20" value="<?php echo  stripslashes($email) ; ?>" /></TD>
+                            <TD><?php echo  createComboBoxFiltered("users_groups", "grp_id", "grp_name", $grp_id, "grp_id", "grp_id>1", "required") ; ?></TD>
+                            <TD><input type="Text" name="uploads_folder" size="20" value="<?php echo  stripslashes($uploads_folder) ; ?>"/></TD>
+                            <TD><?php echo  print_save_icon("Update") ; ?></TD>
                             <TD colspan="1">&nbsp;</TD>
                         </TR>
                     <?
@@ -135,12 +135,12 @@ $i = 0;
                             if ($_SESSION['USER'] == 2) {
                                 ?>
                                 <TR>
-                                    <TD><?= stripslashes($username) ?></TD>
+                                    <TD><?php echo  stripslashes($username) ; ?></TD>
                                     <TD>******</TD>
-                                    <TD><?= stripslashes($full_name) ?></TD>
-                                    <TD><?= stripslashes($email) ?></TD>
-                                    <TD><?= lookupField('users_groups', 'grp_id', 'grp_name', $grp_id); ?></TD>
-                                    <TD><?= stripslashes($uploads_folder) ?></TD>
+                                    <TD><?php echo  stripslashes($full_name) ; ?></TD>
+                                    <TD><?php echo  stripslashes($email) ; ?></TD>
+                                    <TD><?php echo  lookupField('users_groups', 'grp_id', 'grp_name', $grp_id); ; ?></TD>
+                                    <TD><?php echo  stripslashes($uploads_folder) ; ?></TD>
 
                                     <TD width="42" align="center"><?= print_edit_icon($_SERVER['PHP_SELF'] . "?action=Edit&user_id=" . $user_id) ?></TD>
                                     <? /*                                     * delete_grp_functions(part 1 of 2)******************************************* */ ?>
@@ -150,12 +150,12 @@ $i = 0;
             <? } ?>
         <? }else { ?>
                             <TR>
-                                <TD><?= stripslashes($username) ?></TD>
+                                <TD><?php echo  stripslashes($username) ; ?></TD>
                                 <TD>******</TD>
-                                <TD><?= stripslashes($full_name) ?></TD>
-                                <TD><?= stripslashes($email) ?></TD>
-                                <TD><?= lookupField('users_groups', 'grp_id', 'grp_name', $grp_id); ?></TD>
-                                <TD><?= stripslashes($uploads_folder) ?></TD>
+                                <TD><?php echo  stripslashes($full_name) ; ?></TD>
+                                <TD><?php echo  stripslashes($email) ; ?></TD>
+                                <TD><?php echo  lookupField('users_groups', 'grp_id', 'grp_name', $grp_id); ; ?></TD>
+                                <TD><?php echo  stripslashes($uploads_folder) ; ?></TD>
 
                                 <TD width="42" align="center"><?= print_edit_icon($_SERVER['PHP_SELF'] . "?action=Edit&user_id=" . $user_id) ?></TD>
                                 <? /*                                 * delete_grp_functions(part 1 of 2)******************************************* */ ?>

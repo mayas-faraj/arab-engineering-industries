@@ -21,7 +21,7 @@ $i=0;?>
 <TABLE class="selectable" CELLSPACING="0" CELLPADDING="0" BORDER="0" WIDTH="100%" id="list">
 <thead>
 <tr>
-<th width="277"><?=print_AdminRecordHead("start_year", "Term", $sb, $so)?></th>
+<th width="277"><?php echo print_AdminRecordHead("start_year", "Term", $sb, $so); ?></th>
 
 </tr>
 </thead>
@@ -32,7 +32,7 @@ $id= MYSQL_RESULT($result,$i,"id");
 $start_year= MYSQL_RESULT($result,$i,"start_year");
 $end_year= MYSQL_RESULT($result,$i,"end_year");
 ?>
-<TR><TD><a href='listCouncilMembers.php?term=<?=$id?>'><?=stripslashes($start_year)?>&nbsp; - &nbsp;<?=stripslashes($end_year)?></TD></a></TR>
+<TR><TD><a href='listCouncilMembers.php?term=<?php echo $id; ?>'><?php echo stripslashes($start_year); ?>&nbsp; - &nbsp;<?php echo stripslashes($end_year); ?></TD></a></TR>
 <?$i++;
 }//End While?>
 </tbody>

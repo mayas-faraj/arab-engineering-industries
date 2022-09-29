@@ -68,7 +68,7 @@ h1 { font-size: 14px; }
 
 <? if ($msg) { ?>
 			<div class="error">
-				<?=$msg; ?>
+				<?php echo $msg; ; ?>
 			</div>
 <? } ?>
 		</fieldset>

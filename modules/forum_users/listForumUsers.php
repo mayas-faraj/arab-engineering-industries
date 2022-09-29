@@ -54,7 +54,7 @@ $numberOfRows = MYSQL_NUMROWS($result);
 $users_combo = createComboBox("users" , "user_id", "full_name" , $user_id , "user_id", "required",'','','',0);
 $i=0;?>
 <div class="data">
-<form method='post' name='main' action='<?=$_SERVER['PHP_SELF']?>' enctype='multipart/form-data'>
+<form method='post' name='main' action='<?php echo $_SERVER['PHP_SELF']; ?>' enctype='multipart/form-data'>
 <input type='hidden' name='action' value=''>
 <script>
 function actionf(act){
@@ -63,18 +63,18 @@ function actionf(act){
 }
 </script>
 <TABLE CELLSPACING="0" CELLPADDING="0" BORDER="0" WIDTH="100%" ID="list">
-<input type="Hidden" name="grp_id" size="20" value="<?=$grp_id?>" />
+<input type="Hidden" name="grp_id" size="20" value="<?php echo $grp_id; ?>" />
 <thead>
 	<TR>
-		<th width="100px;"><?=print_AdminRecordHead("user_id", "User", $sb, $so, $static_order)?></th>
+		<th width="100px;"><?php echo print_AdminRecordHead("user_id", "User", $sb, $so, $static_order); ?></th>
 		<th colspan="3">&nbsp;</th>
 </TR>
 </thead>
 <tbody>
 <? if($action=="Enter"){ ?>
 <TR>
-	<td><?=$users_combo?></td>
-	<TD><?=print_save_icon("Insert")?></TD>
+	<td><?php echo $users_combo; ?></td>
+	<TD><?php echo print_save_icon("Insert"); ?></TD>
 	<TD colspan="1">&nbsp;</TD>
 </TR>
 <?}// Enter record
@@ -85,20 +85,20 @@ while ($i<$numberOfRows){
 
 	if($action=="Edit"  && $_REQUEST['id'] == $id){?>
     	<TR>
-			<input type="Hidden" name="id" size="20" value="<?=$id?>" />
+			<input type="Hidden" name="id" size="20" value="<?php echo $id; ?>" />
 			
-			<td><?=createComboBox("users" , "user_id", "full_name" , $user_id , "user_id", "required");?></td>
+			<td><?php echo createComboBox("users" , "user_id", "full_name" , $user_id , "user_id", "required");; ?></td>
 
-			<TD><?=print_save_icon("Update")?></TD>
+			<TD><?php echo print_save_icon("Update"); ?></TD>
 			<TD colspan="2">&nbsp;</TD>
 		</TR>
    	<?}// Edit record
 	else{?>
 		<TR>
-			<TD class='query'><?=lookupField('users','user_id','full_name',stripslashes($user_id))?></TD>
+			<TD class='query'><?php echo lookupField('users','user_id','full_name',stripslashes($user_id)); ?></TD>
 			
 			<?/**delete_grp_functions(part 1 of 2)********************************************/?>
-			<TD width="29" align="center"><?=print_delete_ckbox($id)?></TD>
+			<TD width="29" align="center"><?php echo print_delete_ckbox($id); ?></TD>
 			<?//-------------------------------------------------------?>
 		</TR>
 	<?}//end else

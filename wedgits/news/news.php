@@ -1,7 +1,7 @@
-<link rel="stylesheet" type="text/css" href='<?=_PREF?>wedgits/news/news_<?=$pageLang?>.css'/>	
-<script type="text/javascript" src="<?=_PREF?>wedgits/news/news.js"></script>
-<link rel="stylesheet" type="text/css" href="<?=_PREF?>wedgits/news/flexcrollstyles_<?=$pageLang?>.css" />
-<script type="text/javascript" src="<?=_PREF?>wedgits/news/flexcroll.js"></script>
+<link rel="stylesheet" type="text/css" href='<?php echo _PREF; ?>wedgits/news/news_<?php echo $pageLang; ?>.css'/>	
+<script type="text/javascript" src="<?php echo _PREF; ?>wedgits/news/news.js"></script>
+<link rel="stylesheet" type="text/css" href="<?php echo _PREF; ?>wedgits/news/flexcrollstyles_<?php echo $pageLang; ?>.css" />
+<script type="text/javascript" src="<?php echo _PREF; ?>wedgits/news/flexcroll.js"></script>
 	
 <?
 $item_counts =3;
@@ -65,9 +65,9 @@ if ($numrows>0) {
 	
 	<div id="news" dir='ltr'>
 		<div id="news_number" class='flexcroll'>
-			<?=$buttons?>
+			<?php echo $buttons; ?>
 		</div>
-		<?=$contents?>
+		<?php echo $contents; ?>
 	</div>
 	
 	

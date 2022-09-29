@@ -1,8 +1,8 @@
 <? if(!cleanString($_SESSION["us_id"])){echo"<script>document.location='"._PREF."index.php'</script>";exit();} ?>	
-<link rel="stylesheet" type="text/css" href='<?=_PREF?>wedgits/forum/articles_<?=$pageLang?>.css'/>
+<link rel="stylesheet" type="text/css" href='<?php echo _PREF; ?>wedgits/forum/articles_<?php echo $pageLang; ?>.css'/>
 
-<script src="<?=_PREF?>wedgits/forum/articles.js" language="javascript" type="text/javascript"></script>	
-<script src="<?=_PREF?>wedgits/forum/tableRowsMgmt.js" language="javascript" type="text/javascript"></script>	
+<script src="<?php echo _PREF; ?>wedgits/forum/articles.js" language="javascript" type="text/javascript"></script>	
+<script src="<?php echo _PREF; ?>wedgits/forum/tableRowsMgmt.js" language="javascript" type="text/javascript"></script>	
 <?php 
 $max_com_files = lookupField('site_settings','id','value',17);
 $max_com_size = lookupField('site_settings','id','value',18);
@@ -95,7 +95,7 @@ if($sub){
 
 ?>
 
-<div class="page_content" dir='<?=_DIR?>'>
+<div class="page_content" dir='<?php echo _DIR; ?>'>
 
 	<?
 //$photo_path ="../../uploads/";
@@ -122,12 +122,12 @@ if ($numrows>0) {
 
 	<?$user_name = lookupField('users','user_id','full_name',cleanString($_SESSION["us_id"]));
 	$publish = lookupField('art_categories','id','publish',cleanString($_REQUEST['cat_id']));?>
-	<div class="title2"><?=forum?>: &nbsp; <?=$forum?> <span><?echo Welcome.' <font><a href="myPage.php?mem_id='.cleanString($_SESSION["us_id"]).'&cat_id='.cleanString($_REQUEST['cat_id']).'">'.$user_name.'</a></font>'?></span></div>
-	<div class="title2" <?if($pageLang=='ar'){?>style='font-size:18px;'<?}else{?>style='font-size:15px;'<?}?> ><?=Subject?>: &nbsp; <?=$title?></div>
+	<div class="title2"><?php echo forum; ?>: &nbsp; <?php echo $forum; ?> <span><?echo Welcome.' <font><a href="myPage.php?mem_id='.cleanString($_SESSION["us_id"]).'&cat_id='.cleanString($_REQUEST['cat_id']).'">'.$user_name.'</a></font>'?></span></div>
+	<div class="title2" <?if($pageLang=='ar'){?>style='font-size:18px;'<?}else{?>style='font-size:15px;'<?}?> ><?php echo Subject; ?>: &nbsp; <?php echo $title; ?></div>
 	
 	<div class="annonce_details">
 		<div class="annonce_details_body">
-			<!--div class="annonce_details_txt"><?=$details?></div-->
+			<!--div class="annonce_details_txt"><?php echo $details; ?></div-->
 			<div class="">
 				<?
 					$attach_sql =  "SELECT * FROM art_articles_files WHERE (art_id=$article_id) ";
@@ -161,7 +161,7 @@ if ($numrows>0) {
 	?>
 	<div class="progList_comments">
 	<div class="progList_comments_title">
-		<?=Comments?> :
+		<?php echo Comments; ?> :
 		<?if($rows>3){echo "<div class='see_more_com'>".see_more_com." ($rows)</div>";}?>
 		
 	</div>
@@ -191,18 +191,18 @@ if ($numrows>0) {
 			?>
 				<div class="comment_item">
 					<div class="comment_header">
-						<div class="publisher"><?=$publisher?></div>
-						<div class="publisher"><?=$subject?></div>
+						<div class="publisher"><?php echo $publisher; ?></div>
+						<div class="publisher"><?php echo $subject; ?></div>
 						<?if($owner){?>
 							<!--div class="nav">
-								<a href="../../wedgits/forum/checkbox.php?t=art_comments&fn=active&idn=id&idv=<?=$id?>&fv=<?=!($active)?>" class="checkb" ><img src="<?=_PREF?>images/icons/_<?php echo $active?>_.png" border="0"  fv="<?=!($active)?>"/></a>
-								<a href="viewArticles.php?id=<?=$article_id?>&op=del&com_id=<?=$id?>" class="delete"><img src="<?=_PREF?>images/icons/Delete.png"  border=0></a>
+								<a href="../../wedgits/forum/checkbox.php?t=art_comments&fn=active&idn=id&idv=<?php echo $id; ?>&fv=<?php echo !($active); ?>" class="checkb" ><img src="<?php echo _PREF; ?>images/icons/_<?php echo $active?>_.png" border="0"  fv="<?php echo !($active); ?>"/></a>
+								<a href="viewArticles.php?id=<?php echo $article_id; ?>&op=del&com_id=<?php echo $id; ?>" class="delete"><img src="<?php echo _PREF; ?>images/icons/Delete.png"  border=0></a>
 							</div-->
 						<?}?>
-						<div class="comment_date"><?=$publish_time.' '.$publish_date?></div>
+						<div class="comment_date"><?php echo $publish_time.' '.$publish_date; ?></div>
 					</div>
 					<div class="comment_body">
-						<?=$comment?>
+						<?php echo $comment; ?>
 						<?
 							$attach_sql =  "SELECT * FROM art_comments_files WHERE (comment_id=$id) ";
 							$attach_result = MYSQL_QUERY($attach_sql);
@@ -264,40 +264,40 @@ if ($numrows>0) {
 
 	<? /*************************Add Comments***********************/?>
 	<div class="com_add">
-		<?/*if($publish && $publish_comment){?><a href="#" onclick="$('.progList_Addcomment').show();return false;"><?=AddComment?></a><?}*/?>
+		<?/*if($publish && $publish_comment){?><a href="#" onclick="$('.progList_Addcomment').show();return false;"><?php echo AddComment; ?></a><?}*/?>
 
 	</div>
 	 <div class="progList_Addcomment">
-	<form  method="post" name="subForm" action="<?=$_SERVER['PHP_SELF']?>" enctype="multipart/form-data">
+	<form  method="post" name="subForm" action="<?php echo $_SERVER['PHP_SELF']; ?>" enctype="multipart/form-data">
 	 
 	 
 	<div class="comment_item">
 		<div class="comment_header">
-			<div class="publisher"><?=AddComment?></div>
+			<div class="publisher"><?php echo AddComment; ?></div>
 			
 		</div>
 		<div class="comment_body">
-			<input type="hidden" name="art" value="<?=$article_id ?>" />
-			 <input type="hidden" name="art_u_id" value="<?=$art_u_id ?>" />
-			 <input type="hidden" name="cat_id" value="<?=cleanString($_REQUEST['cat_id'])?>" />
-			 <input type="hidden" name="id" value="<?=cleanString($_REQUEST['id'])?>" />
+			<input type="hidden" name="art" value="<?php echo $article_id ; ?>" />
+			 <input type="hidden" name="art_u_id" value="<?php echo $art_u_id ; ?>" />
+			 <input type="hidden" name="cat_id" value="<?php echo cleanString($_REQUEST['cat_id']); ?>" />
+			 <input type="hidden" name="id" value="<?php echo cleanString($_REQUEST['id']); ?>" />
 			 <input type="hidden" name="sub" value="1" />
 			<table border="0" cellpadding="0" cellspacing="0">
 	
 	 
-				 <tr><td valign='top'><?=Subject?>:</td><td><input type='text'  style='width:400px;' name='p_subject' class="required1"/></textarea></td></tr>
-				 <tr><td valign='top'><?=Comment?>:</td><td><textarea rows="5" style='height:100px; width:400px;' name="p_comment" id="p_comment"  /></textarea></td></tr>
+				 <tr><td valign='top'><?php echo Subject; ?>:</td><td><input type='text'  style='width:400px;' name='p_subject' class="required1"/></textarea></td></tr>
+				 <tr><td valign='top'><?php echo Comment; ?>:</td><td><textarea rows="5" style='height:100px; width:400px;' name="p_comment" id="p_comment"  /></textarea></td></tr>
 				 
 				 <tr>
-					 <td valign='top' width='150'><?=attached_files?><br/><div class=" view_terms" style='cursor:pointer;'><a><?=view_com_info?></a></div></td>
+					 <td valign='top' width='150'><?php echo attached_files; ?><br/><div class=" view_terms" style='cursor:pointer;'><a><?php echo view_com_info; ?></a></div></td>
 					 <td>
 						
-							<table dir='<?=_DIR?>' align="center" id="list" width="400px" class="list" border="0" cellpadding="0" cellspacing="0" style='float:<?=_SALI?>'>
+							<table dir='<?php echo _DIR; ?>' align="center" id="list" width="400px" class="list" border="0" cellpadding="0" cellspacing="0" style='float:<?php echo _SALI; ?>'>
 								<thead>
 									<tr>
 										<td >&nbsp;</td>
 										<td>&nbsp;</td>
-										<td align="<?=_SALI?>"> <?=allowed_files?> (<?=$com_files_type?>) <br/> <?=Maximum_allowed_size_for_each_file?> (<?=$max_com_size?>)<?=KB?> <?=Maximum_allowed_size_for_each_file2?></td>
+										<td align="<?php echo _SALI; ?>"> <?php echo allowed_files; ?> (<?php echo $com_files_type; ?>) <br/> <?php echo Maximum_allowed_size_for_each_file; ?> (<?php echo $max_com_size; ?>)<?php echo KB; ?> <?php echo Maximum_allowed_size_for_each_file2; ?></td>
 									</tr>
 								</thead>
 								<tr>
@@ -307,12 +307,12 @@ if ($numrows>0) {
 								</tr>
 							</table>
 							
-							<h6 style="float: <?php echo _ALI?>; color:black;">&nbsp; &nbsp;<img style="cursor:pointer; " src="<?=_PREF?>wedgits/forum/plus.png" title="Add Row" onClick="addRow('list',<?=$max_com_files?>)"/> &nbsp; <?=Add_new_file?> &nbsp;</h6>				
-							<h6 style="float: <?php echo _ALI?>; color:black;">&nbsp; &nbsp;<img style="cursor:pointer" src="<?=_PREF?>wedgits/forum/x.png" title="Delete Selected Row(s)" onClick="deleteRow('list')" /> &nbsp;<?=DELETE_SELECTED?> &nbsp;</h6>				
+							<h6 style="float: <?php echo _ALI?>; color:black;">&nbsp; &nbsp;<img style="cursor:pointer; " src="<?php echo _PREF; ?>wedgits/forum/plus.png" title="Add Row" onClick="addRow('list',<?php echo $max_com_files; ?>)"/> &nbsp; <?php echo Add_new_file; ?> &nbsp;</h6>				
+							<h6 style="float: <?php echo _ALI?>; color:black;">&nbsp; &nbsp;<img style="cursor:pointer" src="<?php echo _PREF; ?>wedgits/forum/x.png" title="Delete Selected Row(s)" onClick="deleteRow('list')" /> &nbsp;<?php echo DELETE_SELECTED; ?> &nbsp;</h6>				
 					 </td>
 				 </tr>
 				 
-				 <tr><td>&nbsp;</td><td><input  type="button" name="save" value="<?=Post?>" class="save_com" onclick='validate_form1(<?=$max_com_size?>,"<?=$com_files_type?>");' /></td></tr>
+				 <tr><td>&nbsp;</td><td><input  type="button" name="save" value="<?php echo Post; ?>" class="save_com" onclick='validate_form1(<?php echo $max_com_size; ?>,"<?php echo $com_files_type; ?>");' /></td></tr>
 			  
 			  
 			</table>
@@ -326,7 +326,7 @@ if ($numrows>0) {
 
 </div>
 
-<!--div class='result'><?=$results?></div--> 
+<!--div class='result'><?php echo $results; ?></div--> 
 
 
 <script>	
@@ -349,20 +349,20 @@ if ($numrows>0) {
 	});
 	
 </script>    
-<div class='popup_result' style='text-align:<?=_SALI?>'>
-	<span class='close_popup'><?=Close?></span>
-	<?=allowed_files?> (<?=$com_files_type?>) <?=allowed_files2?>
-	<br/> <?=Maximum_allowed_size_for_each_file?> (<?=$max_com_size?>)<?=KB?> 
-	<br/> <?=max_files_num?> (<?=$max_com_files?>) <?=max_files_num2?>
-	<br/> <?=max_files_num3?>
+<div class='popup_result' style='text-align:<?php echo _SALI; ?>'>
+	<span class='close_popup'><?php echo Close; ?></span>
+	<?php echo allowed_files; ?> (<?php echo $com_files_type; ?>) <?php echo allowed_files2; ?>
+	<br/> <?php echo Maximum_allowed_size_for_each_file; ?> (<?php echo $max_com_size; ?>)<?php echo KB; ?> 
+	<br/> <?php echo max_files_num; ?> (<?php echo $max_com_files; ?>) <?php echo max_files_num2; ?>
+	<br/> <?php echo max_files_num3; ?>
 	
 </div>     
 
 
 
 <div class='popup_result1' >
-	<span class='close_popup'><?=Close?></span>
-	<?=$alert_results?>
+	<span class='close_popup'><?php echo Close; ?></span>
+	<?php echo $alert_results; ?>
 </div> 
 
 <?
@@ -380,7 +380,7 @@ if($alert_results){?>
 	</script>
 <?$alert_results = 0;}?>
 
-<input type='button' value='<?=Back?>' class='back' onClick='document.location="viewAllArticles.php?cat_id=<?=$cat_id?>"'/>
+<input type='button' value='<?php echo Back; ?>' class='back' onClick='document.location="viewAllArticles.php?cat_id=<?php echo $cat_id; ?>"'/>
 </div>
 
 

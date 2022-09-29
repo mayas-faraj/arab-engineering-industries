@@ -1,5 +1,5 @@
-<link rel="stylesheet" type="text/css" href='<?=_PREF?>wedgits/contact_us/contact_us_<?=$pageLang?>.css'/>	
-<script src="<?=_PREF?>wedgits/view_form/view_form.js" language="javascript" type="text/javascript"></script>
+<link rel="stylesheet" type="text/css" href='<?php echo _PREF; ?>wedgits/contact_us/contact_us_<?php echo $pageLang; ?>.css'/>	
+<script src="<?php echo _PREF; ?>wedgits/view_form/view_form.js" language="javascript" type="text/javascript"></script>
 <?
 //------------ Page Text----------------------------------------------------------
 if($pageLang=='en'){
@@ -10,8 +10,8 @@ if($pageLang=='en'){
 $title = lookupField('pages','id','title',$id);
 //--------------------------------------------------------------------------------
 ?>
-<div class="page_content" dir='<?=_DIR?>'>
-<div class='title2'><?=$title?></div>
+<div class="page_content" dir='<?php echo _DIR; ?>'>
+<div class='title2'><?php echo $title; ?></div>
 
 
 	<?
@@ -21,7 +21,7 @@ $title = lookupField('pages','id','title',$id);
 		if( $_SESSION['security_code'] !=  cleanString($_REQUEST['code'])){?>
 			<!--script>
 				$('.document').ready(function (){
-					$('#success_window').html('<?=_Xkeycode?>');
+					$('#success_window').html('<?php echo _Xkeycode; ?>');
 					$('#success_window').show();
 					setTimeout("$('#success_window').hide();",3000);
 				});
@@ -65,7 +65,7 @@ $title = lookupField('pages','id','title',$id);
 			if($s){?>
 				<!--script>
 					$('.document').ready(function (){
-						$('#success_window').html('<?=ysend?>');
+						$('#success_window').html('<?php echo ysend; ?>');
 						$('#success_window').show();
 						setTimeout("$('#success_window').hide();",3000);
 					});
@@ -84,7 +84,7 @@ $title = lookupField('pages','id','title',$id);
 			}else {?>
 				<!--script>
 					$('.document').ready(function (){
-						$('#success_window').html('<?=xsend?>');
+						$('#success_window').html('<?php echo xsend; ?>');
 						$('#success_window').show();
 						setTimeout("$('#success_window').hide();",3000);
 					});
@@ -107,7 +107,7 @@ $title = lookupField('pages','id','title',$id);
 
 
 	<div class='contact_us'>
-	<table cellspacing='0' cellpadding='0' dir='<?=_DIR?>'>
+	<table cellspacing='0' cellpadding='0' dir='<?php echo _DIR; ?>'>
 		<tr>
 		
 			<td valign='top' >
@@ -123,7 +123,7 @@ $title = lookupField('pages','id','title',$id);
 			</td>
 		</tr>
 		<tr>
-			<td valign='top'  align='<?=_SALI?>' >
+			<td valign='top'  align='<?php echo _SALI; ?>' >
 				<?
 				if((!$sub) || $xcode || $xsend){ ?>
 
@@ -131,14 +131,14 @@ $title = lookupField('pages','id','title',$id);
 				<form name="subForm" method="post" action="<?php echo $_SERVER['PHP_SELF']?>" enctype="multipart/form-data">
 					<input type="Hidden" name="sub" size="20" value="save" />
 					
-					<div class='itm_con'><div class='contact_text'><span class='contact_label'><?=Name?></span> <input type='text' name='f_name' class='required1'/></div><span class='errorMsg'></span></div>
-					<div class='itm_con'><div class='contact_text'><span class='contact_label'><?=Email?></span><input type='text' name='email' class='required1 email1'/></div><span class='errorMsg'></span></div>
-					<div class='itm_con'><div class='contact_area'><span class='contact_label'><?=Message?></span><textarea name='note' class='required1'></textarea></div><span class='errorMsg'></span></div>
+					<div class='itm_con'><div class='contact_text'><span class='contact_label'><?php echo Name; ?></span> <input type='text' name='f_name' class='required1'/></div><span class='errorMsg'></span></div>
+					<div class='itm_con'><div class='contact_text'><span class='contact_label'><?php echo Email; ?></span><input type='text' name='email' class='required1 email1'/></div><span class='errorMsg'></span></div>
+					<div class='itm_con'><div class='contact_area'><span class='contact_label'><?php echo Message; ?></span><textarea name='note' class='required1'></textarea></div><span class='errorMsg'></span></div>
 					<div class='contact_sec'>
-						<img src="<?=_PREF?>wedgits/security_img/securityimages.php" border="0" class="forms_image" />
+						<img src="<?php echo _PREF; ?>wedgits/security_img/securityimages.php" border="0" class="forms_image" />
 						<input type="text" name="code" value=""  class="forms_input_code required" onFocus="this.value=''" />
 					</div>
-					<div class='contact_but'><input type="button" name="sub2" value="<?=Send?>"  class="" onClick="validate_form('1','<?=req_label?>','<?=email_label?>')"></div>
+					<div class='contact_but'><input type="button" name="sub2" value="<?php echo Send; ?>"  class="" onClick="validate_form('1','<?php echo req_label; ?>','<?php echo email_label; ?>')"></div>
 					
 				</form>
 				

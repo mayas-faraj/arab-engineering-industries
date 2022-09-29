@@ -80,17 +80,17 @@ if($numberOfRows > 0){
     <td>Create Thumb&nbsp;</td>
   </tr>
   <tr>
-    <td><img src="<?=$photo?>" id="cropbox" align="left" style="float:left" /></td>
+    <td><img src="<?php echo $photo; ?>" id="cropbox" align="left" style="float:left" /></td>
     <td><div style="width:90px;height:90px;overflow:hidden; float:right">
-			<img src="<?=$photo?>" id="preview"  align="right" />
+			<img src="<?php echo $photo; ?>" id="preview"  align="right" />
 		</div></td>
   </tr>
   <tr>
     <td colspan="2">Edit desription: <input type="text" name="desc" width="50" /></td>
   </tr>
 </table>
-<input type="hidden" name="photo" value="<?=$photo?>" />
-<input type="hidden" name="thumb" value="<?=$thumb?>" />
+<input type="hidden" name="photo" value="<?php echo $photo; ?>" />
+<input type="hidden" name="thumb" value="<?php echo $thumb; ?>" />
 <input type="text" id="x" name="x" />
 <input type="text" id="y" name="y" />
 <input type="text" id="w" name="w" />

@@ -16,27 +16,27 @@ function availableForm($formName){
   <td>
   	<div class="title">Site Settings</div>
 	<?if(availableForm('listMenus')){?>
-	<div style="padding-left:10px;"><a href="../menus/listMenus.php"><?=Menus?></a></div>
+	<div style="padding-left:10px;"><a href="../menus/listMenus.php"><?php echo Menus; ?></a></div>
 	<?}if(availableForm('listPages')){?>
-	<div style="padding-left:10px;"><a href="../pages/listPages.php"><?=Text?></a></div>
+	<div style="padding-left:10px;"><a href="../pages/listPages.php"><?php echo Text; ?></a></div>
 	<?}if(availableForm('listQuery_forms')){?>
-	<div style="padding-left:10px;"><a href="../qforms/listQuery_forms.php"><?=Forms?></a></div>
+	<div style="padding-left:10px;"><a href="../qforms/listQuery_forms.php"><?php echo Forms; ?></a></div>
 	<?}if(availableForm('seo')){?>
 	<div style="padding-left:10px;"><a href="../common/seo.php?filename=" class="dialog-form">SEO Default settings</a></div>
 	<?}if(availableForm('listSite_settings')){?>
 	<div style="padding-left:10px;"><a href="../site_settings/listSite_settings.php">Site settings</a></div>
 	<?}if(availableForm('listGalleries')){?>
-	<div style="padding-left:10px;"><a href="../galleries/listGalleries.php"><?=Galleries?></a></div>
+	<div style="padding-left:10px;"><a href="../galleries/listGalleries.php"><?php echo Galleries; ?></a></div>
 	<?}if(availableForm('listResources')){?>
 	<div style="padding-left:10px;"><a href="../resources/listResources.php">FYI</a></div>
 	<?}if(availableForm('listHighlight')){?>
-	<div style="padding-left:10px;"><a href="../setting/listHighlight.php"><?=Highlights?></a></div>
+	<div style="padding-left:10px;"><a href="../setting/listHighlight.php"><?php echo Highlights; ?></a></div>
 	<?}if(availableForm('listEvents')){?>
-	<div style="padding-left:10px;"><a href="../events/listEvents.php"><?=Events?></a></div>
+	<div style="padding-left:10px;"><a href="../events/listEvents.php"><?php echo Events; ?></a></div>
 	<?}if($_SESSION['GRP']=='2'){?>
 	<div style="padding-left:10px;"><a href="../elfinder/elfinder.html" target="_blank">File Manager</a></div>
 	<?}?>
-	<!--div style="padding-left:10px;"><a href="../cms/listModules.php"><?=Modules?></a></div-->
+	<!--div style="padding-left:10px;"><a href="../cms/listModules.php"><?php echo Modules; ?></a></div-->
 	</td>
 </tr>
 <tr>

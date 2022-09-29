@@ -5,10 +5,10 @@ $user_name = lookupField('users','user_id','full_name',cleanString($_SESSION["us
 $mem_name = lookupField('users','user_id','full_name',$mem_id);
 
 ?>	
-<link rel="stylesheet" type="text/css" href='<?=_PREF?>wedgits/forum/articles_<?=$pageLang?>.css'/>
+<link rel="stylesheet" type="text/css" href='<?php echo _PREF; ?>wedgits/forum/articles_<?php echo $pageLang; ?>.css'/>
 <div class= "page_content">
 	
-	<div class="title2"><?=$mem_name?> <span><?echo Welcome.' <font><a href="viewForumMember.php?mem_id='.$_SESSION["us_id"].'&id='.$cat_id.'">'.$user_name.'</a></font>'?></span></div>
+	<div class="title2"><?php echo $mem_name; ?> <span><?echo Welcome.' <font><a href="viewForumMember.php?mem_id='.$_SESSION["us_id"].'&id='.$cat_id.'">'.$user_name.'</a></font>'?></span></div>
 
 	
 <?

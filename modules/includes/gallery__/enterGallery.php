@@ -47,7 +47,7 @@ if($action){
 }// Insert record
 ?>
 
-<form method='post' name='main' action='<?= $_SERVER['PHP_SELF']?>' enctype='multipart/form-data' onsubmit='return formValidator()'>
+<form method='post' name='main' action='<?php echo  $_SERVER['PHP_SELF']; ?>' enctype='multipart/form-data' onsubmit='return formValidator()'>
     <div style="height:340px; margin-top:20px">
         <div style="float:left">
         <div>Gallery Name (EN): </div>

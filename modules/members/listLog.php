@@ -48,10 +48,10 @@ $i=0;?>
 <TABLE class="selectable" CELLSPACING="0" CELLPADDING="0" BORDER="0" WIDTH="100%" id="list">
 <thead>
 <tr>
-<th width="277"><?=print_AdminRecordHead("user", "User", $sb, $so)?></th>
-<th width="277"><?=print_AdminRecordHead("ip", "IP", $sb, $so)?></th>
-<th width="277"><?=print_AdminRecordHead("page", "Page", $sb, $so)?></th>
-<th width="277"><?=print_AdminRecordHead("datetime_stamp", "Date", $sb, $so)?></th>
+<th width="277"><?php echo print_AdminRecordHead("user", "User", $sb, $so); ?></th>
+<th width="277"><?php echo print_AdminRecordHead("ip", "IP", $sb, $so); ?></th>
+<th width="277"><?php echo print_AdminRecordHead("page", "Page", $sb, $so); ?></th>
+<th width="277"><?php echo print_AdminRecordHead("datetime_stamp", "Date", $sb, $so); ?></th>
 </tr>
 </thead>
 <tbody>
@@ -65,11 +65,11 @@ $datetime_stamp= MYSQL_RESULT($result,$i,"datetime_stamp");
 
 ?>
 <TR>
-<TD><?=stripslashes($user)?></TD>
+<TD><?php echo stripslashes($user); ?></TD>
 
-<TD><?=stripslashes($ip)?></TD>
-<TD><?=stripslashes($page)?></TD>
-<TD><?=stripslashes($datetime_stamp)?></TD>
+<TD><?php echo stripslashes($ip); ?></TD>
+<TD><?php echo stripslashes($page); ?></TD>
+<TD><?php echo stripslashes($datetime_stamp); ?></TD>
 </TR>
 <?$i++;
 }//End While?>

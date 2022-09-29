@@ -1,5 +1,5 @@
-<link rel="stylesheet" type="text/css" href='<?=_PREF?>wedgits/announcements/announcements_<?=$pageLang?>.css'/>	
-<div class="page_content" dir='<?=_DIR?>'>
+<link rel="stylesheet" type="text/css" href='<?php echo _PREF; ?>wedgits/announcements/announcements_<?php echo $pageLang; ?>.css'/>	
+<div class="page_content" dir='<?php echo _DIR; ?>'>
 
 	<?
 $photo_path ="../../uploads/";
@@ -52,14 +52,14 @@ if ($numrows>0) {
 		
 
 		?>
-	<div class="title2"><?=$subject?></div>
+	<div class="title2"><?php echo $subject; ?></div>
 	<div class="annonce_details">
 		<div class="annonce_details_body">
-			<div class="annonce_img"><?=$act_img?></div>
-			<div class="annonce_details_txt"><?=$txt?></div>
+			<div class="annonce_img"><?php echo $act_img; ?></div>
+			<div class="annonce_details_txt"><?php echo $txt; ?></div>
 		</div>
 		<div class="annonce_info">
-		<?=on?> : <?=$start_date?>
+		<?php echo on; ?> : <?php echo $start_date; ?>
 		
 		</div>
 	
@@ -70,5 +70,5 @@ if ($numrows>0) {
 }
 
 ?>                                                   
-<input type='button' value='<?=Back?>' class='more_btn' onClick='history.back()'/>                            
+<input type='button' value='<?php echo Back; ?>' class='more_btn' onClick='history.back()'/>                            
 </div>

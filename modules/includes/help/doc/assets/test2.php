@@ -8,8 +8,8 @@
         </head>
         <body>
         		<p>Page generated on:</p>
-                <p><?=date('r');?></p>
+                <p><?php echo date('r');; ?></p>
 				FileName: <?echo  getFileName();?>
-				M= <?=$_REQUEST['m'];?>
+				M= <?php echo $_REQUEST['m'];; ?>
         </body>
 </html>

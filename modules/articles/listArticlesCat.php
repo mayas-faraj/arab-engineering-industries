@@ -62,20 +62,20 @@ $numberOfRows = MYSQL_NUMROWS($result);
 $i=0;
 ?>
 <div class="data">
-	<form method='post' name='main' action='<?=$_SERVER['PHP_SELF']?>' enctype='multipart/form-data'>
+	<form method='post' name='main' action='<?php echo $_SERVER['PHP_SELF']; ?>' enctype='multipart/form-data'>
 		<input type='hidden' name='action' value=''>
-		<input type="Hidden" name="lang" size="20" value="<?=$lang?>" />
+		<input type="Hidden" name="lang" size="20" value="<?php echo $lang; ?>" />
 		<script>function actionf(act){main.action.value = act;main.submit();}</script>
 		<TABLE CELLSPACING="0" CELLPADDING="0" BORDER="0" WIDTH="100%" ID="list">
 			<thead>
 				<TR>
 					<tr>
-						<th width="277"><?=print_AdminRecordHead("name", "Forum Name", $sb, $so, $static_order)?></th>
-						<th width="277"><?=print_AdminRecordHead("grp_admin", "Moderator", $sb, $so, $static_order)?></th>
-						<th width="277"><?=print_AdminRecordHead("create_date", "Created on", $sb, $so, $static_order)?></th>
-						<th width="277"><?=print_AdminRecordHead("active", "Show", $sb, $so)?></th>
-						<th width="277"><?=print_AdminRecordHead("publish", "Active", $sb, $so)?></th>
-						<!--th width="277"><?=print_AdminRecordHead("lang", "Language", $sb, $so, $static_order)?></th-->
+						<th width="277"><?php echo print_AdminRecordHead("name", "Forum Name", $sb, $so, $static_order); ?></th>
+						<th width="277"><?php echo print_AdminRecordHead("grp_admin", "Moderator", $sb, $so, $static_order); ?></th>
+						<th width="277"><?php echo print_AdminRecordHead("create_date", "Created on", $sb, $so, $static_order); ?></th>
+						<th width="277"><?php echo print_AdminRecordHead("active", "Show", $sb, $so); ?></th>
+						<th width="277"><?php echo print_AdminRecordHead("publish", "Active", $sb, $so); ?></th>
+						<!--th width="277"><?php echo print_AdminRecordHead("lang", "Language", $sb, $so, $static_order); ?></th-->
 						<th colspan="4">Controls  </th>
 					</tr>
 				</TR>
@@ -85,11 +85,11 @@ $i=0;
 				
 			?>
 				<TR>
-					<TD><input type="Text" name="name" size="20" value="<?=stripslashes($name)?>" class='required' /></TD>
-					<TD><?=createComboBox("users" , "user_id", "full_name" , $grp_admin , "grp_admin", "required");?></TD>
-					<TD><input type="Text" name="create_date" size="20" value="<?=date('Y-m-d')?>" class='dateF' /></TD>
-					<!--TD><?=createLangCombo('Arabic|English','ar|en','lang','required',$lang)?></TD-->
-					<TD><img src="<?=_PREF?>images/icons/save.png" onClick="actionf('Insert')" onMouseOver="over(this)" alt="<?=_Save?>" /></TD>
+					<TD><input type="Text" name="name" size="20" value="<?php echo stripslashes($name); ?>" class='required' /></TD>
+					<TD><?php echo createComboBox("users" , "user_id", "full_name" , $grp_admin , "grp_admin", "required");; ?></TD>
+					<TD><input type="Text" name="create_date" size="20" value="<?php echo date('Y-m-d'); ?>" class='dateF' /></TD>
+					<!--TD><?php echo createLangCombo('Arabic|English','ar|en','lang','required',$lang); ?></TD-->
+					<TD><img src="<?php echo _PREF; ?>images/icons/save.png" onClick="actionf('Insert')" onMouseOver="over(this)" alt="<?php echo _Save; ?>" /></TD>
 					<TD colspan="5">&nbsp;</TD>
 				</TR>
 			<?}
@@ -105,11 +105,11 @@ $publish= MYSQL_RESULT($result,$i,"publish");
 if($action=="Edit"  && $_REQUEST['id'] == $id){
 ?>
 <TR>
-	<TD><input type="Text" name="name" size="20" value="<?=stripslashes($name)?>" /><input type="Hidden" name="id" size="20" value="<?=$id?>" /></TD>
-	<TD><?=createComboBox("users" , "user_id", "full_name" , $grp_admin , "grp_admin", "required");?></TD>
-	<TD><input type="Text" name="create_date" size="20" class='dateF' value="<?=stripslashes($create_date)?>" /></TD>
-	<!--TD><?=createLangCombo('Arabic|English','ar|en','lang','required',$lang)?></TD-->
-	<TD><img src="<?=_PREF?>images/icons/save.png" onClick="actionf('Update')" onMouseOver="over(this)" alt="<?=_Save?>" /></TD>
+	<TD><input type="Text" name="name" size="20" value="<?php echo stripslashes($name); ?>" /><input type="Hidden" name="id" size="20" value="<?php echo $id; ?>" /></TD>
+	<TD><?php echo createComboBox("users" , "user_id", "full_name" , $grp_admin , "grp_admin", "required");; ?></TD>
+	<TD><input type="Text" name="create_date" size="20" class='dateF' value="<?php echo stripslashes($create_date); ?>" /></TD>
+	<!--TD><?php echo createLangCombo('Arabic|English','ar|en','lang','required',$lang); ?></TD-->
+	<TD><img src="<?php echo _PREF; ?>images/icons/save.png" onClick="actionf('Update')" onMouseOver="over(this)" alt="<?php echo _Save; ?>" /></TD>
 	<TD colspan="5">&nbsp;</TD>
 </TR>
 <?}else{
@@ -117,17 +117,17 @@ if($action=="Edit"  && $_REQUEST['id'] == $id){
 {?><TR>
 <?$news_count = mysql_result(mysql_query("SELECT count(*) FROM art_articles where cat_id = '$id'"),0,'count(*)');?>
 <?$users_count = mysql_result(mysql_query("SELECT count(*) FROM topic_groups where topic_id = '$id'"),0,'count(*)');?>
-<TD><?=stripslashes($name)?></TD>
+<TD><?php echo stripslashes($name); ?></TD>
 
-<TD><?=stripslashes(lookupField('users','user_id','full_name',$grp_admin))?></TD>
-<TD><?=stripslashes($create_date)?></TD>
-<td><a href="../includes/checkbox.php?t=art_categories&fn=active&idn=id&idv=<?=$id?>&fv=<?=!($active)?>" class="checkb" ><img src="<?=_PREF?>images/icons/_<?php echo $active?>_.png" border="0"  fv="<?=!($active)?>"/></a></td>
-<td><a href="../includes/checkbox.php?t=art_categories&fn=publish&idn=id&idv=<?=$id?>&fv=<?=!($publish)?>" class="checkb" ><img src="<?=_PREF?>images/icons/_<?php echo $publish?>_.png" border="0"  fv="<?=!($publish)?>"/></a></td>
-<!--TD><?=stripslashes($lang)?></TD-->
-<TD align="center" width="50"><a href='listTopicGroups.php?topic_id=<?=$id?>'> Allowed groups (<?=$users_count?>)</a></td>
-<TD align="center" width="50"><a href='listArticles.php?cat_id=<?=$id?>'> List Discussions (<?=$news_count?>)</a></td>
+<TD><?php echo stripslashes(lookupField('users','user_id','full_name',$grp_admin)); ?></TD>
+<TD><?php echo stripslashes($create_date); ?></TD>
+<td><a href="../includes/checkbox.php?t=art_categories&fn=active&idn=id&idv=<?php echo $id; ?>&fv=<?php echo !($active); ?>" class="checkb" ><img src="<?php echo _PREF; ?>images/icons/_<?php echo $active?>_.png" border="0"  fv="<?php echo !($active); ?>"/></a></td>
+<td><a href="../includes/checkbox.php?t=art_categories&fn=publish&idn=id&idv=<?php echo $id; ?>&fv=<?php echo !($publish); ?>" class="checkb" ><img src="<?php echo _PREF; ?>images/icons/_<?php echo $publish?>_.png" border="0"  fv="<?php echo !($publish); ?>"/></a></td>
+<!--TD><?php echo stripslashes($lang); ?></TD-->
+<TD align="center" width="50"><a href='listTopicGroups.php?topic_id=<?php echo $id; ?>'> Allowed groups (<?php echo $users_count; ?>)</a></td>
+<TD align="center" width="50"><a href='listArticles.php?cat_id=<?php echo $id; ?>'> List Discussions (<?php echo $news_count; ?>)</a></td>
 <TD align="center" WIDTH="20"><?=print_edit_icon($_SERVER['PHP_SELF']."?action=Edit&id=".$id);?></TD>
-<TD align="center" WIDTH="20"><input name="rid[]" type="checkbox" value="<?=$id?>"/></TD>
+<TD align="center" WIDTH="20"><input name="rid[]" type="checkbox" value="<?php echo $id; ?>"/></TD>
 </TR><?}
 }/* end */
 
