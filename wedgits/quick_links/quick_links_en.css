@@ -1,0 +1,39 @@
+.quick_links{
+	float:left;
+	width:177px;
+	height:256px;
+	background:url(bg.png) top left no-repeat;
+	margin-bottom:10px;
+}
+
+.quick{
+	float:left;
+	clear:both;
+	width:157px;
+	text-align:center;
+	padding-right:10px;
+	padding-left:10px;
+}
+
+a.quick{
+	color:#82807f;
+	font-size:13px;
+	text-decoration:none;
+	text-align:center;
+}
+
+/*.quick1{margin-top:60px;}
+.quick2{margin-top:50px;}
+.quick3{margin-top:55px;}*/
+.quick1{padding-top:60px; }
+.quick2{padding-top:50px; }
+.quick3{padding-top:55px; }
+.quick:hover{opacity:0.5;}
+
+.quick_title{
+	float:left;
+	width:157px;
+	padding-left:20px;
+	padding-top:7px;
+	color:black;
+}

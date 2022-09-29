@@ -1,0 +1,70 @@
+.login_form{
+	background:#d3d3d3;
+	width:300px;
+	height:150px;
+	top:35%;
+	right:36%;
+	border:1px solid #ffffff;
+	position:fixed;
+	z-index:500002;
+	display:inline;
+}
+
+.login_form .ajax_loader{
+	float:right;
+	margin-top:25px;
+	margin-right:120px;
+	display:none;
+}
+
+.login_form .ajax_msg{
+	float:right;
+	margin-top:10px;
+	display:none;
+	width:100%;
+	text-align:center;
+}
+
+.login_form input[type=text], .login_form input[type=password]{
+	width:150px;
+	border:1px solid #bababa;
+}
+
+.login_form table{
+	float:right;
+	margin-right:15px;
+	margin-top:35px;
+}
+
+.login_form td{
+	padding-bottom:5px;
+}
+
+.login_form .login_nav{
+	float:right;
+	margin-right:100px;
+	margin-top:15px;
+}
+
+.login_form  input[type=submit]{
+	float:right;
+	margin-left:10px;
+}
+
+
+.site_mask{
+	float:left;
+	left:0;
+	top:0;
+	width:0;
+	height:0;
+	position:fixed;
+	z-index:500001;
+	background:white;
+	opacity:0.5;
+	 -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=75)";
+    filter: alpha(opacity=75);
+    -khtml-opacity: 0.75;
+    -moz-opacity: 0.75;
+
+}

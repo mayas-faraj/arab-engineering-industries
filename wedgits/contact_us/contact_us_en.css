@@ -1,0 +1,152 @@
+.contact_us{
+	float:left;
+}
+
+.contact_us textarea{
+/*
+	width:197px;*/
+	height:200px;
+	
+}
+
+.contact_us input[type='button']{
+	float:left;
+
+}
+
+.key_desc{
+	color:#999;  
+	float:left; 
+	clear:both; 
+	width:350px;
+	font-size:10px;
+	
+}
+
+.form_msg{
+	float:left;
+	clear:both;
+	width:100%;
+	text-align:center;
+	color:#31387b;
+	margin-top:20px;
+	margin-bottom:20px;
+	font-style:italic;
+}
+
+input.forms_input_code{
+	width:200px;
+	float:right;
+	
+	margin-top:-4px;
+	margin-left:10px;
+	margin-right:4px;
+	background:white;
+	border:1px solid #bdbdbd;
+	background:#e9e8e5;
+}
+
+img.forms_image{
+	width:75px; 
+	float:left;
+	margin-top:-4px;
+}
+
+/*************Dar Al alson special style************/
+.contact_text{
+	width:410px;
+	height:26px;
+	float:left;
+	text-align:left;
+	background:url(text_bg.png) repeat-x ;
+	margin-bottom:10px;
+	padding-left:10px;
+	padding-top:8px;
+	color:#696765;
+}
+
+.contact_us td{
+	padding-left:0;
+}
+
+.contact_text input[type=text]{
+	margin-top:-4px;
+	margin-right:5px;
+	float:right;
+	width:320px;
+	background:white;
+	border:1px solid #bdbdbd;
+	background:#e9e8e5;
+	
+}
+
+.contact_area{
+	width:410px;
+	height:172px;
+	margin-bottom:10px;
+	padding-left:10px;
+	padding-top:8px;
+	float:left;
+	color:#696765;
+	text-align:left;
+	background:url(text_bg.png) repeat-x ;
+	
+}
+
+.contact_area textarea{
+	float:right;
+	height:150px;
+	width:320px;
+	margin-top:-4px;
+	margin-right:5px;
+	float:right;
+	border:1px solid #bdbdbd;
+	background:#e9e8e5;
+}
+
+.contact_area .contact_label{float:left; margin-top:0px;}
+.contact_but input[type=button]{
+	width:60px;
+	height:30px;
+	padding-left:10px;
+	margin-top:1px;
+	float:left;
+	color:white;
+	text-align:center;
+	margin-left:10px;
+	
+
+}
+
+.contact_map{
+	width:678px;
+	height:255px;
+	float:left;
+	clear:both;
+	margin-top:-20px;
+	border:1px solid #d2d1d0;
+}
+
+.contact_sec{
+	width:340px;
+	height:26px;
+	float:left;
+	text-align:left;
+	background:url(sec_bg.png) no-repeat top left;
+	margin-bottom:10px;
+	padding-left:10px;
+	padding-top:8px;
+	color:#696765;
+	background:url(text_bg.png) repeat-x ;
+}
+
+.itm_con{
+	float:left;
+}
+
+.errorMsg{
+	float:left;
+	margin-left:10px;
+	font-style:italic;
+	color:#ffbe00;
+}

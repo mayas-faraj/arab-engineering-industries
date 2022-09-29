@@ -1,0 +1,80 @@
+.home_calender{
+	float:right;
+	height:155px;
+	width: 250px;
+	margin-top:0px;
+	margin-right:0px;
+	background:url(calander_bg.png) 0 25px;
+	position:relative;
+}
+
+.corner{background:url(corner.png);width:34px;height:30px;position:absolute;bottom:0;right:0;}
+
+.calender_nav img{float:left; margin-right:5px;}
+
+.current_month{
+	float:right; 
+	color:#eae9e9;
+	width:250px;
+	text-align:left;
+	padding-right:20px;
+	padding-left:20px;
+	clear:both;
+	height:29px;
+    background-color:#535352;
+
+}
+
+.current_month td{color:#eae9e9; font-size:17px; font-family:arial;}
+
+.cal{
+	float:right;
+	width:208px;
+	clear:both;
+	margin-right:2px;
+	margin-top:10px;
+	margin-right:21px;;
+	
+}
+.cal #days_title{height:15px;}
+
+.cal td{
+	border:0;
+	font-size:12px;
+	line-height: 15px;
+	text-align:center;
+	border-left:1px solid #6b6b6a;
+	border-bottom:1px solid #6b6b6a;
+	color:#6f6f6e;
+	height:10px;	
+}
+.cal tr:first-child td{border-top:1px solid #6b6b6a;}
+.cal td:last-child{border:solid 1px #6b6b6a;border-top:0;}
+.first_row td{border-top:1px solid #6b6b6a;}
+.first_row td:last-child{border-top:1px solid #6b6b6a;}
+
+.cal .today{
+	border:1px solid #0c115c;
+}
+
+
+.day{
+	width:100%;
+}
+
+.event_ind{
+	float:right;
+	margin-top:-5px;
+}
+
+
+/*
+.cal_header{
+	width:100%;
+	height:22px;
+	
+	position:relative;
+	margin-bottom:-100px;
+	z-index:0;
+	float:left;
+}*/

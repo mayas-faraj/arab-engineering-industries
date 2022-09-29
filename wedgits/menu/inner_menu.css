@@ -1,0 +1,25 @@
+.inner_menu table td{
+	margin:0;
+}
+.inner_menu{
+	width:960px;
+	height:265px;
+	float:right;
+	text-align:center;
+	direction:ltr;
+}
+
+.inner_menu .menu{
+	text-align:center;
+	float:none;
+	margin:auto;
+	margin-top:10px;
+}
+
+
+.inner_main_content{
+	position:relative;
+	background:url(../images/nuts.png) 100px 10px no-repeat;
+	width:960px;
+	min-height:500px;
+}

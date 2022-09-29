@@ -1,0 +1,134 @@
+<link rel="stylesheet" type="text/css" href='<?=_PREF?>wedgits/view_form/view_form_<?=$pageLang?>.css'/>	
+<script src="<?=_PREF?>wedgits/view_form/view_form.js" language="javascript" type="text/javascript"></script>
+<div class="page_content" dir='<?=_DIR?>'>
+<?
+	$page_name = getCurrentFormName();
+	if($page_name=='index'){
+		$path='';
+	}else{
+		$path='../../';
+	}
+	$sub = cleanString($_REQUEST['sub']);
+	$form_id = cleanString($_REQUEST['id']);
+?>
+<input type='hidden' class='path' value='<?=$path?>'/>
+
+<div class='title'><?=lookupField('query_forms','form_id','form_name',$form_id);?></div>
+<? 
+	if($sub){
+		if( $_SESSION['security_code'] !=  cleanString($_REQUEST['code'])){
+		echo "<div class='form_msg'  >"._Xkeycode."</div>";
+		}else{
+			$num 	= cleanString($_REQUEST['no']);
+			$to     = cleanString($_REQUEST['to']) ;
+			$form	= cleanString($_REQUEST['form_name']);
+			/* To send HTML mail, you can set the Content-type header. */
+			$headers  = "MIME-Version: 1.0\r\n";
+			$headers .= "Content-type: text/html; charset=utf-8\r\n";
+			$headers .= "To:".$to."\r\n";
+			$headers .= "From: ".$to." \r\n";
+			$subject .= "$form";
+			$message  ='
+			<table width="600" border="0" cellspacing="0" cellpadding="3" dir="'._DIR.'" 
+			style="font-family:Tahoma, Geneva, sans-serif">
+			<tr><td colspan="2" stl="stl">'.msgWebsite.'</td></tr>';
+			
+			for($i=0 ; $i < $num; $i++){
+				$label 	= cleanString($_REQUEST['l'.$i]);
+				$value	= cleanString($_REQUEST['f'.$i]);
+				$message .='<tr><td width="100"><b>'.$label.':</b></td><td>'.$value.'</td></tr>';
+			}
+			$message  .='</table>';
+			//echo $message;
+			/* and now mail it */
+			$s = @mail($to, $subject, $message, $headers);
+			$s = 1;
+			if($s){
+				echo "<div id='clear'></div><br/><div class='form_msg'>".ysend."</div>";
+			}else{
+				echo "<div id='clear'></div><div class='form_msg'  >".xsend."</div>";
+				$xsend=1;
+			}
+		}
+	}
+?>
+
+<?
+
+$sql = "SELECT * FROM query_forms fo LEFT JOIN form_fields fi ON (fi.form_id = fo.form_id ) 
+WHERE fo.form_id  = '$form_id' ORDER BY item_order ASC";
+$result = MYSQL_QUERY($sql);
+$numberOfRows = MYSQL_NUMROWS($result);
+if ($numberOfRows>0) {
+	$i=0;
+	$from_id= MYSQL_RESULT($result,$i,"form_id");
+	$form_name= MYSQL_RESULT($result,$i,"form_name");
+	$send_mail_to= MYSQL_RESULT($result,$i,"send_mail_to");	?>
+
+	
+    <div id="output1" style='width:100%'>
+	<form name="subForm" action="<?=$_SERVER['PHP_SELF']?>" method='POST'>
+	<input type="hidden" name="form_name" value="<?=$form_name?>">
+	<input type="hidden" name="id" value="<?=$from_id?>">
+	<input type="hidden" name="to" value="<?=_INFO?>">
+	<input type="hidden" name="no" value="<?=$numberOfRows?>">
+	<table width="100%" border="0" cellpadding="1" cellspacing="1" dir='<?=_DIR?>' style='float:Right;'><?
+	while ($i<$numberOfRows){
+		$label= MYSQL_RESULT($result,$i,"field_label");
+		$type= MYSQL_RESULT($result,$i,"type");
+		$plus= MYSQL_RESULT($result,$i,"plus");
+		$required= MYSQL_RESULT($result,$i,"required");
+		if(!$label) {$i++; continue;}
+		$req= ($required)? 'required' : ''; 
+		$req.= ($type=='Email')? ' email' : ''; 
+		$rq= ($required)? '*' : '';
+		if($type == 'Label'){ 
+			$str.='<tr><td colspan="3"><b>'.$label.'</b></td><tr>';
+			$i++;
+			continue;
+		}
+		$str.='<tr><td   style="max-width:150px;" valign="top" class="forms_titles">'.$label.':
+		<input type="hidden" name="l'.$i.'" value="'.$label.'" /></td>';
+		
+		$str.='<td  class="forms_request">'.$rq.'</td>';
+		switch ($type):
+		case "Field":
+		$str.='<td  ><input type="text" name="f'.$i.'" size="20" class="forms_input '.$req.'"  /></td></tr>';
+		break;
+		
+		case "Area":
+		$str.='<td ><textarea name="f'.$i.'" cols="40" rows="4" class="forms_input2 '.$req.'"></textarea></td></tr>';
+		break;
+		
+		case "List":
+		$str.='<td><select name="f'.$i.'" class="forms_input '.$req.'">';
+		$values = split(',',$plus);
+		foreach($values as $val)$str.='<option value="'.$val.'">'.$val.'</option>';
+		$str.='</select></td></tr>';
+		break;
+		
+		case "Checkbox":
+		$values = split(',',$plus);
+		foreach($values as $val)$str.='<td><input type="checkbox" name="f'.$i.'" value="*" class="'.$req.'"> '.$val;
+		$str.='</td></tr>';
+		break;
+		
+		default:
+		$str.='<td><input type="Text" name="f'.$i.'" size="20" class="forms_input '.$req.'"/></td></tr>';
+		break;
+		
+		endswitch;
+		$i++;
+	}// end while
+	echo $str;?>
+	<tr><td>&nbsp;</td><td>&nbsp;</td><td><hr class='key_sep'/><div class='key_desc'><?=_keycode?></div></td></tr>
+	<tr><td>&nbsp;</td><td>&nbsp;</td><td><img src="<?=_PREF?>wedgits/security_img/securityimages.php" border="1" class="forms_image" />
+	<br><input type="text" name="code" value=""  class="forms_input_code required" onFocus="this.value=''" /></td></tr>
+	<tr><td ></td ><td ><input type='hidden' name="sub" value='send'/></tr></table>
+		<input style='' type="button" name="sub" id='btn' class="btn form_submit" onclick='validate_form();' value="<?=_Send?>">
+	</form>
+	</div>
+
+<? 
+} //number Of Row?>
+</div>

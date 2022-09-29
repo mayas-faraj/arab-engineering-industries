@@ -1,0 +1,159 @@
+.highlight a{color:#58595b; text-decoration:none;}
+.highlight{
+	float:left;
+	width:960px;
+	height:244px;
+	background:#f0efee;
+	overflow:hidden;
+	margin-top:10px;
+}
+
+.high_nav_con{
+	width:266px;
+	height:244px;
+	position:absolute;
+	float:right;
+	overflow:hidden;
+	margin-left:694px;
+}
+
+.highlight_nav{
+	float:right;
+	width:266px;
+	height:219px;
+	position:absolute;
+	top:0;
+	background:url(nav_bg.png) center center no-repeat;
+}
+
+
+.nav_buttons{
+	top:73px;
+}
+.heighlight_switcher .nav .go_down{
+	margin-top:8px;
+	float:right;
+	cursor:pointer;
+}
+
+.heighlight_switcher .nav .go_up{
+	margin-top:8px;
+	float:left;
+	cursor:pointer;
+}
+
+.heighlight_switcher .nav span.high_nums{
+	float:left;
+	margin-left:20px;
+	color:#58595b;
+	margin-top:3px;
+}
+
+.heighlight_switcher .nav{
+	width:100px;
+	float:left;
+	margin-left:80px;
+	/*border:1px solid black;*/
+}
+.heighlight_switcher{
+	float:right;
+	width:266px;
+	height:25px;
+	background:#d8d8d1;
+	position:absolute;
+	margin-top:219px;
+	z-index:5;
+	/*clear:both;*/
+}
+
+.highlight_desc{
+	width:675px;
+	height:244px;
+	float:left;
+	position:absolute;
+}
+
+
+
+.highlight_bt{
+	float:left;
+	width:236px;
+	padding-left:30px;
+	padding-top:10px;
+	height:63px;
+	clear:both;
+	color:#eead02;
+	/*background:url(inactive.png) left center no-repeat;*/
+}
+
+
+.highlight_bt_active{
+	float:left;
+	width:236px;
+	padding-left:30px;
+	padding-top:10px;
+	height:63px;
+	clear:both;
+	color:white;
+	/*background:url(active.png) left center no-repeat;*/
+}
+
+
+.highlight_desc{
+	display:none;
+}
+
+.desc1{
+	display:inline;
+}
+
+
+
+.highlight_img{
+	float:left;
+	height:180px; 
+	width:180px; 
+	padding:5px;
+	padding-top:20px;
+	padding-left:20px;
+}
+.highlight_img img{
+	max-width:180px;
+}
+
+.highlight_txt p{
+	line-height:25px;
+}
+
+.highlight_txt{
+	float:right;
+	height:200px; 
+	width:430px; 
+	padding:20px;
+	padding-left:0px;
+	line-height:25px;
+}
+
+.mores{
+	color: #525251;
+	text-decoration: none;
+	font-weight: bold;
+}
+
+.nav_buttons{
+	top:0px;
+	position:absolute;
+}
+
+.before_item{
+	position:relative;
+	top:0;
+	float:left;
+	top:0;
+	clear:both;
+	
+}
+
+.temp_data{
+	display:none;
+}

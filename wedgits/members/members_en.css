@@ -1,0 +1,12 @@
+.memTable{width:100%; float:right;}
+.memTable  th{border-top:1px solid #a19b85;border-bottom:2px solid #a19b85; margin-bottom:2px;  background:transparent; border-left:0; border-right:0; padding:5px;}
+.memTable td{border-bottom:1px solid #a19b85; margin-bottom:2px;  background:transparent; border-left:0; border-right:0; padding:5px;}
+.memTable td:first-child , .memTable  th:first-child {border-left:1px solid #a19b85;}
+.memTable td:last-child, .memTable  th:last-child{border-right:1px solid #a19b85;}
+.memTable tr:hover td{background:url(pat_bg.png) repeat-y; cursor:pointer;}
+.memTable tr{float:left; margin-bottom:0px;}
+.art_title{width:352px; }
+.art_autor{width:352px;}
+.art_date{text-align:center; width:93px;}
+.pagination_con{float:right;}
+td.bod_lb{width:100px;}

@@ -1,0 +1,16 @@
+.search_result{
+	width:100;
+}
+
+.search_result a{
+	color:#939598;
+}
+
+.search_result a.more{
+	float:right;
+	color:#0c4da2;
+}
+
+.search_result a.more:hover{
+	opacity:0.5;
+}

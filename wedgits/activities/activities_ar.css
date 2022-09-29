@@ -1,0 +1,131 @@
+.activities_con{
+	float:right;
+	width:100%;
+}
+.activities_con .details{
+	width:100%;
+	clear:both;
+	float:right;
+}
+
+.activities_con input[type='button']{
+	margin-top:20px;
+	float:left;
+	clear:both;
+	
+}
+.activities_con img{
+	margin-bottom:20px;
+	clear:both;
+}
+
+.activities_item{
+	width:100%;
+	height:100px;
+	float:right;
+	clear:both;
+}
+
+.activities_item hr{
+	float:right;
+	border:1px solid #d8d8d3;
+	clear:both;
+	width:700px;
+}
+
+.activities_brief p{
+	padding:0;
+	margin:0;
+}
+.activities_brief{
+	width:640px;
+	margin-right:10px;
+	padding-left:0;
+	padding-bottom:0px;
+	float:right;
+	min-height:60px;
+
+}
+
+.activities_item a{
+	
+	margin-bottom:40px;
+	margin-left:0px;
+	margin-top:-30px;
+	color: #525251;
+	font-weight: bold;
+}
+
+.ln_date_all{
+	font-weight: bold;
+}
+.ln_date{
+	
+	float:right;
+	text-align:right;
+	font-size:12px;
+}
+
+
+.title2 span{float:right;font-family:Arial;}
+
+
+.title{margin-top:10px;}
+
+
+.activities_img{
+	max-width:60px;
+	max-height:60px;
+	margin-top:2px;
+	float:right;
+	clear:right;
+}
+
+
+.activities_img img{
+	max-width:60px;
+	max-height:60px;
+}
+
+.activities_img table{
+	width:65px;
+	height:65px;
+	float:right;
+}
+
+.sep_act{
+	float:right;
+	margin-top:10px;
+	margin-right:0px;
+	width:638px;
+	border:1px solid #d8d8d3;
+	margin-top:10px;
+	clear:both;
+	margin-right:70px;
+}
+
+.activities_img td{
+	width:80px;
+	height:80px;
+}
+
+.gal_show img{
+	margin-right:10px;
+}
+
+.gal_show{
+	width:675px;
+	margin-right:25px;
+}
+
+.subtitle{
+	cursor:pointer;
+}
+.act_date{
+	font-size: 12px;
+}
+
+.date_cell{
+	padding-top:22px;
+	text-align:left;
+}

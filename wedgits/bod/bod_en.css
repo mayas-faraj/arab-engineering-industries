@@ -1,0 +1,37 @@
+
+
+.bod_item{width:100%; clear:both; height:75px;float:left;margin-right:42px;overflow:hidden;border-bottom:solid 1px #b4b3aa; margin-bottom:10px; padding-bottom:10px;}
+.bod_title{height:30px;color:#d68703;font-weight:bold; margin-bottom:-10px; clear:both; float:left; width:100%; cursor:pointer;}
+.bod_content{height:75px;position:relative}
+.bod_img{width:118px;float:left;padding-right:8px; height:100px;}
+.bod_img img {max-width:100px; max-height:150px;}
+.bod_txt{width:600px;float:right;height:115px;overflow:hidden;}
+.bod_txt table{float:left; width:180px;}
+table td.bod_lb{width:80px;}
+.bod_txt span{color:#d68713;}
+.bod_info{height:50px;color:#ffbd00;text-align:left;clear:both;margin-top:0px;}
+
+.bod_details{}
+.bod_details_body{}
+.bod_details_txt{width:520px;float:right;overflow:hidden;}
+
+.bod_img_all {float:left;padding-right:8px; height:5px; }
+.bod_img_all img{max-height:75px; cursor:pointer;}
+.bod_txt div{float:left;}
+.bod_txt div.pos_div{width:100%; float:left; clear:both; margin-bottom:10px; margin-top:5px;/*border:1px solid red;*/}
+.bod_txt div.com_div{width:100%; float:left; clear:both; /*border:1px solid red;*/}
+
+
+.mem_info{
+	width: 600px;
+}
+.fixed_h{
+	height: 15px;
+}
+.term_block{
+	width: 290px;
+	border:solid 1px #BFBBAC;
+	background-color: #D9D7CF;
+	min-height: 20px;
+	padding: 5px;
+}

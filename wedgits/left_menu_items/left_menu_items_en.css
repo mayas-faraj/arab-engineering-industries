@@ -1,0 +1,35 @@
+.left_menu_items{
+	float:left;
+	width:200px;
+	min-height:45px;
+	/*margin-top:5px;*/
+	margin-bottom:5px;
+	/*padding-top:5px;*/
+}
+
+
+.sub_menu_item{
+	width:161px;
+	height:33px;
+	float:left;
+	margin-bottom:5px;
+	padding-left:15px;
+	color:#000000;
+	background:url(side_menu_en.png)  top left no-repeat;
+}
+
+
+
+
+
+.sub_menu_item:hover{background:url(side_menu_en.png)  top left no-repeat;}
+
+.sub_menu_item a{ display:block; padding-top:6px; color:#000000;text-decoration:none;}
+.sub_menu_item:hover a{ width:100%; opacity:1;color:#FFFFFF;border-bottom:0px;}
+.current_sub_menu a{color:#000000;}
+.left_menu_items  a .top_parent{font-size:15px; color:white;}
+
+
+.curr_sub_item a{
+	color:white;
+}

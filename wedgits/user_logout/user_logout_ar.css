@@ -1,0 +1,38 @@
+.logout_form{
+	background:#d3d3d3;
+	
+	padding:20px;
+	top:35%;
+	right:42%;
+	border:1px solid #ffffff;
+	position:fixed;
+	z-index:500002;
+	display:none;
+}
+
+
+
+.logout_form .ajax_msg{
+	float:right;
+	display:none;
+	width:100%;
+	text-align:center;
+}
+
+
+.site_mask{
+	float:right;
+	right:0;
+	top:0;
+	width:0;
+	height:0;
+	position:fixed;
+	z-index:500001;
+	background:white;
+	opacity:0.5;
+	   -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=75)";
+    filter: alpha(opacity=75);
+    -khtml-opacity: 0.75;
+    -moz-opacity: 0.75;
+
+}

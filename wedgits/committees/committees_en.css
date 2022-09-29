@@ -1,0 +1,106 @@
+.activities_con{
+	float:left;
+	width:100%;
+}
+.activities_con .details{
+	width:100%;
+	clear:both;
+	float:left;
+}
+
+.activities_con input[type='button']{
+	margin-top:20px;
+	float:right;
+	clear:both;
+	
+}
+.activities_con img{
+	margin-bottom:20px;
+	clear:both;
+}
+
+.activities_item{
+	width:100%;
+	
+	float:left;
+	clear:both;
+	margin-top:5px;
+	margin-bottom:10px;	
+}
+
+.activities_item hr{
+	float:left;
+	border:1px solid #d8d8d3;
+	clear:both;
+	width:500px;
+}
+
+.activities_brief{
+	width:720px;
+	padding-right:0;
+	padding-bottom:0;
+	float:left;
+}
+
+.activities_item a{
+	float:right;
+	margin-bottom:40px;
+	margin-right:0px;
+	margin-top:-30px;
+	color: #525251;
+	font-weight: bold;
+}
+
+.ln_date{
+	width:100%;
+	clear:both;
+	text-align:left;
+	margin-bottom:5px;
+	font-weight: bold;
+	float:right;
+}
+
+.title{
+	margin-top:10px;
+}
+
+
+.activities_img{
+	max-width:150px;
+	max-height:100px;
+	float:left;
+	
+}
+
+
+.activities_img img{
+	max-width:150px;
+	max-height:100px;
+}
+
+.activities_img table{
+	width:150px;
+	float:left;
+}
+
+.sep_act{
+	float:left;	
+	width:100%;
+	border:1px solid #d8d8d3;
+}
+
+.activities_img td{
+	width:150px;
+}
+
+.ln_date_all{
+	font-weight: bold;
+}
+
+.gal_show img{
+	margin-left:10px;
+}
+
+.subtitle{
+	cursor:pointer;
+}

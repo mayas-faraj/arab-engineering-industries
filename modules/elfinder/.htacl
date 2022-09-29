@@ -1,0 +1,4 @@
+AuthUserFile "/services/users/zukstorage6p1/itihad/www/arabengineeringindustries.org/modules/elfinder/.htaclu"
+AuthName Members
+AuthType Basic
+Require valid-user

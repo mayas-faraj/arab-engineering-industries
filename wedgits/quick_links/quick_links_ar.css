@@ -1,0 +1,42 @@
+.quick_links{
+	float:right;
+	width:177px;
+	height:256px;
+	background:url(bg_ar.png) top right no-repeat;
+	margin-bottom:10px;
+}
+
+.quick{
+	float:right;
+	clear:both;
+	width:157px;
+
+	text-align:center;
+	padding-right:10px;
+	padding-left:10px;
+	
+}
+
+a.quick{
+	color:#82807f;
+	font-size:13px;
+	text-decoration:none;
+	text-align:center;
+}
+
+/*.quick1{margin-top:60px;}
+.quick2{margin-top:50px;}
+.quick3{margin-top:68px;}*/
+
+.quick1{padding-top:65px; }
+.quick2{padding-top:50px; }
+.quick3{padding-top:65px; }
+.quick:hover{opacity:0.5;}
+
+.quick_title{
+	float:right;
+	width:157px;
+	padding-right:20px;
+	padding-top:7px;
+	color:black;
+}

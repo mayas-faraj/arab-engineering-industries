@@ -1,0 +1,146 @@
+.menu {
+/*width: 100%;*/
+text-align:right;
+width:960px;
+height:32px;
+float:right;
+margin-top:-32px;
+background:#774725;
+}
+
+#cssdropdown, #cssdropdown ul {
+padding: 0;
+margin: 0;
+z-index:10;
+padding-top:10px;
+}
+
+#cssdropdown li {
+	/*float:right;*/
+	position:relative;
+	z-index:10;
+	display:inline;
+	margin: 0;
+	
+}
+
+
+
+.mainitems:first-child{
+
+}
+
+
+
+.mainitems{
+z-index:10;
+color:white;
+border-bottom:1px solid transparent;
+padding:0;
+padding-top:4px;
+height:32px;
+}
+
+.mainitems:last-child{
+border:0;
+}
+
+li.mainitems:hover {
+color:#ea9d33;
+}
+
+li.mainitems  a:hover{
+color:#ea9d33;
+
+}
+
+li.mainitems  a.selected{
+color:#ea9d33;
+}
+
+
+
+li.mainitems:first-child{
+margin-left:-10px;
+}
+
+
+.mainitems a{
+text-align:center;
+font-size:12px;
+color:white;
+margin-left: 0px;
+text-decoration: none;
+display:inline;
+padding:5px;
+padding-right:25px;
+
+}
+
+.subuls{
+
+display: none;
+position: absolute;
+right:0px;
+right: 0;
+z-index:10;
+clear:both;
+font-weight:none;
+background-color: #774725;
+opacity:0.9; 
+text-align:left;
+padding-right:5px;
+padding-right:5px;
+min-width:170px;
+}
+
+.subuls li{
+min-width:170px;
+text-align:left;
+padding-top:3px;
+padding-bottom:3px;
+font-weight:none;
+float:left;
+clear:both;
+border-bottom:2px solid #d3af94;
+}
+
+.subuls li:first-child{padding-top:0px;}
+
+
+.subuls li a{
+text-align:right;
+vertical-align:middle;
+display:block;
+text-decoration: none;
+padding-top:3px;
+padding-right:22px;
+clear:both;
+font-weight:none;
+font-size:11px;
+color:white;
+float:right;
+text-align:right;
+margin-top:0;
+border-right:0;
+width:100%;
+/*padding-bottom:10px;*/
+}
+
+.subuls li a:hover{
+color:#ea9d33;
+}
+
+
+#cssdropdown li>ul { /* to override top and left in browsers other than IE, which will position to the top right of the containing li, rather than bottom left */
+top: 22px;
+left: auto;
+}
+
+#cssdropdown li:hover ul, li.over ul { /* lists nested under hovered list items */
+display: block;
+}
+
+#restofcontent { /*wrap rest of content of the page inside this div*/
+clear: right;
+}

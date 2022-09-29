@@ -1,0 +1,8 @@
+.blocks{height:171px;clear:both;margin-top:20px; }
+.blocks_image{float:left;width:227px;margin-right:8px;  }
+.blocks_image img{ float:left;}
+.blocks_image:last-child{float:left;width:227px;margin-right:0px;  }
+.blocks_calender{float:left;width:250px;}
+.blocks_image a:hover{opacity:0.4;filter:alpha(opacity=40);}
+
+.blocks span{float:right; margin-top:-45px;width:227px; text-align:center; color:white; font-size:18px;  }
