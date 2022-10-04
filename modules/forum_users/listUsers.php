@@ -33,7 +33,7 @@ if($action=="Insert"){
 	$cols .= ", signature"; $values .= ", '$signature'";
 
 	$SQL = "INSERT INTO users ( $cols ) VALUES ($values)";
-	$result = mysql_query($SQL);
+	$result = mysqli_query($GLOBALS["db_link_conn"], $SQL);
 	if($result)	echo '<script>correctMessageWithoutBack("'.Record_Enter.'")</script>';
 }
 //-------------------------------------------------
@@ -49,7 +49,7 @@ if($action=="Update"){
 
 
 	$SQL = "UPDATE users SET $values WHERE user_id = '$user_id' ";
-	$result = mysql_query($SQL);
+	$result = mysqli_query($GLOBALS["db_link_conn"], $SQL);
 	if($result)	echo '<script>correctMessageWithoutBack("'.Record_Update.'")</script>';
 }
 /**delete_grp_functions(part 1 of 2)********************************************/
@@ -62,8 +62,8 @@ if($action=="Delete"){
 }
 //-------------------------------------------------
 $sql = "SELECT * FROM users WHERE  grp_id = 3 $sort ";
-$result = MYSQL_QUERY($sql);
-$numberOfRows = MYSQL_NUMROWS($result);
+$result = mysqli_query($GLOBALS["db_link_conn"], $sql);
+$numberOfRows = mysqli_num_rows($result);
 $i=0;?>
 <div class="data">
 <form method='post' name='main' action='<?php echo $_SERVER['PHP_SELF']; ?>' enctype='multipart/form-data'>
@@ -105,15 +105,15 @@ function actionf(act){
 </TR>
 <?}// Enter record
 while ($i<$numberOfRows){
-	$user_id= MYSQL_RESULT($result,$i,"user_id");
-	$username= MYSQL_RESULT($result,$i,"username");
-	$password= MYSQL_RESULT($result,$i,"password");
-	$full_name= MYSQL_RESULT($result,$i,"full_name");
-	$email= MYSQL_RESULT($result,$i,"email");
-	$grp_id= MYSQL_RESULT($result,$i,"grp_id");
-	$user_desc= MYSQL_RESULT($result,$i,"user_desc");
-	$photo= basename(MYSQL_RESULT($result,$i,"photo"));
-	$signature= basename(MYSQL_RESULT($result,$i,"signature"));
+	$user_id= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"user_id");
+	$username= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"username");
+	$password= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"password");
+	$full_name= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"full_name");
+	$email= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"email");
+	$grp_id= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"grp_id");
+	$user_desc= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"user_desc");
+	$photo= basename(mysqli_result($GLOBALS["db_link_conn"], $result,$i,"photo"));
+	$signature= basename(mysqli_result($GLOBALS["db_link_conn"], $result,$i,"signature"));
 	if($action=="Edit"  && $_REQUEST['user_id'] == $user_id){?>
     	<TR>
 			<TD><input type="Text" name="username" size="20" value="<?php echo stripslashes($username); ?>" />

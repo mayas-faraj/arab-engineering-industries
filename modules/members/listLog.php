@@ -31,8 +31,8 @@ if($_SESSION['USER'] != 2){
 if($whereStmt!="")	$whereStmt = " WHERE $whereStmt";
 
 $sql = "SELECT * FROM log  order by datetime_stamp DESC ";
-$result = MYSQL_QUERY($sql);
-$numberOfRows = MYSQL_NUMROWS($result);
+$result = mysqli_query($GLOBALS["db_link_conn"], $sql);
+$numberOfRows = mysqli_num_rows($result);
 
 /***********Top pagination*************/
 $tp = count_items("mem_members", str_replace("WHERE", "", $whereStmt));
@@ -57,11 +57,11 @@ $i=0;?>
 <tbody>
 <?php
 while ($i<$numberOfRows){
-$id= MYSQL_RESULT($result,$i,"id");
-$user= MYSQL_RESULT($result,$i,"user");
-$page= MYSQL_RESULT($result,$i,"page");
-$ip= MYSQL_RESULT($result,$i,"ip");
-$datetime_stamp= MYSQL_RESULT($result,$i,"datetime_stamp");
+$id= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"id");
+$user= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"user");
+$page= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"page");
+$ip= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"ip");
+$datetime_stamp= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"datetime_stamp");
 
 ?>
 <TR>

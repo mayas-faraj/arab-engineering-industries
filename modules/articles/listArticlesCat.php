@@ -1,4 +1,4 @@
-<?include_once("../common/header-admin.php");?>
+<?php include _once("../common/header-admin.php");?>
 <?echo print_GridAdminHead("Active Forums","Active Forums", 1, 1, 1, 1);
 echo '<div class="controls">';
 //echo create_lang_switcher($lang);
@@ -16,27 +16,27 @@ $create_date = addslashes($_REQUEST['create_date']);
 if($action=="Insert"){
 
 	$SQL = "INSERT INTO art_categories (name, lang , grp_admin, create_date ) VALUES ('$name' , '$lang','$grp_admin', '$create_date')";
-	$result = mysql_query($SQL);
-	$topic_id = mysql_insert_id();
+	$result = mysqli_query($GLOBALS["db_link_conn"], $SQL);
+	$topic_id = mysqli_insert_id($GLOBALS["db_link_conn"]);
 	if($grp_admin){
 		$SQL = "insert into forum_group (name_en,name_ar) values ('$name','$name');";
-		$result = mysql_query($SQL);
+		$result = mysqli_query($GLOBALS["db_link_conn"], $SQL);
 		
-		$grp_id = mysql_insert_id();
+		$grp_id = mysqli_insert_id($GLOBALS["db_link_conn"]);
 		$SQL = "insert into forum_users_groups (user_id,grp_id) values ('$grp_admin','$grp_id');";
-		$result = mysql_query($SQL);
+		$result = mysqli_query($GLOBALS["db_link_conn"], $SQL);
 		
 		
 		
 		$SQL = "insert into topic_groups (topic_id,grp_id) values ('$topic_id','$grp_id');";
-		$result = mysql_query($SQL);
+		$result = mysqli_query($GLOBALS["db_link_conn"], $SQL);
 	}
 	
 	if($result)echo '<script>correctMessageWithoutBack("'.Record_Enter.'")</script>';
 }// Insert record
 /*-------------------------------------------------*/
 if($action=="Update"){$SQL = "UPDATE art_categories SET create_date='$create_date', name = '$name' , lang = '$lang', grp_admin='$grp_admin' WHERE id = '$id' ";
-$result = mysql_query($SQL);
+$result = mysqli_query($GLOBALS["db_link_conn"], $SQL);
 if($result)echo '<script>correctMessageWithoutBack("'.Record_Update.'")</script>';
 }// Update record
 /*-------------------------------------------------*/
@@ -44,7 +44,7 @@ if($action=="Delete"){$array = $_POST['rid'];
 $ids = implode(",", $array);
 for($i=0;$i<count($array);$i++){
 	$sql_query = " select * from art_articles WHERE cat_id = '".$array[$i]."'";
-	$has_discussions = mysql_numrows(mysql_query($sql_query));
+	$has_discussions = mysqli_num_rows(mysql_query($sql_query));
 	if($has_discussions){
 		$cat_name = lookupField('art_categories','id','name',$array[$i]);
 		echo "<script>alert('Sorry cannot delete forum $cat_name because it contains $has_discussions discussion');</script>";
@@ -57,8 +57,8 @@ for($i=0;$i<count($array);$i++){
 }// Delete record
 /*-------------------------------------------------*/
 $sql = "SELECT * FROM art_categories   ORDER BY name ";
-$result = MYSQL_QUERY($sql);
-$numberOfRows = MYSQL_NUMROWS($result);
+$result = mysqli_query($GLOBALS["db_link_conn"], $sql);
+$numberOfRows = mysqli_num_rows($result);
 $i=0;
 ?>
 <div class="data">
@@ -95,13 +95,13 @@ $i=0;
 			<?}
 /* Enter record */
 while ($i<$numberOfRows){
-$id= MYSQL_RESULT($result,$i,"id");
-$name= MYSQL_RESULT($result,$i,"name");
-$lang= MYSQL_RESULT($result,$i,"lang");
-$grp_admin= MYSQL_RESULT($result,$i,"grp_admin");
-$create_date= MYSQL_RESULT($result,$i,"create_date");
-$active= MYSQL_RESULT($result,$i,"active");
-$publish= MYSQL_RESULT($result,$i,"publish");
+$id= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"id");
+$name= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"name");
+$lang= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"lang");
+$grp_admin= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"grp_admin");
+$create_date= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"create_date");
+$active= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"active");
+$publish= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"publish");
 if($action=="Edit"  && $_REQUEST['id'] == $id){
 ?>
 <TR>
@@ -115,8 +115,8 @@ if($action=="Edit"  && $_REQUEST['id'] == $id){
 <?}else{
 /* Edit recordelse */
 {?><TR>
-<?$news_count = mysql_result(mysql_query("SELECT count(*) FROM art_articles where cat_id = '$id'"),0,'count(*)');?>
-<?$users_count = mysql_result(mysql_query("SELECT count(*) FROM topic_groups where topic_id = '$id'"),0,'count(*)');?>
+<?$news_count = mysqli_result($GLOBALS["db_link_conn"], mysql_query("SELECT count(*) FROM art_articles where cat_id = '$id'"),0,'count(*)');?>
+<?$users_count = mysqli_result($GLOBALS["db_link_conn"], mysql_query("SELECT count(*) FROM topic_groups where topic_id = '$id'"),0,'count(*)');?>
 <TD><?php echo stripslashes($name); ?></TD>
 
 <TD><?php echo stripslashes(lookupField('users','user_id','full_name',$grp_admin)); ?></TD>

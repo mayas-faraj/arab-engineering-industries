@@ -9,14 +9,14 @@ if(isset($_REQUEST['gid'])){
 	$gid=$_REQUEST['gid'];
 	$_SESSION['gid']=$gid;
 	$sql = "SELECT * FROM galleries_galleries  where id=$gid limit 0,1";
-	$result = mysql_query($sql);
-	$numberOfRows = mysql_numrows($result);
+	$result = mysqli_query($GLOBALS["db_link_conn"], $sql);
+	$numberOfRows = mysqli_num_rows($result);
 	if ($numberOfRows>0) {
-		$gid= mysql_result($result,0,"id");
-		$gallery_name_en= stripslashes(mysql_result($result,0,"gallery_name_en"));
-		$description_en= stripslashes(mysql_result($result,0,"description_en"));
-		$gallery_name_ar= stripslashes(mysql_result($result,0,"gallery_name_ar"));
-		$description_ar= stripslashes(mysql_result($result,0,"description_ar"));
+		$gid= mysqli_result($GLOBALS["db_link_conn"], $result,0,"id");
+		$gallery_name_en= stripslashes(mysqli_result($GLOBALS["db_link_conn"], $result,0,"gallery_name_en"));
+		$description_en= stripslashes(mysqli_result($GLOBALS["db_link_conn"], $result,0,"description_en"));
+		$gallery_name_ar= stripslashes(mysqli_result($GLOBALS["db_link_conn"], $result,0,"gallery_name_ar"));
+		$description_ar= stripslashes(mysqli_result($GLOBALS["db_link_conn"], $result,0,"description_ar"));
 ?>
 <html>
 <head>
@@ -44,7 +44,7 @@ if($action){
 	description_en = '$description_en' , 
 	description_ar = '$description_ar' 
 	WHERE id = '$gid'";
-	$result = mysql_query($SQL);
+	$result = mysqli_query($GLOBALS["db_link_conn"], $SQL);
 	if($result){
 		echo '<script>window.location="'._PREF.'modules/includes/gallery/photosGallery.php";</script>';
 	}

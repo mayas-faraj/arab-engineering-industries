@@ -26,7 +26,7 @@ if($sub){
 	$active = 1;//addslashes($_REQUEST['active']);
 	$lang = addslashes($_REQUEST['lang']);
 	$SQL = "UPDATE events_events SET   link='$link', subject = '$subject' , brief = '$brief' ,details = '$details' , subject_ar = '$subject_ar' , brief_ar = '$brief_ar' ,details_ar = '$details_ar' , publish_date = '$publish_date' ,end_date = '$end_date' , active = '$active' WHERE id = '$id' ";
-	$result = mysql_query($SQL);
+	$result = mysqli_query($GLOBALS["db_link_conn"], $SQL);
 	if($result)
  	echo '<script>correctMessage("'.Record_Update.'")</script>';
 	else echo '<script>errorMessage("'.CantInsert.'")</script>' ;
@@ -34,23 +34,23 @@ if($sub){
 if((!$sub) || (!$result)){ 
 	$id = $_REQUEST['id'];
 	$sql ="SELECT * FROM events_events WHERE id = '$id' ";
-	$result = MYSQL_QUERY($sql);
-	$numberOfRows = MYSQL_NUMROWS($result);
+	$result = mysqli_query($GLOBALS["db_link_conn"], $sql);
+	$numberOfRows = mysqli_num_rows($result);
 	if ($numberOfRows>0) {
 		$i=0;
-        $id= MYSQL_RESULT($result,$i,"id");
-        $subject= MYSQL_RESULT($result,$i,"subject");
-        $brief= MYSQL_RESULT($result,$i,"brief");
-        $details= MYSQL_RESULT($result,$i,"details");        
-		$subject_ar= MYSQL_RESULT($result,$i,"subject_ar");
-        $brief_ar= MYSQL_RESULT($result,$i,"brief_ar");
-        $details_ar= MYSQL_RESULT($result,$i,"details_ar");
-        $publish_date= MYSQL_RESULT($result,$i,"publish_date");
-        $event_type=MYSQL_RESULT($result,$i,"event_type");
-        $end_date=  MYSQL_RESULT($result,$i,"publish_date");//MYSQL_RESULT($result,$i,"end_date");
-        $active= MYSQL_RESULT($result,$i,"active");
-        $link= MYSQL_RESULT($result,$i,"link");
-        $lang= MYSQL_RESULT($result,$i,"lang");
+        $id= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"id");
+        $subject= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"subject");
+        $brief= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"brief");
+        $details= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"details");        
+		$subject_ar= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"subject_ar");
+        $brief_ar= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"brief_ar");
+        $details_ar= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"details_ar");
+        $publish_date= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"publish_date");
+        $event_type=mysqli_result($GLOBALS["db_link_conn"], $result,$i,"event_type");
+        $end_date=  mysqli_result($GLOBALS["db_link_conn"], $result,$i,"publish_date");//MYSQL_RESULT($result,$i,"end_date");
+        $active= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"active");
+        $link= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"link");
+        $lang= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"lang");
 	}?>
     <form name="subForm" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>" enctype="multipart/form-data">
     <input type="Hidden" name="id" size="20" value="<?php echo $id; ?>" />

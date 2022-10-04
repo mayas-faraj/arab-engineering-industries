@@ -18,8 +18,8 @@ if($sub)
 	$lang = _LANG;
 	
 	$sql = "select * from users where password='$oldp' AND user_id='$user_id'";
-	$result =  MYSQL_QUERY($sql);
-	$numrows = mysql_numrows($result);
+	$result =  mysqli_query($GLOBALS["db_link_conn"], $sql);
+	$numrows = mysqli_num_rows($result);
 	if(!$numrows){
 		$results = invalid_pass;
 		
@@ -27,7 +27,7 @@ if($sub)
 		$results = pass_match;
 	}else{
 		$sql = "update  users set  password='$newp' where user_id='$user_id'";
-		$result =  MYSQL_QUERY($sql);
+		$result =  mysqli_query($GLOBALS["db_link_conn"], $sql);
 		if($result){
 			$results = pass_succ;
 		}else{

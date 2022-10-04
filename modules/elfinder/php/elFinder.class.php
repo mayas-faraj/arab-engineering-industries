@@ -835,8 +835,8 @@ class elFinder {
 		$cut     = !empty($args['cut']);
 		$error   = $cut ? self::ERROR_MOVE : self::ERROR_COPY;
 		$result  = array('added' => array(), 'removed' => array());
-		MYSQL_CONNECT('localhost', 'root', '');    
-		mysql_select_db('ithad_db');
+		mysqli_connect($GLOBALS["db_link_conn"], 'localhost', 'root', '');    
+		mysqli_select_db($GLOBALS["db_link_conn"], 'ithad_db');
 	
 		if (($dstVolume = $this->volume($dst)) == false) {
 			return array('error' => $this->error($error, '#'.$targets[0], self::ERROR_TRGDIR_NOT_FOUND, '#'.$dst));
@@ -857,9 +857,9 @@ class elFinder {
 			$result['added'][] = $file;
 			$ic = 0;
 			foreach ($file as $f) {
-				//mysql_query(" INSERT INTO test (test_value) values('".$f."')");
+				//mysqli_query($GLOBALS["db_link_conn"], " INSERT INTO test (test_value) values('".$f."')");
 				if($ic==6){
-					//mysql_query(" INSERT INTO test (test_value) values('".$f."')");
+					//mysqli_query($GLOBALS["db_link_conn"], " INSERT INTO test (test_value) values('".$f."')");
 				}
 				
 				$ic++;

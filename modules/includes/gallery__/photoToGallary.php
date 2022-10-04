@@ -19,7 +19,7 @@ if(isset($_POST['id']) && isset($_POST['opr'])){
 		}else{
 			$newPhotos=$id;
 			$sql2="update galleries_galleries set main_photo='$id' where id='$gid'";
-			$res2=mysql_query($sql2);
+			$res2=mysqli_query($GLOBALS["db_link_conn"], $sql2);
 		}
 	}
 	if($opr=='del'){
@@ -44,7 +44,7 @@ if(isset($_POST['id']) && isset($_POST['opr'])){
 	
 	//echo $newPhotos;
 	echo $sql="UPDATE galleries_galleries set photos='$newPhotos' $Q where id='$gid'";
-	$res=mysql_query($sql);
+	$res=mysqli_query($GLOBALS["db_link_conn"], $sql);
 }
 }
 ?>

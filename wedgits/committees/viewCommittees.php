@@ -7,20 +7,20 @@
 $id = cleanString($_REQUEST['id']);
 $currentdate=date("Y-m-d");
 $sql = "SELECT * FROM mem_committees WHERE  active='1' and id='$id'  ";
-$result = MYSQL_QUERY($sql);
-$numberOfRows = MYSQL_NUMROWS($result);
-echo$private=mysql_result($result, 0,"	private_en");
+$result = mysqli_query($GLOBALS["db_link_conn"], $sql);
+$numberOfRows = mysqli_num_rows($result);
+echo$private=mysqli_result($GLOBALS["db_link_conn"], $result, 0,"	private_en");
 if ($numberOfRows>0) {
 	$i=0;
 	while ($i<$numberOfRows){
 		
 		
-		$id=mysql_result($result, $i,"id");
-		$subject=mysql_result($result, $i,"name_".$pageLang);
-		$details=stripslashes(mysql_result($result, $i,"description_".$pageLang));
-		$private=stripslashes(mysql_result($result, $i,"private_".$pageLang));
+		$id=mysqli_result($GLOBALS["db_link_conn"], $result, $i,"id");
+		$subject=mysqli_result($GLOBALS["db_link_conn"], $result, $i,"name_".$pageLang);
+		$details=stripslashes(mysqli_result($GLOBALS["db_link_conn"], $result, $i,"description_".$pageLang));
+		$private=stripslashes(mysqli_result($GLOBALS["db_link_conn"], $result, $i,"private_".$pageLang));
 		
-		$start_date=mysql_result($result, $i,"creation_date");
+		$start_date=mysqli_result($GLOBALS["db_link_conn"], $result, $i,"creation_date");
 		if($start_date=='0000-00-00'){
 			$start_date='';
 		}else{

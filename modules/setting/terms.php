@@ -24,7 +24,7 @@ if($action=="Insert"){
 	$cols .= ", position"; $values .= ",'$position'";
 
 	$SQL = "INSERT INTO terms ( $cols ) VALUES ($values)";
-	$result = mysql_query($SQL);
+	$result = mysqli_query($GLOBALS["db_link_conn"], $SQL);
 	if($result)	echo '<script>correctMessageWithoutBack("'.Record_Enter.'")</script>';
 }
 //-------------------------------------------------
@@ -34,7 +34,7 @@ if($action=="Update"){
 	$values .= ", position = '$position'";
 
 	$SQL = "UPDATE terms SET $values WHERE id = '$id' ";
-	$result = mysql_query($SQL);
+	$result = mysqli_query($GLOBALS["db_link_conn"], $SQL);
 	if($result)	echo '<script>correctMessageWithoutBack("'.Record_Update.'")</script>';
 }
 /**delete_grp_functions(part 1 of 2)********************************************/
@@ -47,8 +47,8 @@ if($action=="Delete"){
 }
 //-------------------------------------------------
 $sql = "SELECT * FROM terms $sort ";
-$result = MYSQL_QUERY($sql);
-$numberOfRows = MYSQL_NUMROWS($result);
+$result = mysqli_query($GLOBALS["db_link_conn"], $sql);
+$numberOfRows = mysqli_num_rows($result);
 $i=0;?>
 <div class="data">
 <form method='post' name='main' action='<?php echo $_SERVER['PHP_SELF']; ?>' enctype='multipart/form-data'>
@@ -78,9 +78,9 @@ function actionf(act){
 </TR>
 <?}// Enter record
 while ($i<$numberOfRows){
-	$id= MYSQL_RESULT($result,$i,"id");
-	$start_year= MYSQL_RESULT($result,$i,"start_year");
-	$end_year= MYSQL_RESULT($result,$i,"end_year");
+	$id= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"id");
+	$start_year= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"start_year");
+	$end_year= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"end_year");
 
 	if($action=="Edit"  && $_REQUEST['id'] == $id){?>
     	<TR>

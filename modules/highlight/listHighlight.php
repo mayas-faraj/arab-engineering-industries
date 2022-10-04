@@ -57,8 +57,8 @@ else{
 if($whereStmt!="")	$whereStmt = " WHERE $whereStmt";
 }
 $sql = "SELECT * FROM highlight_highlight  $whereStmt $sort $limit ";
-$result = MYSQL_QUERY($sql);
-$numberOfRows = MYSQL_NUMROWS($result);
+$result = mysqli_query($GLOBALS["db_link_conn"], $sql);
+$numberOfRows = mysqli_num_rows($result);
 
 /***********Top pagination*************/
 $tp = count_items("highlight_highlight", str_replace("WHERE", "", $whereStmt));
@@ -94,12 +94,12 @@ $i=0;?>
 <tbody>
 <?php
 while ($i<$numberOfRows){
-$id = MYSQL_RESULT($result,$i,"id");
-$photo_en = MYSQL_RESULT($result,$i,"photo_en");
-$link_en = MYSQL_RESULT($result,$i,"link_en");
-$title_en = MYSQL_RESULT($result,$i,"title_en");
-$ord = mysql_result($result,$i,"item_order");
-$active = mysql_result($result,$i,"active");
+$id = mysqli_result($GLOBALS["db_link_conn"], $result,$i,"id");
+$photo_en = mysqli_result($GLOBALS["db_link_conn"], $result,$i,"photo_en");
+$link_en = mysqli_result($GLOBALS["db_link_conn"], $result,$i,"link_en");
+$title_en = mysqli_result($GLOBALS["db_link_conn"], $result,$i,"title_en");
+$ord = mysqli_result($GLOBALS["db_link_conn"], $result,$i,"item_order");
+$active = mysqli_result($GLOBALS["db_link_conn"], $result,$i,"active");
 ?>
 
 

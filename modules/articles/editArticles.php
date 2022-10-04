@@ -19,7 +19,7 @@ if($sub){
 	$cat_id = addslashes($_REQUEST['cat_id']);
 	
 	$SQL = "UPDATE art_articles SET  cat_id='$cat_id', title = '$title' , brief = '$brief' ,details = '$details' ,publish_date = '$publish_date' , user_id='$user_id', active = '$active' WHERE id = '$id' ";
-	$result = mysql_query($SQL);
+	$result = mysqli_query($GLOBALS["db_link_conn"], $SQL);
 	if($result)
  	echo '<script>correctMessage("'.Record_Update.'")</script>';
 	else echo '<script>errorMessage("'.CantInsert.'")</script>' ;
@@ -27,18 +27,18 @@ if($sub){
 if((!$sub) || (!$result)){ 
 	$id = $_REQUEST['id'];
 	$sql ="SELECT * FROM art_articles WHERE id = '$id' ";
-	$result = MYSQL_QUERY($sql);
-	$numberOfRows = MYSQL_NUMROWS($result);
+	$result = mysqli_query($GLOBALS["db_link_conn"], $sql);
+	$numberOfRows = mysqli_num_rows($result);
 	if ($numberOfRows>0) {
 		$i=0;
-        $id= MYSQL_RESULT($result,$i,"id");
-        $title= MYSQL_RESULT($result,$i,"title");
-        $brief= MYSQL_RESULT($result,$i,"brief");
-        $user_id= MYSQL_RESULT($result,$i,"user_id");
-        $details= MYSQL_RESULT($result,$i,"details");
-        $publish_date= MYSQL_RESULT($result,$i,"publish_date");
-        $active= MYSQL_RESULT($result,$i,"active");
-        $cat_id= MYSQL_RESULT($result,$i,"cat_id");
+        $id= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"id");
+        $title= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"title");
+        $brief= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"brief");
+        $user_id= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"user_id");
+        $details= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"details");
+        $publish_date= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"publish_date");
+        $active= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"active");
+        $cat_id= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"cat_id");
 	}?>
     <form name="subForm" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>" enctype="multipart/form-data">
     <input type="Hidden" name="id" size="20" value="<?php echo $id; ?>" />

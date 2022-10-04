@@ -19,8 +19,8 @@
 	if($com&& $com!=com_name)		$whereStmt .= " AND ( m.name_".$pageLang." LIKE '%$com%' OR brief_".$pageLang." LIKE '%$com%' )";
 	
 	$sql = "SELECT * FROM mem_members m,country c  $whereStmt ORDER By c.country_".$pageLang.", m.name_".$pageLang." $limit";
-	$result = MYSQL_QUERY($sql);
-	$numberOfRows = MYSQL_NUMROWS($result);
+	$result = mysqli_query($GLOBALS["db_link_conn"], $sql);
+	$numberOfRows = mysqli_num_rows($result);
 	$i = 0;	
 		
 		
@@ -36,24 +36,24 @@
 				</tr>";
 		
 		while ($i<$numberOfRows){
-			$id= MYSQL_RESULT($result,$i,"id");
-			//$name = limit(MYSQL_RESULT($result,$i,"name_".$pageLang),25); 
-			$name = MYSQL_RESULT($result,$i,"name_".$pageLang); 
-			$specialization= MYSQL_RESULT($result,$i,"specialization");
+			$id= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"id");
+			//$name = limit(mysqli_result($GLOBALS["db_link_conn"], $result,$i,"name_".$pageLang),25); 
+			$name = mysqli_result($GLOBALS["db_link_conn"], $result,$i,"name_".$pageLang); 
+			$specialization= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"specialization");
 			$specialization= lookupFieldAll("specialization", "id", "specialization_".$pageLang, $specialization);
 			if(!$specialization){
 				$specialization = '&nbsp;';
 			}
-			$country= MYSQL_RESULT($result,$i,"country");
-			$active= MYSQL_RESULT($result,$i,"active");
-			$products = MYSQL_RESULT($result,$i,"products".$pageLang); 
-			$brief= MYSQL_RESULT($result,$i,"brief_".$pageLang); 
-			$tel= MYSQL_RESULT($result,$i,"tel");
-			$fax= MYSQL_RESULT($result,$i,"fax");
-			$address= MYSQL_RESULT($result,$i,"address_".$pageLang); 
-			$email= MYSQL_RESULT($result,$i,"email");
-			$website= MYSQL_RESULT($result,$i,"website");
-			$logo= MYSQL_RESULT($result,$i,"logo");
+			$country= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"country");
+			$active= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"active");
+			$products = mysqli_result($GLOBALS["db_link_conn"], $result,$i,"products".$pageLang); 
+			$brief= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"brief_".$pageLang); 
+			$tel= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"tel");
+			$fax= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"fax");
+			$address= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"address_".$pageLang); 
+			$email= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"email");
+			$website= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"website");
+			$logo= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"logo");
 
 			?>
 			

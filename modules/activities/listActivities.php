@@ -7,7 +7,7 @@ print_ListAdminHead("Activities", "Activities", "enterNewActivity.php?$url", 1);
 $id =  $_REQUEST['id'];
 if($_REQUEST['sub'] == "del"){
 	deleteRecord("mem_activities","id = '$id'",true);
-	@mysql_query(" DELETE FROM `highlight` WHERE table_name = 'mem_activities' AND record_id='$id'");
+	@mysqli_query($GLOBALS["db_link_conn"], " DELETE FROM `highlight` WHERE table_name = 'mem_activities' AND record_id='$id'");
 }
 
 
@@ -44,8 +44,8 @@ if($_SESSION['USER'] != 2){
 
 	
 $sql = "SELECT * FROM mem_activities  $whereStmt $u_stmt $sort $limit ";
-$result = MYSQL_QUERY($sql);
-$numberOfRows = MYSQL_NUMROWS($result);
+$result = mysqli_query($GLOBALS["db_link_conn"], $sql);
+$numberOfRows = mysqli_num_rows($result);
 
 /***********Top pagination*************/
 $tp = count_items("mem_activities", str_replace("WHERE", "", $whereStmt));
@@ -79,12 +79,12 @@ $i=0;?>
 <tbody>
 <?php
 while ($i<$numberOfRows){
-$id= MYSQL_RESULT($result,$i,"id");
-$subject= MYSQL_RESULT($result,$i,"subject");
-$activity_date= MYSQL_RESULT($result,$i,"activity_date");
-$special= MYSQL_RESULT($result,$i,"special");
-$active= MYSQL_RESULT($result,$i,"active");
-$creator_id= MYSQL_RESULT($result,$i,"creator_id");
+$id= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"id");
+$subject= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"subject");
+$activity_date= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"activity_date");
+$special= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"special");
+$active= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"active");
+$creator_id= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"creator_id");
 ?>
 <TR>
 <TD><?php echo stripslashes($subject); ?></TD>

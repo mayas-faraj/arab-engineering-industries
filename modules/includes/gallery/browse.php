@@ -52,28 +52,28 @@ if(checkGallogin()){
 	</script>
 	<input name="des2" type="hidden" id="des2" value="d" size="100"><?php
 	$sql = "SELECT * FROM galleries_galleries  where id=$gid limit 0,1";
-	$result = mysql_query($sql);
-	$numberOfRows = mysql_numrows($result);
+	$result = mysqli_query($GLOBALS["db_link_conn"], $sql);
+	$numberOfRows = mysqli_num_rows($result);
 	if ($numberOfRows>0) {
-		$gallery_name= mysql_result($result,0,"gallery_name_en");
-		$description= mysql_result($result,0,"description_en");
-		$mph= mysql_result($result,0,"main_photo");
-		$photos= mysql_result($result,0,"photos");
+		$gallery_name= mysqli_result($GLOBALS["db_link_conn"], $result,0,"gallery_name_en");
+		$description= mysqli_result($GLOBALS["db_link_conn"], $result,0,"description_en");
+		$mph= mysqli_result($GLOBALS["db_link_conn"], $result,0,"main_photo");
+		$photos= mysqli_result($GLOBALS["db_link_conn"], $result,0,"photos");
 		$resPhotos=explode(',',$photos);
 		if( $photos != ''){
 			$sql = "SELECT * FROM galleries_photos where id IN ($photos) ORDER BY FIELD(id,$photos);";
 			$resPhotos=array();
 	
-			$result = MYSQL_QUERY($sql);
-			$numberOfRows = MYSQL_NUMROWS($result);
+			$result = mysqli_query($GLOBALS["db_link_conn"], $sql);
+			$numberOfRows = mysqli_num_rows($result);
 			$i=0;
 			
 			?><div id="gal_order"><?php
 			while ($i<$numberOfRows){
-				$id= MYSQL_RESULT($result,$i,"id");
-				$photo= MYSQL_RESULT($result,$i,"photo");
-				$description= MYSQL_RESULT($result,$i,"description");
-				$thumb= MYSQL_RESULT($result,$i,"thumb");
+				$id= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"id");
+				$photo= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"photo");
+				$description= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"description");
+				$thumb= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"thumb");
 				if($thumb!='video'){
 					resizeToFile('../../../uploads/'.$folder.$photo, 90, 90,'../../../uploads/'.$thumb); 
 					$thumbN=_PREF.'uploads/'.$thumb;		

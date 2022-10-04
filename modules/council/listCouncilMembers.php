@@ -42,8 +42,8 @@ if($_SESSION['USER'] != 2){
 if($whereStmt!="")	$whereStmt = " WHERE  $whereStmt";
 //else $whereStmt = " $staticStmt ";
 $sql = "SELECT * FROM mem_council  $whereStmt $u_stmt $sort $limit ";
-$result = MYSQL_QUERY($sql);
-$numberOfRows = MYSQL_NUMROWS($result);
+$result = mysqli_query($GLOBALS["db_link_conn"], $sql);
+$numberOfRows = mysqli_num_rows($result);
 
 /***********Top pagination*************/
 $tp = count_items("mem_council", str_replace("WHERE", "", $whereStmt));
@@ -75,15 +75,15 @@ $i=0;?>
 <tbody>
 <?php
 while ($i<$numberOfRows){
-$id= MYSQL_RESULT($result,$i,"id");
-$name_en= MYSQL_RESULT($result,$i,"name_en");
-$name_ar= MYSQL_RESULT($result,$i,"name_ar");
-$position_en= MYSQL_RESULT($result,$i,"position_en");
-$position_ar= MYSQL_RESULT($result,$i,"position_ar");
-$company_en= MYSQL_RESULT($result,$i,"company_en");
-$active= MYSQL_RESULT($result,$i,"active");
-$creator_id= MYSQL_RESULT($result,$i,"creator_id");
-$ord= MYSQL_RESULT($result,$i,"ord");
+$id= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"id");
+$name_en= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"name_en");
+$name_ar= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"name_ar");
+$position_en= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"position_en");
+$position_ar= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"position_ar");
+$company_en= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"company_en");
+$active= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"active");
+$creator_id= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"creator_id");
+$ord= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"ord");
 ?>
 <TR>
 <TD><?php echo stripslashes($name_en); ?><br/><?php echo stripslashes($name_ar); ?></TD>

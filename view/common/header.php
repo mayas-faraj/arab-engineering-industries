@@ -22,12 +22,12 @@ $dots='../../';
 <body>
 
 	<div class='main'>
-		<?include($dots.'wedgits/user_login/user_login.php')?>
-		<?include($dots.'wedgits/user_logout/user_logout.php')?>
+		<?php include ($dots.'wedgits/user_login/user_login.php')?>
+		<?php include ($dots.'wedgits/user_logout/user_logout.php')?>
 		
-		<?include($dots.'wedgits/preLoads/preLoads.php')?>
-		<?include($dots.'wedgits/header/index_header.php')?>
+		<?php include ($dots.'wedgits/preLoads/preLoads.php')?>
+		<?php include ($dots.'wedgits/header/index_header.php')?>
 		
 		<div class='page_path'><?php echo get_current_path(); ?></div>
 		<div class='site_inner_main_con'>
-			<?include($dots.'wedgits/left_menu/left_menu.php')?>
+			<?php include ($dots.'wedgits/left_menu/left_menu.php')?>

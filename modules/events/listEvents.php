@@ -30,8 +30,8 @@ $whereStmt = createFilter( $filters , $fields , "AND", $extention);
 if($whereStmt!=""){	$whereStmt = " WHERE $whereStmt";}else{	/*$whereStmt = " WHERE lang='$lang' ";*/}
 
 $sql = "SELECT * FROM events_events  $whereStmt $sort $limit ";
-$result = MYSQL_QUERY($sql);
-$numberOfRows = MYSQL_NUMROWS($result);
+$result = mysqli_query($GLOBALS["db_link_conn"], $sql);
+$numberOfRows = mysqli_num_rows($result);
 
 /***********Top pagination*************/
 $tp = count_items("events_events", str_replace("WHERE", "", $whereStmt));
@@ -54,13 +54,13 @@ if ($numberOfRows>0) {
 	<tbody>
 	<?php
     while ($i<$numberOfRows){
-        $id= MYSQL_RESULT($result,$i,"id");
-        $subject= MYSQL_RESULT($result,$i,"subject");
-        $brief= MYSQL_RESULT($result,$i,"brief");
-        $details= MYSQL_RESULT($result,$i,"details");
-        $publish_date= MYSQL_RESULT($result,$i,"publish_date");
-        $end_date= MYSQL_RESULT($result,$i,"end_date");
-        $active= MYSQL_RESULT($result,$i,"active");
+        $id= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"id");
+        $subject= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"subject");
+        $brief= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"brief");
+        $details= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"details");
+        $publish_date= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"publish_date");
+        $end_date= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"end_date");
+        $active= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"active");
         ?>
 		<TR>
 			<TD><?php echo stripslashes($subject); ?></TD>

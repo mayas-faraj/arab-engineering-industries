@@ -22,7 +22,7 @@ if($action=="Insert"){
 	$cols .= ", specialization_ar"; $values .= ",'$specialization_ar'";
 
 	$SQL = "INSERT INTO specialization ( $cols ) VALUES ($values)";
-	$result = mysql_query($SQL);
+	$result = mysqli_query($GLOBALS["db_link_conn"], $SQL);
 	if($result)	echo '<script>correctMessageWithoutBack("'.Record_Enter.'")</script>';
 }
 //-------------------------------------------------
@@ -31,7 +31,7 @@ if($action=="Update"){
 	$values .= ", specialization_ar = '$specialization_ar'";
 
 	$SQL = "UPDATE specialization SET $values WHERE id = '$id' ";
-	$result = mysql_query($SQL);
+	$result = mysqli_query($GLOBALS["db_link_conn"], $SQL);
 	if($result)	echo '<script>correctMessageWithoutBack("'.Record_Update.'")</script>';
 }
 /**delete_grp_functions(part 1 of 2)********************************************/
@@ -41,7 +41,7 @@ if($action=="Delete"){
 	if($array){
 		$ids = implode(",", $array);
 		$related_sql = " select count(*) from mem_members where specialization in ($ids) ";
-		$related = mysql_numrows(mysql_query($related_sql));
+		$related = mysqli_num_rows(mysql_query($related_sql));
 		if(!$related){
 			deleteRecord("specialization","id in ($ids)",true);
 		}else{
@@ -52,8 +52,8 @@ if($action=="Delete"){
 }
 //-------------------------------------------------
 $sql = "SELECT * FROM specialization $sort ";
-$result = MYSQL_QUERY($sql);
-$numberOfRows = MYSQL_NUMROWS($result);
+$result = mysqli_query($GLOBALS["db_link_conn"], $sql);
+$numberOfRows = mysqli_num_rows($result);
 $i=0;?>
 <div class="data">
 <form method='post' name='main' action='<?php echo $_SERVER['PHP_SELF']; ?>' enctype='multipart/form-data'>
@@ -82,9 +82,9 @@ function actionf(act){
 </TR>
 <?}// Enter record
 while ($i<$numberOfRows){
-	$id= MYSQL_RESULT($result,$i,"id");
-	$specialization_en= MYSQL_RESULT($result,$i,"specialization_en");
-	$specialization_ar= MYSQL_RESULT($result,$i,"specialization_ar");
+	$id= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"id");
+	$specialization_en= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"specialization_en");
+	$specialization_ar= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"specialization_ar");
 	if($action=="Edit"  && $_REQUEST['id'] == $id){?>
     	<TR>
 			<TD>

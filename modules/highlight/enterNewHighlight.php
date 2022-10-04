@@ -58,7 +58,7 @@ $values .= ",'$item_order'";
 $values .= ",'$active'";
 
 $SQL = "INSERT INTO highlight_highlight ( $cols) VALUES ( $values )";
-$result = mysql_query($SQL);
+$result = mysqli_query($GLOBALS["db_link_conn"], $SQL);
 if($result)
 echo '<script>correctMessage("'.Record_Enter.'")</script>';
 else echo '<script>cerrorMessage("'.CantInsert.'")</script>' ;

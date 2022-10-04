@@ -8,10 +8,10 @@ if(checkGallogin()){
 ?><div style=" margin:10px;" align="left"><?php
 /************** check deleted images***************/
 $sql="select * from galleries_photos ";
-$res=mysql_query($sql);
+$res=mysqli_query($GLOBALS["db_link_conn"], $sql);
 $deletedRecs=0;
 $missinFiles='';
-while($row=mysql_fetch_array($res)){
+while($row=mysqli_fetch_array($GLOBALS["db_link_conn"], $res)){
 	$file='../../../uploads/'.$row['folder'].$row['photo'];	
 	if(!file_exists($file)){
 		delPhoto($row['id']);

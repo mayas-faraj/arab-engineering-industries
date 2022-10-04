@@ -6,26 +6,26 @@ $photo_path ="../../uploads/";
 $news_id = cleanString($_REQUEST['id']);
 
 $sql =  "SELECT * FROM news_news WHERE (id=$news_id) ";
-$result = MYSQL_QUERY($sql);
-$numrows = MYSQL_NUMROWS($result);
+$result = mysqli_query($GLOBALS["db_link_conn"], $sql);
+$numrows = mysqli_num_rows($result);
 if ($numrows>0) {
 	$i=0;
 	while ($i<$numrows){
 		if($pageLang=='ar'){$langPref = '_ar';}else{$langPref = '';}
-		$id=mysql_result($result, $i,"id");
-		$subject=mysql_result($result, $i,"subject".$langPref);
-		$pdate=mysql_result($result, $i,"pdate");
-		$txt=mysql_result($result, $i,"details".$langPref);
-		$prepared = mysql_result($result, $i,"prepared");
+		$id=mysqli_result($GLOBALS["db_link_conn"], $result, $i,"id");
+		$subject=mysqli_result($GLOBALS["db_link_conn"], $result, $i,"subject".$langPref);
+		$pdate=mysqli_result($GLOBALS["db_link_conn"], $result, $i,"pdate");
+		$txt=mysqli_result($GLOBALS["db_link_conn"], $result, $i,"details".$langPref);
+		$prepared = mysqli_result($GLOBALS["db_link_conn"], $result, $i,"prepared");
 		
-		$start_date=mysql_result($result, $i,"publish_date");
+		$start_date=mysqli_result($GLOBALS["db_link_conn"], $result, $i,"publish_date");
 		if($start_date=='0000-00-00'){
 			$start_date='';
 		}else{
 			$start_date=date('d / m / Y',strtotime($start_date));
 		}
 		
-		$gallery= MYSQL_RESULT($result,$i,"gallery");		
+		$gallery= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"gallery");		
 		$src='';
 		$main_photo_id=0;
 		if($gallery){

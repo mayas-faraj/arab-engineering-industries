@@ -9,7 +9,7 @@ if(checkGallogin()){
 		$id=$_POST['id'];
 		$gid=$_SESSION['gid'];	
 		$sql2="update galleries_galleries set main_photo='$id' where id='$gid'";
-		$res2=mysql_query($sql2);
+		$res2=mysqli_query($GLOBALS["db_link_conn"], $sql2);
 	}
 }
 ?>

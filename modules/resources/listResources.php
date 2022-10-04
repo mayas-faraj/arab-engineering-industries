@@ -7,7 +7,7 @@ print_ListAdminHead("FYI", "FYI", "enterNewResource.php?$url", 1);
 $id =  $_REQUEST['id'];
 if($_REQUEST['sub'] == "del"){
 	deleteRecord("resources","id = '$id'",true);
-	@mysql_query(" DELETE FROM `highlight` WHERE table_name = 'resources' AND record_id='$id'");
+	@mysqli_query($GLOBALS["db_link_conn"], " DELETE FROM `highlight` WHERE table_name = 'resources' AND record_id='$id'");
 }
 
 /***********Default Sorting Option*************/
@@ -34,8 +34,8 @@ if($whereStmt!="")	$whereStmt = " WHERE $whereStmt";
 }
 	
 $sql = "SELECT * FROM resources  $whereStmt $sort $limit ";
-$result = MYSQL_QUERY($sql);
-$numberOfRows = MYSQL_NUMROWS($result);
+$result = mysqli_query($GLOBALS["db_link_conn"], $sql);
+$numberOfRows = mysqli_num_rows($result);
 
 /***********Top pagination*************/
 $tp = count_items("resources", str_replace("WHERE", "", $whereStmt));
@@ -60,9 +60,9 @@ $i=0;?>
 <tbody>
 <?php
 while ($i<$numberOfRows){
-$id= MYSQL_RESULT($result,$i,"id");
-$title= MYSQL_RESULT($result,$i,"title");
-$special= MYSQL_RESULT($result,$i,"special");
+$id= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"id");
+$title= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"title");
+$special= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"special");
 ?>
 <TR>
 <TD><?php echo stripslashes($title); ?></TD>

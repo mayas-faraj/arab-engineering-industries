@@ -31,8 +31,8 @@ if($_SESSION['USER'] != 2){
 }
 
 $sql = "SELECT * FROM mem_committees  $whereStmt $u_stmt $sort $limit ";
-$result = MYSQL_QUERY($sql);
-$numberOfRows = MYSQL_NUMROWS($result);
+$result = mysqli_query($GLOBALS["db_link_conn"], $sql);
+$numberOfRows = mysqli_num_rows($result);
 
 /***********Top pagination*************/
 $tp = count_items("mem_committees", str_replace("WHERE", "", $whereStmt));
@@ -64,13 +64,13 @@ $i=0;?>
 <tbody>
 <?php
 while ($i<$numberOfRows){
-$id= MYSQL_RESULT($result,$i,"id");
-$name_en= MYSQL_RESULT($result,$i,"name_en");
-$name_ar= MYSQL_RESULT($result,$i,"name_ar");
-$creation_date= MYSQL_RESULT($result,$i,"creation_date");
-//$major= MYSQL_RESULT($result,$i,"major");
-$active= MYSQL_RESULT($result,$i,"active");
-$creator_id= MYSQL_RESULT($result,$i,"creator_id");
+$id= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"id");
+$name_en= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"name_en");
+$name_ar= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"name_ar");
+$creation_date= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"creation_date");
+//$major= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"major");
+$active= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"active");
+$creator_id= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"creator_id");
 ?>
 <TR>
 <TD><?php echo stripslashes($name_ar); ?><br/><?php echo stripslashes($name_en); ?></TD>

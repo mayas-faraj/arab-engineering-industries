@@ -63,9 +63,9 @@ if($sub){
 		echo "<script>alert('".$results."');</script>";
 	}else{
 		$sql = "insert into art_comments (art_id , subject, comment, publish_date, user_id, active) values ('$aid', '$subject', '$comment' ,now(), '$user_id', '1')";
-		$result =  MYSQL_QUERY($sql);
+		$result =  mysqli_query($GLOBALS["db_link_conn"], $sql);
 		if($result){
-			$com_art_id = mysql_insert_id();
+			$com_art_id = mysqli_insert_id($GLOBALS["db_link_conn"]);
 			for ($i = 0; $i < count($attached_files); $i++) {
 			
 				$no_space_photo = str_replace(' ', '_',$_FILES['attached_files']['name'][$i]);
@@ -88,7 +88,7 @@ if($sub){
 					$targetFile = '../../uploads/forums/'.$no_space_photo;
 					if(move_uploaded_file($tempFile,$targetFile)){
 						$attached_files_sql="INSERT INTO `art_comments_files` (`comment_id`,`file`) VALUES ('$com_art_id' , '$no_space_photo' );";
-						$attached_files_result = mysql_query($attached_files_sql);
+						$attached_files_result = mysqli_query($GLOBALS["db_link_conn"], $attached_files_sql);
 					}
 				}
 				
@@ -141,19 +141,19 @@ if($sub){
 
 
 $sql =  "SELECT * FROM art_articles WHERE (id=$article_id) and (publish_date <= date(now())) and  active='1' ORDER BY publish_date DESC, id DESC ";
-$result = MYSQL_QUERY($sql);
-$numrows = MYSQL_NUMROWS($result);
+$result = mysqli_query($GLOBALS["db_link_conn"], $sql);
+$numrows = mysqli_num_rows($result);
 if ($numrows>0) {
 	$i=0;
 	while ($i<$numrows){
-		$id=mysql_result($result, $i,"id");
-		$title=stripslashes(mysql_result($result, $i,"title"));
-		$publish_date=mysql_result($result, $i,"publish_date");
-		$details = stripslashes(mysql_result($result, $i,"details"));
-		$art_u_id = mysql_result($result, $i,"user_id");
-		$cat_id = mysql_result($result, $i,"cat_id");
-		$publish_comment = mysql_result($result, $i,"publish");
-		$cat_id = mysql_result($result, $i,"cat_id");
+		$id=mysqli_result($GLOBALS["db_link_conn"], $result, $i,"id");
+		$title=stripslashes(mysqli_result($GLOBALS["db_link_conn"], $result, $i,"title"));
+		$publish_date=mysqli_result($GLOBALS["db_link_conn"], $result, $i,"publish_date");
+		$details = stripslashes(mysqli_result($GLOBALS["db_link_conn"], $result, $i,"details"));
+		$art_u_id = mysqli_result($GLOBALS["db_link_conn"], $result, $i,"user_id");
+		$cat_id = mysqli_result($GLOBALS["db_link_conn"], $result, $i,"cat_id");
+		$publish_comment = mysqli_result($GLOBALS["db_link_conn"], $result, $i,"publish");
+		$cat_id = mysqli_result($GLOBALS["db_link_conn"], $result, $i,"cat_id");
 		$forum = lookupField('art_categories','id','name',$cat_id);
 		$author = lookupField('users','user_id','full_name',$art_u_id);
 		
@@ -176,13 +176,13 @@ if ($numrows>0) {
 			<div class="annonce_details_txt">
 				<?php
 					$attach_sql =  "SELECT * FROM art_articles_files WHERE (art_id=$article_id) ";
-					$attach_result = MYSQL_QUERY($attach_sql);
-					$attach_numrows = MYSQL_NUMROWS($attach_result);
+					$attach_result = mysqli_query($GLOBALS["db_link_conn"], $attach_sql);
+					$attach_numrows = mysqli_num_rows($attach_result);
 					if($attach_numrows>0){
 						echo attached_files."<br/>";
 						$i=0;
 						while($i<$attach_numrows){
-							$attached_file = basename(mysql_result($attach_result,$i,'file'));
+							$attached_file = basename(mysqli_result($GLOBALS["db_link_conn"], $attach_result,$i,'file'));
 							echo "<a href='../../uploads/forums/$attached_file'>$attached_file</a><br/>";
 							$i++;
 						}
@@ -208,18 +208,18 @@ if ($numrows>0) {
 	 <?php
 	$sql="select * from art_comments where art_id = $article_id  AND active=1 order by publish_date ASC";
 	
-	$result=mysql_query($sql);
-	$rows=mysql_num_rows($result);
+	$result=mysqli_query($GLOBALS["db_link_conn"], $sql);
+	$rows=mysqli_num_rows($result);
 	if($rows){
 		$i=0;
 		if($rows>5){echo "<div class='hidden_comments'>";}
 		while($i<$rows){
-			$id =mysql_result($result, $i,"id");
-			$comment_date =mysql_result($result, $i,"publish_date");
-			$subject =mysql_result($result, $i,"subject");
-			$comment =mysql_result($result, $i,"comment");
-			$active =mysql_result($result, $i,"active");
-			$u_id =mysql_result($result, $i,"user_id");
+			$id =mysqli_result($GLOBALS["db_link_conn"], $result, $i,"id");
+			$comment_date =mysqli_result($GLOBALS["db_link_conn"], $result, $i,"publish_date");
+			$subject =mysqli_result($GLOBALS["db_link_conn"], $result, $i,"subject");
+			$comment =mysqli_result($GLOBALS["db_link_conn"], $result, $i,"comment");
+			$active =mysqli_result($GLOBALS["db_link_conn"], $result, $i,"active");
+			$u_id =mysqli_result($GLOBALS["db_link_conn"], $result, $i,"user_id");
 			$publisher = lookupField('users','user_id','full_name',$u_id);
 			
 			
@@ -244,13 +244,13 @@ if ($numrows>0) {
 						<?php echo $comment; ?>
 						<?php
 							$attach_sql =  "SELECT * FROM art_comments_files WHERE (comment_id=$id) ";
-							$attach_result = MYSQL_QUERY($attach_sql);
-							$attach_numrows = MYSQL_NUMROWS($attach_result);
+							$attach_result = mysqli_query($GLOBALS["db_link_conn"], $attach_sql);
+							$attach_numrows = mysqli_num_rows($attach_result);
 							if($attach_numrows>0){
 								echo "<br/>".attached_files."<br/>";
 								$si=0;
 								while($si<$attach_numrows){
-									$attached_file = basename(mysql_result($attach_result,$si,'file'));
+									$attached_file = basename(mysqli_result($GLOBALS["db_link_conn"], $attach_result,$si,'file'));
 									echo "<a href='../../uploads/forums/$attached_file'>$attached_file</a><br/>";
 									$si++;
 								}

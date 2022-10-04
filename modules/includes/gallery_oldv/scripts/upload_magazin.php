@@ -23,7 +23,7 @@ if (!empty($_FILES)) {
 
 		$SQL = "INSERT INTO magz_pages (`photo`,`content`,`ord`,`magz_id`) VALUES ('$photo','$content','$ord','$m_id')";
 	
-		$result = mysql_query($SQL);
+		$result = mysqli_query($GLOBALS["db_link_conn"], $SQL);
 		echo "<script>alert('$SQL')</script>";
 		
 	//}

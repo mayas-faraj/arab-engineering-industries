@@ -2,13 +2,13 @@
 $tip_id=$_REQUEST['tip_id'];
 if($tip_id){
 	$sql="SELECT * FROM help_tips WHERE id='$tip_id'";
-	$result=mysql_query($sql);
-	$numRows=mysql_num_rows($result);
+	$result=mysqli_query($GLOBALS["db_link_conn"], $sql);
+	$numRows=mysqli_num_rows($result);
 	if($numRows>0){
-		$title=mysql_result($result, 0,"title");
-		$brief=mysql_result($result, 0,"brief");
-		$details=mysql_result($result, 0,"details");
-		$grp_id=mysql_result($result, 0,"group_id");
+		$title=mysqli_result($GLOBALS["db_link_conn"], $result, 0,"title");
+		$brief=mysqli_result($GLOBALS["db_link_conn"], $result, 0,"brief");
+		$details=mysqli_result($GLOBALS["db_link_conn"], $result, 0,"details");
+		$grp_id=mysqli_result($GLOBALS["db_link_conn"], $result, 0,"group_id");
 	}
 	?>
 	<script type="text/javascript">
@@ -73,8 +73,8 @@ else
 	$grp_id=$_REQUEST['grp_id'];
 	$group_title=lookupField("help_tips_groups", "id", "group_title", $grp_id);
 	$tips_sql="SELECT * FROM `help_tips` WHERE group_id='$grp_id'";
-	$tips_result=mysql_query($tips_sql);
-	$tips_numRows=mysql_num_rows($tips_result);
+	$tips_result=mysqli_query($GLOBALS["db_link_conn"], $tips_sql);
+	$tips_numRows=mysqli_num_rows($tips_result);
 	if($tips_numRows>0){
 		$j=0;
 		?>
@@ -83,8 +83,8 @@ else
 		<tbody>
 		<?php
 		while ($j<$tips_numRows){
-			$tip_id=mysql_result($tips_result, $j,"id");
-			$title =mysql_result($tips_result, $j,"title");
+			$tip_id=mysqli_result($GLOBALS["db_link_conn"], $tips_result, $j,"id");
+			$title =mysqli_result($GLOBALS["db_link_conn"], $tips_result, $j,"title");
 			?>
 			<tr><TD width="100%">* &nbsp;<a href="<?php echo $_SERVER['PHP_SELF']; ?>?tip_id=<?php echo $tip_id; ?>"><?php echo $title; ?></a></TD></tr>
 			<?php

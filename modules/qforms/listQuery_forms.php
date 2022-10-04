@@ -14,7 +14,7 @@ $values = "'$form_name' , '$send_mail_to' ";
 $lang = addslashes($_REQUEST['lang']);
 $cols .= " , lang";	$values .= ", '$lang' ";
 $SQL = "INSERT INTO query_forms ( $cols ) VALUES ( $values )";
-$result = mysql_query($SQL);
+$result = mysqli_query($GLOBALS["db_link_conn"], $SQL);
 if($result)
 echo '<script>correctMessageWithoutBack("'.Record_Enter.'")</script>';
 }// Insert record
@@ -26,7 +26,7 @@ $values = "form_name = '$form_name' , send_mail_to = '$send_mail_to'";
 $lang = addslashes($_REQUEST['lang']);
 $values .= " , lang = '$lang' ";
 $SQL = "UPDATE query_forms SET $values WHERE form_id = '$form_id' ";
-$result = mysql_query($SQL);
+$result = mysqli_query($GLOBALS["db_link_conn"], $SQL);
 if($result)
 echo '<script>correctMessageWithoutBack("'.Record_Update.'")</script>';
 }// Update record
@@ -58,8 +58,8 @@ if($whereStmt!="")	$whereStmt = " WHERE $whereStmt";
 }
 
 $sql = "SELECT * FROM query_forms $whereStmt $sort ";
-$result = MYSQL_QUERY($sql);
-$numberOfRows = MYSQL_NUMROWS($result);
+$result = mysqli_query($GLOBALS["db_link_conn"], $sql);
+$numberOfRows = mysqli_num_rows($result);
 
 /***********Top pagination*************/
 $tp = count_items("query_forms", str_replace("WHERE", "", $whereStmt));
@@ -101,10 +101,10 @@ if($action=="Enter"){ ?>
 }// Enter record
 $i=0;
 while ($i<$numberOfRows){
-$form_id= MYSQL_RESULT($result,$i,"form_id");
-$form_name= MYSQL_RESULT($result,$i,"form_name");
-$send_mail_to= MYSQL_RESULT($result,$i,"send_mail_to");
-$lang= MYSQL_RESULT($result,$i,"lang");
+$form_id= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"form_id");
+$form_name= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"form_name");
+$send_mail_to= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"send_mail_to");
+$lang= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"lang");
 if($action=="Edit"  && $_REQUEST['form_id'] == $form_id){?>
 <TR>
 <TD><input type="Text" name="form_name" size="20" value="<?php echo stripslashes($form_name)?>" /></TD>

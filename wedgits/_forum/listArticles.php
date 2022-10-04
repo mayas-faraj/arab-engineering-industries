@@ -57,9 +57,9 @@ if($cat_id){
 		}
 		
 		$sql =  "SELECT * FROM art_articles arts $whereStm $sort  $limit";
-		$result = MYSQL_QUERY($sql);
+		$result = mysqli_query($GLOBALS["db_link_conn"], $sql);
 		
-		$numrows = MYSQL_NUMROWS($result);
+		$numrows = mysqli_num_rows($result);
 		if ($numrows>0) {
 			$i=0;
 			echo "<table cellspacing='0' class='arts_table'>";
@@ -81,12 +81,12 @@ if($cat_id){
 
 			<?php
 			while ($i<$numrows){
-				$id=mysql_result($result, $i,"id");
-				$title= stripslashes(mysql_result($result, $i,"title"));
-				$publish_date=mysql_result($result, $i,"publish_date");
-				$brief=stripslashes(limit(mysql_result($result, $i,"brief"),$brief_count));
-				$u_id = mysql_result($result, $i,"user_id");
-				$cat_id = mysql_result($result, $i,"cat_id");
+				$id=mysqli_result($GLOBALS["db_link_conn"], $result, $i,"id");
+				$title= stripslashes(mysqli_result($GLOBALS["db_link_conn"], $result, $i,"title"));
+				$publish_date=mysqli_result($GLOBALS["db_link_conn"], $result, $i,"publish_date");
+				$brief=stripslashes(limit(mysqli_result($GLOBALS["db_link_conn"], $result, $i,"brief"),$brief_count));
+				$u_id = mysqli_result($GLOBALS["db_link_conn"], $result, $i,"user_id");
+				$cat_id = mysqli_result($GLOBALS["db_link_conn"], $result, $i,"cat_id");
 				$author = lookupField('users','user_id','full_name',$u_id);
 
 				?>
@@ -99,10 +99,10 @@ if($cat_id){
 						<td class='last_art_date' align='center'>
 							<?php
 								$com_sql =  "SELECT max(publish_date) FROM art_comments where art_id = '$id'";
-								$com_result = MYSQL_QUERY($com_sql);
-								$com_numrows = MYSQL_NUMROWS($com_result);
+								$com_result = mysqli_query($GLOBALS["db_link_conn"], $com_sql);
+								$com_numrows = mysqli_num_rows($com_result);
 								if($com_numrows>0){
-									$com_date = mysql_result($com_result,0,'max(publish_date)');
+									$com_date = mysqli_result($GLOBALS["db_link_conn"], $com_result,0,'max(publish_date)');
 									if($com_date){
 										$last_com_date=date('Y-m-d',strtotime($com_date));
 									}else{

@@ -8,10 +8,10 @@ $date = date('Y-m-d');
 $work = "";
 
 $SQL = "SELECT * FROM users WHERE username = '$username' AND password = '$pass'";
-$result = mysql_query($SQL);
-$numrows = mysql_numrows($result);
+$result = mysqli_query($GLOBALS["db_link_conn"], $SQL);
+$numrows = mysqli_num_rows($result);
 if($numrows>0){
-	$_SESSION["us_id"]=mysql_result($result,0,'user_id');
+	$_SESSION["us_id"]=mysqli_result($GLOBALS["db_link_conn"], $result,0,'user_id');
 	echo 1;
 }else{
 	echo 2 ;

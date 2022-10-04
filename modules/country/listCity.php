@@ -20,7 +20,7 @@ if($action=="Ins"){
 	$country_id = addslashes($_REQUEST['country_id']);
 
 	$SQL = "INSERT INTO city (city_ar , city_en , country_id ) VALUES ('$city_ar' , '$city_en' , '$country_id' )";
-	$result = mysql_query($SQL);
+	$result = mysqli_query($GLOBALS["db_link_conn"], $SQL);
 	if($result)
  	echo '<script>correctMessageWithoutBack("'.Record_Enter.'")</script>';
 }// Insert record
@@ -31,7 +31,7 @@ if($action=="Upd"){
 	$country_id = addslashes($_REQUEST['country_id']);
 
 	$SQL = "UPDATE city SET id = '$id' , city_ar = '$city_ar' , city_en = '$city_en' , country_id = '$country_id' WHERE id = '$id' ";
-	$result = mysql_query($SQL);
+	$result = mysqli_query($GLOBALS["db_link_conn"], $SQL);
 	if($result)
  	echo '<script>correctMessageWithoutBack("'.Record_Update.'")</script>';
 }// Update record
@@ -40,12 +40,12 @@ if(isset($_POST['rid'])){
 		$array = $_POST['rid'];
 		$ids = implode(",",$array); 
 		$sql = "DELETE FROM city WHERE id IN ($ids) ";
-		$result = MYSQL_QUERY($sql);
+		$result = mysqli_query($GLOBALS["db_link_conn"], $sql);
 		if($result) echo '<script>correctMessageWithoutBack("'.Record_delete.'")</script>';
 	}}// Delete record
 $sql = "SELECT * FROM city  $sort ";
-$result = mysql_query($sql);
-$numberOfRows = mysql_numrows($result);
+$result = mysqli_query($GLOBALS["db_link_conn"], $sql);
+$numberOfRows = mysqli_num_rows($result);
 $i=0;
 ?>
 <form method='post' name='subForm' action='<?php echo $_SERVER['PHP_SELF']?>' enctype='multipart/form-data'>
@@ -89,10 +89,10 @@ function actionf(act){
 }// Enter record
 
 while ($i<$numberOfRows){
-	$id= mysql_result($result,$i,"id");
-	$city_ar= mysql_result($result,$i,"city_ar");
-	$city_en= mysql_result($result,$i,"city_en");
-	$country_id= mysql_result($result,$i,"country_id");
+	$id= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"id");
+	$city_ar= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"city_ar");
+	$city_en= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"city_en");
+	$country_id= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"country_id");
 
 if($action=="Edit"  && $_REQUEST['id'] == $id){?>
 <tr>

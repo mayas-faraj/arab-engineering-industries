@@ -7,7 +7,7 @@ print_ListAdminHead("Announcements", "Announcements", "enterNewNews.php?$url", 1
 $id =  $_REQUEST['id'];
 if($_REQUEST['sub'] == "del"){
 	deleteRecord("news_news","id = '$id'",true);
-	@mysql_query(" DELETE FROM `highlight` WHERE table_name = 'news_news' AND record_id='$id'");
+	@mysqli_query($GLOBALS["db_link_conn"], " DELETE FROM `highlight` WHERE table_name = 'news_news' AND record_id='$id'");
 }
 
 
@@ -41,8 +41,8 @@ if($_SESSION['USER'] != 2){
 	$u_stmt = " $u_stmt (creator_id = '".$_SESSION['USER']."')";
 }
 $sql = "SELECT * FROM news_news  $whereStmt $u_stmt $sort $limit ";
-$result = MYSQL_QUERY($sql);
-$numberOfRows = MYSQL_NUMROWS($result);
+$result = mysqli_query($GLOBALS["db_link_conn"], $sql);
+$numberOfRows = mysqli_num_rows($result);
 
 /***********Top pagination*************/
 $tp = count_items("news_news", str_replace("WHERE", "", $whereStmt));
@@ -73,11 +73,11 @@ $i=0;?>
 <tbody>
 <?php
 while ($i<$numberOfRows){
-$id= MYSQL_RESULT($result,$i,"id");
-$subject = MYSQL_RESULT($result,$i,"subject");
-$publish_date= MYSQL_RESULT($result,$i,"publish_date");
-$special= MYSQL_RESULT($result,$i,"special");
-$active= MYSQL_RESULT($result,$i,"active");
+$id= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"id");
+$subject = mysqli_result($GLOBALS["db_link_conn"], $result,$i,"subject");
+$publish_date= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"publish_date");
+$special= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"special");
+$active= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"active");
 ?>
 <TR>
 <TD><?php echo stripslashes($subject); ?></TD>

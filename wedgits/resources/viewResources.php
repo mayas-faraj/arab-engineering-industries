@@ -5,19 +5,19 @@
 $id = cleanString($_REQUEST['id']);
 $currentdate=date("Y-m-d");
 $sql = "SELECT * FROM resources WHERE   id='$id'  ";
-$result = MYSQL_QUERY($sql);
-$numberOfRows = MYSQL_NUMROWS($result);
+$result = mysqli_query($GLOBALS["db_link_conn"], $sql);
+$numberOfRows = mysqli_num_rows($result);
 
 if ($numberOfRows>0) {
 	$i=0;
 	while ($i<$numberOfRows){
 		
 		
-		$id=mysql_result($result, $i,"id");
-		$subject=mysql_result($result, $i,"title");
-		$brief=mysql_result($result, $i,"details");
-		$photo=mysql_result($result, $i,"photo");
-		$private=mysql_result($result, $i,"private");
+		$id=mysqli_result($GLOBALS["db_link_conn"], $result, $i,"id");
+		$subject=mysqli_result($GLOBALS["db_link_conn"], $result, $i,"title");
+		$brief=mysqli_result($GLOBALS["db_link_conn"], $result, $i,"details");
+		$photo=mysqli_result($GLOBALS["db_link_conn"], $result, $i,"photo");
+		$private=mysqli_result($GLOBALS["db_link_conn"], $result, $i,"private");
 		if($photo){
 			$photo2= basename($photo);
 			$thumb = basename(resizeToFile($photo, 400 , 300 , "../../uploads/cash/viewResources_".$photo2));	

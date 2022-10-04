@@ -37,8 +37,8 @@ else{
 if($whereStmt!="")	$whereStmt = " WHERE $whereStmt";
 }
 $sql = "SELECT * FROM pages  $whereStmt $sort $limit ";
-$result = MYSQL_QUERY($sql);
-$numberOfRows = MYSQL_NUMROWS($result);
+$result = mysqli_query($GLOBALS["db_link_conn"], $sql);
+$numberOfRows = mysqli_num_rows($result);
 
 /***********Top pagination*************/
 $tp = count_items("pages", str_replace("WHERE", "", $whereStmt));
@@ -68,10 +68,10 @@ $i=0;?>
 <tbody>
 <?php
 while ($i<$numberOfRows){
-$id= MYSQL_RESULT($result,$i,"id");
-$title= MYSQL_RESULT($result,$i,"title");
-$is_static= MYSQL_RESULT($result,$i,"is_static");
-$lang= MYSQL_RESULT($result,$i,"lang");
+$id= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"id");
+$title= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"title");
+$is_static= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"is_static");
+$lang= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"lang");
 ?>
 <TR>
 <TD><?php echo stripslashes($title); ?>&nbsp;</TD>

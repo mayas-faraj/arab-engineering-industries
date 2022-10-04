@@ -4,26 +4,26 @@
 	<?php
 	$mid = cleanString($_REQUEST['id']);
 	$sql = "SELECT * FROM mem_members WHERE id = '$mid'";
-	$result = MYSQL_QUERY($sql);
-	$numberOfRows = MYSQL_NUMROWS($result);
+	$result = mysqli_query($GLOBALS["db_link_conn"], $sql);
+	$numberOfRows = mysqli_num_rows($result);
 	$i = 0;	
 	if($numberOfRows>0){
-			$id= MYSQL_RESULT($result,$i,"id");
-			$name = MYSQL_RESULT($result,$i,"name_".$pageLang); 
-			$specialization= MYSQL_RESULT($result,$i,"specialization");
+			$id= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"id");
+			$name = mysqli_result($GLOBALS["db_link_conn"], $result,$i,"name_".$pageLang); 
+			$specialization= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"specialization");
 			$specialization= lookupFieldAll("specialization", "id", "specialization_".$pageLang, $specialization);
-			$country= MYSQL_RESULT($result,$i,"country");
+			$country= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"country");
 			$country= lookupField("country", "id", "country_".$pageLang, $country);
 			
-			$products = MYSQL_RESULT($result,$i,"products_".$pageLang); 
-			$representer = MYSQL_RESULT($result,$i,"representer_".$pageLang); 
-			$brief= MYSQL_RESULT($result,$i,"brief_".$pageLang); 
-			$tel= MYSQL_RESULT($result,$i,"tel");
-			$fax= MYSQL_RESULT($result,$i,"fax");
-			$address= MYSQL_RESULT($result,$i,"address_".$pageLang); 
-			$email= MYSQL_RESULT($result,$i,"email");
-			$website= str_replace('http://','',mysql_result($result, $i,"website"));
-			$logo= MYSQL_RESULT($result,$i,"logo_".$pageLang);
+			$products = mysqli_result($GLOBALS["db_link_conn"], $result,$i,"products_".$pageLang); 
+			$representer = mysqli_result($GLOBALS["db_link_conn"], $result,$i,"representer_".$pageLang); 
+			$brief= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"brief_".$pageLang); 
+			$tel= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"tel");
+			$fax= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"fax");
+			$address= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"address_".$pageLang); 
+			$email= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"email");
+			$website= str_replace('http://','',mysqli_result($GLOBALS["db_link_conn"], $result, $i,"website"));
+			$logo= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"logo_".$pageLang);
 	}
 	?>
 	<div class="title2"><?php echo $name; ?></div>

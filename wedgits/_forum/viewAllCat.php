@@ -19,8 +19,8 @@ if(!$_SESSION["us_id"]){echo"<script>document.location='"._PREF."index.php'</scr
 	$allowed_users = returnImplode_ids('forum_users_groups'," grp_id in ($grp_ids) ",'user_id');
 	$whereStm = " WHERE active='1' ";
 	$sql =  "SELECT * FROM art_categories $whereStm ORDER BY id DESC, id DESC ";
-	$result = MYSQL_QUERY($sql);
-	$numrows = MYSQL_NUMROWS($result);
+	$result = mysqli_query($GLOBALS["db_link_conn"], $sql);
+	$numrows = mysqli_num_rows($result);
 	if ($numrows>0) {
 		$i=0;
 		echo "<table cellspacing='0' class='arts_table'>";
@@ -31,10 +31,10 @@ if(!$_SESSION["us_id"]){echo"<script>document.location='"._PREF."index.php'</scr
 			echo "<td width='100px' align='center'>".form_members."</td>";
 		echo "</tr>";
 		while ($i<$numrows){
-			$id=mysql_result($result, $i,"id");
-			$name=mysql_result($result, $i,"name");
-			$create_date=mysql_result($result, $i,"create_date");
-			$grp_admin_id=mysql_result($result, $i,"grp_admin");
+			$id=mysqli_result($GLOBALS["db_link_conn"], $result, $i,"id");
+			$name=mysqli_result($GLOBALS["db_link_conn"], $result, $i,"name");
+			$create_date=mysqli_result($GLOBALS["db_link_conn"], $result, $i,"create_date");
+			$grp_admin_id=mysqli_result($GLOBALS["db_link_conn"], $result, $i,"grp_admin");
 			$grp_admin = lookupField('users','user_id','full_name',$grp_admin_id);
 			
 			if(!$grp_admin){

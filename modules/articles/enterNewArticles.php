@@ -18,7 +18,7 @@ if($sub){
 	$cat_id = addslashes($_REQUEST['cat_id']);
 	$SQL = "INSERT INTO art_articles (title , brief , details , publish_date  , active, cat_id, user_id) 
 						VALUES ('$title' , '$brief' , '$details', '$publish_date' , '$active', '$cat_id', '$user_id' )";
-	$result = mysql_query($SQL);
+	$result = mysqli_query($GLOBALS["db_link_conn"], $SQL);
 	if($result)
  	echo '<script>correctMessage("'.Record_Update.'")</script>';
 	else echo '<script>errorMessage("'.CantInsert.'")</script>' ;

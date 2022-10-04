@@ -21,8 +21,8 @@ if($keyword && $keyword!=_Keyword){
 	$whereStm .= " AND  keyword LIKE '%$keyword%' ";
 }
 $sql = "SELECT * FROM resources $whereStm ORDER BY id DESC $limit";
-$result = MYSQL_QUERY($sql);
-$numberOfRows = MYSQL_NUMROWS($result);
+$result = mysqli_query($GLOBALS["db_link_conn"], $sql);
+$numberOfRows = mysqli_num_rows($result);
 ?>
 <div class='page_content'>
 <div class='title2'><?php echo Resources; ?></div>
@@ -31,9 +31,9 @@ if ($numberOfRows>0) {
 		echo "<table cellspacing='0' class='recTable'>";
 		$i=0;
 		while ($i<$numberOfRows){
-			$id=mysql_result($result, $i,"id");
-			$subject=mysql_result($result, $i,"title");
-			$brief=mysql_result($result, $i,"details");
+			$id=mysqli_result($GLOBALS["db_link_conn"], $result, $i,"id");
+			$subject=mysqli_result($GLOBALS["db_link_conn"], $result, $i,"title");
+			$brief=mysqli_result($GLOBALS["db_link_conn"], $result, $i,"details");
 			$brief =  limit($brief, $brief_count);
 			
 		?>

@@ -13,14 +13,14 @@ if($so) $so    = ($so=="DESC")? "ASC" : "DESC" ; else $so="DESC";
 if($sb) $sort  = "ORDER BY $sb $so" ;
 
 $sql = "SELECT id AS co ,title FROM pages";
-$res = mysql_query($sql);
+$res = mysqli_query($GLOBALS["db_link_conn"], $sql);
 $pie = array();
-$numberOfRows = mysql_numrows($res);
+$numberOfRows = mysqli_num_rows($res);
 if ($numberOfRows>0) {
 $i=0;
 	while ($i<$numberOfRows){
-		$co= mysql_result($res,$i,"co");
-		$country= mysql_result($res,$i,"title");
+		$co= mysqli_result($GLOBALS["db_link_conn"], $res,$i,"co");
+		$country= mysqli_result($GLOBALS["db_link_conn"], $res,$i,"title");
 		$pie[$i]="['$country',$co]";
 		$i++;
 	}

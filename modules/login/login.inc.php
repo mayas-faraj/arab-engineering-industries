@@ -14,8 +14,8 @@ function logfnc($user,$pass) {
   $user = addslashes($user); 
   $passwd = md5($pass);
   $query = "SELECT * FROM users u WHERE (u.username='$user') AND (u.password = '$passwd') " ;
-  $result = mysql_query($query);
-  if (mysql_num_rows($result) <=0 ) {
+  $result = mysqli_query($GLOBALS["db_link_conn"], $query);
+  if (mysqli_num_rows($result) <=0 ) {
 	echo'<script>
 			alert("'.LoginError.'");
 			document.location="../login/login.php"
@@ -24,12 +24,12 @@ function logfnc($user,$pass) {
   } else {
 		$login = true;	// if they are in the database register the user for the session
 
-		$_SESSION['USER'] = MYSQL_RESULT($result, $i, "u.user_id");
-		$_SESSION['USER_FOLDER'] = MYSQL_RESULT($result, $i, "u.uploads_folder");
+		$_SESSION['USER'] = mysqli_result($GLOBALS["db_link_conn"], $result, $i, "u.user_id");
+		$_SESSION['USER_FOLDER'] = mysqli_result($GLOBALS["db_link_conn"], $result, $i, "u.uploads_folder");
 		
-		$_SESSION['FULL_NAME'] = MYSQL_RESULT($result, $i, "u.full_name");
+		$_SESSION['FULL_NAME'] = mysqli_result($GLOBALS["db_link_conn"], $result, $i, "u.full_name");
 				
-		$_SESSION['GRP'] = MYSQL_RESULT($result,$i,"u.grp_id"); 
+		$_SESSION['GRP'] = mysqli_result($GLOBALS["db_link_conn"], $result,$i,"u.grp_id"); 
 		
    }
   return $login;
@@ -70,8 +70,8 @@ function authentication($thisfile) {
     AND (rf.form_id = f.form_id)
     AND (f.form_name = '$thisfile')";
 
-$result = MYSQL_QUERY($sql_auth);
-$numberOfRows = MYSQL_NUM_ROWS($result);
+$result = mysqli_query($GLOBALS["db_link_conn"], $sql_auth);
+$numberOfRows = mysqli_num_rows($result);
 return ($numberOfRows > 0);
 }
 

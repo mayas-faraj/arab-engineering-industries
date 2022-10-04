@@ -32,8 +32,8 @@ if($_SESSION['USER']!=2){
 if($whereStmt!=""){	$whereStmt = " WHERE $whereStmt AND $staticStm ";}else{	$whereStmt = " WHERE $staticStm ";}
 
 $sql = "SELECT * FROM galleries_galleries  $whereStmt order by isGallery DESC, ord DESC $limit ";
-$result = MYSQL_QUERY($sql);
-$numberOfRows = MYSQL_NUMROWS($result);
+$result = mysqli_query($GLOBALS["db_link_conn"], $sql);
+$numberOfRows = mysqli_num_rows($result);
 /***********Top pagination*************/
 $tp = count_items("galleries_galleries", str_replace("WHERE", "", $whereStmt));
 if($tp!=0)
@@ -55,13 +55,13 @@ $i=0;?>
 </TR>
 </thead><tbody><?php
 while ($i<$numberOfRows){
-$id= mysql_result($result,$i,"id");
-$gallery_name= mysql_result($result,$i,"gallery_name");
-$description= mysql_result($result,$i,"description");
-$main_photo= mysql_result($result,$i,"main_photo");
-$folder= mysql_result($result,$i,"folder");
-$photos= mysql_result($result,$i,"photos");
-$isGallery= mysql_result($result,$i,"isGallery");
+$id= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"id");
+$gallery_name= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"gallery_name");
+$description= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"description");
+$main_photo= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"main_photo");
+$folder= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"folder");
+$photos= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"photos");
+$isGallery= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"isGallery");
 ?>
 <TR>
 <input type='hidden' value='<?php echo $isGallery; ?>' name='isGallery'/>

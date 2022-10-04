@@ -12,8 +12,8 @@ $form_id = $_REQUEST['form_id'];
 function getFieldsOrder(){
 $form_id = $_REQUEST['form_id'];
 $sql = "SELECT MAX(item_order) AS max FROM form_fields WHERE (form_id = '$form_id') ";
-$result = mysql_query($sql);
-if ($result) return $max = MYSQL_RESULT($result,0,'max')+1;
+$result = mysqli_query($GLOBALS["db_link_conn"], $sql);
+if ($result) return $max = mysqli_result($GLOBALS["db_link_conn"], $result,0,'max')+1;
 else return 1;
 }
 //apply updating:
@@ -31,7 +31,7 @@ $plus = addslashes($_REQUEST['plus']);
 $required = addslashes($_REQUEST['required']);
 $form_id = addslashes($_REQUEST['form_id']);
 $SQL = "INSERT INTO form_fields (field_label , type , plus , required , form_id ,item_order) VALUES ('$field_label' , '$type' , '$plus' , '$required' , '$form_id' , ' $item_order' )";
-$result = mysql_query($SQL);
+$result = mysqli_query($GLOBALS["db_link_conn"], $SQL);
 if($result)
 echo '<script>correctMessageWithoutBack("'.Record_Enter.'")</script>';
 }// Insert record
@@ -43,7 +43,7 @@ $plus = addslashes($_REQUEST['plus']);
 $required = addslashes($_REQUEST['required']);
 $form_id = addslashes($_REQUEST['form_id']);
 $SQL = "UPDATE form_fields SET field_label = '$field_label' , type = '$type' , plus = '$plus' , required = '$required' , form_id = '$form_id' WHERE id = '$id' ";
-$result = mysql_query($SQL);
+$result = mysqli_query($GLOBALS["db_link_conn"], $SQL);
 if($result)
 echo '<script>correctMessageWithoutBack("'.Record_Update.'")</script>';
 }// Update record
@@ -66,8 +66,8 @@ $whereStmt = createFilter(array('Field'), array('%field_label'), "AND");
 /***********Query*************/
 if($whereStmt!="")	$whereStmt = " AND $whereStmt";
 $sql = "SELECT * FROM form_fields WHERE (form_id = '$form_id') $whereStmt ORDER BY item_order ASC ";
-$result = MYSQL_QUERY($sql);
-$numberOfRows = MYSQL_NUMROWS($result);
+$result = mysqli_query($GLOBALS["db_link_conn"], $sql);
+$numberOfRows = mysqli_num_rows($result);
 
 /***********Top pagination*************/
 $tp = count_items("form_fields", str_replace("AND", "", $whereStmt));
@@ -112,13 +112,13 @@ if($action=="Enter"){?>
 }// Enter record
 $i=0;
 while ($i<$numberOfRows){
-$id= MYSQL_RESULT($result,$i,"id");
-$field_label= MYSQL_RESULT($result,$i,"field_label");
-$type= MYSQL_RESULT($result,$i,"type");
-$plus= MYSQL_RESULT($result,$i,"plus");
-$required= MYSQL_RESULT($result,$i,"required");
-$form_id= MYSQL_RESULT($result,$i,"form_id");
-$order= MYSQL_RESULT($result,$i,"item_order");
+$id= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"id");
+$field_label= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"field_label");
+$type= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"type");
+$plus= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"plus");
+$required= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"required");
+$form_id= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"form_id");
+$order= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"item_order");
 if($action=="Edit"  && $_REQUEST['id'] == $id){?>
 <TR>
 <TD>&nbsp;<input type="Hidden" name="id" size="20" value="<?php echo $id?>" />

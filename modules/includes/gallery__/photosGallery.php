@@ -9,12 +9,12 @@ $uploads_folder = str_replace('//','/',lookupField('users','user_id','uploads_fo
 if(isset($_SESSION['gid'])){
 	$gid=$_SESSION['gid'];
 	$sql = "SELECT gallery_name_en,main_photo,photos FROM galleries_galleries  where id=$gid limit 0,1";
-	$result = mysql_query($sql);
-	$numberOfRows = mysql_numrows($result);
+	$result = mysqli_query($GLOBALS["db_link_conn"], $sql);
+	$numberOfRows = mysqli_num_rows($result);
 	if ($numberOfRows>0) {
-		$gallery_name= mysql_result($result,0,"gallery_name_en");
-		$main_photo= mysql_result($result,0,"main_photo");
-		$photos= mysql_result($result,0,"photos");
+		$gallery_name= mysqli_result($GLOBALS["db_link_conn"], $result,0,"gallery_name_en");
+		$main_photo= mysqli_result($GLOBALS["db_link_conn"], $result,0,"main_photo");
+		$photos= mysqli_result($GLOBALS["db_link_conn"], $result,0,"photos");
 ?>
 <html>
 <head>
@@ -60,7 +60,7 @@ if($action){
 	if($photosArr)	$photos = implode(",",$photosArr);
 	else $photos = '';
 	//$SQL = " UPDATE galleries_galleries SET main_photo = '$main_pho' , photos = '$photos' WHERE id = '$gid'"; 
-	//$result = mysql_query($SQL);
+	//$result = mysqli_query($GLOBALS["db_link_conn"], $SQL);
 	if($result){
 		echo '<script>window.location="saveGallery.php?gid='.$gid.'&n='.$_REQUEST['n'].'"</script>';
 	}

@@ -126,7 +126,7 @@ function loadFiles($path = '', $f = 0) {
 }
 
 function delPhoto($id) {
-    mysql_query("delete from galleries_photos where id='$id'");
+    mysqli_query($GLOBALS["db_link_conn"], "delete from galleries_photos where id='$id'");
 }
 
 function checkFile($p) {
@@ -146,12 +146,12 @@ function checkFile($p) {
         }
 
         $sql = "select count(*) as c from galleries_photos where photo='$file' and folder='$folder'";
-        $res = mysql_query($sql);
-        $count = mysql_result($res, 0, 'c');
+        $res = mysqli_query($GLOBALS["db_link_conn"], $sql);
+        $count = mysqli_result($GLOBALS["db_link_conn"], $res, 0, 'c');
         if ($count == 0) {
 
             $sql = "INSERT INTO galleries_photos  (folder,photo,thumb)values('$folder','$file','$thumbFile')";
-            $res = mysql_query($sql);
+            $res = mysqli_query($GLOBALS["db_link_conn"], $sql);
             return false;
         } else {
             return true;
@@ -188,8 +188,8 @@ function getFileEx($file) {
 
 function lookupField($table, $id_field, $lookup_field, $id_value) {
     $sql_lookup = "SELECT `$lookup_field` from `$table` where `$id_field` = '$id_value'";
-    $result_lookup = MYSQL_QUERY($sql_lookup);
-    $rows_lookup = MYSQL_NUM_ROWS($result_lookup);
+    $result_lookup = mysqli_query($GLOBALS["db_link_conn"], $sql_lookup);
+    $rows_lookup = mysqli_num_rows($result_lookup);
     if ($rows_lookup == null || $rows_lookup = 0) {
         return 0;
     } else {
@@ -197,7 +197,7 @@ function lookupField($table, $id_field, $lookup_field, $id_value) {
         $ind = 0;
         $value = "";
         while ($ind < count($filds)) {
-            $value.= stripslashes(MYSQL_RESULT($result_lookup, 0, $filds[$ind]) . " ");
+            $value.= stripslashes(mysqli_result($GLOBALS["db_link_conn"], $result_lookup, 0, $filds[$ind]) . " ");
             $ind++;
         }
         return trim($value);

@@ -1236,8 +1236,8 @@ abstract class elFinderVolumeDriver {
 	 * @author Dmitry (dio) Levashov
 	 **/
 	public function rename($hash, $name) {
-		MYSQL_CONNECT('localhost', 'root', '');    
-		mysql_select_db('ithad_db');
+		mysqli_connect($GLOBALS["db_link_conn"], 'localhost', 'root', '');    
+		mysqli_select_db($GLOBALS["db_link_conn"], 'ithad_db');
 		if ($this->commandDisabled('rename')) {
 			return $this->setError(elFinder::ERROR_PERM_DENIED);
 		}
@@ -1308,10 +1308,10 @@ abstract class elFinderVolumeDriver {
 		
 
 		
-		mysql_query(" update `galleries_photos` set `photo` = '$name' WHERE `photo` = '".basename($path)."' AND (folder = '$full_des_dir') ");
-		//mysql_query(" insert into test (test_value) values(\"  update `galleries_photos` set `photo` = '$name' WHERE `photo` = '".basename($path)."' AND (folder = '$full_des_dir')   \") ");
+		mysqli_query($GLOBALS["db_link_conn"], " update `galleries_photos` set `photo` = '$name' WHERE `photo` = '".basename($path)."' AND (folder = '$full_des_dir') ");
+		//mysqli_query($GLOBALS["db_link_conn"], " insert into test (test_value) values(\"  update `galleries_photos` set `photo` = '$name' WHERE `photo` = '".basename($path)."' AND (folder = '$full_des_dir')   \") ");
 		/******************************Update photo location within galleries_photos process END  ************************************/
-		//mysql_query(" update `galleries_photos` set `photo` = '$name' WHERE `photo` = '".basename($path)."' AND folder ");
+		//mysqli_query($GLOBALS["db_link_conn"], " update `galleries_photos` set `photo` = '$name' WHERE `photo` = '".basename($path)."' AND folder ");
 		
 		$path = $this->_joinPath($dir, $name);
 
@@ -1445,8 +1445,8 @@ abstract class elFinderVolumeDriver {
 	 * @author Dmitry (dio) Levashov
 	 **/
 	public function paste($volume, $src, $dst, $rmSrc = false) {
-		MYSQL_CONNECT('localhost', 'root', '');    
-		mysql_select_db('ithad_db');
+		mysqli_connect($GLOBALS["db_link_conn"], 'localhost', 'root', '');    
+		mysqli_select_db($GLOBALS["db_link_conn"], 'ithad_db');
 		$err = $rmSrc ? elFinder::ERROR_MOVE : elFinder::ERROR_COPY;
 		
 		if ($this->commandDisabled('paste')) {
@@ -1527,8 +1527,8 @@ abstract class elFinderVolumeDriver {
 
 		
 		
-		mysql_query(" update `galleries_photos` set folder = '$full_des_dir' WHERE (`photo` = '$name' AND folder = '$src_full_des_dir')  ");
-		//mysql_query(" insert into test (test_value) values(\"  update `galleries_photos` set folder = '$full_des_dir' WHERE (`photo` = '$name' AND folder = '$src_full_des_dir')   \") ");
+		mysqli_query($GLOBALS["db_link_conn"], " update `galleries_photos` set folder = '$full_des_dir' WHERE (`photo` = '$name' AND folder = '$src_full_des_dir')  ");
+		//mysqli_query($GLOBALS["db_link_conn"], " insert into test (test_value) values(\"  update `galleries_photos` set folder = '$full_des_dir' WHERE (`photo` = '$name' AND folder = '$src_full_des_dir')   \") ");
 		/******************************Update photo location within galleries_photos process END  ************************************/
 		
 		if (($test = $volume->closest($src, $rmSrc ? 'locked' : 'read', $rmSrc))) {
@@ -2554,8 +2554,8 @@ abstract class elFinderVolumeDriver {
 				}
 			}
 			
-			mysql_query(" insert into test (test_value) values(\" update `galleries_photos` set folder = '".$dst_full_des_dir.$src_dir."/' WHERE (`photo` = '$name_s' AND folder = '$src_full_des_dir') \") ");
-			mysql_query(" update `galleries_photos` set folder = '".$dst_full_des_dir.$src_dir."/' WHERE (`photo` = '$name_s' AND folder = '$src_full_des_dir') ");
+			mysqli_query($GLOBALS["db_link_conn"], " insert into test (test_value) values(\" update `galleries_photos` set folder = '".$dst_full_des_dir.$src_dir."/' WHERE (`photo` = '$name_s' AND folder = '$src_full_des_dir') \") ");
+			mysqli_query($GLOBALS["db_link_conn"], " update `galleries_photos` set folder = '".$dst_full_des_dir.$src_dir."/' WHERE (`photo` = '$name_s' AND folder = '$src_full_des_dir') ");
 			/******************************Update photo location within galleries_photos process END  ************************************/
 		
 
@@ -2646,8 +2646,8 @@ abstract class elFinderVolumeDriver {
 	 **/
 	protected function remove($path, $force = false) {
 		
-		MYSQL_CONNECT('localhost', 'root', '');    
-		mysql_select_db('ithad_db');
+		mysqli_connect($GLOBALS["db_link_conn"], 'localhost', 'root', '');    
+		mysqli_select_db($GLOBALS["db_link_conn"], 'ithad_db');
 		
 		$stat = $this->stat($path);
 		$stat['realpath'] = $path;
@@ -2685,7 +2685,7 @@ abstract class elFinderVolumeDriver {
 		$name = $this->_basename($path);
 		
 		$path2 = str_replace($name,'',$path);
-		mysql_query(" insert into test (test_value) values(\"  $name  \") ");
+		mysqli_query($GLOBALS["db_link_conn"], " insert into test (test_value) values(\"  $name  \") ");
 		
 		foreach ($this->_scandir($path2) as $p) {
 			
@@ -2719,8 +2719,8 @@ abstract class elFinderVolumeDriver {
 				}
 			}
 			
-			mysql_query(" DELETE FROM `galleries_photos` WHERE (`photo` = '$name' AND folder = '$src_full_des_dir')");
-			mysql_query(" insert into test (test_value) values(\"  DELETE FROM `galleries_photos` WHERE (`photo` = '$name' AND folder = '$src_full_des_dir')   \") ");
+			mysqli_query($GLOBALS["db_link_conn"], " DELETE FROM `galleries_photos` WHERE (`photo` = '$name' AND folder = '$src_full_des_dir')");
+			mysqli_query($GLOBALS["db_link_conn"], " insert into test (test_value) values(\"  DELETE FROM `galleries_photos` WHERE (`photo` = '$name' AND folder = '$src_full_des_dir')   \") ");
 			/******************************Update photo location within galleries_photos process END  ************************************/
 			
 
@@ -2734,7 +2734,7 @@ abstract class elFinderVolumeDriver {
 		
 		
 		
-		//mysql_query(" DELETE FROM `galleries_photos` WHERE `photo` = '$name' ");
+		//mysqli_query($GLOBALS["db_link_conn"], " DELETE FROM `galleries_photos` WHERE `photo` = '$name' ");
 		
 		$this->removed[] = $stat;
 		return true;

@@ -26,14 +26,14 @@ if($sub){
 	
 	if(count($attached_files)==$max_dis_files || count($attached_files)<$max_dis_files){
 		$sql = "insert into art_articles (cat_id, title , brief, details, author, publish_date,user_id,active,publish) values ('$cat_id', '$title' ,'$brief' ,'$details' ,'$name' ,now(),'$user_id','1','1')";
-		$result =  MYSQL_QUERY($sql);
+		$result =  mysqli_query($GLOBALS["db_link_conn"], $sql);
 		if($result)
 		{
 			//$results = Discussion_has_been_added_successfully;
 			$results = "<script>document.location='viewAllArticles.php?cat_id=$cat_id'</script>";
 			
 		}
-		$com_art_id = mysql_insert_id();
+		$com_art_id = mysqli_insert_id($GLOBALS["db_link_conn"]);
 		
 		for ($i = 0; $i < count($attached_files); $i++) {
 			$no_space_photo = str_replace(' ', '_',$_FILES['attached_files']['name'][$i]);
@@ -58,7 +58,7 @@ if($sub){
 					$targetFile = '../../uploads/forums/'.$no_space_photo;
 					if(move_uploaded_file($tempFile,$targetFile)){
 						$attached_files_sql="INSERT INTO `art_articles_files` (`art_id`,`file`) VALUES ('$com_art_id' , '$no_space_photo' );";
-						$attached_files_result = mysql_query($attached_files_sql);
+						$attached_files_result = mysqli_query($GLOBALS["db_link_conn"], $attached_files_sql);
 					}
 				}
 			}

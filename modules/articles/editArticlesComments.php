@@ -20,7 +20,7 @@ if($sub){
 	$lang = addslashes($_REQUEST['lang']);
 	
 	$SQL = "UPDATE art_comments SET  comment='$comment', pub_name = '$pub_name' , pub_email = '$pub_email' ,pub_email = '$pub_email' ,publish_date = '$publish_date' , active = '$active' WHERE id = '$id' ";
-	$result = mysql_query($SQL);
+	$result = mysqli_query($GLOBALS["db_link_conn"], $SQL);
 	if($result)
  	echo '<script>correctMessage("'.Record_Update.'")</script>';
 	else echo '<script>errorMessage("'.CantInsert.'")</script>' ;
@@ -28,19 +28,19 @@ if($sub){
 if((!$sub) || (!$result)){ 
 	$id = $_REQUEST['id'];
 	$sql ="SELECT * FROM art_comments WHERE id = '$id' ";
-	$result = MYSQL_QUERY($sql);
-	$numberOfRows = MYSQL_NUMROWS($result);
+	$result = mysqli_query($GLOBALS["db_link_conn"], $sql);
+	$numberOfRows = mysqli_num_rows($result);
 	if ($numberOfRows>0) {
 		$i=0;
-        $id= MYSQL_RESULT($result,$i,"id");
-        $art_id= MYSQL_RESULT($result,$i,"art_id");
+        $id= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"id");
+        $art_id= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"art_id");
         $article= lookupField('art_articles','id','title',$art_id);
-        $comment= MYSQL_RESULT($result,$i,"comment");
-        $pub_name= MYSQL_RESULT($result,$i,"pub_name");
-        $pub_email= MYSQL_RESULT($result,$i,"pub_email");
-        $publish_date= MYSQL_RESULT($result,$i,"publish_date");
-        $active= MYSQL_RESULT($result,$i,"active");
-		$ord = mysql_result($result,$i,"ord");
+        $comment= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"comment");
+        $pub_name= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"pub_name");
+        $pub_email= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"pub_email");
+        $publish_date= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"publish_date");
+        $active= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"active");
+		$ord = mysqli_result($GLOBALS["db_link_conn"], $result,$i,"ord");
 	}?>
     <form name="subForm" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>" enctype="multipart/form-data">
     <input type="Hidden" name="id" size="20" value="<?php echo $id; ?>" />

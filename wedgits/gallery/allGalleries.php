@@ -7,18 +7,18 @@
 
 <?php
 $sql='SELECT * FROM `galleries_galleries` where isGallery="1"';
-$result = mysql_query($sql);
-$numrows = mysql_numrows($result);
+$result = mysqli_query($GLOBALS["db_link_conn"], $sql);
+$numrows = mysqli_num_rows($result);
 if($numrows > 0){
 	$i=0;
 	echo "<table class='all_gallery'>";
 	while($i<$numrows){
 		if($i%4==0 ){echo "</tr><tr>";}
-		$gid = mysql_result($result,$i,'id');
-		$main_photo_id = mysql_result($result,$i,'main_photo');
+		$gid = mysqli_result($GLOBALS["db_link_conn"], $result,$i,'id');
+		$main_photo_id = mysqli_result($GLOBALS["db_link_conn"], $result,$i,'main_photo');
 		$lang_v = ($_SESSION['pageLang']=="ar")?'_ar':'';
-		$gallery_name = mysql_result($result,$i,'gallery_name'.$lang_v);
-		$folder = mysql_result($result,$i,'folder');
+		$gallery_name = mysqli_result($GLOBALS["db_link_conn"], $result,$i,'gallery_name'.$lang_v);
+		$folder = mysqli_result($GLOBALS["db_link_conn"], $result,$i,'folder');
 		$main_photo = basename(lookupField('galleries_photos','id','photo',$main_photo_id));
 		$thumb='';
 		$photo_path = "../../uploads/";

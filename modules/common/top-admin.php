@@ -21,10 +21,10 @@ include_once("../includes/dbUtils.php");
 
 
 ///Lang (this variable is used in DB operations: Data filtering & lang switcher)------------------------------
-$lang_res = MYSQL_QUERY("SELECT * FROM languages");
-$numberOfLang = MYSQL_NUMROWS($lang_res);
+$lang_res = mysqli_query($GLOBALS["db_link_conn"], "SELECT * FROM languages");
+$numberOfLang = mysqli_num_rows($lang_res);
 $def = "ar";
-if($numberOfLang==1)	$def = MYSQL_RESULT($lang_res,0,"lang");
+if($numberOfLang==1)	$def = mysqli_result($GLOBALS["db_link_conn"], $lang_res,0,"lang");
 if(isset($_REQUEST['lang']) && $_REQUEST['lang']!= ''){$lang=$_REQUEST['lang'];$_SESSION['lang']=$lang;}
 else if(isset($_SESSION['lang'])){$lang=$_SESSION['lang'];}else{$lang=$_SESSION['lang']=$def;}
 //----------------------------------------------------------------------------------------------------

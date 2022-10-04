@@ -81,11 +81,11 @@ if($action){
 	$photos = "";//implode(",",$photosArr);
 
 	$SQL = "INSERT INTO galleries_galleries (gallery_name , gallery_name_ar, description , main_photo , photos,folder, creator_id) VALUES ('$gallery_name' , '$gallery_name_ar','$description' ,'$main_pho' ,'$photos','$folder','$creator_id')";
-	$result = mysql_query($SQL);
+	$result = mysqli_query($GLOBALS["db_link_conn"], $SQL);
 	if($result){
 		
 		
-		$id = mysql_insert_id();
+		$id = mysqli_insert_id($GLOBALS["db_link_conn"]);
 
 		if($folder&&$id){
 			$folder_path = '../../../uploads/'.$folder;
@@ -105,8 +105,8 @@ if($action){
 				
 				$thumb = resizeToFile($targetFile, 90, 90, '../../../uploads/'.$thumbFile);
 				$SQL = "INSERT INTO galleries_photos (photo , description , thumb, creator_id ) VALUES ('$photo','&nbsp;','$thumbFile','$creator_id' )";
-				$result = mysql_query($SQL);
-				$photo_id = mysql_insert_id();
+				$result = mysqli_query($GLOBALS["db_link_conn"], $SQL);
+				$photo_id = mysqli_insert_id($GLOBALS["db_link_conn"]);
 				if($photos_ids){
 					$main_photo = $photo_id;
 					$photos_ids .= ','.$photo_id;
@@ -115,7 +115,7 @@ if($action){
 				}
 			}
 			$SQL = "update galleries_galleries set photos = '$photos_ids' , main_photo = '$main_photo' where id='$id' ";
-			$result = mysql_query($SQL);
+			$result = mysqli_query($GLOBALS["db_link_conn"], $SQL);
 		}
 		
 		

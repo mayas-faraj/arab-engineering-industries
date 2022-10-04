@@ -19,7 +19,7 @@ if($action=="Ins"){
 	$country_en = addslashes($_REQUEST['country_en']);
 
 	$SQL = "INSERT INTO country (country_ar , country_en ) VALUES ('$country_ar' , '$country_en' )";
-	$result = mysql_query($SQL);
+	$result = mysqli_query($GLOBALS["db_link_conn"], $SQL);
 	if($result)
  	echo '<script>correctMessageWithoutBack("'.Record_Enter.'")</script>';
 }// Insert record
@@ -29,7 +29,7 @@ if($action=="Upd"){
 	$country_en = addslashes($_REQUEST['country_en']);
 
 	$SQL = "UPDATE country SET id = '$id' , country_ar = '$country_ar' , country_en = '$country_en' WHERE id = '$id' ";
-	$result = mysql_query($SQL);
+	$result = mysqli_query($GLOBALS["db_link_conn"], $SQL);
 	if($result)
  	echo '<script>correctMessageWithoutBack("'.Record_Update.'")</script>';
 }// Update record
@@ -38,12 +38,12 @@ if(isset($_POST['rid'])){
 		$array = $_POST['rid'];
 		$ids = implode(",",$array); 
 		$sql = "DELETE FROM country WHERE id IN ($ids) ";
-		$result = MYSQL_QUERY($sql);
+		$result = mysqli_query($GLOBALS["db_link_conn"], $sql);
 		if($result) echo '<script>correctMessageWithoutBack("'.Record_delete.'")</script>';
 	}}// Delete record
 $sql = "SELECT * FROM country  $sort ";
-$result = mysql_query($sql);
-$numberOfRows = mysql_numrows($result);
+$result = mysqli_query($GLOBALS["db_link_conn"], $sql);
+$numberOfRows = mysqli_num_rows($result);
 $i=0;
 ?>
 <form method='post' name='subForm' action='<?php echo $_SERVER['PHP_SELF']?>' enctype='multipart/form-data'>
@@ -83,9 +83,9 @@ function actionf(act){
 }// Enter record
 
 while ($i<$numberOfRows){
-	$id= mysql_result($result,$i,"id");
-	$country_ar= mysql_result($result,$i,"country_ar");
-	$country_en= mysql_result($result,$i,"country_en");
+	$id= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"id");
+	$country_ar= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"country_ar");
+	$country_en= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"country_en");
 
 if($action=="Edit"  && $_REQUEST['id'] == $id){?>
 <tr>

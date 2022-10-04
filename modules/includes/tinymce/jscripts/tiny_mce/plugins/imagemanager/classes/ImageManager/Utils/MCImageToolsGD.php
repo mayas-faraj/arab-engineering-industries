@@ -659,7 +659,7 @@ class ImageToolsGD {
 	}
 
 	function hasFunctions($list) {
-		$list = split(",", $list);
+		$list = explode(",", $list);
 
 		foreach($list as $item) {
 			if (!function_exists($item))

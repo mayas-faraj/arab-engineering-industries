@@ -35,7 +35,7 @@ if ($action == "Insert") {
     $values .= ", '$grp_id'";
 
     $SQL = "INSERT INTO users ( $cols ) VALUES ($values)";
-    $result = mysql_query($SQL);
+    $result = mysqli_query($GLOBALS["db_link_conn"], $SQL);
     if ($result)
         echo '<script>correctMessageWithoutBack("' . Record_Enter . '")</script>';
 }
@@ -50,7 +50,7 @@ if ($action == "Update") {
     $values .= ", grp_id = '$grp_id'";
 
     $SQL = "UPDATE users SET $values WHERE user_id = '$user_id' ";
-    $result = mysql_query($SQL);
+    $result = mysqli_query($GLOBALS["db_link_conn"], $SQL);
     if ($result)
         echo '<script>correctMessageWithoutBack("' . Record_Update . '")</script>';
 }
@@ -64,8 +64,8 @@ if ($action == "Delete") {
 }
 //-------------------------------------------------
 $sql = "SELECT * FROM users WHERE user_id>1 AND grp_id != 3 $sort ";
-$result = MYSQL_QUERY($sql);
-$numberOfRows = MYSQL_NUMROWS($result);
+$result = mysqli_query($GLOBALS["db_link_conn"], $sql);
+$numberOfRows = mysqli_num_rows($result);
 $i = 0;
 ?>
 <div class="data">
@@ -104,14 +104,14 @@ $i = 0;
                     <?php
                 }// Enter record
                 while ($i < $numberOfRows) {
-                    $user_id = MYSQL_RESULT($result, $i, "user_id");
-                    $username = MYSQL_RESULT($result, $i, "username");
-                    $password = MYSQL_RESULT($result, $i, "password");
-                    $full_name = MYSQL_RESULT($result, $i, "full_name");
-                    $email = MYSQL_RESULT($result, $i, "email");
-                    $grp_id = MYSQL_RESULT($result, $i, "grp_id");
-                    $user_desc = MYSQL_RESULT($result, $i, "user_desc");
-                    $uploads_folder = MYSQL_RESULT($result, $i, "uploads_folder");
+                    $user_id = mysqli_result($GLOBALS["db_link_conn"], $result, $i, "user_id");
+                    $username = mysqli_result($GLOBALS["db_link_conn"], $result, $i, "username");
+                    $password = mysqli_result($GLOBALS["db_link_conn"], $result, $i, "password");
+                    $full_name = mysqli_result($GLOBALS["db_link_conn"], $result, $i, "full_name");
+                    $email = mysqli_result($GLOBALS["db_link_conn"], $result, $i, "email");
+                    $grp_id = mysqli_result($GLOBALS["db_link_conn"], $result, $i, "grp_id");
+                    $user_desc = mysqli_result($GLOBALS["db_link_conn"], $result, $i, "user_desc");
+                    $uploads_folder = mysqli_result($GLOBALS["db_link_conn"], $result, $i, "uploads_folder");
                     if ($action == "Edit" && $_REQUEST['user_id'] == $user_id) {
                         ?>
                         <TR>

@@ -8,27 +8,27 @@ $opr=$_REQUEST['opr'];
 $Mid=$_REQUEST['id'];
 $t=$_REQUEST['t'];
 $sql3 = "SELECT * FROM galleries_photos where id='$Mid' limit 1 ";
-$res3= mysql_query($sql3);
-$rows3 = mysql_numrows($res3);
+$res3= mysqli_query($GLOBALS["db_link_conn"], $sql3);
+$rows3 = mysqli_num_rows($res3);
 if($rows3>0){
-$selThumb=mysql_result($res3,0,'thumb');
+$selThumb=mysqli_result($GLOBALS["db_link_conn"], $res3,0,'thumb');
 ?><div style="float:right; margin:10px; margin-right:50px;"><img src="../../../uploads/<?php echo $selThumb; ?>"/></div><?php
 ?><div style="margin:10px; float:left"><?php
 if(isset($_REQUEST['id']) && isset($_REQUEST['opr'])) {	
 	if($opr=='info'){	
 		$sql = "SELECT * FROM galleries_galleries ";
-		$res= mysql_query($sql);
-		$rows = mysql_numrows($res);
+		$res= mysqli_query($GLOBALS["db_link_conn"], $sql);
+		$rows = mysqli_num_rows($res);
 		if ($rows>0) {
 			$i=0;
 			$counter=0;
 			$albs='';
 			while ($i<$rows){
-				$id= mysql_result($res,$i,"id");
-				$gallery_name= mysql_result($res,$i,"gallery_name_en");
-				$description= mysql_result($res,$i,"description_en");
-				$main_photo= mysql_result($res,$i,"main_photo");
-				$photos= mysql_result($res,$i,"photos");		
+				$id= mysqli_result($GLOBALS["db_link_conn"], $res,$i,"id");
+				$gallery_name= mysqli_result($GLOBALS["db_link_conn"], $res,$i,"gallery_name_en");
+				$description= mysqli_result($GLOBALS["db_link_conn"], $res,$i,"description_en");
+				$main_photo= mysqli_result($GLOBALS["db_link_conn"], $res,$i,"main_photo");
+				$photos= mysqli_result($GLOBALS["db_link_conn"], $res,$i,"photos");		
 				$phos=explode(',',$photos);
 				if(in_array($Mid,$phos)){
 					$counter++;
@@ -50,18 +50,18 @@ if(isset($_REQUEST['id']) && isset($_REQUEST['opr'])) {
 	if($opr=='del'){
 		/*----------------Delete Photo from Galleries----------- */
 		$sql = "SELECT * FROM galleries_galleries ";
-		$res= mysql_query($sql);
-		$rows = mysql_numrows($res);
+		$res= mysqli_query($GLOBALS["db_link_conn"], $sql);
+		$rows = mysqli_num_rows($res);
 		if ($rows>0) {
 			$i=0;
 			
 			$albs='';
 			while ($i<$rows){
-				$id= mysql_result($res,$i,"id");
-				$gallery_name= mysql_result($res,$i,"gallery_name");
-				$description= mysql_result($res,$i,"description");
-				$main_photo= mysql_result($res,$i,"main_photo");
-				$photos= mysql_result($res,$i,"photos");
+				$id= mysqli_result($GLOBALS["db_link_conn"], $res,$i,"id");
+				$gallery_name= mysqli_result($GLOBALS["db_link_conn"], $res,$i,"gallery_name");
+				$description= mysqli_result($GLOBALS["db_link_conn"], $res,$i,"description");
+				$main_photo= mysqli_result($GLOBALS["db_link_conn"], $res,$i,"main_photo");
+				$photos= mysqli_result($GLOBALS["db_link_conn"], $res,$i,"photos");
 				$phos=explode(',',$photos);
 				$e=0;
 				$new_photos='';
@@ -89,19 +89,19 @@ if(isset($_REQUEST['id']) && isset($_REQUEST['opr'])) {
 						}
 					}
 					$sql2 = "UPDATE `galleries_galleries` SET `photos` = '$new_photos' $Q  WHERE `id` =$id LIMIT 1 ;";
-					$res2= mysql_query($sql2);
+					$res2= mysqli_query($GLOBALS["db_link_conn"], $sql2);
 				}
 				
 				$i++;
 			}
 
 			
-				$photo=mysql_result($res3,0,'photo');
-				$folder=mysql_result($res3,0,'folder');
-				$thumb=mysql_result($res3,0,'thumb');
+				$photo=mysqli_result($GLOBALS["db_link_conn"], $res3,0,'photo');
+				$folder=mysqli_result($GLOBALS["db_link_conn"], $res3,0,'folder');
+				$thumb=mysqli_result($GLOBALS["db_link_conn"], $res3,0,'thumb');
 				
 				$sql4 = "DELETE FROM `galleries_photos` WHERE `id` ='$Mid' LIMIT 1 ;";
-				$res4= mysql_query($sql4);
+				$res4= mysqli_query($GLOBALS["db_link_conn"], $sql4);
 				@unlink('../../../uploads/'.$folder.$photo);
 				@unlink('../../../uploads/'.$thumb);
 	

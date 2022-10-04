@@ -42,8 +42,8 @@ if($_REQUEST['pn'])	$pn = $_REQUEST['pn'];
 		//}
 		
 		$sql =  "SELECT * FROM users $whereStm $sort  $limit";
-		$result = MYSQL_QUERY($sql);
-		$numrows = MYSQL_NUMROWS($result);
+		$result = mysqli_query($GLOBALS["db_link_conn"], $sql);
+		$numrows = mysqli_num_rows($result);
 		if ($numrows>0) {
 			$i=0;
 			echo "<table cellspacing='0' class='arts_table'>";
@@ -55,15 +55,15 @@ if($_REQUEST['pn'])	$pn = $_REQUEST['pn'];
 				
 			echo "</tr>";
 			while ($i<$numrows){
-					$user_id= MYSQL_RESULT($result,$i,"user_id");
-					$username= MYSQL_RESULT($result,$i,"username");
-					$password= MYSQL_RESULT($result,$i,"password");
-					$full_name= MYSQL_RESULT($result,$i,"full_name");
-					$email= MYSQL_RESULT($result,$i,"email");
-					$grp_id= MYSQL_RESULT($result,$i,"grp_id");
-					$user_desc= MYSQL_RESULT($result,$i,"user_desc");
-					$photo= basename(MYSQL_RESULT($result,$i,"photo"));
-					$signature= basename(MYSQL_RESULT($result,$i,"signature"));
+					$user_id= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"user_id");
+					$username= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"username");
+					$password= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"password");
+					$full_name= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"full_name");
+					$email= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"email");
+					$grp_id= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"grp_id");
+					$user_desc= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"user_desc");
+					$photo= basename(mysqli_result($GLOBALS["db_link_conn"], $result,$i,"photo"));
+					$signature= basename(mysqli_result($GLOBALS["db_link_conn"], $result,$i,"signature"));
 				?>
 					<tr class='no_link'>
 						<td width='100px' align='center'>

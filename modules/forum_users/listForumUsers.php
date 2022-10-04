@@ -25,7 +25,7 @@ if($action=="Insert"){
 	$cols .= ""; $values .= "";
 
 	$SQL = "INSERT INTO forum_users_groups ( $cols ) VALUES ($values)";
-	$result = mysql_query($SQL);
+	$result = mysqli_query($GLOBALS["db_link_conn"], $SQL);
 	//echo '<script>$(document).ready(function(){$(".query").html("'.$SQL.'")});</script>';
 	if($result)	echo '<script>correctMessageWithoutBack("'.Record_Enter.'")</script>';
 
@@ -36,7 +36,7 @@ if($action=="Update"){
 	$values .= " , grp_id = '$grp_id'";
 
 	$SQL = "UPDATE forum_users_groups SET $values WHERE id = '$id' ";
-	$result = mysql_query($SQL);
+	$result = mysqli_query($GLOBALS["db_link_conn"], $SQL);
 	if($result)	echo '<script>correctMessageWithoutBack("'.Record_Update.'")</script>';
 }
 /**delete_grp_functions(part 1 of 2)********************************************/
@@ -49,8 +49,8 @@ if($action=="Delete"){
 }
 //-------------------------------------------------
 $sql = "SELECT * FROM forum_users_groups  where grp_id = '$grp_id' $sort ";
-$result = MYSQL_QUERY($sql);
-$numberOfRows = MYSQL_NUMROWS($result);
+$result = mysqli_query($GLOBALS["db_link_conn"], $sql);
+$numberOfRows = mysqli_num_rows($result);
 $users_combo = createComboBox("users" , "user_id", "full_name" , $user_id , "user_id", "required",'','','',0);
 $i=0;?>
 <div class="data">
@@ -79,9 +79,9 @@ function actionf(act){
 </TR>
 <?}// Enter record
 while ($i<$numberOfRows){
-	$id= MYSQL_RESULT($result,$i,"id");
-	$user_id= MYSQL_RESULT($result,$i,"user_id");
-	$grp_id= MYSQL_RESULT($result,$i,"grp_id");
+	$id= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"id");
+	$user_id= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"user_id");
+	$grp_id= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"grp_id");
 
 	if($action=="Edit"  && $_REQUEST['id'] == $id){?>
     	<TR>

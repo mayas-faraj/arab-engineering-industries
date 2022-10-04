@@ -33,9 +33,9 @@ if($action){
 	$photos = "";//implode(",",$photosArr);
 
 	$SQL = "INSERT INTO galleries_galleries (gallery_name_en , description_en , gallery_name_ar , description_ar , main_photo , photos, src) VALUES ('$gallery_name_en' , '$description_en', '$gallery_name_ar' , '$description_ar' ,'$main_pho' ,'$photos','$src')";
-	$result = mysql_query($SQL);
+	$result = mysqli_query($GLOBALS["db_link_conn"], $SQL);
 	if($result){
-		$id = mysql_insert_id();
+		$id = mysqli_insert_id($GLOBALS["db_link_conn"]);
 		$_SESSION['gid']=$id;
 		$_SESSION['entergid']=$id;
 		echo "<script>

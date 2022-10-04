@@ -73,7 +73,7 @@ $values .= " , creator_id = '$creator_id'";
 //$values .= " , lang = '$lang'";
 
 $SQL = "UPDATE mem_council SET $values WHERE id = '$id' ";
-$result = mysql_query($SQL);
+$result = mysqli_query($GLOBALS["db_link_conn"], $SQL);
 if($result)
 echo '<script>correctMessage("'.Record_Update.'")</script>';
 else echo '<script>errorMessage("'.CantInsert.'")</script>' ;
@@ -81,31 +81,31 @@ else echo '<script>errorMessage("'.CantInsert.'")</script>' ;
 if((!$sub) || (!$result)){
 $id = $_REQUEST['id'];
 $sql ="SELECT * FROM mem_council WHERE id = '$id' ";
-$result = MYSQL_QUERY($sql);
-$numberOfRows = MYSQL_NUMROWS($result);
+$result = mysqli_query($GLOBALS["db_link_conn"], $sql);
+$numberOfRows = mysqli_num_rows($result);
 if ($numberOfRows>0) {
 $i=0;
-$id= MYSQL_RESULT($result,$i,"id");
-$name_ar= MYSQL_RESULT($result,$i,"name_ar");
-$name_en= MYSQL_RESULT($result,$i,"name_en");
-$position_ar= MYSQL_RESULT($result,$i,"position_ar");
-$position_en= MYSQL_RESULT($result,$i,"position_en");
-$company_ar= MYSQL_RESULT($result,$i,"company_ar");
-$company_en= MYSQL_RESULT($result,$i,"company_en");
-$country= MYSQL_RESULT($result,$i,"country");
-$photo= MYSQL_RESULT($result,$i,"photo");
-$active= MYSQL_RESULT($result,$i,"active");
-$address_en= MYSQL_RESULT($result,$i,"address_en");
-$address_ar= MYSQL_RESULT($result,$i,"address_ar");
-$item_order= MYSQL_RESULT($result,$i,"item_order");
-$biography_en= MYSQL_RESULT($result,$i,"biography_en");
-$biography_ar= MYSQL_RESULT($result,$i,"biography_ar");
-$terms= MYSQL_RESULT($result,$i,"terms");
-$tel= MYSQL_RESULT($result,$i,"tel");
-$fax= MYSQL_RESULT($result,$i,"fax");
-$email= MYSQL_RESULT($result,$i,"email");
-$website= MYSQL_RESULT($result,$i,"website");
-$creator_id= MYSQL_RESULT($result,$i,"creator_id");
+$id= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"id");
+$name_ar= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"name_ar");
+$name_en= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"name_en");
+$position_ar= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"position_ar");
+$position_en= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"position_en");
+$company_ar= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"company_ar");
+$company_en= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"company_en");
+$country= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"country");
+$photo= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"photo");
+$active= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"active");
+$address_en= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"address_en");
+$address_ar= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"address_ar");
+$item_order= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"item_order");
+$biography_en= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"biography_en");
+$biography_ar= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"biography_ar");
+$terms= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"terms");
+$tel= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"tel");
+$fax= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"fax");
+$email= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"email");
+$website= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"website");
+$creator_id= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"creator_id");
 
 }?>
 <form name="subForm" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>" enctype="multipart/form-data">

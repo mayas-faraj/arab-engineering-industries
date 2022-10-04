@@ -1,4 +1,4 @@
-<?include_once("../common/header-admin.php");?>
+<?php include _once("../common/header-admin.php");?>
 <div class='head'><h1 class='title'>BOD Terms</h1></div>
 <?php
 /***********Print Header*************/
@@ -10,8 +10,8 @@ $id =  $_REQUEST['id'];
 /***********Query*************/
 
 $sql = "SELECT * FROM terms order by start_year DESC";
-$result = MYSQL_QUERY($sql);
-$numberOfRows = MYSQL_NUMROWS($result);
+$result = mysqli_query($GLOBALS["db_link_conn"], $sql);
+$numberOfRows = mysqli_num_rows($result);
 
 /***********Print Result*************/
 
@@ -28,9 +28,9 @@ $i=0;?>
 <tbody>
 <?php
 while ($i<$numberOfRows){
-$id= MYSQL_RESULT($result,$i,"id");
-$start_year= MYSQL_RESULT($result,$i,"start_year");
-$end_year= MYSQL_RESULT($result,$i,"end_year");
+$id= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"id");
+$start_year= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"start_year");
+$end_year= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"end_year");
 ?>
 <TR><TD><a href='listCouncilMembers.php?term=<?php echo $id; ?>'><?php echo stripslashes($start_year); ?>&nbsp; - &nbsp;<?php echo stripslashes($end_year); ?></TD></a></TR>
 <?$i++;

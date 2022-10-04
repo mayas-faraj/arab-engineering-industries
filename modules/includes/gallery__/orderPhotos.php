@@ -14,7 +14,7 @@ if(checkGallogin()){
 			echo $mPhoto=$ids_arr[0];
 		}
 		$sql="UPDATE galleries_galleries set photos='$ids' where id='$gid'";
-		mysql_query($sql);
+		mysqli_query($GLOBALS["db_link_conn"], $sql);
 	}
 }
 ?>

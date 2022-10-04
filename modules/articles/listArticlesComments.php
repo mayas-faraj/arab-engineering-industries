@@ -32,8 +32,8 @@ $whereStmt = createFilter( $filters , $fields , "AND", $extention);
 if($whereStmt!=""){	$whereStmt = " WHERE art_id='$art_id' $whereStmt";}else{	$whereStmt = " WHERE art_id='$art_id' ";}
 
 $sql = "SELECT * FROM art_comments  $whereStmt $sort $limit ";
-$result = MYSQL_QUERY($sql);
-$numberOfRows = MYSQL_NUMROWS($result);
+$result = mysqli_query($GLOBALS["db_link_conn"], $sql);
+$numberOfRows = mysqli_num_rows($result);
 
 /***********Top pagination*************/
 $tp = count_items("art_comments", str_replace("WHERE", "", $whereStmt));
@@ -59,18 +59,18 @@ if ($numberOfRows>0) {
 	<tbody>
 	<?php
     while ($i<$numberOfRows){
-        $id= MYSQL_RESULT($result,$i,"id");
-        $art_id= MYSQL_RESULT($result,$i,"art_id");
+        $id= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"id");
+        $art_id= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"art_id");
         $article= lookupField('art_articles','id','title',$art_id);
-        $comment= MYSQL_RESULT($result,$i,"comment");
+        $comment= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"comment");
         
-		$u_id =mysql_result($result, $i,"user_id");
+		$u_id =mysqli_result($GLOBALS["db_link_conn"], $result, $i,"user_id");
 		$pub_name = lookupField('users','user_id','full_name',$u_id);
 		$pub_email = lookupField('users','user_id','email',$u_id);
 
-        $publish_date= MYSQL_RESULT($result,$i,"publish_date");
-        $active= MYSQL_RESULT($result,$i,"active");
-		$ord = mysql_result($result,$i,"ord");
+        $publish_date= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"publish_date");
+        $active= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"active");
+		$ord = mysqli_result($GLOBALS["db_link_conn"], $result,$i,"ord");
         ?>
 		<TR>
 			<TD><?php echo stripslashes($article); ?></TD>

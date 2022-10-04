@@ -1,1 +1,1 @@
-		</div>		<?include($dots.'wedgits/footer/footer.php')?>	</div></body></html>
+		</div>		<?php include ($dots.'wedgits/footer/footer.php')?>	</div></body></html>

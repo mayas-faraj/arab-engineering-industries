@@ -21,22 +21,22 @@ $limit = "";
 $term_id =  cleanString($_REQUEST['term_id']);
 if(!$term_id){
 	$terms_sql = "SELECT * FROM terms WHERE end_year = (SELECT MAX(end_year) FROM terms) ";
-	$terms_result = mysql_query($terms_sql);
-	$terms_numrows = mysql_numrows($terms_result);
+	$terms_result = mysqli_query($GLOBALS["db_link_conn"], $terms_sql);
+	$terms_numrows = mysqli_num_rows($terms_result);
 	if($terms_numrows){
-		$term_id = mysql_result($terms_result,0,'id');
+		$term_id = mysqli_result($GLOBALS["db_link_conn"], $terms_result,0,'id');
 	}	
 }
 
 
 $terms_sql = "SELECT * FROM term_members WHERE term_id = '$term_id' ";
-$terms_result = mysql_query($terms_sql);
-$terms_numrows = mysql_numrows($terms_result);
+$terms_result = mysqli_query($GLOBALS["db_link_conn"], $terms_sql);
+$terms_numrows = mysqli_num_rows($terms_result);
 if($terms_numrows){
 	$i=0;
 	
 	while($i<$terms_numrows){
-		$member_id = mysql_result($terms_result,$i,'member_id');
+		$member_id = mysqli_result($GLOBALS["db_link_conn"], $terms_result,$i,'member_id');
 		if(!$members_ids){
 			$members_ids .= $member_id;
 		}else{
@@ -50,19 +50,19 @@ if($terms_numrows){
 
 $whereStm = " WHERE mc.active='1' AND mc.id in($members_ids) AND term_id = '$term_id'";
 $sql =  "SELECT *,`tm`.`position_$pageLang` as poss FROM  mem_council mc LEFT JOIN term_members tm  ON tm.member_id=mc.id $whereStm ORDER BY tm.ord ASC $limit ";
-$result = MYSQL_QUERY($sql);
-$numrows = MYSQL_NUMROWS($result);
+$result = mysqli_query($GLOBALS["db_link_conn"], $sql);
+$numrows = mysqli_num_rows($result);
 if ($numrows>0) {
 	$i=0;
 	while ($i<$numrows){
-		$id=mysql_result($result, $i,"id");
-		$position=mysql_result($result, $i,"poss");
-		$name=mysql_result($result, $i,"name_".$pageLang);
-		$company=mysql_result($result, $i,"company_".$pageLang);
-		$country=mysql_result($result, $i,"country");
+		$id=mysqli_result($GLOBALS["db_link_conn"], $result, $i,"id");
+		$position=mysqli_result($GLOBALS["db_link_conn"], $result, $i,"poss");
+		$name=mysqli_result($GLOBALS["db_link_conn"], $result, $i,"name_".$pageLang);
+		$company=mysqli_result($GLOBALS["db_link_conn"], $result, $i,"company_".$pageLang);
+		$country=mysqli_result($GLOBALS["db_link_conn"], $result, $i,"country");
 		$country = lookupField('country','id','country_'.$pageLang,$country);
 		
-		$photo = str_replace('','',mysql_result($result, $i,"photo"));
+		$photo = str_replace('','',mysqli_result($GLOBALS["db_link_conn"], $result, $i,"photo"));
 		
 		$root_path ="../../uploads/";
 		if($photo){

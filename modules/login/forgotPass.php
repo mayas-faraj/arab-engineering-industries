@@ -8,8 +8,8 @@ $thisUser_name=$_REQUEST['user'];
 $thisE_mail=$_REQUEST['e_mail'];
 $thisUserFull_name=$_REQUEST['full_name'];
 $sql="select * from users where (name='$thisUser_name') and (full_name ='$thisUserFull_name')";
-$result = MYSQL_QUERY($sql);
-$numberOfRows = MYSQL_NUM_ROWS($result);
+$result = mysqli_query($GLOBALS["db_link_conn"], $sql);
+$numberOfRows = mysqli_num_rows($result);
 checkerror($result,$sql);
 if ($numberOfRows > 0 ){
  $thisPass=rand();
@@ -20,7 +20,7 @@ if ($numberOfRows > 0 ){
  mail($thisUser_name,$thisE_mail,$message);
  $sql1="update  users  set  password ='$thisPass' where 
 ( name = '$thisUser_name') and (full_name ='$thisUserFull_name')";
- $result1 = MYSQL_QUERY($sql1);
+ $result1 = mysqli_query($GLOBALS["db_link_conn"], $sql1);
  checkerror($result1,$sql1);?>
  <b  class="stylev"  > your password has been sent successfully</b>
  <?php

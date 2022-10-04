@@ -101,13 +101,13 @@ if($_REQUEST['all'] == '1'){
 	$resPhotos= explode(',',$photos);
 } else if($gid){
 	$sql = "SELECT * FROM galleries_galleries  where id=$gid limit 0,1";
-	$result = mysql_query($sql);
-	$numberOfRows = mysql_numrows($result);
+	$result = mysqli_query($GLOBALS["db_link_conn"], $sql);
+	$numberOfRows = mysqli_num_rows($result);
 	if ($numberOfRows>0) {
-		$gallery_name= mysql_result($result,0,"gallery_name");
-		$description= mysql_result($result,0,"description");
-		$mph= mysql_result($result,0,"main_photo");
-		$photos= mysql_result($result,0,"photos");
+		$gallery_name= mysqli_result($GLOBALS["db_link_conn"], $result,0,"gallery_name");
+		$description= mysqli_result($GLOBALS["db_link_conn"], $result,0,"description");
+		$mph= mysqli_result($GLOBALS["db_link_conn"], $result,0,"main_photo");
+		$photos= mysqli_result($GLOBALS["db_link_conn"], $result,0,"photos");
 		if( $photos == '')$phStmt = " WHERE id=0";
 		else if($_REQUEST['all'] != '1')	$phStmt = " WHERE id in ($photos)";
 		$sql = "SELECT * FROM galleries_photos $phStmt $sort  order by id DESC";
@@ -121,20 +121,20 @@ if($_REQUEST['all'] == '1'){
 	$resPhotos=array();
 }
 
-$result = MYSQL_QUERY($sql);
-$numberOfRows = MYSQL_NUMROWS($result);
+$result = mysqli_query($GLOBALS["db_link_conn"], $sql);
+$numberOfRows = mysqli_num_rows($result);
 $i=0;
 
 //echo "(".$mph.")";
 
 while ($i<$numberOfRows){
-	$id= MYSQL_RESULT($result,$i,"id");
-	$photo= MYSQL_RESULT($result,$i,"photo");
-	$description= MYSQL_RESULT($result,$i,"description");
+	$id= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"id");
+	$photo= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"photo");
+	$description= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"description");
 
 	//$gallery_folder = lookupField('galleries_galleries','id','folder',$gid);
 	//if($gallery_folder){$folder = $gallery_folder.'/';}
-	$thumb= MYSQL_RESULT($result,$i,"thumb");?>
+	$thumb= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"thumb");?>
 		<div class="thumb" align="center" id="box<?php echo $id; ?>">
 		<div class="img" align="center">
         <img src="<?php echo _PREF; ?>uploads/<?php echo $thumb; ?>" alt="<?php echo stripslashes($description); ?>" /></div>

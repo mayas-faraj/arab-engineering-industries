@@ -36,9 +36,9 @@ $eMonth=intval($current_year.$current_month2."31");
 $events = array();
 $events_type = array();
 
-$result = mysql_query("SELECT * FROM events_events " );
-$mn=mysql_num_rows($result);
-while($row_event = mysql_fetch_array($result)){
+$result = mysqli_query($GLOBALS["db_link_conn"], "SELECT * FROM events_events " );
+$mn=mysqli_num_rows($result);
+while($row_event = mysqli_fetch_array($GLOBALS["db_link_conn"], $result)){
 	/*$Eid=$row_event['id'];
 	$Es=$row_event['start_date'];
 	$Ee=$row_event['start_date'];

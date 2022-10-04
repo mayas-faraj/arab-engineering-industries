@@ -16,8 +16,8 @@ if($_POST['submit']){
 	$user=strip_tags($_REQUEST['user']);
 	$pass=strip_tags($_REQUEST['pass']);
 	
-	$result = mysql_query( " SELECT * FROM blocked_ips WHERE (ip='$curr_ip') " );
-	if (mysql_num_rows($result) > 0 ) {
+	$result = mysqli_query($GLOBALS["db_link_conn"],  " SELECT * FROM blocked_ips WHERE (ip='$curr_ip') " );
+	if (mysqli_num_rows($result) > 0 ) {
 		//echo "<div style='color:red; width:100%; float:left; text-align:center;'>Sorry: You are blocked because you have exceeded the allowed number of login attempts</div>";
 	}else{
 		if(!isset($_SESSION['log_count'.$curr_ip])){	
@@ -26,7 +26,7 @@ if($_POST['submit']){
 			$_SESSION['log_count'.$curr_ip]++;
 		}
 		if($_SESSION['log_count'.$curr_ip]>5){
-			mysql_query(" INSERT INTO blocked_ips(ip) value('$curr_ip') ");
+			mysqli_query($GLOBALS["db_link_conn"], " INSERT INTO blocked_ips(ip) value('$curr_ip') ");
 		}else{
 			if(logfnc($user,$pass)){
 				$_SESSION['log_count'.$curr_ip]=0;
@@ -94,8 +94,8 @@ input{
 </head>
 <body>
 <?php
-$result = mysql_query( " SELECT * FROM blocked_ips WHERE (ip='$curr_ip') " );
-if (mysql_num_rows($result) > 0 ) {
+$result = mysqli_query($GLOBALS["db_link_conn"],  " SELECT * FROM blocked_ips WHERE (ip='$curr_ip') " );
+if (mysqli_num_rows($result) > 0 ) {
 	echo "<div style='color:red; width:100%; float:left; margin-left:-200px; text-align:center;'>Sorry: You been blocked because you exceeded the allowed number of login attempts</div>";
 }else{?>
 

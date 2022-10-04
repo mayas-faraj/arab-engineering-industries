@@ -78,15 +78,15 @@ $photos=explode(',',$ph);
 
 $folder = $_REQUEST['folder'];
 $sql = "SELECT * FROM galleries_photos where folder='$folder' $sort  order by id DESC";	
-$result = MYSQL_QUERY($sql);
-$numberOfRows = MYSQL_NUMROWS($result);
+$result = mysqli_query($GLOBALS["db_link_conn"], $sql);
+$numberOfRows = mysqli_num_rows($result);
 $i=0;
 while ($i<$numberOfRows){
-	$id= MYSQL_RESULT($result,$i,"id");
-	$photo= MYSQL_RESULT($result,$i,"photo");
-	$folder= MYSQL_RESULT($result,$i,"folder");
-	$description= MYSQL_RESULT($result,$i,"description");
-	$thumb= MYSQL_RESULT($result,$i,"thumb");
+	$id= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"id");
+	$photo= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"photo");
+	$folder= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"folder");
+	$description= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"description");
+	$thumb= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"thumb");
 	if($thumb!='video'){
 		resizeToFile('../../../uploads/'.$folder.$photo, 90, 90,'../../../uploads/'.$thumb); 
 		$thumbN=_PREF.'uploads/'.$thumb;		

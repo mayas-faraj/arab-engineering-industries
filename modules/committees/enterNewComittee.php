@@ -44,7 +44,7 @@ $cols .= ", ord ";         $values .=", '$ord'";
 $cols .= ", creator_id ";         $values .=", '$creator_id'";
 
 $SQL = "INSERT INTO mem_committees ( $cols ) VALUES ( $values )";
-$result = mysql_query($SQL);
+$result = mysqli_query($GLOBALS["db_link_conn"], $SQL);
 if($result)
 echo '<script>correctMessage("'.Record_Update.'")</script>';
 else echo '<script>errorMessage("'.CantInsert.'")</script>' ;

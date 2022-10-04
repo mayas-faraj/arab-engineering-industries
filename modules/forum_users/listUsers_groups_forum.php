@@ -25,7 +25,7 @@ if($action=="Insert"){
 	$cols .= ""; $values .= "";
 
 	$SQL = "INSERT INTO forum_group ( $cols ) VALUES ($values)";
-	$result = mysql_query($SQL);
+	$result = mysqli_query($GLOBALS["db_link_conn"], $SQL);
 	//echo '<script>$(document).ready(function(){$(".query").html("'.$SQL.'")});</script>';
 	if($result)	echo '<script>correctMessageWithoutBack("'.Record_Enter.'")</script>';
 
@@ -36,7 +36,7 @@ if($action=="Update"){
 	$values .= " , name_ar = '$name_ar'";
 
 	$SQL = "UPDATE forum_group SET $values WHERE id = '$id' ";
-	$result = mysql_query($SQL);
+	$result = mysqli_query($GLOBALS["db_link_conn"], $SQL);
 	if($result)	echo '<script>correctMessageWithoutBack("'.Record_Update.'")</script>';
 }
 /**delete_grp_functions(part 1 of 2)********************************************/
@@ -49,8 +49,8 @@ if($action=="Delete"){
 }
 //-------------------------------------------------
 $sql = "SELECT * FROM forum_group  $sort ";
-$result = MYSQL_QUERY($sql);
-$numberOfRows = MYSQL_NUMROWS($result);
+$result = mysqli_query($GLOBALS["db_link_conn"], $sql);
+$numberOfRows = mysqli_num_rows($result);
 $i=0;?>
 <div class="data">
 <form method='post' name='main' action='<?php echo $_SERVER['PHP_SELF']; ?>' enctype='multipart/form-data'>
@@ -79,10 +79,10 @@ function actionf(act){
 </TR>
 <?}// Enter record
 while ($i<$numberOfRows){
-	$id= MYSQL_RESULT($result,$i,"id");
-	$grp_name= MYSQL_RESULT($result,$i,"grp_name");
-	$name_en= MYSQL_RESULT($result,$i,"name_en");
-	$name_ar= MYSQL_RESULT($result,$i,"name_ar");
+	$id= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"id");
+	$grp_name= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"grp_name");
+	$name_en= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"name_en");
+	$name_ar= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"name_ar");
 	if($action=="Edit"  && $_REQUEST['id'] == $id){?>
     	<TR>
 			<input type="Hidden" name="id" size="20" value="<?php echo $id; ?>" />

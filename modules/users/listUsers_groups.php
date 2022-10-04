@@ -21,7 +21,7 @@ if($action=="Insert"){
 	$cols .= ""; $values .= "";
 
 	$SQL = "INSERT INTO users_groups ( $cols ) VALUES ($values)";
-	$result = mysql_query($SQL);
+	$result = mysqli_query($GLOBALS["db_link_conn"], $SQL);
 	if($result)	echo '<script>correctMessageWithoutBack("'.Record_Enter.'")</script>';
 }
 //-------------------------------------------------
@@ -31,7 +31,7 @@ if($action=="Update"){
 	//$values .= ", photo = '$photo'";
 
 	$SQL = "UPDATE users_groups SET $values WHERE grp_id = '$grp_id' ";
-	$result = mysql_query($SQL);
+	$result = mysqli_query($GLOBALS["db_link_conn"], $SQL);
 	if($result)	echo '<script>correctMessageWithoutBack("'.Record_Update.'")</script>';
 }
 /**delete_grp_functions(part 1 of 2)********************************************/
@@ -44,8 +44,8 @@ if($action=="Delete"){
 }
 //-------------------------------------------------
 $sql = "SELECT * FROM users_groups WHERE grp_id>3 $sort ";
-$result = MYSQL_QUERY($sql);
-$numberOfRows = MYSQL_NUMROWS($result);
+$result = mysqli_query($GLOBALS["db_link_conn"], $sql);
+$numberOfRows = mysqli_num_rows($result);
 $i=0;?>
 <div class="data">
 <form method='post' name='main' action='<?php echo $_SERVER['PHP_SELF']; ?>' enctype='multipart/form-data'>
@@ -72,8 +72,8 @@ function actionf(act){
 </TR>
 <?}// Enter record
 while ($i<$numberOfRows){
-	$grp_id= MYSQL_RESULT($result,$i,"grp_id");
-	$grp_name= MYSQL_RESULT($result,$i,"grp_name");
+	$grp_id= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"grp_id");
+	$grp_name= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"grp_name");
 	if($action=="Edit"  && $_REQUEST['grp_id'] == $grp_id){?>
     	<TR>
 			<TD><input type="Text" name="grp_name" size="20" value="<?php echo stripslashes($grp_name); ?>" />

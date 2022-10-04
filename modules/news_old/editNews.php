@@ -24,7 +24,7 @@ $values .= " ,end_date = '$end_date'";
 $values .= " , special = '$special'";
 $values .= " , active = '$active'";
 $SQL = "UPDATE news_news SET $values WHERE id = '$id' ";
-$result = mysql_query($SQL);
+$result = mysqli_query($GLOBALS["db_link_conn"], $SQL);
 if($result)
 echo '<script>correctMessage("'.Record_Update.'")</script>';
 else echo '<script>errorMessage("'.CantInsert.'")</script>' ;
@@ -32,18 +32,18 @@ else echo '<script>errorMessage("'.CantInsert.'")</script>' ;
 if((!$sub) || (!$result)){
 $id = $_REQUEST['id'];
 $sql ="SELECT * FROM news_news WHERE id = '$id' ";
-$result = MYSQL_QUERY($sql);
-$numberOfRows = MYSQL_NUMROWS($result);
+$result = mysqli_query($GLOBALS["db_link_conn"], $sql);
+$numberOfRows = mysqli_num_rows($result);
 if ($numberOfRows>0) {
 $i=0;
-$id= MYSQL_RESULT($result,$i,"id");
-$subject= MYSQL_RESULT($result,$i,"subject");
-$brief= MYSQL_RESULT($result,$i,"brief");
-$details= MYSQL_RESULT($result,$i,"details");
-$publish_date= MYSQL_RESULT($result,$i,"publish_date");
-$end_date= MYSQL_RESULT($result,$i,"end_date");
-$special= MYSQL_RESULT($result,$i,"special");
-$active= MYSQL_RESULT($result,$i,"active");
+$id= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"id");
+$subject= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"subject");
+$brief= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"brief");
+$details= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"details");
+$publish_date= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"publish_date");
+$end_date= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"end_date");
+$special= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"special");
+$active= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"active");
 }?>
 <form name="subForm" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>" enctype="multipart/form-data">
 <input type="Hidden" name="id" size="20" value="<?php echo $id; ?>" />

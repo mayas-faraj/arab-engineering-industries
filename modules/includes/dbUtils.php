@@ -791,7 +791,7 @@ function lookupField($table, $id_field, $lookup_field, $id_value) {
 	if ($rows_lookup == null || $rows_lookup = 0) {
 		return 0;
 	} else {
-		$filds = split(",",$lookup_field);
+		$filds = explode(",",$lookup_field);
 		$ind = 0; $value="";
 		while($ind < count($filds)){
 			$value.= stripslashes(mysqli_RESULT($GLOBALS["db_link_conn"], $result_lookup,0,$filds[$ind])." ");
@@ -845,7 +845,7 @@ function createCheckBox($table, $id_field, $value_field, $id_value, $field_name,
 	$result .= "<table ><tr>";
 	while ($i<$rows_combo) {
 		$id = mysqli_RESULT($GLOBALS["db_link_conn"], $result_combo, $i, $id_field);
-		$filds = split(",",$value_field);
+		$filds = explode(",",$value_field);
 		$ind = 0; $value="";
 		while($ind < count($filds)){
 			$value.= mysqli_RESULT($GLOBALS["db_link_conn"], $result_combo,$i, $filds[$ind])." ";
@@ -876,7 +876,7 @@ function createComboBoxFiltered($table, $id_field, $value_field, $id_value, $fie
 	$i = 0;
 	while ($i<$rows_combo) {
 		$id = mysqli_RESULT($GLOBALS["db_link_conn"], $result_combo, $i, $id_field);
-		$filds = split(",",$value_field);
+		$filds = explode(",",$value_field);
 		$ind = 0; $value="";
 		while($ind < count($filds)){
 			$value.= mysqli_RESULT($GLOBALS["db_link_conn"], $result_combo,$i, $filds[$ind])." ";
@@ -902,7 +902,7 @@ function createComboBox($table, $id_field, $value_field, $id_value, $field_name 
 	$i = 0;
 	while ($i<$rows_combo) {
 		$id = mysqli_RESULT($GLOBALS["db_link_conn"], $result_combo, $i, $id_field);
-		$filds = split(",",$value_field);
+		$filds = explode(",",$value_field);
 		$ind = 0; $value="";
 		while($ind < count($filds)){
 			$value.= mysqli_RESULT($GLOBALS["db_link_conn"], $result_combo,$i, $filds[$ind])." ";
@@ -932,7 +932,7 @@ function createComboBoxNew($table, $id_field, $value_field, $id_value, $field_na
 	$i = 0;
 	while ($i<$rows_combo) {
 		$id = mysqli_RESULT($GLOBALS["db_link_conn"], $result_combo, $i, $id_field);
-		$filds = split(",",$value_field);
+		$filds = explode(",",$value_field);
 		$ind = 0; $value="";
 		while($ind < count($filds)){
 			$value.= mysqli_RESULT($GLOBALS["db_link_conn"], $result_combo,$i, $filds[$ind])." ";
@@ -1174,7 +1174,7 @@ function galleryComboBox($id_value, $field_name , $required="") {
 	$i = 0;
 	while ($i<$rows_combo) {
 		$id = mysqli_RESULT($GLOBALS["db_link_conn"], $result_combo, $i, 'id');
-		$filds = split(",",$value_field);
+		$filds = explode(",",$value_field);
 		$ind = 0; $value="";
 		while($ind < count($filds)){
 			$value.= mysqli_RESULT($GLOBALS["db_link_conn"], $result_combo,$i, 'gallery_name')." ";
@@ -1552,7 +1552,7 @@ function sendMessage($from,$to,$subject,$body,$type,$task_id){
 	$headers .= "To:".$sendto."\r\n";
 	$headers .= "From: $email \r\n";
 	
-	$bodys = split("<br>",$body);
+	$bodys = explode("<br>",$body);
 	$body = $bodys[0]."<br> Please login to the task manager to check it";
 	
 	mail($sendto,$subject,$body,$headers);

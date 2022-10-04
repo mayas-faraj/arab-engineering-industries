@@ -2,29 +2,17 @@
 session_start();
 $HP=1;
 $dots='';
+if(!isset($pageLang)) $pageLang="ar";
 include_once("config.php");
-
-if(!$_SESSION[SESSION_PREF.'pageLang']){ $_SESSION[SESSION_PREF.'pageLang']="en";}
-if($_REQUEST['pageLang']=='en' OR $_REQUEST['pageLang']=='ar'){ $pageLang=$_SESSION[SESSION_PREF.'pageLang']=$_REQUEST['pageLang'];}
-$pageLang=$_SESSION[SESSION_PREF.'pageLang'];
-$_SESSION['pageLang']=$_SESSION[SESSION_PREF.'pageLang'];
-
 include_once("modules/common/dbConnection.php");
 include_once("lang/label_$pageLang.inc.php");
 require_once("modules/includes/dbUtils.php");
 include_once("modules/includes/pathUtil.php");
 
-function mysqli_result($link, $res,$row=0,$col=0){ 
-    $numrows = mysqli_num_rows($res); 
-    if ($numrows && $row <= ($numrows-1) && $row >=0){
-        mysqli_data_seek($res,$row);
-        $resrow = (is_numeric($col)) ? mysqli_fetch_row($res) : mysqli_fetch_assoc($res);
-        if (isset($resrow[$col])){
-            return $resrow[$col];
-        }
-    }
-    return false;
-}
+if(!$_SESSION[SESSION_PREF.'pageLang']){ $_SESSION[SESSION_PREF.'pageLang']="en";}
+if($_REQUEST['pageLang']=='en' OR $_REQUEST['pageLang']=='ar'){ $pageLang=$_SESSION[SESSION_PREF.'pageLang']=$_REQUEST['pageLang'];}
+$pageLang=$_SESSION[SESSION_PREF.'pageLang'];
+$_SESSION['pageLang']=$_SESSION[SESSION_PREF.'pageLang'];
 $seo = getSEO($pageLang);
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
@@ -46,15 +34,15 @@ $seo = getSEO($pageLang);
 
 	<div class="main">
 		
-		<?include('wedgits/header/index_header.php')?>
-		<?include('wedgits/user_login/user_login.php')?>
-		<?include('wedgits/user_logout/user_logout.php')?>
+		<?php include ('wedgits/header/index_header.php')?>
+		<?php include ('wedgits/user_login/user_login.php')?>
+		<?php include ('wedgits/user_logout/user_logout.php')?>
 		
 		<?php include('wedgits/highlight/highlight.php')?>
 		<?php include('wedgits/pages/page.php')?>
 		<?php include('wedgits/blocks/blocks.php')?>
 
-		<?include('wedgits/footer/footer.php')?>
+		<?php include ('wedgits/footer/footer.php')?>
 	</div>
 </body>
 </html>

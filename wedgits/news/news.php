@@ -8,18 +8,18 @@ $item_counts =3;
 $root_path ="../../uploads/";
 //$sql = "SELECT * FROM highlight_highlight where  lang='$pageLang' and active ='1' ORDER BY item_order DESC limit 0,$item_counts";
 $sql = "SELECT * FROM highlight_highlight where (publish_date <= date(now())) AND (end_date >= date(now())) ORDER BY publish_date DESC ";
-$result = MYSQL_QUERY($sql);
-$numrows = MYSQL_NUMROWS($result);
+$result = mysqli_query($GLOBALS["db_link_conn"], $sql);
+$numrows = mysqli_num_rows($result);
 if ($numrows>0) {
 	$i=0;
 	while ($i<$numrows){
 		
-		$id= MYSQL_RESULT($result,$i,"id");
-		$title= MYSQL_RESULT($result,$i,"title_".$pageLang);
-		$brief= limit(MYSQL_RESULT($result,$i,"description_".$pageLang),400);
-		$button_label= MYSQL_RESULT($result,$i,"type_".$pageLang);		
-		$photo= MYSQL_RESULT($result,$i,"photo_".$pageLang);
-		$link= str_replace('http://','',MYSQL_RESULT($result,$i,"link_".$pageLang));
+		$id= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"id");
+		$title= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"title_".$pageLang);
+		$brief= limit(mysqli_result($GLOBALS["db_link_conn"], $result,$i,"description_".$pageLang),400);
+		$button_label= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"type_".$pageLang);		
+		$photo= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"photo_".$pageLang);
+		$link= str_replace('http://','',mysqli_result($GLOBALS["db_link_conn"], $result,$i,"link_".$pageLang));
 		
 		
 

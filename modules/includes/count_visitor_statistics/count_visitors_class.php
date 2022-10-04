@@ -51,14 +51,14 @@ class Count_visitors {
 		$this->db_connect();
 	}
 	function db_connect() {
-		mysql_connect(DB_SERVER, DB_USER, DB_PASSWORD) or die(mysql_error());
-		mysql_select_db(DB_NAME);
+		mysqli_connect($GLOBALS["db_link_conn"], DB_SERVER, DB_USER, DB_PASSWORD) or die(mysqli_error($globals["db_link_conn"]));
+		mysqli_select_db($GLOBALS["db_link_conn"], DB_NAME);
 	}
 	function check_last_visit() {
 		$check_sql = sprintf("SELECT time + 0 FROM %s WHERE visit_date = CURDATE() AND ip_adr = '%s' ORDER BY time DESC LIMIT 0, 1", $this->table_name, $_SERVER['REMOTE_ADDR']);
-		$check_visit = mysql_query($check_sql);
-		$check_row = mysql_fetch_array($check_visit);
-		if (mysql_num_rows($check_visit) != 0) {
+		$check_visit = mysqli_query($GLOBALS["db_link_conn"], $check_sql);
+		$check_row = mysqli_fetch_array($GLOBALS["db_link_conn"], $check_visit);
+		if (mysqli_num_rows($check_visit) != 0) {
 			$last_hour = date("H") - $this->delay; 
 			$check_time = date($last_hour."is");
 			if ($check_row[0] < $check_time) {
@@ -72,36 +72,36 @@ class Count_visitors {
 	}
 	function get_country() {
 		$country_sql = sprintf("SELECT country FROM %s WHERE ip < INET_ATON('%s') ORDER BY ip DESC LIMIT 0,1", IP_TABLE, $_SERVER['REMOTE_ADDR']);
-		$country_res = mysql_query($country_sql);
-		$country = mysql_result($country_res, 0, "country");
+		$country_res = mysqli_query($GLOBALS["db_link_conn"], $country_sql);
+		$country = mysqli_result($GLOBALS["db_link_conn"], $country_res, 0, "country");
 		return $country;
 	}
 	function insert_new_visit() {
 		if ($this->check_last_visit()) {
 			$insert_sql = sprintf("INSERT INTO %s (id, ip_adr, referer, country, client, visit_date, time, on_page, hostname) VALUES (NULL, '%s', '%s', '%s', '%s', CURDATE(), CURTIME(), '%s', '%s')", $this->table_name, $_SERVER['REMOTE_ADDR'], $this->referer, $this->get_country(), $_SERVER['HTTP_USER_AGENT'], $_SERVER['PHP_SELF'], $_SERVER['HTTP_HOST']);
-			mysql_query($insert_sql);
+			mysqli_query($GLOBALS["db_link_conn"], $insert_sql);
 		}
 	}
 	function show_all_visits() {
 		$sql = "SELECT COUNT(*) AS count FROM ".$this->table_name;
 		if ($this->report_by_host) $sql .= " WHERE hostname = '".$_SERVER['HTTP_HOST']."'"; 
-		$result = mysql_query($sql);
-		$visits = mysql_result($result, 0, "count");
+		$result = mysqli_query($GLOBALS["db_link_conn"], $sql);
+		$visits = mysqli_result($GLOBALS["db_link_conn"], $result, 0, "count");
 		return $visits;
 	}
 	function show_visits_today() { //
 		$sql_today = sprintf("SELECT COUNT(*) AS count FROM %s WHERE visit_date = NOW()", $this->table_name);
 		if ($this->report_by_host) $sql_today .= " AND hostname = '".$_SERVER['HTTP_HOST']."'"; 
-		$res_today = mysql_query($sql_today);
-		$today = mysql_result($res_today, 0, "count");
+		$res_today = mysqli_query($GLOBALS["db_link_conn"], $sql_today);
+		$today = mysqli_result($GLOBALS["db_link_conn"], $res_today, 0, "count");
 		return $today;
 	}
 	function show_max_visited_day() {
 		$sql_max = "SELECT COUNT(*) AS count FROM ".$this->table_name;
 		if ($this->report_by_host) $sql_max .= " WHERE hostname = '".$_SERVER['HTTP_HOST']."'"; 
 		$sql_max .= " GROUP BY visit_date ORDER BY count DESC";
-		$res_max = mysql_query($sql_max);
-		return mysql_result($res_max, 0, "count");
+		$res_max = mysqli_query($GLOBALS["db_link_conn"], $sql_max);
+		return mysqli_result($GLOBALS["db_link_conn"], $res_max, 0, "count");
 	}
 	function average_visits_day($month, $year) {
 		$data = $this->results_by_day($month, $year);
@@ -115,18 +115,18 @@ class Count_visitors {
 		$sql = "SELECT visit_date, time FROM ".$this->table_name;
 		if ($this->report_by_host) $sql .= " WHERE hostname = '".$_SERVER['HTTP_HOST']."'"; 
 		$sql .= " ORDER BY visit_date ".$order_dir." LIMIT 0,1";
-		$result = mysql_query($sql);
-		$first_last = mysql_result($result, 0, "visit_date");
-		$first_last .= " ".mysql_result($result, 0, "time");
+		$result = mysqli_query($GLOBALS["db_link_conn"], $sql);
+		$first_last = mysqli_result($GLOBALS["db_link_conn"], $result, 0, "visit_date");
+		$first_last .= " ".mysqli_result($GLOBALS["db_link_conn"], $result, 0, "time");
 		return $first_last;
 	}
 	function results_by_day($res_month, $res_year) { 
 		$sql = sprintf("SELECT DAYOFMONTH(visit_date) AS visit_day, COUNT(*) AS visits_count FROM %s WHERE MONTH(visit_date) = %s AND YEAR(visit_date) = %s", $this->table_name, $res_month, $res_year);
 		if ($this->report_by_host) $sql .= " AND hostname = '".$_SERVER['HTTP_HOST']."'"; 
 		$sql .= " GROUP BY visit_date";
-		$result = mysql_query($sql);
+		$result = mysqli_query($GLOBALS["db_link_conn"], $sql);
 		$visits_daily = array();
-		while ($obj = mysql_fetch_object($result)) {
+		while ($obj = mysqli_fetch_object($GLOBALS["db_link_conn"], $result)) {
 			$visits_daily[$obj->visit_day] = $obj->visits_count;
 		}
 		return $visits_daily;
@@ -152,12 +152,12 @@ class Count_visitors {
 			$sql .= " GROUP BY variable ORDER BY value DESC LIMIT 0, ".$limit;
 			break;
 		}
-		$result = mysql_query($sql);
+		$result = mysqli_query($GLOBALS["db_link_conn"], $sql);
 		$data = array();
-		while ($obj = mysql_fetch_object($result)) {
+		while ($obj = mysqli_fetch_object($GLOBALS["db_link_conn"], $result)) {
 			$data[$obj->variable] = $obj->value;
 		}
-		mysql_free_result($result);
+		mysqli_free_result($GLOBALS["db_link_conn"], $result);
 		return $data;
 	}
 	function get_days($from_month, $from_year) {

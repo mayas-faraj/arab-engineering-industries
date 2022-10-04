@@ -3,7 +3,7 @@
 if($_REQUEST['word']){
 	$search = $_REQUEST['word'];
 }else{
-	$search = Search;
+	$search = "Search";
 }
 
 
@@ -34,6 +34,4 @@ if($_REQUEST['word']){
 			</div>
 		</div>
 	</div>
-	<?include($_SERVER['DOCUMENT_ROOT']._PREF.'wedgits/menu/menu.php')?>
-
-	
+	<?php include ($_SERVER['DOCUMENT_ROOT']._PREF.'wedgits/menu/menu.php')?>

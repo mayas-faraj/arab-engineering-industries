@@ -62,14 +62,14 @@ require_once("../dbUtils.php");
 <?php
 $id = $_GET['id'];
 $sql = "SELECT * FROM galleries_photos WHERE (id = '$id')";
-$result = MYSQL_QUERY($sql);
-$numberOfRows = MYSQL_NUMROWS($result);
+$result = mysqli_query($GLOBALS["db_link_conn"], $sql);
+$numberOfRows = mysqli_num_rows($result);
 if($numberOfRows > 0){
 	$i=0;
-	$id= MYSQL_RESULT($result,$i,"id");
-	$photo= MYSQL_RESULT($result,$i,"photo");
-	$thumb= MYSQL_RESULT($result,$i,"thumb");
-	$description= MYSQL_RESULT($result,$i,"description");
+	$id= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"id");
+	$photo= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"photo");
+	$thumb= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"thumb");
+	$description= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"description");
 	$photo = resizeToFile("../../../uploads/".$photo, 250, 250, "../../../uploads/cash/250_".$photo);
 }
 ?>

@@ -19,17 +19,17 @@ $limit = " LIMIT  $start, $LPP";
 
 $whereStm = " WHERE (publish_date <= date(now())) and  active='1' ";
 $sql =  "SELECT * FROM news_news  $whereStm ORDER BY publish_date DESC, id DESC  $limit";
-$result = MYSQL_QUERY($sql);
-$numrows = MYSQL_NUMROWS($result);
+$result = mysqli_query($GLOBALS["db_link_conn"], $sql);
+$numrows = mysqli_num_rows($result);
 if ($numrows>0) {
 	$i=0;
 	while ($i<$numrows){
-		$id=mysql_result($result, $i,"id");
+		$id=mysqli_result($GLOBALS["db_link_conn"], $result, $i,"id");
 		if($pageLang=='ar'){$langPref = '_ar';}else{$langPref = '';}
-		$subject=mysql_result($result, $i,"subject".$langPref);
-		$brief=limit(mysql_result($result, $i,"brief".$langPref),$brief_count);
+		$subject=mysqli_result($GLOBALS["db_link_conn"], $result, $i,"subject".$langPref);
+		$brief=limit(mysqli_result($GLOBALS["db_link_conn"], $result, $i,"brief".$langPref),$brief_count);
 
-		$start_date=mysql_result($result, $i,"publish_date");
+		$start_date=mysqli_result($GLOBALS["db_link_conn"], $result, $i,"publish_date");
 		if($start_date=='0000-00-00'){
 			$start_date='';
 		}else{
@@ -40,9 +40,9 @@ if ($numrows>0) {
 			}
 		}
 		
-		$prepared = mysql_result($result, $i,"prepared");
+		$prepared = mysqli_result($GLOBALS["db_link_conn"], $result, $i,"prepared");
 		
-		$gallery= MYSQL_RESULT($result,$i,"gallery");		
+		$gallery= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"gallery");		
 		$src='';
 		$main_photo_id=0;
 		if($gallery){

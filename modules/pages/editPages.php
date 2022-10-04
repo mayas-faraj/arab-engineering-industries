@@ -18,7 +18,7 @@ $values .= ", lang = '$lang'";
 $brief = addslashes($_REQUEST['brief']);
 $values .= " , brief = '$brief'";
 $SQL = "UPDATE pages SET  $values WHERE id = '$id' ";
-$result = mysql_query($SQL);
+$result = mysqli_query($GLOBALS["db_link_conn"], $SQL);
 if($result)
 echo '<script>correctMessage("'.Record_Update.'")</script>';
 else echo '<script>errorMessage("'.CantInsert.'")</script>' ;
@@ -26,15 +26,15 @@ else echo '<script>errorMessage("'.CantInsert.'")</script>' ;
 if((!$sub) || (!$result)){
 $id = $_REQUEST['id'];
 $sql ="SELECT * FROM pages WHERE id = '$id' ";
-$result = MYSQL_QUERY($sql);
-$numberOfRows = MYSQL_NUMROWS($result);
+$result = mysqli_query($GLOBALS["db_link_conn"], $sql);
+$numberOfRows = mysqli_num_rows($result);
 if ($numberOfRows>0) {
 $i=0;
-$id= MYSQL_RESULT($result,$i,"id");
-$title= MYSQL_RESULT($result,$i,"title");
-$details= MYSQL_RESULT($result,$i,"details");
-$brief = MYSQL_RESULT($result,$i,"brief");
-$lang= MYSQL_RESULT($result,$i,"lang");
+$id= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"id");
+$title= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"title");
+$details= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"details");
+$brief = mysqli_result($GLOBALS["db_link_conn"], $result,$i,"brief");
+$lang= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"lang");
 }?>
 <form name="subForm" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>" enctype="multipart/form-data">
 <input type="Hidden" name="id" size="20" value="<?php echo $id; ?>" />

@@ -57,13 +57,13 @@
 
 $sql = "SELECT * FROM query_forms fo LEFT JOIN form_fields fi ON (fi.form_id = fo.form_id ) 
 WHERE fo.form_id  = '$form_id' ORDER BY item_order ASC";
-$result = MYSQL_QUERY($sql);
-$numberOfRows = MYSQL_NUMROWS($result);
+$result = mysqli_query($GLOBALS["db_link_conn"], $sql);
+$numberOfRows = mysqli_num_rows($result);
 if ($numberOfRows>0) {
 	$i=0;
-	$from_id= MYSQL_RESULT($result,$i,"form_id");
-	$form_name= MYSQL_RESULT($result,$i,"form_name");
-	$send_mail_to= MYSQL_RESULT($result,$i,"send_mail_to");	?>
+	$from_id= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"form_id");
+	$form_name= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"form_name");
+	$send_mail_to= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"send_mail_to");	?>
 
 	
     <div id="output1" style='width:100%'>
@@ -74,10 +74,10 @@ if ($numberOfRows>0) {
 	<input type="hidden" name="no" value="<?php echo $numberOfRows; ?>">
 	<table width="100%" border="0" cellpadding="1" cellspacing="1" dir='<?php echo _DIR; ?>' style='float:Right;'><?php
 	while ($i<$numberOfRows){
-		$label= MYSQL_RESULT($result,$i,"field_label");
-		$type= MYSQL_RESULT($result,$i,"type");
-		$plus= MYSQL_RESULT($result,$i,"plus");
-		$required= MYSQL_RESULT($result,$i,"required");
+		$label= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"field_label");
+		$type= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"type");
+		$plus= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"plus");
+		$required= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"required");
 		if(!$label) {$i++; continue;}
 		$req= ($required)? 'required' : ''; 
 		$req.= ($type=='Email')? ' email' : ''; 
@@ -102,13 +102,13 @@ if ($numberOfRows>0) {
 		
 		case "List":
 		$str.='<td><select name="f'.$i.'" class="forms_input '.$req.'">';
-		$values = split(',',$plus);
+		$values = explode(',',$plus);
 		foreach($values as $val)$str.='<option value="'.$val.'">'.$val.'</option>';
 		$str.='</select></td></tr>';
 		break;
 		
 		case "Checkbox":
-		$values = split(',',$plus);
+		$values = explode(',',$plus);
 		foreach($values as $val)$str.='<td><input type="checkbox" name="f'.$i.'" value="*" class="'.$req.'"> '.$val;
 		$str.='</td></tr>';
 		break;

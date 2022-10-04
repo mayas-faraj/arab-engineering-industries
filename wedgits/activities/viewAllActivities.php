@@ -41,8 +41,8 @@ $limit = " LIMIT  $start, $LPP";
 
 
 $sql = "SELECT * FROM mem_activities  $whereStm ORDER BY activity_date DESC $limit ";
-$result = MYSQL_QUERY($sql);
-$numberOfRows = MYSQL_NUMROWS($result);
+$result = mysqli_query($GLOBALS["db_link_conn"], $sql);
+$numberOfRows = mysqli_num_rows($result);
 ?>
 <div class='page_content'>
 <div class='title2'><?php echo Activities; ?></div>
@@ -50,9 +50,9 @@ $numberOfRows = MYSQL_NUMROWS($result);
 if ($numberOfRows>0) {
 	$i=0;
 	while ($i<$numberOfRows){
-		$id=mysql_result($result, $i,"id");
-		$subject=stripslashes(mysql_result($result, $i,"subject".$lang_prex));
-		$start_date=mysql_result($result, $i,"activity_date");
+		$id=mysqli_result($GLOBALS["db_link_conn"], $result, $i,"id");
+		$subject=stripslashes(mysqli_result($GLOBALS["db_link_conn"], $result, $i,"subject".$lang_prex));
+		$start_date=mysqli_result($GLOBALS["db_link_conn"], $result, $i,"activity_date");
 		if($start_date=='0000-00-00'){
 			$start_date='';
 		}else{
@@ -62,13 +62,13 @@ if ($numberOfRows>0) {
 				$start_date=date('d / m / Y',strtotime($start_date));
 			}
 		}
-		$end_date=mysql_result($result, $i,"end_date");
-		$brief = stripslashes(mysql_result($result, $i,"brief".$lang_prex));
+		$end_date=mysqli_result($GLOBALS["db_link_conn"], $result, $i,"end_date");
+		$brief = stripslashes(mysqli_result($GLOBALS["db_link_conn"], $result, $i,"brief".$lang_prex));
 		$brief =  limit($brief, $brief_count);
 		
 		//if($end_date=='0000-00-00' OR $end_date>date('Y-m-d') OR $end_date==date('Y-m-d'))
 		{
-			$gallery=mysql_result($result, $i,"gal_id");
+			$gallery=mysqli_result($GLOBALS["db_link_conn"], $result, $i,"gal_id");
 			$src='';
 			$main_photo_id=0;
 			

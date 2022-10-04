@@ -34,7 +34,7 @@ if($action=="Update"){
 
 
 	$SQL = "UPDATE site_settings SET  value = '$value'  WHERE id = '$id' ";
-	$result = mysql_query($SQL);
+	$result = mysqli_query($GLOBALS["db_link_conn"], $SQL);
 	if($result)
  	echo '<script>correctMessageWithoutBack("'.Record_Update.'");</script>';
 }
@@ -53,8 +53,8 @@ if( !isset($sb) )	$sb="id";
 
 if($whereStmt!=""){	$whereStmt = " WHERE  $whereStmt ";}else{$whereStmt = "  ";}
 $sql = "SELECT * FROM site_settings  $whereStmt  $sort ";
-$result = MYSQL_QUERY($sql);
-$numberOfRows = MYSQL_NUMROWS($result);
+$result = mysqli_query($GLOBALS["db_link_conn"], $sql);
+$numberOfRows = mysqli_num_rows($result);
 $i=0;?>
 <form method='post' name='main' action='<?php echo $_SERVER['PHP_SELF']; ?>' enctype='multipart/form-data'>
 <input type='hidden' name='action' value=''>
@@ -81,9 +81,9 @@ function addDel(par){
 </thead><tbody><?php 
 
 while ($i<$numberOfRows){
-	$id= MYSQL_RESULT($result,$i,"id");
-	$value= MYSQL_RESULT($result,$i,"value");
-	$label= MYSQL_RESULT($result,$i,"label");
+	$id= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"id");
+	$value= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"value");
+	$label= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"label");
 
 	if($action=="Edit"  && $_REQUEST['id'] == $id){?>
     	<TR>

@@ -93,7 +93,7 @@ switch( $thisfile ){
 		$id = addslashes($_REQUEST['id']);
 		$query = "SELECT * FROM misc_pages where id=$id and lang='$pageLang'" ;
 		$result = mysqli_query($GLOBALS["db_link_conn"], $query);
-		if (mysqli_num_rows($result) >0 )  $title = MYSQL_RESULT($result, 0, "title");
+		if (mysqli_num_rows($result) >0 )  $title = mysqli_result($GLOBALS["db_link_conn"], $result, 0, "title");
 		break;
 	case "viewAllNews":
 		if($_REQUEST['cat_id']==2)	$title = Circulars;
@@ -106,7 +106,7 @@ switch( $thisfile ){
 		$id = addslashes($_REQUEST['id']);
 		$query = "SELECT * FROM pages where id=$id and lang='$pageLang'" ;
 		$result = mysqli_query($GLOBALS["db_link_conn"], $query);
-		if (mysqli_num_rows($result) >0 )  $title = MYSQL_RESULT($result, 0, "title");
+		if (mysqli_num_rows($result) >0 )  $title = mysqli_result($GLOBALS["db_link_conn"], $result, 0, "title");
 		break;
 	case "contactUs":
 		$title = Contact_Us;
@@ -115,67 +115,67 @@ switch( $thisfile ){
 		//$id = addslashes($_REQUEST['id']);
 		//$query = "SELECT title_$pageLang FROM event where id=$id" ;
 		//$result = mysqli_query($GLOBALS["db_link_conn"], $query);
-		//if (mysqli_num_rows($result) >0 )  $title = MYSQL_RESULT($result, 0, "title_$pageLang");
+		//if (mysqli_num_rows($result) >0 )  $title = mysqli_result($GLOBALS["db_link_conn"], $result, 0, "title_$pageLang");
 		break;
 	case "viewNews":	 
 		$id = addslashes($_REQUEST['id']);
 		$query = "SELECT subject FROM news where id=$id" ;
 		$result = mysqli_query($GLOBALS["db_link_conn"], $query);
-		if (mysqli_num_rows($result) >0 )  $title = MYSQL_RESULT($result, 0, "subject");
+		if (mysqli_num_rows($result) >0 )  $title = mysqli_result($GLOBALS["db_link_conn"], $result, 0, "subject");
 		break;
 	case "viewForm":	 
 		$id = addslashes($_REQUEST['id']);
 		$query = "SELECT form_name FROM query_forms where form_id=$id" ;
 		$result = mysqli_query($GLOBALS["db_link_conn"], $query);
-		if (mysqli_num_rows($result) >0 )  $title = MYSQL_RESULT($result, 0, "form_name");
+		if (mysqli_num_rows($result) >0 )  $title = mysqli_result($GLOBALS["db_link_conn"], $result, 0, "form_name");
 		break;
 	case "viewMembers":	 
 		$id = addslashes($_REQUEST['member_id']);
 		$query = "SELECT full_name_$pageLang name FROM members where member_id=$id" ;
 		$result = mysqli_query($GLOBALS["db_link_conn"], $query);
-		if (mysqli_num_rows($result) >0 )  $title = MYSQL_RESULT($result, 0, "name");
+		if (mysqli_num_rows($result) >0 )  $title = mysqli_result($GLOBALS["db_link_conn"], $result, 0, "name");
 		break;
 	case "viewCompany":	 
 		$id = addslashes($_REQUEST['id']);
 		$query = "SELECT name_$pageLang name FROM company WHERE id=$id" ;
 		$result = mysqli_query($GLOBALS["db_link_conn"], $query);
-		if (mysqli_num_rows($result) >0 )  $title = MYSQL_RESULT($result, 0, "name");
+		if (mysqli_num_rows($result) >0 )  $title = mysqli_result($GLOBALS["db_link_conn"], $result, 0, "name");
 		break;
 	case "viewActivities":	 
 		$id = addslashes($_REQUEST['id']);
 		$query = "SELECT title name FROM activities where id=$id" ;
 		$result = mysqli_query($GLOBALS["db_link_conn"], $query);
-		if (mysqli_num_rows($result) >0 )  $title = MYSQL_RESULT($result, 0, "name");
+		if (mysqli_num_rows($result) >0 )  $title = mysqli_result($GLOBALS["db_link_conn"], $result, 0, "name");
 		break;
 	case "viewCommittees":
 		$com_id = addslashes($_REQUEST['com_id']);
 		$query = "SELECT com_name_$pageLang name FROM committees where com_id=$com_id" ;
 		$result = mysqli_query($GLOBALS["db_link_conn"], $query);
-		if (mysqli_num_rows($result) >0 )  $title = MYSQL_RESULT($result, 0, "name");
+		if (mysqli_num_rows($result) >0 )  $title = mysqli_result($GLOBALS["db_link_conn"], $result, 0, "name");
 		break;
 	case "viewArticles":	 
 		$id = addslashes($_REQUEST['id']);
 		$query = "SELECT title name FROM articles where id=$id" ;
 		$result = mysqli_query($GLOBALS["db_link_conn"], $query);
-		if (mysqli_num_rows($result) >0 )  $title = MYSQL_RESULT($result, 0, "name");
+		if (mysqli_num_rows($result) >0 )  $title = mysqli_result($GLOBALS["db_link_conn"], $result, 0, "name");
 		break;
 	case "viewAllLinks":	 
 		$id = addslashes($_REQUEST['category']);
 		$query = "SELECT name_$pageLang name FROM links_cat where cat_id=$id" ;
 		$result = mysqli_query($GLOBALS["db_link_conn"], $query);
-		if (mysqli_num_rows($result) >0 )  $title = MYSQL_RESULT($result, 0, "name");
+		if (mysqli_num_rows($result) >0 )  $title = mysqli_result($GLOBALS["db_link_conn"], $result, 0, "name");
 		break;
 	case "viewAssociations":	 
 		$id = addslashes($_REQUEST['ass_id']);
 		$query = "SELECT ass_name_$pageLang name FROM associations where ass_id=$id" ;
 		$result = mysqli_query($GLOBALS["db_link_conn"], $query);
-		if (mysqli_num_rows($result) >0 )  $title = MYSQL_RESULT($result, 0, "name");
+		if (mysqli_num_rows($result) >0 )  $title = mysqli_result($GLOBALS["db_link_conn"], $result, 0, "name");
 		break;
 	case "viewAssociations":	 
 		$id = addslashes($_REQUEST['ass_id']);
 		$query = "SELECT ass_name_$pageLang name FROM associations where ass_id=$id" ;
 		$result = mysqli_query($GLOBALS["db_link_conn"], $query);
-		if (mysqli_num_rows($result) >0 )  $title = MYSQL_RESULT($result, 0, "name");
+		if (mysqli_num_rows($result) >0 )  $title = mysqli_result($GLOBALS["db_link_conn"], $result, 0, "name");
 		break;
 		
 	case "enterNewComplaints":	 

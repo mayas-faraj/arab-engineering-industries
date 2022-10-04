@@ -22,7 +22,7 @@ if($action=="Insert"){
 	$cols .= ", end_date"; $values .= ",'$end_date'";
 
 	$SQL = "INSERT INTO highlight ( $cols ) VALUES ($values)";
-	$result = mysql_query($SQL);
+	$result = mysqli_query($GLOBALS["db_link_conn"], $SQL);
 	if($result)	echo '<script>correctMessageWithoutBack("'.Record_Enter.'")</script>';
 }
 //-------------------------------------------------
@@ -31,7 +31,7 @@ if($action=="Update"){
 	$values .= ", end_date = '$end_date'";
 
 	$SQL = "UPDATE highlight SET $values WHERE id = '$id' ";
-	$result = mysql_query($SQL);
+	$result = mysqli_query($GLOBALS["db_link_conn"], $SQL);
 	if($result)	echo '<script>correctMessageWithoutBack("'.Record_Update.'")</script>';
 }
 /**delete_grp_functions(part 1 of 2)********************************************/
@@ -44,8 +44,8 @@ if($action=="Delete"){
 }
 //-------------------------------------------------
 $sql = "SELECT * FROM highlight $sort ";
-$result = MYSQL_QUERY($sql);
-$numberOfRows = MYSQL_NUMROWS($result);
+$result = mysqli_query($GLOBALS["db_link_conn"], $sql);
+$numberOfRows = mysqli_num_rows($result);
 $i=0;?>
 <div class="data">
 <form method='post' name='main' action='<?php echo $_SERVER['PHP_SELF']; ?>' enctype='multipart/form-data'>
@@ -71,11 +71,11 @@ function actionf(act){
 
 <?}// Enter record
 while ($i<$numberOfRows){
-	$id= MYSQL_RESULT($result,$i,"id");
-	$publish_date= MYSQL_RESULT($result,$i,"publish_date");
-	$end_date= MYSQL_RESULT($result,$i,"end_date");
-	$table_name= MYSQL_RESULT($result,$i,"table_name");
-	$record_id= MYSQL_RESULT($result,$i,"record_id");
+	$id= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"id");
+	$publish_date= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"publish_date");
+	$end_date= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"end_date");
+	$table_name= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"table_name");
+	$record_id= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"record_id");
 	if($action=="Edit"  && $_REQUEST['id'] == $id){?>
     	<TR>
 			<TD><?php echo stripslashes($table_name); ?></TD>	

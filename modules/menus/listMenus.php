@@ -35,7 +35,7 @@ $cols = "item_order , item_link , lang , p_id";
 $values = "'$item_order' , '$item_link' , '$lang' , '$p_id'";
 $cols .= ", item_label"; $values .= ",  '$item_label'";
 $SQL = "INSERT INTO menus ( $cols ) VALUES ($values)";
-$result = mysql_query($SQL);
+$result = mysqli_query($GLOBALS["db_link_conn"], $SQL);
 if($result)	echo '<script>correctMessageWithoutBack("'.Record_Enter.'")</script>';
 }
 //-------------------------------------------------
@@ -43,7 +43,7 @@ if($action=="Update"){
 $values = "item_link = '$item_link'";
 $values .= ", item_label = '$item_label'";
 $SQL = "UPDATE menus SET $values WHERE menu_id = '$menu_id' ";
-$result = mysql_query($SQL);
+$result = mysqli_query($GLOBALS["db_link_conn"], $SQL);
 if($result)	echo '<script>correctMessageWithoutBack("'.Record_Update.'")</script>';
 }
 /**delete_grp_functions(part 1 of 2)********************************************/
@@ -58,8 +58,8 @@ deleteRecord("menus","menu_id in ($ids) OR p_id in ($ids)",true);
 if(!$p_id)	$p_id=0;
 
 $sql = "SELECT * FROM menus WHERE (p_id = '$p_id') AND lang = '$lang'  ORDER BY item_order ";
-$result = MYSQL_QUERY($sql);
-$numberOfRows = MYSQL_NUMROWS($result);
+$result = mysqli_query($GLOBALS["db_link_conn"], $sql);
+$numberOfRows = mysqli_num_rows($result);
 $i=0;?>
 <div class="data">
 <form method='post' name='main' action='<?php echo $_SERVER['PHP_SELF']; ?>' enctype='multipart/form-data'>
@@ -98,13 +98,13 @@ main.submit();
 </TR>
 <?}// Enter record
 while ($i<$numberOfRows){
-$menu_id= MYSQL_RESULT($result,$i,"menu_id");
-$item_label= MYSQL_RESULT($result,$i,"item_label");
-$order= MYSQL_RESULT($result,$i,"item_order");
-$item_link= MYSQL_RESULT($result,$i,"item_link");
-$lang= MYSQL_RESULT($result,$i,"lang");
-$p_id= MYSQL_RESULT($result,$i,"p_id");
-$ord= MYSQL_RESULT($result,$i,"item_order");
+$menu_id= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"menu_id");
+$item_label= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"item_label");
+$order= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"item_order");
+$item_link= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"item_link");
+$lang= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"lang");
+$p_id= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"p_id");
+$ord= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"item_order");
 if($action=="Edit"  && $_REQUEST['menu_id'] == $menu_id){?>
 <TR>
 <?php

@@ -19,8 +19,8 @@ if($sub){
 	$user_id = $_SESSION["us_id"];
 	if($oldp){
 		$sql = "select * from users where password='$oldp' AND user_id='$user_id'";
-		$result =  MYSQL_QUERY($sql);
-		$numrows = mysql_numrows($result);
+		$result =  mysqli_query($GLOBALS["db_link_conn"], $sql);
+		$numrows = mysqli_num_rows($result);
 		if(!$numrows){
 			$results .= invalid_pass;
 			
@@ -28,7 +28,7 @@ if($sub){
 			$results .= '<br/>'.pass_match;
 		}else{
 			$sql = "update  users set  password='$newp' where user_id='$user_id'";
-			$updatePass_result =  MYSQL_QUERY($sql);
+			$updatePass_result =  mysqli_query($GLOBALS["db_link_conn"], $sql);
 		}
 	}
 	
@@ -50,7 +50,7 @@ if($sub){
 	$user_id = $_SESSION["us_id"];
 	$lang = _LANG;
 	$sql = "update  users set  full_name='$full_name' , email='$email' , user_desc='$signature' $photo_stm where user_id='$user_id'";
-	$result =  MYSQL_QUERY($sql);
+	$result =  mysqli_query($GLOBALS["db_link_conn"], $sql);
 	if($result){
 		$results .= '<br/>'.data_succ;
 	}else{

@@ -47,7 +47,7 @@ $values .= " , creator_id = '$creator_id'";
 //$values .= " , lang = '$lang'";
 
 $SQL = "UPDATE mem_committees SET $values WHERE id = '$id' ";
-$result = mysql_query($SQL);
+$result = mysqli_query($GLOBALS["db_link_conn"], $SQL);
 if($result)
 echo '<script>correctMessage("'.Record_Update.'")</script>';
 //else echo '<script>errorMessage("'.CantInsert.'")</script>' ;
@@ -56,23 +56,23 @@ else echo '<script>alert("'.$SQL.'")</script>' ;
 if((!$sub) || (!$result)){
 $id = $_REQUEST['id'];
 $sql ="SELECT * FROM mem_committees WHERE id = '$id' ";
-$result = MYSQL_QUERY($sql);
-$numberOfRows = MYSQL_NUMROWS($result);
+$result = mysqli_query($GLOBALS["db_link_conn"], $sql);
+$numberOfRows = mysqli_num_rows($result);
 if ($numberOfRows>0) {
 $i=0;
-$id= MYSQL_RESULT($result,$i,"id");
-$name_ar= MYSQL_RESULT($result,$i,"name_ar");
-$name_en= MYSQL_RESULT($result,$i,"name_en");
-$creation_date= MYSQL_RESULT($result,$i,"creation_date");
-$description_ar= MYSQL_RESULT($result,$i,"description_ar");
-$description_en= MYSQL_RESULT($result,$i,"description_en");
-$brief_en= MYSQL_RESULT($result,$i,"brief_en");
-$brief_ar= MYSQL_RESULT($result,$i,"brief_ar");
-$private_en= MYSQL_RESULT($result,$i,"private_en");
-$private_ar= MYSQL_RESULT($result,$i,"private_ar");
-$active= MYSQL_RESULT($result,$i,"active");
-$ord= MYSQL_RESULT($result,$i,"ord");
-$creator_id= MYSQL_RESULT($result,$i,"creator_id");
+$id= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"id");
+$name_ar= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"name_ar");
+$name_en= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"name_en");
+$creation_date= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"creation_date");
+$description_ar= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"description_ar");
+$description_en= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"description_en");
+$brief_en= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"brief_en");
+$brief_ar= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"brief_ar");
+$private_en= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"private_en");
+$private_ar= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"private_ar");
+$active= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"active");
+$ord= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"ord");
+$creator_id= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"creator_id");
 }?>
 <form name="subForm" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>" enctype="multipart/form-data">
 <input type="Hidden" name="id" size="20" value="<?php echo $id; ?>" />

@@ -11,8 +11,8 @@
 	$parent = $p_id = getTopParent($pageLang, $cur_id);
 	if(!$p_id){$parent=$sub_menu_parent;}
 	$menu_sql = "SELECT * FROM menus WHERE (lang = '$pageLang') AND (p_id ='$parent' && p_id<>0) order by item_order ASC";
-	$menu_result = MYSQL_QUERY($menu_sql);
-	$menu_numrows = MYSQL_NUMROWS($menu_result);
+	$menu_result = mysqli_query($GLOBALS["db_link_conn"], $menu_sql);
+	$menu_numrows = mysqli_num_rows($menu_result);
 	if($menu_numrows==0){
 		$current_form =  getCurrentFormName();
 		$parent_link = get_parent_link($current_form);
@@ -22,8 +22,8 @@
 			$p_id = getMenuId($parent_link,$pageLang);
 			
 			$menu_sql = "SELECT * FROM menus WHERE (lang = '$pageLang') AND (p_id ='$p_id' && p_id<>0) order by item_order ASC";
-			$menu_result = MYSQL_QUERY($menu_sql);
-			$menu_numrows = MYSQL_NUMROWS($menu_result);
+			$menu_result = mysqli_query($GLOBALS["db_link_conn"], $menu_sql);
+			$menu_numrows = mysqli_num_rows($menu_result);
 		}
 	}
 	
@@ -34,9 +34,9 @@
 	<?php
 		$i=0;
 		while ($i<$menu_numrows){
-			$p_id= MYSQL_RESULT($menu_result,$i,"menu_id");
-			$p_item_name= MYSQL_RESULT($menu_result,$i,"item_label");
-			$p_item_link= MYSQL_RESULT($menu_result,$i,"item_link");
+			$p_id= mysqli_result($GLOBALS["db_link_conn"], $menu_result,$i,"menu_id");
+			$p_item_name= mysqli_result($GLOBALS["db_link_conn"], $menu_result,$i,"item_label");
+			$p_item_link= mysqli_result($GLOBALS["db_link_conn"], $menu_result,$i,"item_link");
 			
 			if($p_item_link  != '#'){
 				$has_items = strrpos($p_item_link, "?");

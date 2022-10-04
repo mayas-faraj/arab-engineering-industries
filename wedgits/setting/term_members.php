@@ -27,7 +27,7 @@ if($action=="Insert"){
 
 
 	$SQL = "INSERT INTO term_members ( $cols ) VALUES ($values)";
-	$result = mysql_query($SQL);
+	$result = mysqli_query($GLOBALS["db_link_conn"], $SQL);
 	if($result)	echo '<script>correctMessageWithoutBack("'.Record_Enter.'")</script>';
 	//echo '<script>alert("'.$SQL.'")</script>';
 }
@@ -39,7 +39,7 @@ if($action=="Update"){
 
 
 	$SQL = "UPDATE term_members SET $values WHERE id = '$id' ";
-	$result = mysql_query($SQL);
+	$result = mysqli_query($GLOBALS["db_link_conn"], $SQL);
 	if($result)	echo '<script>correctMessageWithoutBack("'.Record_Update.'")</script>';
 	//echo '<script>alert("'.$SQL.'")</script>';
 }
@@ -53,8 +53,8 @@ if($action=="Delete"){
 }
 //-------------------------------------------------
 $sql = "SELECT * FROM term_members WHERE term_id='$term' ";
-$result = MYSQL_QUERY($sql);
-$numberOfRows = MYSQL_NUMROWS($result);
+$result = mysqli_query($GLOBALS["db_link_conn"], $sql);
+$numberOfRows = mysqli_num_rows($result);
 $i=0;?>
 <div class="data">
 <form method='post' name='main' action='<?php echo $_SERVER['PHP_SELF']; ?>' enctype='multipart/form-data'>
@@ -86,9 +86,9 @@ function actionf(act){
 </TR>
 <?}// Enter record
 while ($i<$numberOfRows){
-	$id= MYSQL_RESULT($result,$i,"id");
-	$member_id= MYSQL_RESULT($result,$i,"member_id");
-	$position= MYSQL_RESULT($result,$i,"position");
+	$id= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"id");
+	$member_id= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"member_id");
+	$position= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"position");
 
 	if($action=="Edit"  && cleanString($_REQUEST['id']) == $id){?>
     	<TR>

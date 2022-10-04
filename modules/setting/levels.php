@@ -22,7 +22,7 @@ if($action=="Insert"){
 	$cols .= ", name_ar"; $values .= ",'$name_ar'";
 
 	$SQL = "INSERT INTO levels ( $cols ) VALUES ($values)";
-	$result = mysql_query($SQL);
+	$result = mysqli_query($GLOBALS["db_link_conn"], $SQL);
 	if($result)	echo '<script>correctMessageWithoutBack("'.Record_Enter.'")</script>';
 }
 //-------------------------------------------------
@@ -31,7 +31,7 @@ if($action=="Update"){
 	$values .= ", name_ar = '$name_ar'";
 
 	$SQL = "UPDATE levels SET $values WHERE id = '$id' ";
-	$result = mysql_query($SQL);
+	$result = mysqli_query($GLOBALS["db_link_conn"], $SQL);
 	if($result)	echo '<script>correctMessageWithoutBack("'.Record_Update.'")</script>';
 }
 /**delete_grp_functions(part 1 of 2)********************************************/
@@ -44,8 +44,8 @@ if($action=="Delete"){
 }
 //-------------------------------------------------
 $sql = "SELECT * FROM levels $sort ";
-$result = MYSQL_QUERY($sql);
-$numberOfRows = MYSQL_NUMROWS($result);
+$result = mysqli_query($GLOBALS["db_link_conn"], $sql);
+$numberOfRows = mysqli_num_rows($result);
 $i=0;?>
 <div class="data">
 <form method='post' name='main' action='<?php echo $_SERVER['PHP_SELF']; ?>' enctype='multipart/form-data'>
@@ -74,9 +74,9 @@ function actionf(act){
 </TR>
 <?}// Enter record
 while ($i<$numberOfRows){
-	$id= MYSQL_RESULT($result,$i,"id");
-	$name_en= MYSQL_RESULT($result,$i,"name_en");
-	$name_ar= MYSQL_RESULT($result,$i,"name_ar");
+	$id= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"id");
+	$name_en= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"name_en");
+	$name_ar= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"name_ar");
 	if($action=="Edit"  && $_REQUEST['id'] == $id){?>
     	<TR>
 			<TD>

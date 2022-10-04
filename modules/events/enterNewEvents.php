@@ -25,7 +25,7 @@ if($sub){
 	$link = addslashes($_REQUEST['link']);
 	$SQL = "INSERT INTO events_events (subject , brief , details , subject_ar , brief_ar , details_ar ,publish_date , end_date  , active,  link) 
 						VALUES ('$subject' , '$brief' , '$details', '$subject_ar' , '$brief_ar' , '$details_ar', '$publish_date' , '$end_date' , '$active',  '$link' )";
-	$result = mysql_query($SQL);
+	$result = mysqli_query($GLOBALS["db_link_conn"], $SQL);
 	if($result)
  	echo '<script>correctMessage("'.Record_Update.'")</script>';
 	else echo '<script>errorMessage("'.CantInsert.'")</script>' ;

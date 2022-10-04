@@ -66,7 +66,7 @@ $values .= " , alevel = '$alevel'";
 $values .= " , gal_id = '$gal_id'";
 $values .= " , creator_id = '$creator_id'";
 $SQL = "UPDATE mem_activities SET $values WHERE id = '$id' ";
-$result = mysql_query($SQL);
+$result = mysqli_query($GLOBALS["db_link_conn"], $SQL);
 if($result)
 echo '<script>correctMessage("'.Record_Update.'")</script>';
 //else echo '<script>$("document").ready( function(){$(".ttest").attr("value","'.$SQL.'");});	</script>' ;
@@ -75,32 +75,32 @@ else echo '<script>errorMessage("'.CantInsert.'")</script>' ;
 if((!$sub) || (!$result)){
 $id = $_REQUEST['id'];
 $sql ="SELECT * FROM mem_activities WHERE id = '$id' ";
-$result = MYSQL_QUERY($sql);
-$numberOfRows = MYSQL_NUMROWS($result);
+$result = mysqli_query($GLOBALS["db_link_conn"], $sql);
+$numberOfRows = mysqli_num_rows($result);
 if ($numberOfRows>0) {
 $i=0;
-$id= MYSQL_RESULT($result,$i,"id");
-$subject= MYSQL_RESULT($result,$i,"subject");
-$subject_ar= MYSQL_RESULT($result,$i,"subject_ar");
-$brief= MYSQL_RESULT($result,$i,"brief");
-$private= MYSQL_RESULT($result,$i,"private");
-$brief_ar= MYSQL_RESULT($result,$i,"brief_ar");
-$details= MYSQL_RESULT($result,$i,"details");
-$details_ar= MYSQL_RESULT($result,$i,"details_ar");
-$private_ar= MYSQL_RESULT($result,$i,"private_ar");
-$activity_date= MYSQL_RESULT($result,$i,"activity_date");
-$end_date= MYSQL_RESULT($result,$i,"end_date");
-$active= MYSQL_RESULT($result,$i,"active");
-$photo= MYSQL_RESULT($result,$i,"photo");
-$gal_id= MYSQL_RESULT($result,$i,"gal_id");
-$afield= MYSQL_RESULT($result,$i,"afield");
-$atype= MYSQL_RESULT($result,$i,"atype");
-$alevel= MYSQL_RESULT($result,$i,"alevel");
-$place= MYSQL_RESULT($result,$i,"place");
-$place_ar= MYSQL_RESULT($result,$i,"place_ar");
-$special= MYSQL_RESULT($result,$i,"special");
-$link= MYSQL_RESULT($result,$i,"link");
-$creator_id= MYSQL_RESULT($result,$i,"creator_id");
+$id= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"id");
+$subject= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"subject");
+$subject_ar= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"subject_ar");
+$brief= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"brief");
+$private= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"private");
+$brief_ar= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"brief_ar");
+$details= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"details");
+$details_ar= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"details_ar");
+$private_ar= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"private_ar");
+$activity_date= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"activity_date");
+$end_date= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"end_date");
+$active= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"active");
+$photo= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"photo");
+$gal_id= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"gal_id");
+$afield= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"afield");
+$atype= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"atype");
+$alevel= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"alevel");
+$place= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"place");
+$place_ar= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"place_ar");
+$special= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"special");
+$link= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"link");
+$creator_id= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"creator_id");
 }?>
 <form name="subForm" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>" enctype="multipart/form-data">
 <input type="Hidden" name="id" size="20" value="<?php echo $id; ?>" />

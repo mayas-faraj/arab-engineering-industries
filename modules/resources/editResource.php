@@ -30,7 +30,7 @@ $values .= " ,photo = '$photo'";
 $values .= " ,private = '$private'";
 
 $SQL = "UPDATE resources SET $values WHERE id = '$id' ";
-$result = mysql_query($SQL);
+$result = mysqli_query($GLOBALS["db_link_conn"], $SQL);
 if($result)
 echo '<script>correctMessage("'.Record_Update.'")</script>';
 else echo '<script>errorMessage("'.CantInsert.'")</script>' ;
@@ -38,19 +38,19 @@ else echo '<script>errorMessage("'.CantInsert.'")</script>' ;
 if((!$sub) || (!$result)){
 $id = $_REQUEST['id'];
 $sql ="SELECT * FROM resources WHERE id = '$id' ";
-$result = MYSQL_QUERY($sql);
-$numberOfRows = MYSQL_NUMROWS($result);
+$result = mysqli_query($GLOBALS["db_link_conn"], $sql);
+$numberOfRows = mysqli_num_rows($result);
 if ($numberOfRows>0) {
 $i=0;
-$id= MYSQL_RESULT($result,$i,"id");
-$title= MYSQL_RESULT($result,$i,"title");
-$keyword= MYSQL_RESULT($result,$i,"keyword");
-$details= MYSQL_RESULT($result,$i,"details");
-$link= MYSQL_RESULT($result,$i,"link");
-$brief= MYSQL_RESULT($result,$i,"brief");
-$special= MYSQL_RESULT($result,$i,"special");
-$photo= MYSQL_RESULT($result,$i,"photo");
-$private= MYSQL_RESULT($result,$i,"private");
+$id= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"id");
+$title= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"title");
+$keyword= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"keyword");
+$details= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"details");
+$link= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"link");
+$brief= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"brief");
+$special= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"special");
+$photo= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"photo");
+$private= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"private");
 }?>
 <form name="subForm" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>" enctype="multipart/form-data">
 <input type="Hidden" name="id" size="40" value="<?php echo $id; ?>" />

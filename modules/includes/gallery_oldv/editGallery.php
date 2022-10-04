@@ -7,16 +7,16 @@ if(isset($_REQUEST['gid'])){
 	$gid=$_REQUEST['gid'];
 	$_SESSION['gal'] = $gid;
 	$sql = "SELECT * FROM galleries_galleries  where id=$gid limit 0,1";
-	$result = mysql_query($sql);
-	$numberOfRows = mysql_numrows($result);
+	$result = mysqli_query($GLOBALS["db_link_conn"], $sql);
+	$numberOfRows = mysqli_num_rows($result);
 	if ($numberOfRows>0) {
-		$gallery_name= mysql_result($result,0,"gallery_name");
-		$gallery_name_ar= mysql_result($result,0,"gallery_name_ar");
-		$description= mysql_result($result,0,"description");
-		$main_photo= mysql_result($result,0,"main_photo");
-		$photos= mysql_result($result,0,"photos");
-		$folder= mysql_result($result,0,"folder");
-		$creator_id= mysql_result($result,0,"creator_id");
+		$gallery_name= mysqli_result($GLOBALS["db_link_conn"], $result,0,"gallery_name");
+		$gallery_name_ar= mysqli_result($GLOBALS["db_link_conn"], $result,0,"gallery_name_ar");
+		$description= mysqli_result($GLOBALS["db_link_conn"], $result,0,"description");
+		$main_photo= mysqli_result($GLOBALS["db_link_conn"], $result,0,"main_photo");
+		$photos= mysqli_result($GLOBALS["db_link_conn"], $result,0,"photos");
+		$folder= mysqli_result($GLOBALS["db_link_conn"], $result,0,"folder");
+		$creator_id= mysqli_result($GLOBALS["db_link_conn"], $result,0,"creator_id");
 ?>
 <html>
 <head>
@@ -94,7 +94,7 @@ if($action){
 	else $photos = '';
 	$SQL = " UPDATE galleries_galleries SET gallery_name = '$gallery_name' , gallery_name_ar = '$gallery_name_ar' ,description = '$description' , 
 	main_photo = '$main_pho' , photos = '$photos', folder='$folder' , creator_id='$creator_id' WHERE id = '$gid'"; 
-	$result = mysql_query($SQL);
+	$result = mysqli_query($GLOBALS["db_link_conn"], $SQL);
 	if($result){
 		if($_REQUEST['n']==1)
 			echo '<script>window.close();</script>';

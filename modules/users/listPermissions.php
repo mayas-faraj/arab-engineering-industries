@@ -7,16 +7,16 @@ $sub = $_REQUEST['sub'];
 if($sub){
 	$permissions = addslashes($_REQUEST['permissions']);
 	$grp_id = addslashes($_REQUEST['grp_id']);
-	$per_arr = split(',',$permissions);
+	$per_arr = explode(',',$permissions);
 	
-	@mysql_query("DELETE FROM permissions WHERE grp_id = '$grp_id'");
+	@mysqli_query($GLOBALS["db_link_conn"], "DELETE FROM permissions WHERE grp_id = '$grp_id'");
 	
 	$SQL= "INSERT INTO permissions (grp_id ,role_id ) VALUES ";
 	for($i =0 ; $i < count($per_arr)-1 ; $i++)
 		$SQL .= "('$grp_id' ,'$per_arr[$i]'),\n";
 	$SQL = substr($SQL,0,-2); 
 	$SQL .= ";";
-	$result = mysql_query($SQL);
+	$result = mysqli_query($GLOBALS["db_link_conn"], $SQL);
 	if($result)	echo '<script>correctMessage("'.Record_Update.'")</script>';
 }
 ?>
@@ -33,8 +33,8 @@ if($sb) $sort  = "ORDER BY $sb $so" ;
 
 $sql = "SELECT r.role_id , p.role_id FROM roles_forms r LEFT JOIN permissions p
  		ON r.role_id= p.role_id AND p.grp_id='$grp_id' GROUP BY r.role_id   ";
-$result = MYSQL_QUERY($sql);
-$numberOfRows = MYSQL_NUMROWS($result);
+$result = mysqli_query($GLOBALS["db_link_conn"], $sql);
+$numberOfRows = mysqli_num_rows($result);
 if ($numberOfRows<=0) echo _Sorry;
 if ($numberOfRows>0) {
 $i=0;
@@ -46,8 +46,8 @@ $i=0;
 <TABLE CELLSPACING="0" CELLPADDING="0" BORDER="0" WIDTH="100%" id="list">
 <?php
 while ($i<$numberOfRows){
-	$p= MYSQL_RESULT($result,$i,"p.role_id");
-	$r= MYSQL_RESULT($result,$i,"r.role_id");
+	$p= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"p.role_id");
+	$r= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"r.role_id");
 
 ?>
 	<TR>

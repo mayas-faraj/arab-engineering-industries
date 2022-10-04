@@ -36,8 +36,8 @@ $whereStmt = createFilter( $filters , $fields , "AND", $extention);
 if($whereStmt!=""){	$whereStmt = " WHERE cat_id = '$cat_id' $whereStmt";}else{	$whereStmt = " WHERE cat_id = '$cat_id' ";}
 
 $sql = "SELECT * FROM art_articles  $whereStmt $sort $limit ";
-$result = MYSQL_QUERY($sql);
-$numberOfRows = MYSQL_NUMROWS($result);
+$result = mysqli_query($GLOBALS["db_link_conn"], $sql);
+$numberOfRows = mysqli_num_rows($result);
 
 /***********Top pagination*************/
 $tp = count_items("art_articles", str_replace("WHERE", "", $whereStmt));
@@ -62,16 +62,16 @@ if ($numberOfRows>0) {
 	<tbody>
 	<?php
     while ($i<$numberOfRows){
-        $id= MYSQL_RESULT($result,$i,"id");
-        $title= MYSQL_RESULT($result,$i,"title");
-        $brief= MYSQL_RESULT($result,$i,"brief");
-		$u_id = mysql_result($result, $i,"user_id");
+        $id= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"id");
+        $title= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"title");
+        $brief= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"brief");
+		$u_id = mysqli_result($GLOBALS["db_link_conn"], $result, $i,"user_id");
 		$author = lookupField('users','user_id','full_name',$u_id);
-        $details= MYSQL_RESULT($result,$i,"details");
-        $publish_date= MYSQL_RESULT($result,$i,"publish_date");
-        $active= MYSQL_RESULT($result,$i,"active");
-        $publish= MYSQL_RESULT($result,$i,"publish");
-		$ord = mysql_result($result,$i,"ord");
+        $details= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"details");
+        $publish_date= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"publish_date");
+        $active= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"active");
+        $publish= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"publish");
+		$ord = mysqli_result($GLOBALS["db_link_conn"], $result,$i,"ord");
         ?>
 		<TR>
 			<TD><?php echo stripslashes($title); ?></TD>
@@ -81,7 +81,7 @@ if ($numberOfRows>0) {
 			<td><a href="../includes/checkbox.php?t=art_articles&fn=publish&idn=id&idv=<?php echo $id; ?>&fv=<?php echo !($publish); ?>" class="checkb" ><img src="<?php echo _PREF; ?>images/icons/_<?php echo $publish?>_.png" border="0"  fv="<?php echo !($publish); ?>"/></a></td>
 			<?//=showUpDownIcons($result, $i, "id", "ord", "");?>
 			<?php
-				$comment_count = mysql_result(mysql_query("SELECT count(*) FROM art_comments where art_id = '$id'"),0,'count(*)');
+				$comment_count = mysqli_result($GLOBALS["db_link_conn"], mysql_query("SELECT count(*) FROM art_comments where art_id = '$id'"),0,'count(*)');
 				if($comment_count>0){?>
 					<td align="center" width="30"><a href="listArticlesComments.php?art_id=<?php echo $id; ?>">Comments(<?php echo $comment_count; ?>)</a></td>
 				<?}else{?>
@@ -104,4 +104,4 @@ if ($numberOfRows>0) {
 }?>
 
 <input name="sub4" type="button" id="sub3" value="<?php echo Back; ?>" style='float:left; clear:both;' onClick=" document.location='listArticlesCat.php'">
-<?include_once("../common/footer-admin.php"); ?>
+<?php include _once("../common/footer-admin.php"); ?>

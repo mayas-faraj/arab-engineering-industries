@@ -8,8 +8,8 @@
                 $s = (cleanString($_REQUEST['word']));
                 //-----------Pages--------------------------------------------------------------------
                 $sql_pages = "select * from pages where (title LIKE ('%$s%') or details  LIKE ('%$s%')) and lang='$pageLang'";
-                $res_pages = mysql_query($sql_pages);
-                $rows_pages = mysql_num_rows($res_pages);
+                $res_pages = mysqli_query($GLOBALS["db_link_conn"], $sql_pages);
+                $rows_pages = mysqli_num_rows($res_pages);
 
                 $color = 0;
                 if ($rows_pages > 0) {
@@ -23,8 +23,8 @@
                             } else {
                                 $color = 1;
                             }
-                            $id = mysql_result($res_pages, $i, 'id');
-                            $title1 = mysql_result($res_pages, $i, 'title');
+                            $id = mysqli_result($GLOBALS["db_link_conn"], $res_pages, $i, 'id');
+                            $title1 = mysqli_result($GLOBALS["db_link_conn"], $res_pages, $i, 'title');
                             ?>
                             <TR>
                                 <TD >
@@ -49,8 +49,8 @@
                 }
                 
                 //$sql_news = "select *from news_news where ( subject LIKE ('%$s%') or details  LIKE ('%$s%') ) AND (lang='$pageLang')";
-                $res_news = mysql_query($sql_news);
-                $rows_news = mysql_num_rows($res_news);
+                $res_news = mysqli_query($GLOBALS["db_link_conn"], $sql_news);
+                $rows_news = mysqli_num_rows($res_news);
                 if ($rows_news > 0) {
                     ?>
                     <TR height="40"><td colspan="2" class="subtitle"><?php echo  Announcements ; ?> (<?php echo  $rows_news ; ?>)</td></TR><?php
@@ -61,14 +61,14 @@
                         } else {
                             $color = 1;
                         }
-                        $id = mysql_result($res_news, $i, 'id');
-                        $publish_date = mysql_result($res_news, $i, 'publish_date');
+                        $id = mysqli_result($GLOBALS["db_link_conn"], $res_news, $i, 'id');
+                        $publish_date = mysqli_result($GLOBALS["db_link_conn"], $res_news, $i, 'publish_date');
                         if ($pageLang == "ar") {
-                            $title = mysql_result($res_news, $i, "subject_ar");
+                            $title = mysqli_result($GLOBALS["db_link_conn"], $res_news, $i, "subject_ar");
                         } else {
-                            $title = mysql_result($res_news, $i, "subject");
+                            $title = mysqli_result($GLOBALS["db_link_conn"], $res_news, $i, "subject");
                         }
-                        //$title = mysql_result($res_news, $i, 'subject');
+                        //$title = mysqli_result($GLOBALS["db_link_conn"], $res_news, $i, 'subject');
                         ?>
 
 
@@ -92,8 +92,8 @@
                     $sql_activities = "select *from mem_activities  where  subject LIKE ('%$s%') or details  LIKE ('%$s%')";
                 }
                 
-                $res_activities = mysql_query($sql_activities);
-                $rows_activities = mysql_num_rows($res_activities);
+                $res_activities = mysqli_query($GLOBALS["db_link_conn"], $sql_activities);
+                $rows_activities = mysqli_num_rows($res_activities);
                 if ($rows_activities > 0) {
                     ?>
                     <TR height="40"><td colspan="2" class="subtitle"><?php echo  Activities ; ?> (<?php echo  $rows_activities ; ?>)</td></TR><?php
@@ -104,11 +104,11 @@
                         } else {
                             $color = 1;
                         }
-                        $id = mysql_result($res_activities, $i, 'id');
+                        $id = mysqli_result($GLOBALS["db_link_conn"], $res_activities, $i, 'id');
                         if ($pageLang == "ar") {
-                            $title = mysql_result($res_activities, $i, "subject_ar");
+                            $title = mysqli_result($GLOBALS["db_link_conn"], $res_activities, $i, "subject_ar");
                         } else {
-                            $title = mysql_result($res_activities, $i, "subject");
+                            $title = mysqli_result($GLOBALS["db_link_conn"], $res_activities, $i, "subject");
                         }
                         ?>
 
@@ -128,8 +128,8 @@
 
                 //-----------Committees--------------------------------------------------------------------
                 $sql_committees = "select *from mem_committees  where name_$pageLang LIKE ('%$s%') or description_$pageLang  LIKE ('%$s%')";
-                $res_committees = mysql_query($sql_committees);
-                $rows_committees = mysql_num_rows($res_committees);
+                $res_committees = mysqli_query($GLOBALS["db_link_conn"], $sql_committees);
+                $rows_committees = mysqli_num_rows($res_committees);
                 if ($rows_committees > 0) {
                     ?>
                     <TR height="40"><td colspan="2" class="subtitle"><?php echo  Committees ; ?> (<?php echo  $rows_committees ; ?>)</td></TR><?php
@@ -140,8 +140,8 @@
                 } else {
                     $color = 1;
                 }
-                $id = mysql_result($res_committees, $i, 'id');
-                $title = mysql_result($res_committees, $i, "name_$pageLang");
+                $id = mysqli_result($GLOBALS["db_link_conn"], $res_committees, $i, 'id');
+                $title = mysqli_result($GLOBALS["db_link_conn"], $res_committees, $i, "name_$pageLang");
                         ?>
 
 
@@ -162,8 +162,8 @@
                 //-----------------------------------------------
                 //-----------Members--------------------------------------------------------------------
                 $sql_members = "select *from mem_members  where name_$pageLang LIKE ('%$s%') or products_$pageLang  LIKE ('%$s%')  or brief_$pageLang  LIKE ('%$s%')";
-                $res_members = mysql_query($sql_members);
-                $rows_members = mysql_num_rows($res_members);
+                $res_members = mysqli_query($GLOBALS["db_link_conn"], $sql_members);
+                $rows_members = mysqli_num_rows($res_members);
                 if ($rows_members > 0) {
                     ?>
                     <TR height="40"><td colspan="2" class="subtitle"><?php echo  MEMBERS ; ?> (<?php echo  $rows_members ; ?>)</td></TR><?php
@@ -174,8 +174,8 @@
                 } else {
                     $color = 1;
                 }
-                $id = mysql_result($res_members, $i, 'id');
-                $title = mysql_result($res_members, $i, "name_$pageLang");
+                $id = mysqli_result($GLOBALS["db_link_conn"], $res_members, $i, 'id');
+                $title = mysqli_result($GLOBALS["db_link_conn"], $res_members, $i, "name_$pageLang");
                         ?>
 
 
@@ -196,8 +196,8 @@
                 //-----------------------------------------------
                 //-----------BOD--------------------------------------------------------------------
                 $sql_bod = "select *from mem_council  where active='1' AND name_$pageLang LIKE ('%$s%') or position_$pageLang  LIKE ('%$s%')  or biography_$pageLang  LIKE ('%$s%')";
-                $res_bod = mysql_query($sql_bod);
-                $rows_bod = mysql_num_rows($res_bod);
+                $res_bod = mysqli_query($GLOBALS["db_link_conn"], $sql_bod);
+                $rows_bod = mysqli_num_rows($res_bod);
                 if ($rows_bod > 0) {
                     ?>
                     <TR height="40"><td colspan="2" class="subtitle"><?php echo  bod ; ?> (<?php echo  $rows_bod ; ?>)</td></TR><?php
@@ -208,9 +208,9 @@
                 } else {
                     $color = 1;
                 }
-                $id = mysql_result($res_bod, $i, 'id');
+                $id = mysqli_result($GLOBALS["db_link_conn"], $res_bod, $i, 'id');
 
-                $title = mysql_result($res_bod, $i, "name_$pageLang");
+                $title = mysqli_result($GLOBALS["db_link_conn"], $res_bod, $i, "name_$pageLang");
                         ?>
 
 

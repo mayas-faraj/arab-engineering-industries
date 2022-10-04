@@ -40,7 +40,7 @@ if (!empty($_FILES)) {
 		move_uploaded_file($tempFile,$targetFile);
 
 		$SQL = "INSERT INTO galleries_photos (photo , description , thumb, folder ) VALUES ('$photo','&nbsp;','$thumbFile' ,'$upfolder' )";
-		$result = mysql_query($SQL);
+		$result = mysqli_query($GLOBALS["db_link_conn"], $SQL);
 		if($result)echo 1;		
 	}
 	

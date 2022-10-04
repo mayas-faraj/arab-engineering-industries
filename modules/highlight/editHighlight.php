@@ -36,7 +36,7 @@ $values .= ", description_ar = '$description_ar'";
 
 $values .= ", active = '$active'";
 $SQL = "UPDATE highlight_highlight SET $values  WHERE id = '$id' ";
-$result = mysql_query($SQL);
+$result = mysqli_query($GLOBALS["db_link_conn"], $SQL);
 if($result)
 echo '<script>correctMessage("'.Record_Update.'")</script>';
 else echo '<script>cerrorMessage("'.CantInsert.'")</script>' ;
@@ -45,24 +45,24 @@ else{ ?>
 <?php
 $id = $_GET['id'];
 $sql ="SELECT * FROM highlight_highlight WHERE id = '$id' ";
-$result = mysql_query($sql);
-$numberOfRows = mysql_numrows($result);
+$result = mysqli_query($GLOBALS["db_link_conn"], $sql);
+$numberOfRows = mysqli_num_rows($result);
 if ($numberOfRows>0) {
 $i=0;
-$id= mysql_result($result,$i,"id");
-$photo_en= mysql_result($result,$i,"photo_en");
-$link_en= mysql_result($result,$i,"link_en");
-$title_en=mysql_result($result, $i,"title_en");
-$type_en=mysql_result($result, $i,"type_en");
-$description_en=mysql_result($result, $i,"description_en");
+$id= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"id");
+$photo_en= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"photo_en");
+$link_en= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"link_en");
+$title_en=mysqli_result($GLOBALS["db_link_conn"], $result, $i,"title_en");
+$type_en=mysqli_result($GLOBALS["db_link_conn"], $result, $i,"type_en");
+$description_en=mysqli_result($GLOBALS["db_link_conn"], $result, $i,"description_en");
 
-$photo_ar= mysql_result($result,$i,"photo_ar");
-$link_ar= mysql_result($result,$i,"link_ar");
-$title_ar=mysql_result($result, $i,"title_ar");
-$type_ar=mysql_result($result, $i,"type_ar");
-$description_ar=mysql_result($result, $i,"description_ar");
+$photo_ar= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"photo_ar");
+$link_ar= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"link_ar");
+$title_ar=mysqli_result($GLOBALS["db_link_conn"], $result, $i,"title_ar");
+$type_ar=mysqli_result($GLOBALS["db_link_conn"], $result, $i,"type_ar");
+$description_ar=mysqli_result($GLOBALS["db_link_conn"], $result, $i,"description_ar");
 
-$active=mysql_result($result, $i,"active");
+$active=mysqli_result($GLOBALS["db_link_conn"], $result, $i,"active");
 }
 ?>
 

@@ -35,24 +35,24 @@ if (!empty($_FILES)) {
 		$creator_id = lookupField('galleries_galleries','id','creator_id',$_REQUEST['gal']);
 		
 		$SQL = "INSERT INTO galleries_photos (photo , description , thumb, creator_id ) VALUES ('$photo','&nbsp;','$thumbFile', '$creator_id')";
-		$result = mysql_query($SQL);
-		$id = mysql_insert_id();
+		$result = mysqli_query($GLOBALS["db_link_conn"], $SQL);
+		$id = mysqli_insert_id($GLOBALS["db_link_conn"]);
 		
 		
 		$sql = "SELECT * FROM galleries_galleries where id=".$_REQUEST['gal']." limit 0,1";
-		$result = mysql_query($sql);
-		$numberOfRows = mysql_numrows($result);
+		$result = mysqli_query($GLOBALS["db_link_conn"], $sql);
+		$numberOfRows = mysqli_num_rows($result);
 		if ($numberOfRows>0) {
-			$gallery_name= mysql_result($result,0,"gallery_name");
-			$description= mysql_result($result,0,"description");
-			$mph= mysql_result($result,0,"main_photo");
-			$photos= mysql_result($result,0,"photos");
+			$gallery_name= mysqli_result($GLOBALS["db_link_conn"], $result,0,"gallery_name");
+			$description= mysqli_result($GLOBALS["db_link_conn"], $result,0,"description");
+			$mph= mysqli_result($GLOBALS["db_link_conn"], $result,0,"main_photo");
+			$photos= mysqli_result($GLOBALS["db_link_conn"], $result,0,"photos");
 			if($photos != '')
 				$SQL = "update `galleries_galleries` set photos = concat(photos,',','".$id."') where id=".$_REQUEST['gal'];
 			else
 				$SQL = "update `galleries_galleries` set photos = '".$id."' where id=".$_REQUEST['gal'];
-			$result = mysql_query($SQL);
-			if(!$mph)	mysql_query("update `galleries_galleries` set main_photo = '".$id."' where id=".$_REQUEST['gal']);
+			$result = mysqli_query($GLOBALS["db_link_conn"], $SQL);
+			if(!$mph)	mysqli_query($GLOBALS["db_link_conn"], "update `galleries_galleries` set main_photo = '".$id."' where id=".$_REQUEST['gal']);
 			echo "1";
 		}
 	}

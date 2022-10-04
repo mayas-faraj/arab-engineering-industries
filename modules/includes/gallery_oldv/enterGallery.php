@@ -73,10 +73,10 @@ if($action){
 	$photos = "";//implode(",",$photosArr);
 
 	$SQL = "INSERT INTO galleries_galleries (gallery_name , description , main_photo , photos, folder) VALUES ('$gallery_name' , '$description' ,'$main_pho' ,'$photos', '$folder')";
-	$result = mysql_query($SQL);
+	$result = mysqli_query($GLOBALS["db_link_conn"], $SQL);
 	if($result){
 
-		$id = mysql_insert_id();
+		$id = mysqli_insert_id($GLOBALS["db_link_conn"]);
 
 		if($folder&&$id){
 			$folder_path = '../../../uploads/'.$folder;
@@ -96,8 +96,8 @@ if($action){
 				
 				$thumb = resizeToFile($targetFile, 90, 90, $uploads_target.$thumbFile);
 				$SQL = "INSERT INTO galleries_photos (photo , description , thumb ) VALUES ('$photo','&nbsp;','$thumbFile' )";
-				$result = mysql_query($SQL);
-				$photo_id = mysql_insert_id();
+				$result = mysqli_query($GLOBALS["db_link_conn"], $SQL);
+				$photo_id = mysqli_insert_id($GLOBALS["db_link_conn"]);
 				if($photos_ids){
 					$photos_ids .= ','.$photo_id;
 				}else{
@@ -105,7 +105,7 @@ if($action){
 				}
 			}
 			$SQL = "INSERT update galleries_galleries set photos = '$photos_ids' ";
-			$result = mysql_query($SQL);
+			$result = mysqli_query($GLOBALS["db_link_conn"], $SQL);
 		}
 		
 		echo "<script>opener.document.getElementById('newGal').value='$id';

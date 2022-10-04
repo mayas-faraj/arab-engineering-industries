@@ -54,7 +54,7 @@ $title = lookupField('pages','id','title',$id);
 			</table>';
 			//echo $masseg;
 		
-			//$to = mysql_result(mysql_query('select * from messages where id=1'),0,'email'); //'ahmad.m@voilasyria.com';
+			//$to = mysqli_result($GLOBALS["db_link_conn"], mysql_query('select * from messages where id=1'),0,'email'); //'ahmad.m@voilasyria.com';
 			$to = basename(lookupField('site_settings','id','value',1));
 			$headers  = "MIME-Version: 1.0\r\n";
 			$headers .= "Content-type: text/html; charset=utf-8\r\n";
@@ -73,7 +73,7 @@ $title = lookupField('pages','id','title',$id);
 					<?php
 					echo "<div class='form_msg' >".ysend."</div>";
 				
-				$user_message = cleanString($_REQUEST['note']);//mysql_result(mysql_query('select * from messages where id=1'),0,'message');
+				$user_message = cleanString($_REQUEST['note']);//mysqli_result($GLOBALS["db_link_conn"], mysql_query('select * from messages where id=1'),0,'message');
 				$user_headers  = "MIME-Version: 1.0\r\n";
 				$user_headers .= "Content-type: text/html; charset=utf-8\r\n";
 				$user_headers .= "To:".$email."\r\n";

@@ -27,7 +27,7 @@ if($action=="Insert"){
 	$cols .= ", grp_id"; $values .= ", '$grp_id'";
 
 	$SQL = "INSERT INTO users ( $cols ) VALUES ($values)";
-	$result = mysql_query($SQL);
+	$result = mysqli_query($GLOBALS["db_link_conn"], $SQL);
 	if($result)	echo '<script>correctMessageWithoutBack("'.Record_Enter.'")</script>';
 }
 //-------------------------------------------------
@@ -39,7 +39,7 @@ if($action=="Update"){
 
 
 	$SQL = "UPDATE users SET $values WHERE user_id = '$user_id' ";
-	$result = mysql_query($SQL);
+	$result = mysqli_query($GLOBALS["db_link_conn"], $SQL);
 	if($result)	echo '<script>correctMessageWithoutBack("'.Record_Update.'")</script>';
 }
 /**delete_grp_functions(part 1 of 2)********************************************/
@@ -52,8 +52,8 @@ if($action=="Delete"){
 }
 //-------------------------------------------------
 $sql = "SELECT * FROM users WHERE user_id=2  ";
-$result = MYSQL_QUERY($sql);
-$numberOfRows = MYSQL_NUMROWS($result);
+$result = mysqli_query($GLOBALS["db_link_conn"], $sql);
+$numberOfRows = mysqli_num_rows($result);
 $i=0;?>
 <div class="data">
 <form method='post' name='main' action='<?php echo $_SERVER['PHP_SELF']; ?>' enctype='multipart/form-data'>
@@ -77,12 +77,12 @@ function actionf(act){
 <tbody>
 <?php
 while ($i<$numberOfRows){
-	$user_id= MYSQL_RESULT($result,$i,"user_id");
-	$username= MYSQL_RESULT($result,$i,"username");
-	$password= MYSQL_RESULT($result,$i,"password");
-	$full_name= MYSQL_RESULT($result,$i,"full_name");
-	$email= MYSQL_RESULT($result,$i,"email");
-	$grp_id= MYSQL_RESULT($result,$i,"grp_id");?>
+	$user_id= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"user_id");
+	$username= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"username");
+	$password= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"password");
+	$full_name= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"full_name");
+	$email= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"email");
+	$grp_id= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"grp_id");?>
     	<TR>
 			<TD><input type="Text" name="username" size="20" value="<?php echo stripslashes($username); ?>" />
 				<input type="Hidden" name="user_id" size="20" value="<?php echo $user_id; ?>" />

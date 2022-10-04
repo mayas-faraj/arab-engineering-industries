@@ -9,7 +9,7 @@ $date = date('Y-m-d');
 $work = "";
 
 $SQL = "INSERT INTO mailing_list (email , uid , full_name , active , work, address, date ) VALUES ('$email' , '$uid' , '$full_name' , '1' , '$profession', '$address', '$date' )";
-$result = mysql_query($SQL);
+$result = mysqli_query($GLOBALS["db_link_conn"], $SQL);
 //echo "<script>document.location='"._PREF."'</script>";
 if($result)
 echo thanks_done;

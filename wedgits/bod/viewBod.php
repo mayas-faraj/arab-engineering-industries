@@ -6,28 +6,28 @@ $photo_path ="../../uploads/";
 $id = cleanString($_REQUEST['id']);
 
 $sql =  "SELECT * FROM  mem_council where id = '$id'";
-$result = MYSQL_QUERY($sql);
-$numrows = MYSQL_NUMROWS($result);
+$result = mysqli_query($GLOBALS["db_link_conn"], $sql);
+$numrows = mysqli_num_rows($result);
 if ($numrows>0) {
 	$i=0;
 	while ($i<$numrows){
-		$id=mysql_result($result, $i,"id");
-		$position=mysql_result($result, $i,"position_".$pageLang);
-		$name=mysql_result($result, $i,"name_".$pageLang);
-		$company=mysql_result($result, $i,"company_".$pageLang);
-		$country=mysql_result($result, $i,"country");
+		$id=mysqli_result($GLOBALS["db_link_conn"], $result, $i,"id");
+		$position=mysqli_result($GLOBALS["db_link_conn"], $result, $i,"position_".$pageLang);
+		$name=mysqli_result($GLOBALS["db_link_conn"], $result, $i,"name_".$pageLang);
+		$company=mysqli_result($GLOBALS["db_link_conn"], $result, $i,"company_".$pageLang);
+		$country=mysqli_result($GLOBALS["db_link_conn"], $result, $i,"country");
 		$country = lookupField('country','id','country_'.$pageLang,$country);
-		$biography=mysql_result($result, $i,"biography_".$pageLang);
-		$address=mysql_result($result, $i,"address_".$pageLang);
-		$terms=mysql_result($result, $i,"terms");
-		$tel=mysql_result($result, $i,"tel");
-		$fax=mysql_result($result, $i,"fax");
-		$email=mysql_result($result, $i,"email");
-		$website= str_replace('http://','',mysql_result($result, $i,"website"));
+		$biography=mysqli_result($GLOBALS["db_link_conn"], $result, $i,"biography_".$pageLang);
+		$address=mysqli_result($GLOBALS["db_link_conn"], $result, $i,"address_".$pageLang);
+		$terms=mysqli_result($GLOBALS["db_link_conn"], $result, $i,"terms");
+		$tel=mysqli_result($GLOBALS["db_link_conn"], $result, $i,"tel");
+		$fax=mysqli_result($GLOBALS["db_link_conn"], $result, $i,"fax");
+		$email=mysqli_result($GLOBALS["db_link_conn"], $result, $i,"email");
+		$website= str_replace('http://','',mysqli_result($GLOBALS["db_link_conn"], $result, $i,"website"));
 		
 		if(!$terms){$terms=0;}
 		
-		$photo = mysql_result($result, $i,"photo");
+		$photo = mysqli_result($GLOBALS["db_link_conn"], $result, $i,"photo");
 		
 		$root_path ="../../uploads/";
 		if($photo){
@@ -56,14 +56,14 @@ if ($numrows>0) {
 				<h2><?php echo TERMS; ?></h2>
 				<?php
 					$sql =  "SELECT * FROM  terms t, term_members tm where tm.term_id=t.id AND tm.member_id='$id' ORDER BY t.id DESC";
-					$result = MYSQL_QUERY($sql);
-					$numrows = MYSQL_NUMROWS($result);
+					$result = mysqli_query($GLOBALS["db_link_conn"], $sql);
+					$numrows = mysqli_num_rows($result);
 					if($numrows>0){
 						//echo "<div class='subtitle'>".Terms."</div>";
 						while($i<$numrows){
-							$start_year=mysql_result($result, $i,"start_year");
-							$end_year=mysql_result($result, $i,"end_year");
-							$position=mysql_result($result, $i,"position_".$pageLang);
+							$start_year=mysqli_result($GLOBALS["db_link_conn"], $result, $i,"start_year");
+							$end_year=mysqli_result($GLOBALS["db_link_conn"], $result, $i,"end_year");
+							$position=mysqli_result($GLOBALS["db_link_conn"], $result, $i,"position_".$pageLang);
 							echo "<div class='page_dt'>$start_year - $end_year: $position</div>";
 							$i++;
 						}

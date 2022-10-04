@@ -18,8 +18,8 @@ $limit = " LIMIT  $start, $LPP";
 $currentdate=date("Y-m-d");
 $whereStm = " WHERE  active='1' ";
  $sql = "SELECT * FROM mem_committees  $whereStm ORDER BY ord DESC $limit ";
-$result = MYSQL_QUERY($sql);
-$numberOfRows = MYSQL_NUMROWS($result);
+$result = mysqli_query($GLOBALS["db_link_conn"], $sql);
+$numberOfRows = mysqli_num_rows($result);
 ?>
 <div class='page_content'>
 <div class='title2'><?php echo Committees; ?></div>
@@ -27,11 +27,11 @@ $numberOfRows = MYSQL_NUMROWS($result);
 if ($numberOfRows>0) {
 	$i=0;
 	while ($i<$numberOfRows){
-		$id=mysql_result($result, $i,"id");
-		$id=mysql_result($result, $i,"id");
-		$subject=stripslashes(mysql_result($result, $i,"name_".$pageLang));
+		$id=mysqli_result($GLOBALS["db_link_conn"], $result, $i,"id");
+		$id=mysqli_result($GLOBALS["db_link_conn"], $result, $i,"id");
+		$subject=stripslashes(mysqli_result($GLOBALS["db_link_conn"], $result, $i,"name_".$pageLang));
 		
-		$start_date=mysql_result($result, $i,"creation_date");
+		$start_date=mysqli_result($GLOBALS["db_link_conn"], $result, $i,"creation_date");
 		if($start_date=='0000-00-00'){
 			$start_date='';
 		}else{
@@ -42,7 +42,7 @@ if ($numberOfRows>0) {
 			}
 		}
 		
-		$brief=stripslashes(mysql_result($result, $i,"brief_".$pageLang));
+		$brief=stripslashes(mysqli_result($GLOBALS["db_link_conn"], $result, $i,"brief_".$pageLang));
 		$brief =  limit($brief, $brief_count);
 		
 

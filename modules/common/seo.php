@@ -25,29 +25,29 @@ if($sub){
 	$description_ar = addslashes($_REQUEST['description_ar']);
 
 	$SQL = "INSERT INTO seo (filename , title_en , keywords_en , description_en, title_ar , keywords_ar , description_ar ) VALUES ('$filename' , '$title_en' , '$keywords_en' , '$description_en', '$title_ar' , '$keywords_ar' , '$description_ar' )";
-	$result = mysql_query($SQL);
+	$result = mysqli_query($GLOBALS["db_link_conn"], $SQL);
 	if($result)
  		echo Record_Enter;
 	else{
 		$SQL = "UPDATE seo SET title_en = '$title_en' , keywords_en = '$keywords_en' , description_en = '$description_en', title_ar = '$title_ar' , keywords_ar = '$keywords_ar' , description_ar = '$description_ar' WHERE filename = '$filename' ";
-		$result = mysql_query($SQL);
+		$result = mysqli_query($GLOBALS["db_link_conn"], $SQL);
 		echo Record_Update;
 	}
 }//Sub
 if((!$sub) || (!$result)){
 	$sql ="SELECT * FROM seo WHERE filename = '$filename' ";
-	$result = MYSQL_QUERY($sql);
-	$numberOfRows = MYSQL_NUMROWS($result);
+	$result = mysqli_query($GLOBALS["db_link_conn"], $sql);
+	$numberOfRows = mysqli_num_rows($result);
 	if ($numberOfRows>0) {
 		$i=0;
-		$id= MYSQL_RESULT($result,$i,"id");
-		$filename= MYSQL_RESULT($result,$i,"filename");
-		$title_en= MYSQL_RESULT($result,$i,"title_en");
-		$keywords_en= MYSQL_RESULT($result,$i,"keywords_en");
-		$description_en= MYSQL_RESULT($result,$i,"description_en");
-		$title_ar= MYSQL_RESULT($result,$i,"title_ar");
-		$keywords_ar= MYSQL_RESULT($result,$i,"keywords_ar");
-		$description_ar= MYSQL_RESULT($result,$i,"description_ar");
+		$id= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"id");
+		$filename= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"filename");
+		$title_en= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"title_en");
+		$keywords_en= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"keywords_en");
+		$description_en= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"description_en");
+		$title_ar= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"title_ar");
+		$keywords_ar= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"keywords_ar");
+		$description_ar= mysqli_result($GLOBALS["db_link_conn"], $result,$i,"description_ar");
 	}?>
     <div id="output">
     <form name="seoForm" method="post" action="<?php echo $_SERVER['PHP_SELF']?>" enctype="multipart/form-data">
