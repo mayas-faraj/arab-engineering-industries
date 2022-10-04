@@ -1,5 +1,5 @@
 <?php include_once("../common/header-admin.php"); ?>
-<?
+<?php
 //define ordering cretiria:
 function getNewHighlightOrder(){
 $lang = $_SESSION['lang'];
@@ -65,15 +65,15 @@ else echo '<script>cerrorMessage("'.CantInsert.'")</script>' ;
 }// Sub
 else{ ?>
 
-<? } ?>
-<? if((!$sub) || (!$result)){ ?>
+<?php } ?>
+<?php if((!$sub) || (!$result)){ ?>
 <div class="head"><h1 class="title_en"><?php echo Highlight?>: Enter Record</h1></div>
 <div id="output1"></div>
 <form name="subForm" method="post" action="<?php echo $_SERVER['PHP_SELF']?>" enctype="multipart/form-data">
 <input type="Hidden" name="sub" size="20" value="save" />
 <table>
 <input type="Hidden" name="id" size="20" value="<?php echo $id?>" class=""/>
-<?
+<?php
 ?>
 <tr>
 	<td align="<?php echo _ALI?>"><b><?php echo Photo?> (EN):</b></td>
@@ -88,7 +88,7 @@ else{ ?>
 	<td><input type="Text" name="photo_ar" size="20" value="<?php echo stripslashes($photo_ar)?>" class=""/>
 	<a href="javascript:mcImageManager.open('subForm','photo_ar','','',{relative_urls : true});">[Select file]</a> 450x265 px </td>
 </tr>
-<?
+<?php
 ?>
 <tr>
 <td align="<?php echo _ALI?>"><b><?php echo Title?> (EN):</b></td>
@@ -111,7 +111,7 @@ else{ ?>
 <td width="5">*</td>
 <td><input type="Text" name="type_ar" size="20" value="<?php echo stripslashes($type_ar)?>" class="required"/>  </td>
 </tr>
-<?
+<?php
 ?>
 <tr>
 <td align="<?php echo _ALI?>"><b><?php echo Link?> (EN):</b></td>
@@ -123,7 +123,7 @@ else{ ?>
 <td width="5"></td>
 <td><input type="Text" name="link_ar" size="20" value="<?php echo stripslashes($link_ar)?>" class=""/>  </td>
 </tr>
-<?
+<?php
 ?>
 <tr>
 <td align="<?php echo _ALI?>"><b><?php echo Description?> (EN):</b></td>
@@ -135,7 +135,7 @@ else{ ?>
 <td width="5"></td>
 <td><textarea name="description_ar" cols="40" rows="5"><?php echo $description_ar; ?></textarea></td>
 </tr>
-<?
+<?php
 ?>
 <tr>
 <td align="<?php echo _ALI; ?>"><span class="field_title_en"><?php echo Active; ?>:</span></td><td width="5" class=""></td>

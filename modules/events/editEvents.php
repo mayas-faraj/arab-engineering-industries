@@ -1,11 +1,11 @@
-<?  include_once("../common/header-admin.php");
+<?php  include_once("../common/header-admin.php");
 
 /***********Print Header*************/
 print_ListAdminHead("Events: Update", "Events", "", 0);
 
 ?>
 <div id="output1"></div>
-<?
+<?php
 $sub = $_REQUEST['sub'];
 
 if($sub){
@@ -121,6 +121,6 @@ if((!$sub) || (!$result)){
 	</table>
 	<input name="sub" type="submit" id="sub" value="Save">
     <input name="sub2" type="button" id="sub2" value="<?php echo Back; ?>" onClick=" document.location='listEvents.php?cat_id=<?php echo $cat_id; ?>'">
-    </form><?  
+    </form><?php  
 }
 include_once("../common/footer-admin.php"); ?>

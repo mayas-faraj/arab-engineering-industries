@@ -1,4 +1,4 @@
-<? include_once("../common/header-admin.php");
+<?php include_once("../common/header-admin.php");
 
 echo print_GridAdminHead("Users forum groups","Users forum groups", 1, 1, 1, 1);
 
@@ -89,7 +89,7 @@ function actionf(act){
 </TR>
 </thead>
 <tbody>
-<? if($action=="Enter"){ ?>
+<?php if($action=="Enter"){ ?>
 <TR>
 	<TD><input type="Text" name="username" size="20" value="<?php echo stripslashes($username); ?>"/></TD>
 	<TD><input type="Password" name="password" size="20" value="<?php echo stripslashes($password); ?>"/></TD>
@@ -141,7 +141,7 @@ while ($i<$numberOfRows){
 			<TD><?php echo lookupField('users_groups','grp_id','grp_name',$grp_id);; ?></TD>
 			<TD><?php echo limit(stripslashes($user_desc),300); ?></TD>
 			<TD>
-			<?
+			<?php
 			if($photo){
 				$thumb = resizeToFile('../../uploads/'.$photo, 100 , 100 , '../../uploads/cash/admin_forum_user_'.$photo);
 				echo "<img src='$thumb'/>";
@@ -151,9 +151,9 @@ while ($i<$numberOfRows){
 			?>
 			</TD>
 			<TD width="42" align="center"><a href='<?php echo _PREF; ?>modules/forum_users/listUsersForums.php?user_id=<?php echo $user_id; ?>'>Forums Groups</a></TD>
-			<TD width="42" align="center"><?=print_edit_icon($_SERVER['PHP_SELF']."?action=Edit&user_id=".$user_id)?></TD>
+			<TD width="42" align="center"><?php echo print_edit_icon($_SERVER['PHP_SELF']."?action=Edit&user_id=".$user_id)?></TD>
 			<?/**delete_grp_functions(part 1 of 2)********************************************/?>
-			<TD width="29" align="center"><? if($user_id>2) echo print_delete_ckbox($user_id);?></TD>
+			<TD width="29" align="center"><?php if($user_id>2) echo print_delete_ckbox($user_id);?></TD>
 			<?//-------------------------------------------------------?>
 		</TR>
 	<?}//end else
@@ -164,4 +164,4 @@ while ($i<$numberOfRows){
 <br><br>
 </form>
 </div>
-<? include_once("../common/footer-admin.php"); ?>
+<?php include_once("../common/footer-admin.php"); ?>

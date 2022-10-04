@@ -1,7 +1,7 @@
 <link rel="stylesheet" type="text/css" href='<?php echo _PREF; ?>wedgits/resources/resources_<?php echo $pageLang; ?>.css'/>	
 
 <div class='page_content'>
-<?
+<?php
 $id = cleanString($_REQUEST['id']);
 $currentdate=date("Y-m-d");
 $sql = "SELECT * FROM resources WHERE   id='$id'  ";

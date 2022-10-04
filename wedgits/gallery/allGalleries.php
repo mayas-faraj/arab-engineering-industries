@@ -5,7 +5,7 @@
 <div class="page_content" dir='<?php echo _DIR; ?>'>
 <div class='title2'><?php echo Galleries; ?></div>
 
-<?
+<?php
 $sql='SELECT * FROM `galleries_galleries` where isGallery="1"';
 $result = mysql_query($sql);
 $numrows = mysql_numrows($result);

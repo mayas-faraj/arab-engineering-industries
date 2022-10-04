@@ -1,4 +1,4 @@
-<? include_once("../common/header-admin.php");
+<?php include_once("../common/header-admin.php");
 
 echo print_GridAdminHead("Update Administrator info","Update Administrator info", 1, 1, 1, 1);
 
@@ -75,7 +75,7 @@ function actionf(act){
 </TR>
 </thead>
 <tbody>
-<?
+<?php
 while ($i<$numberOfRows){
 	$user_id= MYSQL_RESULT($result,$i,"user_id");
 	$username= MYSQL_RESULT($result,$i,"username");
@@ -93,7 +93,7 @@ while ($i<$numberOfRows){
 			<TD><?php echo print_save_icon("Update"); ?></TD>
 			<TD colspan="1">&nbsp;</TD>
 		</TR>
-   <?
+   <?php
 	$i++;  
 }?>
 </tbody>
@@ -101,4 +101,4 @@ while ($i<$numberOfRows){
 <br><br>
 </form>
 </div>
-<? include_once("../common/footer-admin.php"); ?>
+<?php include_once("../common/footer-admin.php"); ?>

@@ -1,4 +1,4 @@
-<? if(!$_SESSION["us_id"]){echo"<script>document.location='"._PREF."index.php'</script>";exit();} 
+<?php if(!$_SESSION["us_id"]){echo"<script>document.location='"._PREF."index.php'</script>";exit();} 
 $cat_id = cleanString($_REQUEST['cat_id']);
 ?>	
 <link rel="stylesheet" type="text/css" href='<?php echo _PREF; ?>wedgits/forum/articles_<?php echo $pageLang; ?>.css'/>
@@ -6,7 +6,7 @@ $cat_id = cleanString($_REQUEST['cat_id']);
 
 	
 	
-<?
+<?php
 if($cat_id){
 	if(cleanString($_REQUEST['pn']))	$pn = cleanString($_REQUEST['pn']);
 	$LPP = 20;
@@ -35,7 +35,7 @@ if($cat_id){
 		?>
 
 		
-		<?
+		<?php
 			$user_name = lookupField('users','user_id','full_name',cleanString($_SESSION["us_id"]));
 			$forum_name = lookupField('art_categories','id','name',cleanString($_REQUEST['cat_id']));
 		?>
@@ -48,7 +48,7 @@ if($cat_id){
 	<?}?>
 		
 		
-		<?
+		<?php
 	
 		if($_SESSION["us_id"]==$admin){
 			$whereStm = " WHERE (publish_date <= date(now())) and  active='1' and cat_id='$cat_id'  ";
@@ -79,7 +79,7 @@ if($cat_id){
 						<td class='art_date' align='center'><?php echo last_comment_date; ?></td>
 					</tr>
 
-			<?
+			<?php
 			while ($i<$numrows){
 				$id=mysql_result($result, $i,"id");
 				$title= stripslashes(mysql_result($result, $i,"title"));
@@ -97,7 +97,7 @@ if($cat_id){
 						<td class='art_autor' align='center'><?php echo $author; ?></td>
 						<td class='art_date' align='center'><?php echo $publish_date; ?></td>
 						<td class='last_art_date' align='center'>
-							<?
+							<?php
 								$com_sql =  "SELECT max(publish_date) FROM art_comments where art_id = '$id'";
 								$com_result = MYSQL_QUERY($com_sql);
 								$com_numrows = MYSQL_NUMROWS($com_result);
@@ -118,7 +118,7 @@ if($cat_id){
 
 					
 				
-				<?
+				<?php
 				$i++;
 			}
 			echo "</table>";

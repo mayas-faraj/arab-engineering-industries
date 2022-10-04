@@ -1,4 +1,4 @@
-<? 
+<?php 
 if(!$_SESSION["us_id"]){echo"<script>document.location='"._PREF."index.php'</script>";}
 $mem_id = $_REQUEST['mem_id']; 
 $cat_id = $_REQUEST['id'];
@@ -12,7 +12,7 @@ $mem_name = lookupField('users','user_id','full_name',$mem_id);
 	<div class="title2"><?php echo $mem_name; ?> <span><?echo Welcome.' <font><a href="viewForumMember.php?mem_id='.$_SESSION["us_id"].'&id='.$cat_id.'">'.$user_name.'</a></font>'?></span></div>
 
 	
-<?
+<?php
 
 if($_REQUEST['pn'])	$pn = $_REQUEST['pn'];
 	$LPP = 10;

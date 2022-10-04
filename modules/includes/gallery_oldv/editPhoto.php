@@ -59,7 +59,7 @@ require_once("../dbUtils.php");
 	</head>
 
 <body>
-<?
+<?php
 $id = $_GET['id'];
 $sql = "SELECT * FROM galleries_photos WHERE (id = '$id')";
 $result = MYSQL_QUERY($sql);

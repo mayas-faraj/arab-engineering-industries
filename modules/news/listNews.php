@@ -1,4 +1,4 @@
-<?
+<?php
 include_once("../common/header-admin.php");
 /***********Print Header*************/
 print_ListAdminHead("Announcements", "Announcements", "enterNewNews.php?$url", 1);
@@ -71,7 +71,7 @@ $i=0;?>
 </tr>
 </thead>
 <tbody>
-<?
+<?php
 while ($i<$numberOfRows){
 $id= MYSQL_RESULT($result,$i,"id");
 $subject = MYSQL_RESULT($result,$i,"subject");
@@ -83,7 +83,7 @@ $active= MYSQL_RESULT($result,$i,"active");
 <TD><?php echo stripslashes($subject); ?></TD>
 
 <TD><?php echo stripslashes($publish_date); ?></TD>
-<?
+<?php
 ?>
 
 
@@ -91,21 +91,21 @@ $active= MYSQL_RESULT($result,$i,"active");
 <?if($_SESSION['USER'] == 2){?>
 <td><a href="../includes/checkbox.php?t=news_news&fn=special&idn=id&idv=<?php echo $id; ?>&fv=<?php echo !($special); ?>" class="checkb" ><img src="<?php echo _PREF; ?>images/icons/_<?php echo $special?>_.png" border="0"  fv="<?php echo !($special); ?>"/></a></td>
 <?}?>
-<td align="center" width="30"><?=print_seo_icon("viewAnnounceDetails.php?id=".$id);?></td>
-<TD align="center" WIDTH="42"><?=print_edit_icon("editNews.php?cat_id=$cat_id&id=".$id);?></TD>
-<TD align="center" WIDTH="42"><?=print_delete_icon("?id=".$id."&sub=del");?></TD>
-<TD align="center" WIDTH="42"><?=print_view_icon("../../view/Anouncements/viewAnnounceDetails.php?id=".$id);?></TD>
+<td align="center" width="30"><?php echo print_seo_icon("viewAnnounceDetails.php?id=".$id);?></td>
+<TD align="center" WIDTH="42"><?php echo print_edit_icon("editNews.php?cat_id=$cat_id&id=".$id);?></TD>
+<TD align="center" WIDTH="42"><?php echo print_delete_icon("?id=".$id."&sub=del");?></TD>
+<TD align="center" WIDTH="42"><?php echo print_view_icon("../../view/Anouncements/viewAnnounceDetails.php?id=".$id);?></TD>
 </TR>
 <?$i++;
 }//End While?>
 </tbody>
 </TABLE>
 
-<?
+<?php
 /***********Bottom pagination*************/
 echo createPagination($tp,$pn,$LPP);
-?><br/><?
+?><br/><?php
 }?>
 <br/><br/>
-<?
+<?php
 include_once("../common/footer-admin.php"); ?>

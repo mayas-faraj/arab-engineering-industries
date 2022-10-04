@@ -1,4 +1,4 @@
-<?
+<?php
 $old_error_handler = set_error_handler("myErrorHandler");
 $err_msg = "";
 function myErrorHandler($errno, $errstr, $errfile, $errline)
@@ -26,7 +26,7 @@ function myErrorHandler($errno, $errstr, $errfile, $errline)
 	return true;
 }
 function addToLogFile($msg=""){
-	mysql_query("INSERT INTO log SET `user`='".$_SESSION[".SESSION_USER_NAME."] ."',`ip`='".VisitorIP()."',`datetime_stamp`='".date('Y-m-d H:i:s')."',`page`='".$_SERVER['REQUEST_URI']."', msg='$msg'");
+	mysqli_query($GLOBALS["db_link_conn"], "INSERT INTO log SET `user`='".$_SESSION[".SESSION_USER_NAME."] ."',`ip`='".VisitorIP()."',`datetime_stamp`='".date('Y-m-d H:i:s')."',`page`='".$_SERVER['REQUEST_URI']."', msg='$msg'");
 }
 function VisitorIP(){
 	if(isset($_SERVER['HTTP_X_FORWARDED_FOR']))

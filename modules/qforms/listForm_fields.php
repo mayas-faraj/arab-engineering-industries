@@ -1,4 +1,4 @@
-<?
+<?php
 include_once("../common/header-admin.php");
 
 /***********Print Header*************/
@@ -91,18 +91,18 @@ echo createPagination($tp,$pn,$LPP);
 <th colspan="4">&nbsp;</th>
 </TR>
 </thead>
-<tbody><?
+<tbody><?php
 if($action=="Enter"){?>
 <TR>
 <TD><input type="Text" name="field_label" size="20" value="<?php echo stripslashes($field_label)?>" /></TD>
 <TD>
 <select name="type">
-<option value="Label" <?=($type=='Label')? "selected" : "" ?>> Label</option>
-<option value="Field" <?=($type=='Field')? "selected" : "" ?>> Text Field</option>
-<option value="Email" <?=($type=='Email')? "selected" : "" ?>> E-mail</option>
-<option value="Area"  <?=($type=='Area') ? "selected" : "" ?>> Text Area</option>
-<option value="List"  <?=($type=='List') ? "selected" : "" ?>> List</option>
-<option value="Checkbox" <?=($type=='Checkbox') ? "selected" : "" ?>> Checkbox</option>
+<option value="Label" <?php echo ($type=='Label')? "selected" : "" ?>> Label</option>
+<option value="Field" <?php echo ($type=='Field')? "selected" : "" ?>> Text Field</option>
+<option value="Email" <?php echo ($type=='Email')? "selected" : "" ?>> E-mail</option>
+<option value="Area"  <?php echo ($type=='Area') ? "selected" : "" ?>> Text Area</option>
+<option value="List"  <?php echo ($type=='List') ? "selected" : "" ?>> List</option>
+<option value="Checkbox" <?php echo ($type=='Checkbox') ? "selected" : "" ?>> Checkbox</option>
 </select>
 </TD>
 <TD><input type="Text" name="plus" size="20" value="<?php echo stripslashes($plus)?>" /></TD>
@@ -125,12 +125,12 @@ if($action=="Edit"  && $_REQUEST['id'] == $id){?>
 <input type="Text" name="field_label" size="20" value="<?php echo stripslashes($field_label)?>" /></TD>
 <TD>
 <select name="type">
-<option value="Label" <?=($type=='Label')? "selected" : "" ?>> Label</option>
-<option value="Field" <?=($type=='Field')? "selected" : "" ?>> Text Field</option>
-<option value="Email" <?=($type=='Email')? "selected" : "" ?>> E-mail</option>
-<option value="Area"  <?=($type=='Area') ? "selected" : "" ?>> Text Area</option>
-<option value="List"  <?=($type=='List') ? "selected" : "" ?>> List</option>
-<option value="Checkbox" <?=($type=='Checkbox') ? "selected" : "" ?>> Checkbox</option>
+<option value="Label" <?php echo ($type=='Label')? "selected" : "" ?>> Label</option>
+<option value="Field" <?php echo ($type=='Field')? "selected" : "" ?>> Text Field</option>
+<option value="Email" <?php echo ($type=='Email')? "selected" : "" ?>> E-mail</option>
+<option value="Area"  <?php echo ($type=='Area') ? "selected" : "" ?>> Text Area</option>
+<option value="List"  <?php echo ($type=='List') ? "selected" : "" ?>> List</option>
+<option value="Checkbox" <?php echo ($type=='Checkbox') ? "selected" : "" ?>> Checkbox</option>
 </select>
 </TD>
 <TD><input type="Text" name="plus" size="20" value="<?php echo stripslashes($plus)?>" /></TD>
@@ -143,12 +143,12 @@ if($action=="Edit"  && $_REQUEST['id'] == $id){?>
 <TD><?php echo stripslashes($type)?></TD>
 <TD>&nbsp;<?php echo stripslashes($plus)?></TD>
 <td><a href="../includes/checkbox.php?t=form_fields&fn=required&idn=id&idv=<?php echo $id; ?>&fv=<?php echo !($required); ?>" class="checkb" ><img src="<?php echo _PREF; ?>images/icons/_<?php echo $required?>_.png" border="0"  fv="<?php echo !($required); ?>"/></a></td>
-<?
+<?php
 /**Ordering_functions(part 2 of 2)********************************************/
 showUpDownIcons($result, $i, "id", "item_order", "&form_id=".$form_id);
 /**Ordering_functions********************************************/
 ?>
-<TD width="42" align="center"><?=print_edit_icon($_SERVER['PHP_SELF']."?action=Edit&id=".$id."&form_id=".$form_id)?></TD>
+<TD width="42" align="center"><?php echo print_edit_icon($_SERVER['PHP_SELF']."?action=Edit&id=".$id."&form_id=".$form_id)?></TD>
 <TD width="29" align="center"><?php echo print_delete_ckbox($id); ?></TD>
 </TR>
 <?php

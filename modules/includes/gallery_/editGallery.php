@@ -70,7 +70,7 @@ if($action){
     <input type="hidden" value="<?php echo $gid; ?>" name="gid" />
 </form>
 
-<?
+<?php
 	}
 } 
 ?>
@@ -86,4 +86,4 @@ function formValidator(){
 
 </body>
 </html>
-<? }?>
+<?php }?>

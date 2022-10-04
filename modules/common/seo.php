@@ -9,7 +9,7 @@
 	height:80px;
 }
 </style>
-<?
+<?php
 $lang = addslashes($_REQUEST['lang']);
 if($lang=='en'){$hide_arabic=true;}elseif($lang=='ar'){$hide_english=true;}
 

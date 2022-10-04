@@ -49,11 +49,11 @@ $i=0;?>
 <tr>
 <th width="277"><?php echo print_AdminRecordHead("gallery_name_en", "Gallery name", $sb, $so); ?></th>
 <th width="277"><?php echo print_AdminRecordHead("main_phto", "Main photo", $sb, $so); ?></th>
-<th width="277"><?=print_AdminRecordHead("isGallery", "Is Gallery?", $sb, $so)?></th>
+<th width="277"><?php echo print_AdminRecordHead("isGallery", "Is Gallery?", $sb, $so)?></th>
 <th colspan="4">Controls  </th>
 </tr>
 </TR>
-</thead><tbody><?
+</thead><tbody><?php
 while ($i<$numberOfRows){
 $id= mysql_result($result,$i,"id");
 $gallery_name= mysql_result($result,$i,"gallery_name");
@@ -69,16 +69,16 @@ $isGallery= mysql_result($result,$i,"isGallery");
 <td><?php echo  lookupGallery($id); ?></td>
 <TD><a href="../includes/checkbox.php?t=galleries_galleries&fn=isGallery&idn=id&idv=<?php echo $id; ?>&fv=<?php echo !($isGallery); ?>" class="checkb" ><img src="<?php echo _PREF; ?>images/icons/_<?php echo $isGallery?>_.png" border="0"  fv="<?php echo !($isGallery); ?>"/></a></TD>
 <?php echo showUpDownIcons($result, $i, "id", "ord", "&term=".$term);; ?>
-<TD align="center" WIDTH="42"><?=print_edit_icon("javascript:winopen('../includes/gallery/editGallery.php?gid=$id',850,480)");?></TD>
-<TD align="center" WIDTH="42"><?=print_delete_icon("?id=".$id."&sub=del");?></TD>
+<TD align="center" WIDTH="42"><?php echo print_edit_icon("javascript:winopen('../includes/gallery/editGallery.php?gid=$id',850,480)");?></TD>
+<TD align="center" WIDTH="42"><?php echo print_delete_icon("?id=".$id."&sub=del");?></TD>
 </TR>
-<?
+<?php
 $i++;
 }//End While?>
 </tbody>
 </TABLE>
 
-<?
+<?php
 /***********Bottom pagination*************/
 echo createPagination($tp,$pn,$LPP);
 

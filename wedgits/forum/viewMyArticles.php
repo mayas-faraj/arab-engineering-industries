@@ -15,7 +15,7 @@
 
 
 	
-<?
+<?php
 	$user_id = $_SESSION["us_id"];
 	if(cleanString($_REQUEST['pn']))	$pn = cleanString($_REQUEST['pn']);
 	$LPP = 20;
@@ -54,7 +54,7 @@
 			<td class='art_date'><a href="viewMyArticles.php?cat_id=<?php echo cleanString($_REQUEST['id']); ?>&so=<?php echo $soo; ?>&sb=publish_date"><?php echo publish_date; ?></a></td>
 			<td class='art_date'><?php echo last_comment_date; ?></td>
 		</tr>
-	<?
+	<?php
 		while ($i<$numrows){
 			$id=mysql_result($result, $i,"id");
 			$title=mysql_result($result, $i,"title");
@@ -71,7 +71,7 @@
 					<td class='art_autor'><?php echo $author; ?></td>
 					<td class='art_date'><?php echo $publish_date; ?></td>
 					<td class='last_art_date'>
-						<?
+						<?php
 							$com_sql =  "SELECT max(publish_date) FROM art_comments where art_id = '$id'";
 							$com_result = MYSQL_QUERY($com_sql);
 							$com_numrows = MYSQL_NUMROWS($com_result);
@@ -91,7 +91,7 @@
 				</tr>
 			
 		
-			<?
+			<?php
 			$i++;
 		}
 		echo "</table>";

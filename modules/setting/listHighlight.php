@@ -1,4 +1,4 @@
-<? include_once("../common/header-admin.php");
+<?php include_once("../common/header-admin.php");
 
 echo print_GridAdminHead("Highlights","Highlights", 1, 1, 1, 1);
 
@@ -67,7 +67,7 @@ function actionf(act){
 </TR>
 </thead>
 <tbody>
-<? if($action=="Enter"){ ?>
+<?php if($action=="Enter"){ ?>
 
 <?}// Enter record
 while ($i<$numberOfRows){
@@ -93,7 +93,7 @@ while ($i<$numberOfRows){
    	<?}// Edit record
 	else{?>
 		<TR>
-			<?
+			<?php
 				switch($table_name){
 					case 'resources':
 						$title= lookupField('resources','id','title',$record_id);
@@ -115,7 +115,7 @@ while ($i<$numberOfRows){
 			<TD><?php echo stripslashes($title); ?></TD>			
 			<TD><?php echo stripslashes($publish_date); ?></TD>
 			<TD><?php echo stripslashes($end_date); ?></TD>
-			<TD width="42" align="center"><?=print_edit_icon($_SERVER['PHP_SELF']."?action=Edit&id=".$id)?></TD>
+			<TD width="42" align="center"><?php echo print_edit_icon($_SERVER['PHP_SELF']."?action=Edit&id=".$id)?></TD>
 			<TD width="29" align="center"><?php echo print_delete_ckbox($id); ?></TD>
 			<?//-------------------------------------------------------?>
 		</TR>
@@ -127,4 +127,4 @@ while ($i<$numberOfRows){
 <br><br>
 </form>
 </div>
-<? include_once("../common/footer-admin.php"); ?>
+<?php include_once("../common/footer-admin.php"); ?>

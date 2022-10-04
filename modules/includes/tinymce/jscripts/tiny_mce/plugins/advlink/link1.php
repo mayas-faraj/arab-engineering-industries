@@ -1,4 +1,4 @@
-<?	
+<?php	
 	include('../../../../../../../config.php');
 	include('../../../../../dbUtils.php');
 	include('../../../../../../common/dbConnection.php');

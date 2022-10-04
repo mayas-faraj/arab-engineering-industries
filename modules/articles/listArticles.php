@@ -1,4 +1,4 @@
-<? 
+<?php 
 include_once("../common/header-admin.php");
 
 
@@ -60,7 +60,7 @@ if ($numberOfRows>0) {
 	</tr>
 	</thead>
 	<tbody>
-	<?
+	<?php
     while ($i<$numberOfRows){
         $id= MYSQL_RESULT($result,$i,"id");
         $title= MYSQL_RESULT($result,$i,"title");
@@ -80,7 +80,7 @@ if ($numberOfRows>0) {
 			<td><a href="../includes/checkbox.php?t=art_articles&fn=active&idn=id&idv=<?php echo $id; ?>&fv=<?php echo !($active); ?>" class="checkb" ><img src="<?php echo _PREF; ?>images/icons/_<?php echo $active?>_.png" border="0"  fv="<?php echo !($active); ?>"/></a></td>
 			<td><a href="../includes/checkbox.php?t=art_articles&fn=publish&idn=id&idv=<?php echo $id; ?>&fv=<?php echo !($publish); ?>" class="checkb" ><img src="<?php echo _PREF; ?>images/icons/_<?php echo $publish?>_.png" border="0"  fv="<?php echo !($publish); ?>"/></a></td>
 			<?//=showUpDownIcons($result, $i, "id", "ord", "");?>
-			<?
+			<?php
 				$comment_count = mysql_result(mysql_query("SELECT count(*) FROM art_comments where art_id = '$id'"),0,'count(*)');
 				if($comment_count>0){?>
 					<td align="center" width="30"><a href="listArticlesComments.php?art_id=<?php echo $id; ?>">Comments(<?php echo $comment_count; ?>)</a></td>
@@ -88,16 +88,16 @@ if ($numberOfRows>0) {
 					<td align="center" width="30">No Comments</td>
 				<?}?>
 			
-			<td align="center" width="30"><?=print_seo_icon("viewArticles.php?id=".$id);?></td>
-			<TD align="center" WIDTH="42"><?=print_edit_icon("editArticles.php?id=".$id);?></TD>
-			<TD align="center" WIDTH="42"><?=print_delete_icon("?id=".$id."&sub=del");?></TD>
+			<td align="center" width="30"><?php echo print_seo_icon("viewArticles.php?id=".$id);?></td>
+			<TD align="center" WIDTH="42"><?php echo print_edit_icon("editArticles.php?id=".$id);?></TD>
+			<TD align="center" WIDTH="42"><?php echo print_delete_icon("?id=".$id."&sub=del");?></TD>
         </TR>
 		<?$i++;
     }//End While?>
     </tbody>
 	</TABLE>
 	
-	<?
+	<?php
 	/***********Bottom pagination*************/
 	echo createPagination($tp,$pn,$LPP);
 	

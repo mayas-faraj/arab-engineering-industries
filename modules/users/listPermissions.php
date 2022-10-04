@@ -2,7 +2,7 @@
 <h1 class="title"><?php echo Permissions?></h1>
 <br/><br/>
 <div id="output1"></div>
-<?
+<?php
 $sub = $_REQUEST['sub'];
 if($sub){
 	$permissions = addslashes($_REQUEST['permissions']);
@@ -20,7 +20,7 @@ if($sub){
 	if($result)	echo '<script>correctMessage("'.Record_Update.'")</script>';
 }
 ?>
-<?
+<?php
 $grp_id = $_REQUEST['grp_id'];
 $pn =  $_REQUEST['pn'];
 $so =  $_REQUEST['so'];
@@ -44,21 +44,21 @@ $i=0;
 <input name="permission" type="hidden">
 <input type="hidden" value="<?php echo $grp_id?>" name="grp_id" />
 <TABLE CELLSPACING="0" CELLPADDING="0" BORDER="0" WIDTH="100%" id="list">
-<?
+<?php
 while ($i<$numberOfRows){
 	$p= MYSQL_RESULT($result,$i,"p.role_id");
 	$r= MYSQL_RESULT($result,$i,"r.role_id");
 
 ?>
 	<TR>
-		<TD class="tableData"><input name="permission" type="checkbox" value="<?php echo $r; ?>" <?=($r==$p) ? "checked" : "" ?>  onClick="f();"> <?php echo lookupField('roles','role_id','role_name',$r) ?> </TD>
+		<TD class="tableData"><input name="permission" type="checkbox" value="<?php echo $r; ?>" <?php echo ($r==$p) ? "checked" : "" ?>  onClick="f();"> <?php echo lookupField('roles','role_id','role_name',$r) ?> </TD>
 	</TR>
 <?php 	$i++;
 	}//End While
 ?>
 </TABLE>
 <br><br>
-<? 
+<?php 
 }// End numberOfRows ?> 
 
 <div align="CENTER">

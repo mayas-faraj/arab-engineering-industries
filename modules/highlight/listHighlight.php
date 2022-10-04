@@ -1,4 +1,4 @@
-<?
+<?php
 include_once("../common/header-admin.php");
 /***********Print Header*************/
 print_ListAdminHead("Highlight", "Highlight", "enterNewHighlight.php", 1);
@@ -31,7 +31,7 @@ main.action.value = act;
 main.submit();
 }
 </script>
-<?
+<?php
 $action = $_REQUEST['action'];
 if($action=="Delete"){
 $array = $_POST['rid'];
@@ -75,16 +75,16 @@ $i=0;?>
 <TABLE class="selectable" CELLSPACING="0" CELLPADDING="0" BORDER="0" WIDTH="100%" id="list">
 <thead>
 <tr>
-<?
+<?php
 ?>
 <th width="277"><?php echo print_AdminRecordHead("photo_en", "Photo", $sb, $so, $static_order); ?></th>
-<?
+<?php
 ?>
 <th width="277"><?php echo print_AdminRecordHead("link_en", "Link", $sb, $so, $static_order); ?></th>
-<?
+<?php
 ?>
 <th width="277"><?php echo print_AdminRecordHead("title_en", "Title", $sb, $so, $static_order); ?></th>
-<?
+<?php
 ?>
 <th width="277"><?php echo print_AdminRecordHead("active", "Active", $sb, $so); ?></th>
 
@@ -92,7 +92,7 @@ $i=0;?>
 </tr>
 </thead>
 <tbody>
-<?
+<?php
 while ($i<$numberOfRows){
 $id = MYSQL_RESULT($result,$i,"id");
 $photo_en = MYSQL_RESULT($result,$i,"photo_en");
@@ -104,22 +104,22 @@ $active = mysql_result($result,$i,"active");
 
 
 <TR>
-<?
+<?php
 ?>
-<td><? if($photo_en!=""){?><img src="<?php echo resizeToFile('../../uploads/'.($photo_en),100,100,'../../uploads/mcith/mcith_'.basename($photo_en)); ?>"><? }else echo "&nbsp;"?></td>
-<?
+<td><?php if($photo_en!=""){?><img src="<?php echo resizeToFile('../../uploads/'.($photo_en),100,100,'../../uploads/mcith/mcith_'.basename($photo_en)); ?>"><?php }else echo "&nbsp;"?></td>
+<?php
 ?>
 <td>&nbsp;<?php echo stripslashes($link_en)?>&nbsp;</td>
-<?
+<?php
 ?>
 <td>&nbsp;<?php echo stripslashes($title_en)?></td>
-<?
+<?php
 ?>
 <td><a href="../includes/checkbox.php?t=highlight_highlight&fn=active&idn=id&idv=<?php echo $id; ?>&fv=<?php echo !($active); ?>" class="checkb" ><img src="<?php echo _PREF; ?>images/icons/_<?php echo $active?>_.png" border="0"  fv="<?php echo !($active); ?>"/></a></td>
 
 
-<TD align="center" WIDTH="42"><?=print_edit_icon("editHighlight.php?id=".$id);?></TD>
-<?
+<TD align="center" WIDTH="42"><?php echo print_edit_icon("editHighlight.php?id=".$id);?></TD>
+<?php
 /**Ordering_functions(part 2 of 2)********************************************/
 showUpDownIcons($result, $i, "id", "item_order", "");
 /**Ordering_functions********************************************/
@@ -128,7 +128,7 @@ showUpDownIcons($result, $i, "id", "item_order", "");
 
 
 
-<TD width="29" align="center"><?=($is_static == 0)? print_delete_ckbox($id):print_delete_ckbox()?></TD>
+<TD width="29" align="center"><?php echo ($is_static == 0)? print_delete_ckbox($id):print_delete_ckbox()?></TD>
 <?//-------------------------------------------------------?>
 </TR>
 <?$i++;
@@ -136,7 +136,7 @@ showUpDownIcons($result, $i, "id", "item_order", "");
 </tbody>
 </TABLE>
 </form></div>
-<?
+<?php
 /***********Bottom pagination*************/
 echo createPagination($tp,$pn,$LPP);
 }

@@ -1,11 +1,11 @@
-<?  include_once("../common/header-admin.php");
+<?php  include_once("../common/header-admin.php");
 
 /***********Print Header*************/
 print_ListAdminHead("Articles Comments: Update", "Articles Comments", "", 0);
 
 ?>
 <div id="output1"></div>
-<?
+<?php
 $sub = $_REQUEST['sub'];
 $art_id = $_REQUEST['art_id'];
 
@@ -80,6 +80,6 @@ if((!$sub) || (!$result)){
 	</table>
 	<input name="sub" type="submit" id="sub" value="Save">
     <input name="sub2" type="button" id="sub2" value="<?php echo Back; ?>" onClick=" document.location='listArticlesComments.php?art_id=<?php echo $art_id; ?>'">
-    </form><?  
+    </form><?php  
 }
 include_once("../common/footer-admin.php"); ?>

@@ -1,4 +1,4 @@
-<? 
+<?php 
 session_start();
 include_once("../../../config.php");
 include_once("../../common/dbConnection.php");
@@ -12,8 +12,8 @@ $res3= mysql_query($sql3);
 $rows3 = mysql_numrows($res3);
 if($rows3>0){
 $selThumb=mysql_result($res3,0,'thumb');
-?><div style="float:right; margin:10px; margin-right:50px;"><img src="../../../uploads/<?php echo $selThumb; ?>"/></div><?
-?><div style="margin:10px; float:left"><?
+?><div style="float:right; margin:10px; margin-right:50px;"><img src="../../../uploads/<?php echo $selThumb; ?>"/></div><?php
+?><div style="margin:10px; float:left"><?php
 if(isset($_REQUEST['id']) && isset($_REQUEST['opr'])) {	
 	if($opr=='info'){	
 		$sql = "SELECT * FROM galleries_galleries ";
@@ -44,7 +44,7 @@ if(isset($_REQUEST['id']) && isset($_REQUEST['opr'])) {
 			}
 		}
 		?><div><div class="gall_opr_butt" onclick="del_photo(<?php echo $Mid; ?>,'del','<?php echo $t; ?>')">Delete</div>
-        <div class="gall_opr_butt" onClick="$('#upload_div').hide('fast')">Cancel</div></div><?
+        <div class="gall_opr_butt" onClick="$('#upload_div').hide('fast')">Cancel</div></div><?php
 	}
 
 	if($opr=='del'){
@@ -109,4 +109,4 @@ if(isset($_REQUEST['id']) && isset($_REQUEST['opr'])) {
 	}
 }
 ?>
-</div> <? }}?>
+</div> <?php }}?>

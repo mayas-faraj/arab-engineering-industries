@@ -1,4 +1,4 @@
-<?
+<?php
 $rand_filename = cleanString($_REQUEST['file']);
 $original_filename = cleanString($_REQUEST['org']);
 $ext = end(explode('.', $rand_filename ));

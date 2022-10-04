@@ -1,4 +1,4 @@
-<? 
+<?php 
 include_once("../common/header-admin.php");
 
 
@@ -57,7 +57,7 @@ if ($numberOfRows>0) {
 	</tr>
 	</thead>
 	<tbody>
-	<?
+	<?php
     while ($i<$numberOfRows){
         $id= MYSQL_RESULT($result,$i,"id");
         $art_id= MYSQL_RESULT($result,$i,"art_id");
@@ -80,8 +80,8 @@ if ($numberOfRows>0) {
 			<TD><?php echo stripslashes($comment); ?></TD>
 			<td><a href="../includes/checkbox.php?t=art_comments&fn=active&idn=id&idv=<?php echo $id; ?>&fv=<?php echo !($active); ?>" class="checkb" ><img src="<?php echo _PREF; ?>images/icons/_<?php echo $active?>_.png" border="0"  fv="<?php echo !($active); ?>"/></a></td>
 			<?//=showUpDownIcons($result, $i, "id", "ord", " art_id=$art_id ");?>
-			<TD align="center" WIDTH="42"><?=print_edit_icon("editArticlesComments.php?id=".$id);?></TD>
-			<TD align="center" WIDTH="42"><?=print_delete_icon("?id=".$id."&sub=del&art_id=$art_id");?></TD>
+			<TD align="center" WIDTH="42"><?php echo print_edit_icon("editArticlesComments.php?id=".$id);?></TD>
+			<TD align="center" WIDTH="42"><?php echo print_delete_icon("?id=".$id."&sub=del&art_id=$art_id");?></TD>
         </TR>
 		<?$i++;
     }//End While?>
@@ -90,7 +90,7 @@ if ($numberOfRows>0) {
 	</form>
 	
 	
-	<?
+	<?php
 	/***********Bottom pagination*************/
 	echo createPagination($tp,$pn,$LPP);
 	

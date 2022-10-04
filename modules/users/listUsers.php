@@ -1,4 +1,4 @@
-<?
+<?php
 include_once("../common/header-admin.php");
 
 echo print_GridAdminHead("Users", "Users", 1, 1, 1, 1);
@@ -90,7 +90,7 @@ $i = 0;
                 </TR>
             </thead>
             <tbody>
-                <? if ($action == "Enter") { ?>
+                <?php if ($action == "Enter") { ?>
                     <TR>
                         <TD><input type="Text" name="username" size="20" value="<?php echo  stripslashes($username) ; ?>"/></TD>
                         <TD><input type="Password" name="password" size="20" value="<?php echo  stripslashes($password) ; ?>"/></TD>
@@ -101,7 +101,7 @@ $i = 0;
                         <TD><?php echo  print_save_icon("Insert") ; ?></TD>
                         <TD colspan="1">&nbsp;</TD>
                     </TR>
-                    <?
+                    <?php
                 }// Enter record
                 while ($i < $numberOfRows) {
                     $user_id = MYSQL_RESULT($result, $i, "user_id");
@@ -126,11 +126,11 @@ $i = 0;
                             <TD><?php echo  print_save_icon("Update") ; ?></TD>
                             <TD colspan="1">&nbsp;</TD>
                         </TR>
-                    <?
+                    <?php
                     }// Edit record
                     else {
                         ?>
-                        <?
+                        <?php
                         if ($user_id == 2) {
                             if ($_SESSION['USER'] == 2) {
                                 ?>
@@ -142,13 +142,13 @@ $i = 0;
                                     <TD><?php echo  lookupField('users_groups', 'grp_id', 'grp_name', $grp_id); ; ?></TD>
                                     <TD><?php echo  stripslashes($uploads_folder) ; ?></TD>
 
-                                    <TD width="42" align="center"><?= print_edit_icon($_SERVER['PHP_SELF'] . "?action=Edit&user_id=" . $user_id) ?></TD>
-                                    <? /*                                     * delete_grp_functions(part 1 of 2)******************************************* */ ?>
-                                    <TD width="29" align="center"><? if ($user_id > 2) echo print_delete_ckbox($user_id); ?></TD>
-                                <? //------------------------------------------------------- ?>
+                                    <TD width="42" align="center"><?php echo  print_edit_icon($_SERVER['PHP_SELF'] . "?action=Edit&user_id=" . $user_id) ?></TD>
+                                    <?php /*                                     * delete_grp_functions(part 1 of 2)******************************************* */ ?>
+                                    <TD width="29" align="center"><?php if ($user_id > 2) echo print_delete_ckbox($user_id); ?></TD>
+                                <?php //------------------------------------------------------- ?>
                                 </TR>
-            <? } ?>
-        <? }else { ?>
+            <?php } ?>
+        <?php }else { ?>
                             <TR>
                                 <TD><?php echo  stripslashes($username) ; ?></TD>
                                 <TD>******</TD>
@@ -157,15 +157,15 @@ $i = 0;
                                 <TD><?php echo  lookupField('users_groups', 'grp_id', 'grp_name', $grp_id); ; ?></TD>
                                 <TD><?php echo  stripslashes($uploads_folder) ; ?></TD>
 
-                                <TD width="42" align="center"><?= print_edit_icon($_SERVER['PHP_SELF'] . "?action=Edit&user_id=" . $user_id) ?></TD>
-                                <? /*                                 * delete_grp_functions(part 1 of 2)******************************************* */ ?>
-                                <TD width="29" align="center"><? if ($user_id > 2) echo print_delete_ckbox($user_id); ?></TD>
-                            <? //-------------------------------------------------------  ?>
+                                <TD width="42" align="center"><?php echo  print_edit_icon($_SERVER['PHP_SELF'] . "?action=Edit&user_id=" . $user_id) ?></TD>
+                                <?php /*                                 * delete_grp_functions(part 1 of 2)******************************************* */ ?>
+                                <TD width="29" align="center"><?php if ($user_id > 2) echo print_delete_ckbox($user_id); ?></TD>
+                            <?php //-------------------------------------------------------  ?>
                             </TR>
 
-                        <? } ?>
+                        <?php } ?>
 
-                        <?
+                        <?php
                     }//end else
                     $i++;
                 }//End While
@@ -175,4 +175,4 @@ $i = 0;
         <br><br>
     </form>
 </div>
-<? include_once("../common/footer-admin.php"); ?>
+<?php include_once("../common/footer-admin.php"); ?>

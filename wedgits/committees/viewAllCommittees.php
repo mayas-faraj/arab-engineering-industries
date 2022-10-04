@@ -1,5 +1,5 @@
 <link rel="stylesheet" type="text/css" href='<?php echo _PREF; ?>wedgits/committees/committees_<?php echo $pageLang; ?>.css'/>	
-<?
+<?php
 if($pageLang=='en'){
 	$id = 2;
 	$brief_count = 350;
@@ -23,7 +23,7 @@ $numberOfRows = MYSQL_NUMROWS($result);
 ?>
 <div class='page_content'>
 <div class='title2'><?php echo Committees; ?></div>
-<?
+<?php
 if ($numberOfRows>0) {
 	$i=0;
 	while ($i<$numberOfRows){

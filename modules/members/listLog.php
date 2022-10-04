@@ -1,4 +1,4 @@
-<?
+<?php
 include_once("../common/header-admin.php");
 /***********Print Header*************/
 print_ListAdminHead("AFEI Members","","enterNewMember.php", 0,1);
@@ -55,7 +55,7 @@ $i=0;?>
 </tr>
 </thead>
 <tbody>
-<?
+<?php
 while ($i<$numberOfRows){
 $id= MYSQL_RESULT($result,$i,"id");
 $user= MYSQL_RESULT($result,$i,"user");
@@ -76,11 +76,11 @@ $datetime_stamp= MYSQL_RESULT($result,$i,"datetime_stamp");
 </tbody>
 </TABLE>
 
-<?
+<?php
 /***********Bottom pagination*************/
 echo createPagination($tp,$pn,$LPP);
-?><br/><?
+?><br/><?php
 }?>
 <br/><br/>
-<?
+<?php
 include_once("../common/footer-admin.php"); ?>

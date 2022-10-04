@@ -16,14 +16,14 @@
 <!-- End VideoLightBox.com HEAD section -->
 
 <div class="page_content" dir='<?php echo _DIR; ?>'>
-<?
+<?php
 $gid = cleanString($_REQUEST['gid']);
 if($gid){
 	$lang_v = ($_SESSION['pageLang']=="ar")?'_ar':'';
 	$gallery_name = lookupField('galleries_galleries','id','gallery_name'.$lang_v,$gid);
 	?>
 	<div class='title2'><?php echo $gallery_name; ?></div>
-	<?
+	<?php
 	echo "<div class='gallery_show'>".ShowGallery3($gid)."</div>";
 	
 }

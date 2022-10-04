@@ -7,7 +7,7 @@
 	<div class="title2"><?php echo Topics; ?> <span><?echo Welcome.' <font><a href="myPage.php?mem_id='.cleanString($_SESSION["us_id"]).'&cat_id='.cleanString($_REQUEST['cat_id']).'">'.$user_name.'</a></font></font>'?></span></div>
 
 	
-<?
+<?php
 
 	if(cleanString($_REQUEST['pn']))	$pn = cleanString($_REQUEST['pn']);
 	$LPP = 20;
@@ -46,7 +46,7 @@
 					<td><?php echo $grp_admin; ?></td>
 					<td width='100px' align='center'><a class='forum_admin' href='viewAllForumMembers.php?id=<?php echo $id; ?>'><img src='../../wedgits/forum/members_ico.png'/></a></td>
 				</tr>
-			<?
+			<?php
 			$i++;
 		}
 		echo "</table>";

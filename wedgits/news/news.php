@@ -3,7 +3,7 @@
 <link rel="stylesheet" type="text/css" href="<?php echo _PREF; ?>wedgits/news/flexcrollstyles_<?php echo $pageLang; ?>.css" />
 <script type="text/javascript" src="<?php echo _PREF; ?>wedgits/news/flexcroll.js"></script>
 	
-<?
+<?php
 $item_counts =3;
 $root_path ="../../uploads/";
 //$sql = "SELECT * FROM highlight_highlight where  lang='$pageLang' and active ='1' ORDER BY item_order DESC limit 0,$item_counts";
@@ -71,4 +71,4 @@ if ($numrows>0) {
 	</div>
 	
 	
-	<? echo"<script>var current;var timer_news = setTimeout('next_news($item_counts,1)',500);</script>"?>
+	<?php echo"<script>var current;var timer_news = setTimeout('next_news($item_counts,1)',500);</script>"?>

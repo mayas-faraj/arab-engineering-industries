@@ -1,4 +1,4 @@
-<? include_once("../common/header-admin.php");
+<?php include_once("../common/header-admin.php");
 
 echo print_GridAdminHead("Terms","Terms", 1, 1, 1, 1);
 
@@ -68,7 +68,7 @@ function actionf(act){
 </TR>
 </thead>
 <tbody>
-<? if($action=="Enter"){ ?>
+<?php if($action=="Enter"){ ?>
 <TR>
 	<TD><input type="Text" name="start_year" size="20" value="<?php echo stripslashes($start_year); ?>"/></TD>
 	<TD><input type="Text" name="end_year" size="20" value="<?php echo stripslashes($end_year); ?>"/></TD>
@@ -101,7 +101,7 @@ while ($i<$numberOfRows){
 			<TD><?php echo stripslashes($start_year); ?></TD>
 			<TD><?php echo stripslashes($end_year); ?></TD>
 			<TD width="20px" align="center"><a href='term_members.php?term=<?php echo $id; ?>'>Term's members</a></TD>
-			<TD width="20px" align="center"><?=print_edit_icon($_SERVER['PHP_SELF']."?action=Edit&id=".$id)?></TD>
+			<TD width="20px" align="center"><?php echo print_edit_icon($_SERVER['PHP_SELF']."?action=Edit&id=".$id)?></TD>
 			<TD width="20px" align="center"><?php echo print_delete_ckbox($id); ?></TD>
 			<?//-------------------------------------------------------?>
 		</TR>
@@ -113,4 +113,4 @@ while ($i<$numberOfRows){
 <br><br>
 </form>
 </div>
-<? include_once("../common/footer-admin.php"); ?>
+<?php include_once("../common/footer-admin.php"); ?>

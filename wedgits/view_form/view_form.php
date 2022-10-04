@@ -1,7 +1,7 @@
 <link rel="stylesheet" type="text/css" href='<?php echo _PREF; ?>wedgits/view_form/view_form_<?php echo $pageLang; ?>.css'/>	
 <script src="<?php echo _PREF; ?>wedgits/view_form/view_form.js" language="javascript" type="text/javascript"></script>
 <div class="page_content" dir='<?php echo _DIR; ?>'>
-<?
+<?php
 	$page_name = getCurrentFormName();
 	if($page_name=='index'){
 		$path='';
@@ -14,7 +14,7 @@
 <input type='hidden' class='path' value='<?php echo $path; ?>'/>
 
 <div class='title'><?php echo lookupField('query_forms','form_id','form_name',$form_id);; ?></div>
-<? 
+<?php 
 	if($sub){
 		if( $_SESSION['security_code'] !=  cleanString($_REQUEST['code'])){
 		echo "<div class='form_msg'  >"._Xkeycode."</div>";
@@ -53,7 +53,7 @@
 	}
 ?>
 
-<?
+<?php
 
 $sql = "SELECT * FROM query_forms fo LEFT JOIN form_fields fi ON (fi.form_id = fo.form_id ) 
 WHERE fo.form_id  = '$form_id' ORDER BY item_order ASC";
@@ -72,7 +72,7 @@ if ($numberOfRows>0) {
 	<input type="hidden" name="id" value="<?php echo $from_id; ?>">
 	<input type="hidden" name="to" value="<?php echo _INFO; ?>">
 	<input type="hidden" name="no" value="<?php echo $numberOfRows; ?>">
-	<table width="100%" border="0" cellpadding="1" cellspacing="1" dir='<?php echo _DIR; ?>' style='float:Right;'><?
+	<table width="100%" border="0" cellpadding="1" cellspacing="1" dir='<?php echo _DIR; ?>' style='float:Right;'><?php
 	while ($i<$numberOfRows){
 		$label= MYSQL_RESULT($result,$i,"field_label");
 		$type= MYSQL_RESULT($result,$i,"type");
@@ -129,6 +129,6 @@ if ($numberOfRows>0) {
 	</form>
 	</div>
 
-<? 
+<?php 
 } //number Of Row?>
 </div>

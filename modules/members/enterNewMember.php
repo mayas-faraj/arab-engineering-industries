@@ -1,9 +1,9 @@
-<?  include_once("../common/header-admin.php");
+<?php  include_once("../common/header-admin.php");
 
 /***********Print Header*************/
 print_ListAdminHead("Member: Insert new member", "Members", "", 0);
 
-?><div id="output1"></div><?
+?><div id="output1"></div><?php
 
 $sub = $_REQUEST['sub'];
 if($sub){
@@ -83,7 +83,7 @@ else echo '<script>errorMessage("'.CantInsert.'")</script>' ;
 if((!$sub) || (!$result)){ ?>
 <form name="subForm" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>" enctype="multipart/form-data">
 <input type="Hidden" name="id" size="20" value="<?php echo $id; ?>" />
-<?
+<?php
 ?>
 
 <table>
@@ -185,10 +185,10 @@ if((!$sub) || (!$result)){ ?>
 </tr>
 </table>
 <input name="sub" type="submit" id="sub" value="Save">
-<?
+<?php
 ?>
 <input name="sub4" type="button" id="sub3" value="<?php echo all_Members; ?>" onClick=" document.location='listMembers.php?<?php echo $url; ?>'">
-</form><?
+</form><?php
 }
 include_once("../common/footer-admin.php"); ?>
 

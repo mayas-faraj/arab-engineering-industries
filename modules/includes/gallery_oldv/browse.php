@@ -139,15 +139,15 @@ while ($i<$numberOfRows){
 		<div class="img" align="center">
         <img src="<?php echo _PREF; ?>uploads/<?php echo $thumb; ?>" alt="<?php echo stripslashes($description); ?>" /></div>
         <div class="label" align="right">
-          <input type="checkbox" <? if(in_array($id,$resPhotos)){echo " checked ";}?> name="sel_pho[]" value="<?php echo $id; ?>" />
+          <input type="checkbox" <?php if(in_array($id,$resPhotos)){echo " checked ";}?> name="sel_pho[]" value="<?php echo $id; ?>" />
         <img src="../../../images/icons/Delete.png" width="20" hspace="3"style="cursor:pointer" onClick="del_conform(<?php echo $id; ?>)"/>
         <img src="../../../images/icons/Edit.png"   width="20" hspace="3" style="cursor:pointer" onClick="edit_conform(<?php echo $id; ?>)"/>
         </div>
         <div class="label" align="right">
-        <input type="radio" name="main_pho" <?	if($id==$mph){echo " checked ";}?> value="<?php echo $id; ?>" /> Main photo</div>
+        <input type="radio" name="main_pho" <?php	if($id==$mph){echo " checked ";}?> value="<?php echo $id; ?>" /> Main photo</div>
 		<!--<div><a href=\"editPhoto.php?id=$id\" class=\"popup\">Edit</a></div>-->
         </div>
-        <?
+        <?php
 		/*echo "<div class=\"thumb\" align=\"center\">
 		<div class=\"img\" align=\"center\"><img src=\"../../uploads/".$thumb."\" alt=\"".stripslashes($description)."\" /><br>".$photo."</div>
 		<div class=\"label\" align=\"left\"><input type=\"checkbox\" ";

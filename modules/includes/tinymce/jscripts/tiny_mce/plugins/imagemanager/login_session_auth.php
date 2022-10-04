@@ -47,30 +47,30 @@ h1 { font-size: 14px; }
 
 <div class="container">
 	<form action="login_session_auth.php" method="post">
-		<input type="hidden" name="return_url" value="<?=isset($_REQUEST['return_url']) ? htmlentities($_REQUEST['return_url']) : ""; ?>" />
+		<input type="hidden" name="return_url" value="<?php echo isset($_REQUEST['return_url']) ? htmlentities($_REQUEST['return_url']) : ""; ?>" />
 
 		<fieldset>
 			<legend>Example login</legend>
 
 			<div>
 				<label>Username:</label>
-				<input type="text" name="login" class="text" value="<?=isset($_POST['login']) ? htmlentities($_POST['login']) : ""; ?>" />
+				<input type="text" name="login" class="text" value="<?php echo isset($_POST['login']) ? htmlentities($_POST['login']) : ""; ?>" />
 			</div>
 
 			<div>
 				<label>Password:</label>
-				<input type="password" name="password" class="text" value="<?=isset($_POST['password']) ? htmlentities($_POST['password']) : ""; ?>" />
+				<input type="password" name="password" class="text" value="<?php echo isset($_POST['password']) ? htmlentities($_POST['password']) : ""; ?>" />
 			</div>
 
 			<div class="last">
 				<input type="submit" name="submit_button" value="Login" class="button" />
 			</div>
 
-<? if ($msg) { ?>
+<?php if ($msg) { ?>
 			<div class="error">
 				<?php echo $msg; ; ?>
 			</div>
-<? } ?>
+<?php } ?>
 		</fieldset>
 	</form>
 </div>

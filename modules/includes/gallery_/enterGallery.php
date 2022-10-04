@@ -78,4 +78,4 @@ function formValidator(){
 <br>
 </body>
 </html>
-<? }?>
+<?php }?>

@@ -1,4 +1,4 @@
-<?
+<?php
 	$page_name = getCurrentFormName();
 	if($page_name=='index'){
 		$path='';
@@ -14,16 +14,16 @@
 	
 		echo "<div class='filter_title' dir='"._DIR."'>".Filter_By.":</div>";
 		echo "<div class='styled-select'>";
-			?><input type='text' id='keyword' name='keyword'  value='<?php echo $keyword; ?>' onfocus='$(this).attr("value","")' onblur='if($(this).attr("value")=="" && $(this).attr("value")!="<?php echo $keyword; ?>"){$(this).attr("value","<?php echo $keyword; ?>");}'/> <?
+			?><input type='text' id='keyword' name='keyword'  value='<?php echo $keyword; ?>' onfocus='$(this).attr("value","")' onblur='if($(this).attr("value")=="" && $(this).attr("value")!="<?php echo $keyword; ?>"){$(this).attr("value","<?php echo $keyword; ?>");}'/> <?php
 		echo "</div>";
 		?>
 		<div class="side_filter">
-		<?
+		<?php
 		echo "<input type='button' value='".reset_filter."' onClick='document.location=\"viewAllResources.php\"' class='filter' />";
 		echo "<input type='submit' value='".Filter."' class='filter' />";
 		?>
 		</div>
-		<?
+		<?php
 	echo "</form>";
 	
 ?>

@@ -1,4 +1,4 @@
-<?
+<?php
 include_once("../common/header-admin.php");
 /***********Print Header*************/
 print_ListAdminHead("FYI", "FYI", "enterNewResource.php?$url", 1);
@@ -58,7 +58,7 @@ $i=0;?>
 </tr>
 </thead>
 <tbody>
-<?
+<?php
 while ($i<$numberOfRows){
 $id= MYSQL_RESULT($result,$i,"id");
 $title= MYSQL_RESULT($result,$i,"title");
@@ -69,19 +69,19 @@ $special= MYSQL_RESULT($result,$i,"special");
 <?if($_SESSION['USER'] == 2){?>
 	<td><a href="../includes/checkbox.php?t=resources&fn=special&idn=id&idv=<?php echo $id; ?>&fv=<?php echo !($special); ?>" class="checkb" ><img src="<?php echo _PREF; ?>images/icons/_<?php echo $special?>_.png" border="0"  fv="<?php echo !($special); ?>"/></a></td>
 <?}?>
-<TD align="center" WIDTH="42"><?=print_edit_icon("editResource.php?cat_id=$cat_id&id=".$id);?></TD>
-<TD align="center" WIDTH="42"><?=print_delete_icon("?id=".$id."&sub=del");?></TD>
+<TD align="center" WIDTH="42"><?php echo print_edit_icon("editResource.php?cat_id=$cat_id&id=".$id);?></TD>
+<TD align="center" WIDTH="42"><?php echo print_delete_icon("?id=".$id."&sub=del");?></TD>
 </TR>
 <?$i++;
 }//End While?>
 </tbody>
 </TABLE>
 
-<?
+<?php
 /***********Bottom pagination*************/
 echo createPagination($tp,$pn,$LPP);
-?><br/><?
+?><br/><?php
 }?>
 <br/><br/>
-<?
+<?php
 include_once("../common/footer-admin.php"); ?>

@@ -1,4 +1,4 @@
-<? include_once("../common/top.php"); ?>
+<?php include_once("../common/top.php"); ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 <HTML>
 <HEAD>
@@ -21,7 +21,7 @@
 <table width="960" height="100%" align="center" border="0" cellpadding="0" cellspacing="0" dir="<?php echo _DIR ?>" id="mainTable">
 	<tr>
 		<td>
-		<? include_once("../html/header.html");?>
+		<?php include_once("../html/header.html");?>
         </td>
 	</tr>
 	<tr>

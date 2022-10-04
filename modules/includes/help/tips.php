@@ -1,4 +1,4 @@
-<? include_once("../dbUtils.php"); ?>
+<?php include_once("../dbUtils.php"); ?>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"
 "http://www.w3.org/TR/REC-html40/loose.dtd">
@@ -7,7 +7,7 @@
 				<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
         </head>
         <body>
-			<?
+			<?php
 				$module=$_REQUEST['module'];
 				echo $module." help...";
 			?>

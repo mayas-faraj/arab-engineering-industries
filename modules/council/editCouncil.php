@@ -1,11 +1,11 @@
-<?  include_once("../common/header-admin.php");
+<?php  include_once("../common/header-admin.php");
 
 /***********Print Header*************/
 print_ListAdminHead("BOD: Update", "BOD", "", 0);
 
 ?>
 <div id="output1"></div>
-<?
+<?php
 $sub = $_REQUEST['sub'];
 $term = $_REQUEST['term'];
 if($sub){
@@ -111,7 +111,7 @@ $creator_id= MYSQL_RESULT($result,$i,"creator_id");
 <form name="subForm" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>" enctype="multipart/form-data">
 <input type="Hidden" name="id" size="20" value="<?php echo $id; ?>" />
 <input type="Hidden" name="term" size="20" value="<?php echo $term; ?>" />
-<?
+<?php
 ?>
 <table>
 
@@ -158,13 +158,13 @@ $creator_id= MYSQL_RESULT($result,$i,"creator_id");
 		 Ar: <input type="Text" name="position_ar" size="50" value='<?php echo stripslashes($position_ar); ?>' class="required" /></td>
 </tr>
 
-<?
+<?php
 ?>
 <tr>
 <td valign="top" align="<?php echo _ALI; ?>"><span class="field_title"><?php echo Country; ?>:</span></td><td width="5" class="required">*</td>
 <td><?php echo createComboBox("country", "id", "country_en", $country, "country","required");?></td>
 </tr>
-<?
+<?php
 ?>
 
 
@@ -174,7 +174,7 @@ $creator_id= MYSQL_RESULT($result,$i,"creator_id");
 		 Ar: <input type="Text" name="company_ar" size="50" value='<?php echo stripslashes($company_ar); ?>' class="required" /></td>
 </tr>
 
-<?
+<?php
 ?>
 <tr>
 <td valign="top" align="<?php echo _ALI; ?>"><span class="field_title"><?php echo Photo; ?>:</span></td><td width="5" class="required"></td>
@@ -216,10 +216,10 @@ $creator_id= MYSQL_RESULT($result,$i,"creator_id");
 
 </table>
 <input name="sub" type="submit" id="sub" value="Save">
-<?
+<?php
 $url = 'term='.$term;
 ?>
 <input name="sub4" type="button" id="sub3" value="All BOD Member" onClick=" document.location='listCouncilMembers.php?<?php echo $url; ?>'">
-</form><?
+</form><?php
 }
 include_once("../common/footer-admin.php"); ?>

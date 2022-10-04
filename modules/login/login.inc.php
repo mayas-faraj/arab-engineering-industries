@@ -1,4 +1,4 @@
-<?  
+<?php  
 // this function allows guest to browse the site with out password
 //in case ther is no password entered the user is a guest 
 function checkCurrentUser() {

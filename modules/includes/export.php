@@ -1,4 +1,4 @@
-<?
+<?php
 /**
  * To use this script you should pass the following variables in request :
  * 		1- $_POST['table'] : table from which the data will be exported

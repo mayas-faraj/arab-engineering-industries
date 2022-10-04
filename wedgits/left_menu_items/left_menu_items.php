@@ -1,5 +1,5 @@
 <link rel="stylesheet" type="text/css" href='<?php echo _PREF; ?>wedgits/left_menu_items/left_menu_items_<?php echo $pageLang; ?>.css'/>
-<?
+<?php
 	$page_name = getCurrentFormName();
 	if($page_name=='index'){
 		$path='';
@@ -31,7 +31,7 @@
 	?>
 	
 	<div class='left_menu_items'>
-	<?
+	<?php
 		$i=0;
 		while ($i<$menu_numrows){
 			$p_id= MYSQL_RESULT($menu_result,$i,"menu_id");
@@ -79,7 +79,7 @@
 		?>
 		
 </div>
-		<?
+		<?php
 	}else{
 		
 	}

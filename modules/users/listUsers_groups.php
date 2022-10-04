@@ -1,4 +1,4 @@
-<? include_once("../common/header-admin.php");
+<?php include_once("../common/header-admin.php");
 
 echo print_GridAdminHead("Users Groups","Users Groups", 1, 1, 1, 1);
 
@@ -64,7 +64,7 @@ function actionf(act){
 </TR>
 </thead>
 <tbody>
-<? if($action=="Enter"){ ?>
+<?php if($action=="Enter"){ ?>
 <TR>
 	<TD><input type="Text" name="grp_name" size="20" value="<?php echo stripslashes($grp_name); ?>"/></TD>
 	<TD><?php echo print_save_icon("Insert"); ?></TD>
@@ -86,7 +86,7 @@ while ($i<$numberOfRows){
 	else{?>
 		<TR>
 			<TD><?php echo stripslashes($grp_name); ?></TD>
-			<TD width="42" align="center"><?=print_edit_icon($_SERVER['PHP_SELF']."?action=Edit&grp_id=".$grp_id)?></TD>
+			<TD width="42" align="center"><?php echo print_edit_icon($_SERVER['PHP_SELF']."?action=Edit&grp_id=".$grp_id)?></TD>
 			
 			<TD width="30" align="center"><a href="listPermissions.php?grp_id=<?php echo $grp_id?>"><img src="../../images/icons/permissions.png" alt="<?php echo Permissions?>" border="0"></a></TD>
 			<?/**delete_grp_functions(part 1 of 2)********************************************/?>
@@ -101,4 +101,4 @@ while ($i<$numberOfRows){
 <br><br>
 </form>
 </div>
-<? include_once("../common/footer-admin.php"); ?>
+<?php include_once("../common/footer-admin.php"); ?>

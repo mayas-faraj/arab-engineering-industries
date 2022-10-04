@@ -1,16 +1,16 @@
-<?
+<?php
 	function addNewMember($thisEmail , $name){
 		$thisId = rand(106,5245);
 		$thisUid = getUid($thisEmail , $thisId);
 		$sqlQuery = "INSERT INTO mailing_list (email,uid,full_name ) VALUES ('$thisEmail','$thisUid','$name')";
-		$result = MYSQL_QUERY($sqlQuery);
+		$result = mysqli_QUERY($GLOBALS["db_link_conn"], $sqlQuery);
 		if(!$result) return false;
 		return true;
 	}
 	
 	function unsubscribe($thisEmail , $thisUid){
 		$sql = "UPDATE mailing_list SET sub='0' WHERE (email = '$thisEmail') AND (uid = '$thisUid')";
-		$result = MYSQL_QUERY($sql);
+		$result = mysqli_QUERY($GLOBALS["db_link_conn"], $sql);
 		if($result) return true;
 		return false;
 	}
@@ -25,14 +25,14 @@
 	function sendNewsletter($newsTitle,$newsBody){
 		
 		$sql = "SELECT * FROM mailing_list WHERE active='1'" ;
-		$result = MYSQL_QUERY($sql);
-		$numberOfRows = MYSQL_NUMROWS($result);
+		$result = mysqli_QUERY($GLOBALS["db_link_conn"], $sql);
+		$numberOfRows = mysqli_num_rows($result);
 		
 		$i=0;
 		while ($i < $numberOfRows){
-			$thisEmail = MYSQL_RESULT($result,$i,"email");
-			$thisUid = MYSQL_RESULT($result,$i,"uid");
-			$thisName = MYSQL_RESULT($result,$i,"full_name");
+			$thisEmail = mysqli_RESULT($GLOBALS["db_link_conn"], $result,$i,"email");
+			$thisUid = mysqli_RESULT($GLOBALS["db_link_conn"], $result,$i,"uid");
+			$thisName = mysqli_RESULT($GLOBALS["db_link_conn"], $result,$i,"full_name");
 			/* recipients */
 			$to  = $thisEmail ; // note the comma
 			/* subject */

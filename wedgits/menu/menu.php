@@ -3,7 +3,7 @@
 
 <div class='menu' dir='<?php echo _DIR; ?>'>
 	<ul id="cssdropdown">
-	<?
+	<?php
 	$act = cleanString($_REQUEST['act']);
 	$menu_sql = "SELECT * FROM menus WHERE (lang = '$pageLang') AND p_id=0 order by item_order ASC";
 	$menu_result = MYSQL_QUERY($menu_sql);

@@ -1,4 +1,4 @@
-<? include_once("../common/header-admin.php");
+<?php include_once("../common/header-admin.php");
 $term = addslashes($_REQUEST['term']);
 $start_year = lookupField('terms','id','start_year',$term);
 $end_year = lookupField('terms','id','end_year',$term);
@@ -87,7 +87,7 @@ function actionf(act){
 </TR>
 </thead>
 <tbody>
-<? if($action=="Enter"){ ?>
+<?php if($action=="Enter"){ ?>
 <TR>
 	<TD><?php echo createComboBox("mem_council", "id", "name_en", $member_id, "member" , "required");; ?></TD>
 	<TD><input type="Text" name="position_en" size="20" value="<?php echo stripslashes($position_en); ?>"/></TD>
@@ -124,7 +124,7 @@ while ($i<$numberOfRows){
 			<TD><?php echo stripslashes($position_ar); ?></TD>
 			<TD><?php echo stripslashes($ord); ?></TD>
 			<?//=showUpDownIcons($result, $i, "id", "ord", "&term=".$term);?>
-			<TD width="42" align="center"><?=print_edit_icon($_SERVER['PHP_SELF']."?term=$term&action=Edit&id=".$id)?></TD>
+			<TD width="42" align="center"><?php echo print_edit_icon($_SERVER['PHP_SELF']."?term=$term&action=Edit&id=".$id)?></TD>
 			<?/**delete_grp_functions(part 1 of 2)********************************************/?>
 			<TD width="29" align="center"><?php echo print_delete_ckbox($id); ?></TD>
 			<?//-------------------------------------------------------?>
@@ -139,4 +139,4 @@ while ($i<$numberOfRows){
 </div>
 
 <input type="button" name="back" value="<?php echo  Back?>" onClick="javascript:window.location='terms.php';">
-<? include_once("../common/footer-admin.php"); ?>
+<?php include_once("../common/footer-admin.php"); ?>

@@ -1,4 +1,4 @@
-<?
+<?php
 include_once("../common/header-admin.php");
 /***********Print Header*************/
 print_ListAdminHead("News", "News", "enterNewNews.php?$url", 1);
@@ -43,22 +43,22 @@ $i=0;?>
 <thead>
 <tr>
 <th width="277"><?php echo print_AdminRecordHead("subject", "Subject", $sb, $so); ?></th>
-<?
+<?php
 ?>
 <th width="277"><?php echo print_AdminRecordHead("publish_date", "Publish Date", $sb, $so); ?></th>
-<?
+<?php
 ?>
 <th width="277"><?php echo print_AdminRecordHead("special", "Special", $sb, $so); ?></th>
-<?
+<?php
 ?>
 <th width="277"><?php echo print_AdminRecordHead("active", "Active", $sb, $so); ?></th>
-<?
+<?php
 ?>
 <th colspan="4">Controls  </th>
 </tr>
 </thead>
 <tbody>
-<?
+<?php
 while ($i<$numberOfRows){
 $id= MYSQL_RESULT($result,$i,"id");
 $subject= MYSQL_RESULT($result,$i,"subject");
@@ -68,32 +68,32 @@ $active= MYSQL_RESULT($result,$i,"active");
 ?>
 <TR>
 <TD><?php echo stripslashes($subject); ?></TD>
-<?
+<?php
 ?>
 <TD><?php echo stripslashes($publish_date); ?></TD>
-<?
+<?php
 ?>
 <td><a href="../includes/checkbox.php?t=news_news&fn=special&idn=id&idv=<?php echo $id; ?>&fv=<?php echo !($special); ?>" class="checkb" ><img src="<?php echo _PREF; ?>images/icons/_<?php echo $special?>_.png" border="0"  fv="<?php echo !($special); ?>"/></a></td>
-<?
+<?php
 ?>
 <td><a href="../includes/checkbox.php?t=news_news&fn=active&idn=id&idv=<?php echo $id; ?>&fv=<?php echo !($active); ?>" class="checkb" ><img src="<?php echo _PREF; ?>images/icons/_<?php echo $active?>_.png" border="0"  fv="<?php echo !($active); ?>"/></a></td>
-<?
+<?php
 ?>
-<td align="center" width="30"><?=print_seo_icon("viewNews.php?id=".$id);?></td>
-<TD align="center" WIDTH="42"><?=print_edit_icon("editNews.php?cat_id=$cat_id&id=".$id);?></TD>
-<TD align="center" WIDTH="42"><?=print_delete_icon("?id=".$id."&sub=del");?></TD>
-<TD align="center" WIDTH="42"><?=print_view_icon("viewNews.php?id=".$id);?></TD>
+<td align="center" width="30"><?php echo print_seo_icon("viewNews.php?id=".$id);?></td>
+<TD align="center" WIDTH="42"><?php echo print_edit_icon("editNews.php?cat_id=$cat_id&id=".$id);?></TD>
+<TD align="center" WIDTH="42"><?php echo print_delete_icon("?id=".$id."&sub=del");?></TD>
+<TD align="center" WIDTH="42"><?php echo print_view_icon("viewNews.php?id=".$id);?></TD>
 </TR>
 <?$i++;
 }//End While?>
 </tbody>
 </TABLE>
 
-<?
+<?php
 /***********Bottom pagination*************/
 echo createPagination($tp,$pn,$LPP);
-?><br/><?
+?><br/><?php
 }?>
 <br/><br/>
-<?
+<?php
 include_once("../common/footer-admin.php"); ?>

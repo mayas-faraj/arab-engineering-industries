@@ -1,6 +1,6 @@
 <link rel="stylesheet" type="text/css" href='<?php echo _PREF; ?>wedgits/contact_us/contact_us_<?php echo $pageLang; ?>.css'/>	
 <script src="<?php echo _PREF; ?>wedgits/view_form/view_form.js" language="javascript" type="text/javascript"></script>
-<?
+<?php
 //------------ Page Text----------------------------------------------------------
 if($pageLang=='en'){
 	$id = 2;
@@ -14,10 +14,10 @@ $title = lookupField('pages','id','title',$id);
 <div class='title2'><?php echo $title; ?></div>
 
 
-	<?
+	<?php
 	$sub = $_POST['sub'];
 	if($sub){?>
-		<?
+		<?php
 		if( $_SESSION['security_code'] !=  cleanString($_REQUEST['code'])){?>
 			<!--script>
 				$('.document').ready(function (){
@@ -26,7 +26,7 @@ $title = lookupField('pages','id','title',$id);
 					setTimeout("$('#success_window').hide();",3000);
 				});
 			</script-->
-			<?
+			<?php
 			echo "<div class='form_msg' >"._Xkeycode."</div>";
 
 			$xcode=1;
@@ -70,7 +70,7 @@ $title = lookupField('pages','id','title',$id);
 						setTimeout("$('#success_window').hide();",3000);
 					});
 				</script-->
-					<?
+					<?php
 					echo "<div class='form_msg' >".ysend."</div>";
 				
 				$user_message = cleanString($_REQUEST['note']);//mysql_result(mysql_query('select * from messages where id=1'),0,'message');
@@ -89,7 +89,7 @@ $title = lookupField('pages','id','title',$id);
 						setTimeout("$('#success_window').hide();",3000);
 					});
 				</script-->
-				<?
+				<?php
 					echo "<div class='form_msg' >".xsend."</div>";
 
 				$xsend=1;
@@ -111,7 +111,7 @@ $title = lookupField('pages','id','title',$id);
 		<tr>
 		
 			<td valign='top' >
-				<?
+				<?php
 
 				//------------ Page Text----------------------------------------------------------
 
@@ -124,7 +124,7 @@ $title = lookupField('pages','id','title',$id);
 		</tr>
 		<tr>
 			<td valign='top'  align='<?php echo _SALI; ?>' >
-				<?
+				<?php
 				if((!$sub) || $xcode || $xsend){ ?>
 
 

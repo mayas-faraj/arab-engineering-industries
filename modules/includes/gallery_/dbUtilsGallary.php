@@ -1,4 +1,4 @@
-<?
+<?php
 function checkGallogin(){
 	if($_SESSION['USER']){return true;}else{return false;}
 }

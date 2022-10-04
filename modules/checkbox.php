@@ -1,4 +1,4 @@
-<? require_once("../common/top.php");
+<?php require_once("../common/top.php");
 $table = $_GET['t'];
 $fname = $_GET['fn'];
 $fvalue = ($_GET['fv']) ? "1" : "0";

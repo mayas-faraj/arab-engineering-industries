@@ -1,4 +1,4 @@
-<?
+<?php
 define('PROJECT_PREFIX','_GEN');
 define('APPLICATION_NAME','');
 define('_Encoding','utf-8');

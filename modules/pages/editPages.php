@@ -1,11 +1,11 @@
-<?  include_once("../common/header-admin.php");
+<?php  include_once("../common/header-admin.php");
 
 /***********Print Header*************/
 print_ListAdminHead("Pages: Update", "Pages", "", 0);
 
 ?>
 <div id="output1"></div>
-<?
+<?php
 $sub = $_REQUEST['sub'];
 if($sub){
 $id = addslashes($_REQUEST['id']);
@@ -44,31 +44,31 @@ $lang= MYSQL_RESULT($result,$i,"lang");
 <td width="5" class="required">*</td>
 <td><input type="Text" name="title" size="50" value="<?php echo stripslashes($title); ?>" class="required" /></td>
 </tr>
-<?
+<?php
 ?>
 <tr>
 <td align="<?php echo _ALI; ?>" valign="top"><span class="field_title"><?php echo Brief; ?>:</span></td>
 <td width="5" class="required"></td>
 <td><textarea name="brief" cols="50" rows="4" class="simpleEditor" ><?php echo stripslashes($brief); ?></textarea></td>
 </tr>
-<?
+<?php
 ?>
 <tr>
 <td align="<?php echo _ALI; ?>" valign="top"><span class="field_title"><?php echo Details; ?>:</span></td>
 <td width="5" class="required"></td>
 <td><textarea name="details" cols="50" rows="4" class="mceEditor" ><?php echo stripslashes($details); ?></textarea></td>
 </tr>
-<?
+<?php
 ?>
 <tr>
 <td align="<?php echo _ALI; ?>"><span class="field_title"><?php echo Lang; ?>:</span></td><td width="5" class="required">*</td>
 <td><?php echo createComboBox("languages" , "lang", "lang_name" , $lang , "lang", "required");; ?></td>
 </tr>
-<?
+<?php
 ?>
 </table>
 <input name="sub" type="submit" id="sub" value="Save">
 <input name="sub2" type="button" id="sub2" value="<?php echo ALL_Pages; ?>" onClick=" document.location='listPages.php'">
-</form><?
+</form><?php
 }
 include_once("../common/footer-admin.php"); ?>

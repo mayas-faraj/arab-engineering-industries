@@ -1,4 +1,4 @@
-<? include_once("../common/header-admin.php");
+<?php include_once("../common/header-admin.php");
 
 echo print_GridAdminHead("Activities Levels","Levels", 1, 1, 1, 1);
 
@@ -65,7 +65,7 @@ function actionf(act){
 </TR>
 </thead>
 <tbody>
-<? if($action=="Enter"){ ?>
+<?php if($action=="Enter"){ ?>
 <TR>
 	<TD><input type="Text" name="name_en" size="20" value="<?php echo stripslashes($name_en); ?>"/></TD>
 	<TD><input type="Text" name="name_ar" size="20" value="<?php echo stripslashes($name_ar); ?>"/></TD>
@@ -94,7 +94,7 @@ while ($i<$numberOfRows){
 		<TR>
 			<TD><?php echo stripslashes($name_en); ?></TD>
 			<TD><?php echo stripslashes($name_ar); ?></TD>
-			<TD width="42" align="center"><?=print_edit_icon($_SERVER['PHP_SELF']."?action=Edit&id=".$id)?></TD>
+			<TD width="42" align="center"><?php echo print_edit_icon($_SERVER['PHP_SELF']."?action=Edit&id=".$id)?></TD>
 			<?/**delete_grp_functions(part 1 of 2)********************************************/?>
 			<TD width="29" align="center"><?php echo print_delete_ckbox($id); ?></TD>
 			<?//-------------------------------------------------------?>
@@ -107,4 +107,4 @@ while ($i<$numberOfRows){
 <br><br>
 </form>
 </div>
-<? include_once("../common/footer-admin.php"); ?>
+<?php include_once("../common/footer-admin.php"); ?>

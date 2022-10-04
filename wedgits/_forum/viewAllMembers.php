@@ -1,4 +1,4 @@
-<? 
+<?php 
 if(!$_SESSION["us_id"]){echo"<script>document.location='"._PREF."index.php'</script>";} 
 $user_name = lookupField('users','user_id','full_name',$_SESSION["us_id"]);
 $cat_id = $_REQUEST['id'];
@@ -9,7 +9,7 @@ $cat_id = $_REQUEST['id'];
 	
 	<div class="title2"><?php echo form_members_inner; ?> (<?php echo lookupField('art_categories','id','name',$cat_id); ?>) <span><?echo Welcome.' <font><a href="myPage.php?mem_id='.$_SESSION["us_id"].'&cat_id='.$cat_id.'">'.$user_name.'</a></font>'?></span></div>
 	
-<?
+<?php
 
 if($_REQUEST['pn'])	$pn = $_REQUEST['pn'];
 	$LPP = 10;
@@ -67,7 +67,7 @@ if($_REQUEST['pn'])	$pn = $_REQUEST['pn'];
 				?>
 					<tr class='no_link'>
 						<td width='100px' align='center'>
-							<?
+							<?php
 								if($photo){
 									$thumb = resizeToFile('../../uploads/'.$photo, 100 , 100 , '../../uploads/cash/admin_forum_user_'.$photo);
 									echo "<img src='$thumb'/>";
@@ -81,7 +81,7 @@ if($_REQUEST['pn'])	$pn = $_REQUEST['pn'];
 						<td><?php echo $email; ?></td>
 					
 					</tr>
-				<?
+				<?php
 				$i++;
 			}
 			echo "</table>";

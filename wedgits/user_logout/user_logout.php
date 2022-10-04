@@ -1,6 +1,6 @@
 <script src="<?php echo _PREF; ?>wedgits/user_logout/user_logout.js" language="javascript" type="text/javascript"></script>
 <link rel="stylesheet" type="text/css" href='<?php echo _PREF; ?>wedgits/user_logout/user_logout_<?php echo $pageLang; ?>.css'/>
-<?
+<?php
 $page_name = getCurrentFormName();
 	if($page_name=='index'){
 		$paths='';

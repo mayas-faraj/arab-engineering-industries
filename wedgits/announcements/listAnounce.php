@@ -3,7 +3,7 @@
 
 <div class='page_content'>
 <div class='title2'><?php echo Announcements; ?></div>
-<?
+<?php
 $photo_path ="../../uploads/";
 
 $brief_count = 150;

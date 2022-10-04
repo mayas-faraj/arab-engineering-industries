@@ -1,4 +1,4 @@
-<?
+<?php
 include_once("../common/header-admin.php");
 /***********Print Header*************/
 print_ListAdminHead("Pages", "Pages", "enterNewPages.php", 1);
@@ -15,7 +15,7 @@ main.action.value = act;
 main.submit();
 }
 </script>
-<?
+<?php
 $action = $_REQUEST['action'];
 if($action=="Delete"){
 $array = $_POST['rid'];
@@ -57,16 +57,16 @@ $i=0;?>
 <thead>
 <tr>
 <th width="277"><?php echo print_AdminRecordHead("title", "Title", $sb, $so); ?></th>
-<?
+<?php
 ?>
 <th width="277"><?php echo print_AdminRecordHead("lang", "Language", $sb, $so); ?></th>
-<?
+<?php
 ?>
 <th colspan="5">Controls</th>
 </tr>
 </thead>
 <tbody>
-<?
+<?php
 while ($i<$numberOfRows){
 $id= MYSQL_RESULT($result,$i,"id");
 $title= MYSQL_RESULT($result,$i,"title");
@@ -75,17 +75,17 @@ $lang= MYSQL_RESULT($result,$i,"lang");
 ?>
 <TR>
 <TD><?php echo stripslashes($title); ?>&nbsp;</TD>
-<?
+<?php
 ?>
 <TD><?php echo stripslashes($lang); ?>&nbsp;</TD>
 
-<?
+<?php
 ?>
-<td align="center" width="30"><?=print_seo_icon("page.php?id=".$id,$lang);?></td>
-<TD align="center" WIDTH="42"><?=print_edit_icon("editPages.php?id=".$id);?></TD>
-<TD align="center" WIDTH="42"><?=print_view_icon(_PREF."view/page/page.php?id=".$id);?></TD>
+<td align="center" width="30"><?php echo print_seo_icon("page.php?id=".$id,$lang);?></td>
+<TD align="center" WIDTH="42"><?php echo print_edit_icon("editPages.php?id=".$id);?></TD>
+<TD align="center" WIDTH="42"><?php echo print_view_icon(_PREF."view/page/page.php?id=".$id);?></TD>
 <?/**delete_grp_functions(part 1 of 2)********************************************/?>
-<TD width="29" align="center"><?=($is_static == 0)? print_delete_ckbox($id):print_delete_ckbox()?></TD>
+<TD width="29" align="center"><?php echo ($is_static == 0)? print_delete_ckbox($id):print_delete_ckbox()?></TD>
 <?//-------------------------------------------------------?>
 </TR>
 <?$i++;
@@ -93,7 +93,7 @@ $lang= MYSQL_RESULT($result,$i,"lang");
 </tbody>
 </TABLE>
 </form></div>
-<?
+<?php
 /***********Bottom pagination*************/
 echo createPagination($tp,$pn,$LPP);
 }

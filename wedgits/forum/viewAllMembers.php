@@ -8,7 +8,7 @@ $cat_id = cleanString($_REQUEST['id']);
 	
 	<div class="title2"><?php echo form_members_inner; ?> (<?php echo lookupField('art_categories','id','name',$cat_id); ?>) <span><?echo Welcome.' <font><a href="myPage.php?mem_id='.$_SESSION["us_id"].'&cat_id='.$cat_id.'">'.$user_name.'</a></font>'?></span></div>
 	
-<?
+<?php
 
 if(cleanString($_REQUEST['pn']))	$pn = cleanString($_REQUEST['pn']);
 	$LPP = 10;
@@ -66,7 +66,7 @@ if(cleanString($_REQUEST['pn']))	$pn = cleanString($_REQUEST['pn']);
 				?>
 					<tr class='no_link'>
 						<td width='100px' align='center'>
-							<?
+							<?php
 								if($photo){
 									$thumb = resizeToFile('../../uploads/'.$photo, 100 , 100 , '../../uploads/cash/admin_forum_user_'.$photo);
 									echo "<img src='$thumb'/>";
@@ -80,7 +80,7 @@ if(cleanString($_REQUEST['pn']))	$pn = cleanString($_REQUEST['pn']);
 						<td ><?php echo $email; ?></td>
 					
 					</tr>
-				<?
+				<?php
 				$i++;
 			}
 			echo "</table>";

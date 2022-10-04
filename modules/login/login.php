@@ -1,4 +1,4 @@
-<?
+<?php
 session_start();
 include_once("../../config.php");
 include_once("../common/dbConnection.php");
@@ -93,7 +93,7 @@ input{
 </style>
 </head>
 <body>
-<?
+<?php
 $result = mysql_query( " SELECT * FROM blocked_ips WHERE (ip='$curr_ip') " );
 if (mysql_num_rows($result) > 0 ) {
 	echo "<div style='color:red; width:100%; float:left; margin-left:-200px; text-align:center;'>Sorry: You been blocked because you exceeded the allowed number of login attempts</div>";

@@ -126,11 +126,11 @@ if($action=="Edit"  && $_REQUEST['id'] == $id){
 <!--TD><?php echo stripslashes($lang); ?></TD-->
 <TD align="center" width="50"><a href='listTopicGroups.php?topic_id=<?php echo $id; ?>'> Allowed groups (<?php echo $users_count; ?>)</a></td>
 <TD align="center" width="50"><a href='listArticles.php?cat_id=<?php echo $id; ?>'> List Discussions (<?php echo $news_count; ?>)</a></td>
-<TD align="center" WIDTH="20"><?=print_edit_icon($_SERVER['PHP_SELF']."?action=Edit&id=".$id);?></TD>
+<TD align="center" WIDTH="20"><?php echo print_edit_icon($_SERVER['PHP_SELF']."?action=Edit&id=".$id);?></TD>
 <TD align="center" WIDTH="20"><input name="rid[]" type="checkbox" value="<?php echo $id; ?>"/></TD>
 </TR><?}
 }/* end */
 
 $i++;}
 //End While?>
-</tbody></TABLE></form></div><? include_once("../common/footer-admin.php");?>
+</tbody></TABLE></form></div><?php include_once("../common/footer-admin.php");?>

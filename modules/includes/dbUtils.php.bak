@@ -1,0 +1,2489 @@
+<?php 
+include("dbUtils_sec.php");
+
+function cleanString($text){
+	$nonASCII = array("$", "!", "@", "#", "%", "^", "&", "*");
+	$nonASCII_text = str_replace($nonASCII, "",$text);
+	$new_text = strip_tags($nonASCII_text);
+	return $new_text;
+}
+
+function checkGallogin(){
+	if($_SESSION['USER']){return true;}else{return false;}
+}
+
+function getFolderImages($folder_path){
+	$myDirectory = opendir ( $folder_path );
+	$modules = array ();
+	while ( $entryName = readdir ( $myDirectory ) ) {
+		if ($entryName != '.' && $entryName != '..' && (((strpos($entryName,'.jpg')) OR strpos($entryName,'.JPG')) OR (strpos($entryName,'.png')) OR (strpos($entryName,'.PNG')) OR (strpos($entryName,'.gif')) OR (strpos($entryName,'.GIF'))) ){
+			$modules [] = $entryName;
+		}	
+	}
+	
+	return $modules;
+}
+
+function getMainPhoto($gallery,$width,$height,$photos_path,$thumb_prefex,$default_photo,$hasDefault){
+	$main_photo_id=0;
+	if($gallery){
+		$main_photo_id = lookupField('galleries_galleries','id','main_photo',$gallery);
+		if($main_photo_id){
+			$main_photo = basename(lookupField('galleries_photos','id','photo',$main_photo_id));
+			$thumb = basename(resizeToFile($photos_path.'/'.$main_photo, $width , $height , $photos_path."/cash/$thumb_prefex".$main_photo));	
+		}
+		
+	}
+	if($main_photo_id!=0){				
+		if(file_exists("$photos_path/cash/$thumb")){
+			$src = "$photos_path/cash/$thumb";
+		}else{	
+			$src = "$photos_path/$thumb";		
+		}
+	}else{
+		if($hasDefault){
+			$src=$default_photo;
+		}else{
+			return false;
+		}
+	}
+	return $src;
+}
+
+
+function returnImplode_ids($table,$condition,$imploded_field){
+	$sql = "SELECT * FROM  $table  where $condition";
+	$result = MYSQL_QUERY($sql);
+	$numberOfRows = MYSQL_NUMROWS($result);
+	$i=0;
+	$fields = '';
+	while ($i<$numberOfRows){
+		$field = MYSQL_RESULT($result,$i,$imploded_field);
+		if($fields==''){
+			$fields = $field;
+		}else{
+			$fields .= ','.$field;
+		}
+		$i++;
+	}
+	return $fields;
+}
+
+
+
+function get_current_path(){
+	$out_of_chain_page = false;
+	$file = getFileURI();
+	$prev_file = getPrevFileURI();
+	
+	$current_item = getMenuId($file,$_SESSION['pageLang']);
+	if(!$current_item){	
+		
+		$current_item = getMenuId($prev_file,$_SESSION['pageLang']);
+		$out_of_chain_page = true;
+	}
+	$has_parent = lookupField('menus','menu_id','p_id',$current_item);
+	$parent =     lookupField('menus','menu_id','p_id',$current_item);
+
+	echo '<a href="'._PREF.'">'.home.'</a> ';
+	
+	if($current_item){
+		if($has_parent){
+			echo ' <span class="sep">></span> <a href="'._PREF.lookupField('menus','menu_id','item_link',$parent).'">'.lookupField('menus','menu_id','item_label',$parent).'</a>';
+			echo ' <span class="sep">></span> <a href="'._PREF.lookupField('menus','menu_id','item_link',$current_item).'">'.lookupField('menus','menu_id','item_label',$current_item).'</a>';
+		}else{
+			echo ' <span class="sep">></span> <a href="'._PREF.lookupField('menus','menu_id','item_link',$current_item).'">'.lookupField('menus','menu_id','item_label',$current_item).'</a>';
+		}
+	}
+	if(!$current_item OR $out_of_chain_page){
+		$current_form =  getCurrentFormName();
+		$prev_form = getPrevFormName();
+		$id = cleanString($_REQUEST['id']);
+		if(!$id){$id=cleanString($_REQUEST['gid']);}
+		
+		$current = get_current_form_label($current_form,$id);
+		$prev = get_current_form_label($prev_form,$id);
+		
+		if(!$out_of_chain_page){
+			foreach($prev as $label=>$link){
+				echo '<span class="sep"> > </span><a href="'.$link.'">'.$label.'</a>';
+			}
+		}
+
+		foreach($current as $label=>$link){
+			
+			echo '<span class="sep"> > </span><a href="'.$link.'">'.$label.'</a>';
+		}
+	}
+}
+
+
+
+
+
+function get_current_form_label($current_form,$id){
+
+
+
+
+	$path_limit = 75;
+	
+
+	
+	switch($current_form){
+		case ('query_forms'):	 	
+			$page_title = limit(lookupField('query_forms','form_id','form_name',$id),$path_limit,0);
+			return  array(
+						$page_title => '#'
+					);
+		break;
+		case ('viewAllCat'):
+			return  array(
+						Topics => '#'
+					);
+		break;
+		case ('changePass'):
+		
+		
+			 $cat_id = cleanString($_REQUEST['cat_id']);
+			 $page_title = limit(lookupField('art_categories','id','name',$cat_id),$path_limit,0);
+			 return  array(
+						Topics => _PREF."view/forum/viewAllCat.php",
+						$page_title => _PREF."view/forum/viewAllArticles.php?cat_id=$cat_id",
+						changePass => '#'
+					);
+					
+			$cat_id = cleanString($_REQUEST['cat_id']);
+
+		
+		break;
+		case ('contact'):
+			return  array(
+						Contact => '#'
+					);
+
+		break;
+
+		case ('viewAllGalleries'):	 
+			return  array(
+						photo_album => _PREF."view/gallery/viewAllGalleries.php",
+					);
+		break;
+		
+		
+		case ('viewGallery'):	 
+			$lang_prefex = '_'.$_SESSION['pageLang'];
+			//if($_SESSION['pageLang']=='en'){$lang_prefex='';}else{$lang_prefex='_ar';}
+		
+			$page_title = limit(lookupField('galleries_galleries','id','gallery_name'.$lang_prefex,$id),$path_limit,0);
+			return  array(
+						//Albums => _PREF."view/gallery/viewAllGalleries.php",
+						$page_title => '#'
+					);
+		break;
+
+		case ('viewAllProducts'):	 
+			return  array(
+						Products => '#'
+					);
+		break;
+		case ('viewProduct'):	 
+			$page_title = limit(lookupField('ecom_products','pro_id','pro_name_'.$_SESSION['pageLang'],$id),$path_limit,0);
+			 return  array(
+						Books => _PREF."view/products/viewAllProducts.php",
+						$page_title => '#'
+					);
+		break;
+		
+		case ('viewAllResources'):	 
+			 return  array(
+						Resources => '#'
+					);
+		break;
+		case ('viewResources'):	 
+			$page_title = limit(lookupField('resources','id','keyword',$id),$path_limit,0);
+			 return  array(
+						Resources => _PREF."view/resources/viewAllResources.php",
+						$page_title => '#'
+					);
+		break;
+		
+		case ('viewAnnouncements'):	
+			return  array(
+						Announcements => '#'
+					);
+		break;		
+		
+		case ('viewAnnounceDetails'):	 
+			if($_SESSION['pageLang']=='en'){$lang_prefex='';}else{$lang_prefex='_ar';}
+			$page_title = limit(lookupField('news_news','id','subject'.$lang_prefex,$id),$path_limit,0);
+			 return  array(
+						//Announcements => _PREF."view/Anouncements/viewAnnouncements.php",
+						$page_title => '#'
+					);
+		break;
+		
+		
+		case ('viewNews'):	 
+			$page_title = limit(lookupField('news_news','id','subject',$id),$path_limit,0);
+			 return  array(
+						//our_news => _PREF."view/news/viewAllNews.php",
+						$page_title => '#'
+					);
+		break;
+		case ('viewAllNews'):	 
+			 return  array(
+						our_news => '#'
+					);
+		break;
+		
+		case ('viewSitemap'):	 
+			 return  array(
+						Sitemap => '#'
+					);
+		break;
+		
+		case ('viewSearch'):	 
+			 return  array(
+						search_result => '#'
+					);
+		break;
+		
+		
+		case ('viewArticles'):	 
+			$cat_id = cleanString($_REQUEST['cat_id']);
+			$page_title = limit(lookupField('art_articles','id','title',$id),$path_limit,0);
+			$page_parent = limit(lookupField('art_categories','id','name',$cat_id),$path_limit,0);
+			 return  array(
+						Topics => _PREF."view/forum/viewAllCat.php",
+						$page_parent => _PREF."view/forum/viewAllArticles.php?cat_id=$cat_id",
+						$page_title => '#'
+					);
+		break;
+		case ('addArticle'):	 
+					
+			$cat_id = cleanString($_REQUEST['cat_id']);
+			$page_title = limit(lookupField('art_categories','id','name',$cat_id),$path_limit,0);
+			return  array(
+						Topics => _PREF."view/forum/viewAllCat.php",
+						$page_title => _PREF."view/forum/viewAllArticles.php?cat_id=$cat_id",
+						AddArticle => '#'
+					);
+		break;
+		
+		case ('myPage'):	 
+			 return  array(
+						Topics => _PREF."view/forum/viewAllCat.php",
+						myPage => '#'
+					);
+		break;
+
+		break;
+		case ('viewAllForumMembers'):
+			$page_title = limit(lookupField('art_categories','id','name',$id),$path_limit,0);
+			 return  array(
+						Topics => _PREF."view/forum/viewAllCat.php",
+						$page_title => _PREF."view/forum/viewAllArticles.php?cat_id=$id",
+						forum_members => '#'
+					);
+		break;
+		case ('viewForumMember'):
+			$mem_id = cleanString($_REQUEST['mem_id']); 
+			$page_title = limit(lookupField('art_categories','id','name',$id),$path_limit,0);
+			$mem_name = lookupField('users','user_id','full_name',$mem_id);
+			 return  array(
+						Topics => _PREF."view/forum/viewAllCat.php",
+						$page_title => _PREF."view/forum/viewAllArticles.php?cat_id=$id",
+						forum_members => _PREF."view/forum/viewAllForumMembers.php?id=$id",
+						$mem_name => '#'
+					);
+		break;
+		case ('viewAllArticles'):	 
+			$id = cleanString($_REQUEST['cat_id']);
+			$page_title = limit(lookupField('art_categories','id','name',$id),$path_limit,0);
+			return  array(
+						Topics => _PREF."view/forum/viewAllCat.php",
+						$page_title => '#'
+					);
+		break;
+		
+		case ('viewAllBod'):	 
+			 return  array(
+						bod => _PREF."view/bod/viewAllBod.php"
+					);
+		break;
+		case ('viewBod'):	 
+			$page_title = limit(lookupField('mem_council','id','name_'.$_SESSION['pageLang'],$id),$path_limit,0);
+			 return  array(
+						//bod => _PREF."view/bod/viewAllBod.php",
+						$page_title => '#'
+					);
+		break;
+		
+		case ('viewAllActivities'):	 
+			 return  array(
+						Activities => _PREF."view/activities/viewAllActivities.php"
+					);
+		break;
+		case ('viewActivities'):	 
+			if($_SESSION['pageLang']=='ar'){
+				$lang_prex = '_ar';
+			}
+			$page_title = limit(lookupField('mem_activities','id','subject'.$lang_prex,$id),$path_limit,0);
+			return  array(
+						//Activities => _PREF."view/activities/viewAllActivities.php",
+						$page_title => '#'
+					);
+		break;
+		
+		case ('viewAllCommittees'):	 
+			 return  array(
+						Committees => _PREF."view/committees/viewAllCommittees.php"
+					);
+		break;
+		
+		case ('viewCommittees'):	
+			$page_title = limit(lookupField('mem_committees','id','name_'.$_SESSION['pageLang'],$id),$path_limit,0);
+			return  array(
+					//Committees => _PREF."view/committees/viewAllCommittees.php",
+					$page_title => '#'
+				);
+		break;
+		
+		case ('viewAllMembers'):	 
+			 return  array(
+						MEMBERS => _PREF."view/members/viewAllMembers.php"
+					);
+		break;
+		case ('viewMember'):
+			$page_title = limit(lookupField('mem_members','id','name_'.$_SESSION['pageLang'],$id),$path_limit,0);
+			 return  array(
+						//MEMBERS => _PREF."view/members/viewAllMembers.php",
+						$page_title => '#'
+					);
+		break;
+		
+		case ('viewAnnounceDetails'):
+			$page_title = limit(lookupField('news_news','id','subject',$id),$path_limit,0);
+			 return  array(
+						//Announcements => _PREF."view/Anouncements/viewAnnouncements.php",
+						$page_title => '#'
+					);
+		break;
+		
+		case ('login'):	 
+			 return  array(
+						Login => '#'
+					);
+		break;
+		case ('register'):	 
+			 return  array(
+						Registration_Form => '#'
+					);
+		break;
+		case ('page'):	
+			$title = lookupField('pages','id','title',$id);
+			return  array(
+						$title => '#'
+					);
+		break;
+	}
+}
+
+
+
+
+function get_parent_link($current_form){
+	
+	switch($current_form){
+		case ('viewGallery'):	 
+			return array('gallery/viewAllGalleries.php',Albums);
+		break;
+
+		case ('viewProduct'):	 
+			return array('products/viewAllProducts.php',Books);
+			
+		break;
+		
+		case ('viewResources'):	 
+			 return array('resources/viewAllResources.php',Resources);
+		break;
+		
+		case ('viewAnnounceDetails'):	 
+			 return  array('Anouncements/viewAnnouncements.php',Announcements);
+		break;
+		
+		case ('viewNews'):	 
+			 return  array('news/viewAllNews.php',our_news);
+		break;
+		
+		case ('viewArticles'):	 
+			 return  array('forum/viewAllArticles.php',our_articles);
+		break;
+		
+		case ('viewMyArticles'):	 
+			 return  array('forum/viewAllArticles.php',our_articles);
+		break;
+		
+		case ('viewBod'):	 
+			 return  array('bod/viewAllBod.php',bod);
+		break;
+		
+		case ('viewActivities'):	 
+			return  array('activities/viewAllActivities.php',Activities);
+		break;
+		
+		case ('viewCommittees'):	 
+			  return  array('committees/viewAllCommittees.php',Committees);
+		break;
+		
+		case ('viewMember'):
+			 return  array('members/viewAllMembers.php',MEMBERS);
+		break;
+	}
+}
+
+
+
+
+function getMagOrder($mm){
+	$sql = "SELECT MAX(ord) AS max FROM magz_pages where magz_id='$mm'";
+	$result = mysql_query($sql);
+	if ($result) return $max = MYSQL_RESULT($result,0,'max')+1;
+	else return 1;
+}
+
+/**
+ * Exports table specific data to excel file according to some condition   
+ * 
+ * @param string $table table from which the data will be exported
+ * @param string $fields (Optional) A comma separated list of fields to export from the specified table
+ * @param string $condition (Optional) Free condition according to which data will be retrieved
+ * @param string $orderBy (Optional) A comma separated list of fields to order exported data according to it
+ * @param string $outputFilename (Optional) The name of the excel file to be exported 
+ */
+function exportDataToExcel($table,$fields="*",$condition="",$orderBy="",$outputFilename="default.xls"){
+	$sql="SELECT $fields FROM `$table` ";
+	$sql.=($condition!="")?" WHERE ".$condition:"";
+	$sql.=($orderBy!="")?" ORDER BY ".$orderBy:"";
+	if(exportSqlToExcel($sql,$outputFilename)==false){
+		return false;
+	}
+}
+/**
+ * Exports the result of the specified SQL query
+ * 
+ * @param string $sql the SQL statement according to which the data will be exported
+ * @param string $outputFilename (Optional) The name of the excel file to be exported 
+ */
+function exportSqlToExcel($sql,$outputFilename="default.xls"){
+	$result=mysql_query($sql);
+	$numRows=mysql_num_rows($result);
+	$excelArray=array();
+	if($numRows>0){
+		$i = 0;
+		$headerRow=array();
+		while ($i < mysql_num_fields($result)) {
+			$meta = mysql_fetch_field($result, $i);
+			$headerRow[]=$meta->name;
+			$i++;
+		}
+		$excelArray[]=$headerRow;
+		$i=0;
+		while($i<$numRows){
+			$arr=array();
+			$arr=mysql_fetch_array($result,MYSQL_NUM);
+			$excelArray[]=$arr;
+			$i++;
+		}
+		exportArrayToExcel($excelArray,$outputFilename);
+	}
+	else 
+	{
+		return false;
+	}
+}
+/**
+ * Exports the passed array to an excel file
+ * 
+ * @param Array $arr a 2-D array to export to excel
+ * @param string $outputFilename (Optional) The name of the excel file to be exported
+ */
+function exportArrayToExcel($arr,$outputFilename="default.xls"){
+	if(countDimensions($arr)<2)
+	{
+		return false;
+	}
+	$rows=count($arr);
+	$excelFileContents="";
+	for($i=0;$i<$rows;$i++)
+	{
+		$cols=count($arr[$i]);
+		for($j=0;$j<$cols;$j++)
+		{
+			$excelFileContents.=$arr[$i][$j]." \t ";
+		}
+		$excelFileContents.="\n";
+	}
+	// Send Header
+	header("Pragma: public");
+	header("Expires: 0");
+	header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
+	header('Content-type: application/ms-excel');
+	header("Content-Type: application/force-download");
+	header("Content-Type: application/octet-stream");
+	header("Content-Type: application/download");
+	header('Content-Disposition: attachment; filename='.$outputFilename);
+	header("Content-Transfer-Encoding: binary ");
+	echo $excelFileContents;
+}
+/**
+ * Counts number of dimensions in an array
+ * 
+ * @param Array $array the array to count its number of dimensions
+ */
+function countDimensions($array){
+	if (is_array(reset($array))){
+		$return = countDimensions(reset($array)) + 1;
+	}
+	else
+	{
+		$return = 1;
+	}
+	return $return;
+}
+
+/**
+ * Get successors of a category
+ * 
+ * @param Number $cat_id The category to get its successors
+ * @param Boolean (Optional) $withMe Determine wither to append $cat_id to the result or not. Default is true
+ * @return string Coma separated list of category id's
+ */
+function getCatSuccessor($cat_id,$withMe=true){
+	$Successors=($withMe)?" '".$cat_id."' ":" ";
+	if(isLeaf($cat_id))
+	{
+		return $Successors;
+	}
+	$sql="SELECT `cat_id` FROM `products_categories` WHERE `parent_cat`=$cat_id";
+	$result=mysql_query($sql);
+	$numRows=mysql_num_rows($result);
+	$i=0;
+	while($i<$numRows){
+		$son=mysql_result($result,$i,"cat_id");
+		$Successors.=", ".getCatSuccessor($son)."";
+		$i++;
+	}
+	return $Successors;
+}
+/**
+ * Check if a category is leaf or not
+ * 
+ * @param Number $cat_id the category to check if it is a leaf
+ */
+function isLeaf($cat_id){
+	$sql="SELECT * FROM `products_categories` WHERE `parent_cat`='$cat_id';";
+	$result=mysql_query($sql);
+	$numRows=mysql_num_rows($result);
+	if($numRows>0)
+	{
+		return false;
+	}
+	else 
+	{
+		return true;
+	}
+}
+/**
+ * Gets the parent of the given category
+ * 
+ * @param Number $cat_id the category to get its parent
+ */
+function getCatParent($cat_id){
+	return lookupField("products_categories", "cat_id", "parent_cat", $cat_id);
+}
+
+//Get current page URL 
+function getPageURL() {
+ $pageURL = 'http';
+ if ($_SERVER["HTTPS"] == "on") {$pageURL .= "s";}
+ $pageURL .= "://";
+ if ($_SERVER["SERVER_PORT"] != "80") {
+  $pageURL .= $_SERVER["SERVER_NAME"].":".$_SERVER["SERVER_PORT"].$_SERVER["REQUEST_URI"];
+ } else {
+  $pageURL .= $_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"];
+ }
+ return $pageURL;
+}
+
+//To get the URL of the current page without language parameter :
+function getFileURIWithoutLang()
+{
+	//Form the URL
+	$currentPageURL = getPageURL();
+	//echo $currentPageURL."<br/>";
+	//remove language parameters (for users pages)
+	$currentPageURL = filterURL($currentPageURL, "pageLang");
+	//echo $currentPageURL."<br/>";
+	//remove language parameters (for admins pages)
+	$currentPageURL = filterURL($currentPageURL, "lang");
+	//echo $currentPageURL."<br/>";
+	$currentPageURL = trim($currentPageURL,"&");
+	//echo $currentPageURL."<br/>";
+	//If last char is not ? return $currentPageURL
+	//else : If the URI has ? then append & to it 
+	//		 else append ?
+	if($currentPageURL[strlen($currentPageURL)-1]!='?')
+	{
+		if(strstr($currentPageURL, '?'))
+		{
+			$currentPageURL .= "&";			
+		}
+		else
+		{
+			$currentPageURL .= "?";
+		}
+	}
+	return $currentPageURL;
+}
+
+function limit($text, $limit, $with_more=1) {
+    $more_suf = "";
+	if($with_more)
+		$more_suf = " &nbsp;<span class='more_logo'>&raquo;</span>";
+	else
+		$more_suf = "...";
+	if(strlen($text)>$limit){
+        $to = strpos($text, " ",$limit);
+        if( $to !== false)
+            $text = substr( $text , 0 , $to).$more_suf;
+    }
+    return $text;
+}
+
+// Get the filename with parameters
+function getFileURI(){
+   $file  = substr(strrchr($_SERVER['REQUEST_URI'],"/"),1);
+   return $file;
+}
+
+
+// we didn't use this method alone but we  call it in getNewId method
+//  
+function getColumnMax($table, $column) {
+	$sql_max = "SELECT MAX($column) AS 'max' FROM $table";
+	$result_max = MYSQL_QUERY($sql_max);
+	checkError($result_max, $sql_max);
+	$rows_max = MYSQL_NUM_ROWS($result_max);
+	if ($rows_max == null || $rows_max = 0) {
+		return 0;
+	} else {
+		return MYSQL_RESULT($result_max,"max");
+	}
+}
+// this method will get the maximum number of this &coloumn  from this $table
+// getNewId("agencies","id");
+ 
+function getNewId($table, $coloumn)
+{
+$id;
+$res=getColumnMax($table, $coloumn);
+
+if (($res>0)||($res==0))
+    $id=$res+1;	  
+else
+     $id=0;
+
+ return  $id;
+}
+//----------------------------
+//We use this method to get the order for the last item inserted
+function getOrder($table , $cond){
+	if($cond) $cond = "WHERE ".$cond;
+	$sql = "SELECT MAX(item_order) AS max FROM $table $cond";
+	$result = mysql_query($sql);
+	if ($result) return $max = MYSQL_RESULT($result,0,'max')+1;
+	else return 1;
+}
+
+//---------------------------
+//this method  returns the first $n words from this string $str
+// NOTICE:  YO NEED INSTALL  4.4.0
+function strToWords($str){
+  $word="";
+  $r=0;
+  $index=0;
+  $res_array;
+ while( $r < strlen($str))
+ {
+  $chr=substr($str,$r,1);
+  if ($chr != " ")  $word=$word.$chr;
+  elseif ($chr == " ") {
+     $res_array[$index]=$word;
+	 $index=$index+1;
+	 $word="";
+	 } 
+  $r=$r+1;
+ }
+ $res_array[$index]=$word;
+return $res_array;
+}
+function getNwords($str,$n){
+  $a = strToWords($str);
+  $result="";
+  $i=0;
+  $wordsCount=$a.length;
+  if ($n < $wordsCount) return $str;
+  else{
+  while($i<$n){
+     $result=$result." ".$a[$i];
+     $i++;
+   }
+   return $result;
+   }
+}
+
+/**
+ * 
+ * Get count of rows in the selected table
+ * @param String $table the table of which the count of rows is required
+ * @param String $condition free condition to get count on specific rows on the selected table
+ */
+function getObjectsCount($table,$condition="1>0")
+{
+	$sql="SELECT COUNT(*) AS co FROM `$table` WHERE $condition";
+	$resultCount = MYSQL_QUERY($sql);
+	$rowsCount = MYSQL_NUM_ROWS($resultCount);
+	if ($rowsCount == null || $rowsCount = 0) {
+		return null;
+	} else {
+		$count= MYSQL_RESULT($resultCount,0,"co");
+		return trim($count);
+	}
+}
+/**
+ * 
+ * Get maximum value of selected field in selected table
+ * @param String $table the table of which the count of rows is required
+ * @param Strin $field the field to get its maximum value
+ * @param String $condition free condition to get maximum of selected field on specific rows of the selected table
+ */
+function getObjectsMax($table,$field,$condition="1>0")
+{
+	$sql="SELECT MAX($field) AS max FROM `$table` WHERE $condition";
+	$resultMax = MYSQL_QUERY($sql);
+	$rowsMax = MYSQL_NUM_ROWS($resultMax);
+	if ($rowsMax == null || $rowsMax = 0) {
+		return null;
+	} else {
+		$Max= MYSQL_RESULT($resultMax,0,"max");
+		return trim($Max);
+	}
+}
+
+///------------------------------------------------
+function lookupField($table, $id_field, $lookup_field, $id_value) {
+	$sql_lookup = "SELECT `$lookup_field` from `$table` where `$id_field` = '$id_value'";
+	$result_lookup = MYSQL_QUERY($sql_lookup);
+	checkError($result_lookup, $sql_lookup);
+	$rows_lookup = MYSQL_NUM_ROWS($result_lookup);
+	if ($rows_lookup == null || $rows_lookup = 0) {
+		return 0;
+	} else {
+		$filds = split(",",$lookup_field);
+		$ind = 0; $value="";
+		while($ind < count($filds)){
+			$value.= stripslashes(MYSQL_RESULT($result_lookup,0,$filds[$ind])." ");
+			$ind++;
+		}
+		return trim($value);
+	}
+}
+
+function lookupFieldAll($table, $id_field, $lookup_field, $id_value) {
+	if(trim($id_value)=="")	return;
+	$sql_lookup = "SELECT `$lookup_field` from `$table` where `$id_field` in($id_value)";
+	$result_lookup = MYSQL_QUERY($sql_lookup);
+	checkError($result_lookup, $sql_lookup);
+	$rows_lookup = MYSQL_NUM_ROWS($result_lookup);
+	$i = 0;
+	while($i < $rows_lookup){
+		$value.= stripslashes(MYSQL_RESULT($result_lookup,$i,$lookup_field));
+		$i ++;
+		if($i < $rows_lookup)	$value.= " / ";
+	}
+	return trim($value);
+	
+}
+
+function lookupFieldFiltered($table, $id_field, $lookup_field, $id_value, $condition, $no_idValue) {
+	if($no_idValue==true){
+		$sql_lookup = "SELECT $lookup_field from $table where $condition";
+	}else{
+		$sql_lookup = "SELECT $lookup_field from $table where ($id_field = $id_value) and $condition";
+	}
+	
+	$result_lookup = MYSQL_QUERY($sql_lookup);
+	checkError($result_lookup, $sql_lookup);
+	$rows_lookup = MYSQL_NUM_ROWS($result_lookup);
+	if ($rows_lookup == null || $rows_lookup = 0) {
+		return 0;
+	} else {
+		return MYSQL_RESULT($result_lookup, $lookup_field);
+	}
+}
+
+
+function createCheckBox($table, $id_field, $value_field, $id_value, $field_name, $col=3 ) {
+	$sql_combo = "SELECT $id_field , $value_field from $table ORDER BY $id_field";
+	$result_combo = MYSQL_QUERY($sql_combo);
+	//$result="<input type=\"checkbox\" name=\"all$field_name\" id=\"all$field_name\" onclick=\"jqCheckAll2( this.id, '$field_name' )\"/> ".Select_All."<br />";
+	checkError($result_combo, $sql_combo);
+	$rows_combo = MYSQL_NUM_ROWS($result_combo);
+	$i = 0;
+	$result .= "<table ><tr>";
+	while ($i<$rows_combo) {
+		$id = MYSQL_RESULT($result_combo, $i, $id_field);
+		$filds = split(",",$value_field);
+		$ind = 0; $value="";
+		while($ind < count($filds)){
+			$value.= MYSQL_RESULT($result_combo,$i, $filds[$ind])." ";
+			$ind++;
+		}
+		$result .= "<td><label><input type=\"Checkbox\" name=\"".$field_name."[]\" ";
+		if ($id_value != null && $id_value != "" && strpos($id_value,$id)!== false)
+		$result .= "checked ";
+		$result .= "value=\"$id\" />$value </label></td>";
+		$i++;
+		if( $i % $col == 0)	$result .= "</tr><tr>";
+	}
+	$result .= "</tr></table>";
+	return $result;
+}
+
+
+//----------------------------------------------------------------------
+function createComboBoxFiltered($table, $id_field, $value_field, $id_value, $field_name, $condition, $required="") {
+	$result = "<select name=\"$field_name\" id=\"$field_name\" class=\"$required\">\n";
+	$result .= "<option></option>\n";
+	$sql_combo = "SELECT $id_field , $value_field from $table ";
+	if ($condition != null && $condition != "") $sql_combo .= " WHERE $condition ";
+	$sql_combo .= " ORDER BY $value_field";
+	$result_combo = MYSQL_QUERY($sql_combo);
+	checkError($result_combo, $sql_combo);
+	$rows_combo = MYSQL_NUM_ROWS($result_combo);
+	$i = 0;
+	while ($i<$rows_combo) {
+		$id = MYSQL_RESULT($result_combo, $i, $id_field);
+		$filds = split(",",$value_field);
+		$ind = 0; $value="";
+		while($ind < count($filds)){
+			$value.= MYSQL_RESULT($result_combo,$i, $filds[$ind])." ";
+			$ind++;
+		}
+		$result .= "<option ";
+		if ($id_value != null && $id_value != "" && $id_value == $id) 
+			$result .= "selected ";
+		$result .= "value=\"$id\">".stripslashes($value)."</option>\n";
+		$i++;
+	}
+	$result .= "</select>\n";
+	return $result;
+}
+
+function createComboBox($table, $id_field, $value_field, $id_value, $field_name , $required="", $actions="", $cond="", $defOP = "") {
+	$result = "<select name=\"$field_name\" id=\"$field_name\" class=\"$required\" $actions>\n";
+	$result .= "<option value=''>$defOP</option>\n";
+	$sql_combo = "SELECT $id_field , $value_field from $table $cond ORDER BY $value_field";
+	$result_combo = MYSQL_QUERY($sql_combo);
+	checkError($result_combo, $sql_combo);
+	$rows_combo = MYSQL_NUM_ROWS($result_combo);
+	$i = 0;
+	while ($i<$rows_combo) {
+		$id = MYSQL_RESULT($result_combo, $i, $id_field);
+		$filds = split(",",$value_field);
+		$ind = 0; $value="";
+		while($ind < count($filds)){
+			$value.= MYSQL_RESULT($result_combo,$i, $filds[$ind])." ";
+			$ind++;
+		}
+		$result .= "<option ";
+		if ($id_value != null && $id_value != "" && $id_value == $id) 
+			$result .= "selected ";
+		$result .= "value=\"$id\">".stripslashes($value)."</option>\n";
+		$i++;
+	}
+	$result .= "</select>\n";
+	return $result;
+}
+
+
+function createComboBoxNew($table, $id_field, $value_field, $id_value, $field_name, $textField, $condition) {
+	$result = "<select name=\"$field_name\" onChange=\"if(this.options[this.selectedIndex].value=='other') $textField.style.display='block'; else  $textField.style.display='none'; \" >\n";
+	if ($id_value == null || $id_value == "") 
+		$result .= "<option></option>\n";
+	$sql_combo = "SELECT $id_field , $value_field from $table ";
+	if ($condition != null && $condition != "") $sql_combo .= " WHERE $condition GROUP BY $value_field";
+	$sql_combo .= " ORDER BY $value_field";
+	$result_combo = MYSQL_QUERY($sql_combo);
+	checkError($result_combo, $sql_combo);
+	$rows_combo = MYSQL_NUM_ROWS($result_combo);
+	$i = 0;
+	while ($i<$rows_combo) {
+		$id = MYSQL_RESULT($result_combo, $i, $id_field);
+		$filds = split(",",$value_field);
+		$ind = 0; $value="";
+		while($ind < count($filds)){
+			$value.= MYSQL_RESULT($result_combo,$i, $filds[$ind])." ";
+			$ind++;
+		}
+		$result .= "<option ";
+		if ($id_value != null && $id_value != "" && $id_value == $id) 
+			$result .= "selected ";
+		$result .= "value=\"$id\">".stripslashes($value)."</option>\n";
+		$i++;
+	}
+	$result.= "<option value=\"other\">Other --</option>";
+	$result.= "</select>\n";
+	return $result;
+}
+
+function createComboBoxValue($table, $id_field, $value_field, $id_value, $field_name) {
+	$result = "<select name=\"$field_name\" >\n";
+	if ($id_value == null || $id_value == "") 
+		$result .= "<option></option>\n";
+	$sql_combo = "SELECT $id_field , $value_field from $table ORDER BY $value_field";
+	$result_combo = MYSQL_QUERY($sql_combo);
+	checkError($result_combo, $sql_combo);
+	$rows_combo = MYSQL_NUM_ROWS($result_combo);
+	$i = 0;
+	while ($i<$rows_combo) {
+		$id = MYSQL_RESULT($result_combo, $i, $id_field);
+		$value = MYSQL_RESULT($result_combo,$i,$value_field);
+		$result .= "<option ";
+		if ($id_value != null && $id_value != "" && $id_value == $id) 
+			$result .= "selected ";
+		$result .= "value=\"$value\">".stripslashes($value)."</option>\n";
+		$i++;
+	}
+	$result .= "</select>\n";
+	return $result;
+}
+
+function createComboBoxScript($table, $id_field, $value_field, $id_value, $field_name,$condition, $required="",$scriptFunc,$first_text=null) {
+	$result = "<select name=\"$field_name\" class=\"$required\" onChange=\"$scriptFunc\">\n";
+	//if ($id_value == null || $id_value == "") 
+		if($first_text){
+			$result .= "<option value='nothing'>$first_text</option>\n";
+		}else{
+			$result .= "<option value='nothing'>-------</option>\n";
+		}
+		
+	$sql_combo = "SELECT $id_field , $value_field from $table";
+	if ($condition != null && $condition != "") $sql_combo .= " WHERE $condition ";
+	$sql_combo .= " ORDER BY $value_field";
+	$result_combo = MYSQL_QUERY($sql_combo);
+	checkError($result_combo, $sql_combo);
+	$rows_combo = MYSQL_NUM_ROWS($result_combo);
+	$i = 0;
+	
+	while ($i<$rows_combo) {
+		$id = MYSQL_RESULT($result_combo, $i, $id_field);
+		$value = MYSQL_RESULT($result_combo,$i,$value_field);
+		$result .= "<option ";
+		if ($id_value != null && $id_value != "" && $id_value == $id) 
+			$result .= "selected ";
+		$result .= "value=\"$id\">".stripslashes($value)."</option>\n";
+		$i++;
+	}
+	$result .= "</select>\n";
+	return $result;
+}
+
+function createComboUlBoxScript($table, $id_field, $value_field, $id_value, $field_name,$condition, $html_id="",$ajax_loader,$load_pros=null) {
+
+	
+	$result ='<div class="dropdown"  onclick="hide_list(); show_dropdown('.$html_id.')" >';
+	if($html_id==1){
+		$result .='<input class="dd_text dd_text'.$html_id.'"  type="text" value="'.all_categories.'"    readonly=""  />';
+	}
+	if($html_id==2){
+		$result .='<input class="dd_text dd_text'.$html_id.'"  type="text" value="'.all_brands.'"    readonly=""  />';
+	}
+				
+	if($id_value){
+		$result .= '<input class="dd_val '.$field_name.' field'.$html_id.'" name="'.$field_name.'" type="hidden" value="'.$id_value.'"    readonly=""  />';
+	}else{
+		$result .= '<input class="dd_val '.$field_name.' field'.$html_id.'" name="'.$field_name.'" type="hidden" value="nothing"    readonly=""  />';
+	}
+	
+	
+	$result .= '<div class="dd_list dd_list'.$html_id.'" onmousemove="show_dropdown('.$html_id.')" onmouseout="hide_list()" >
+					<div class="ul">';
+	
+	if ($id_value == null || $id_value == ""){
+		if($html_id==1){
+			$result .="<div class='li'><a onclick='setText(\"$html_id\",\"".all_categories."\",\"nothing\");'>".all_categories."</a></div>";
+		}
+		if($html_id==2){
+			$result .="<div class='li'><a onclick='setText(\"$html_id\",\"".all_brands."\",\"nothing\");'>".all_brands."</a></div>";
+		}
+	}
+		
+	$sql_combo = "SELECT $id_field , $value_field from $table";
+	if ($condition != null && $condition != "") $sql_combo .= " WHERE $condition ";
+	$sql_combo .= " ORDER BY $value_field";
+	$result_combo = MYSQL_QUERY($sql_combo);
+	checkError($result_combo, $sql_combo);
+	$rows_combo = MYSQL_NUM_ROWS($result_combo);
+	$i = 0;
+	
+	while ($i<$rows_combo) {
+		$id = MYSQL_RESULT($result_combo, $i, $id_field);
+		$value = MYSQL_RESULT($result_combo,$i,$value_field);
+		
+		//if ($id_value != null && $id_value != "" && $id_value == $id) 
+			//$selected_value = $value;
+			
+		if($ajax_loader){
+			$result .="<div class='li'><a onclick='loadModels(\"$id\",\"\",true); setText(\"$html_id\",\"$value\",\"$id\");";
+			if($load_pros){$result.=" loadPros(); ";}
+			$result.="'>$value</a></div>";
+		}else{
+			$result .="<div class='li'><a onclick='";
+			$result .=" setText(\"$html_id\",\"$value\",\"$id\");";
+			if($load_pros){$result.=" loadPros(); ";}
+			$result.="'>$value</a></div>";
+		}
+		
+		$i++;
+	}
+	//$result .= "</select>\n";
+	$result .='</div></div></div>';
+	return $result;
+}
+//-------------------------------------------------------------------------------------------------------
+//Gallery Section
+
+function adminGetGPhoto($gid,$w=100,$h=100, $al=""){
+	global $HP;
+	if($HP==1){$Pref="forms/";}else{$Pref="../";}
+	$res="&nbsp;";
+	if($gid!=0){
+		$sql2 = "SELECT * FROM galleries_galleries g , galleries_photos p where g.id =$gid and g.main_photo=p.id ";
+		$result2 = MYSQL_QUERY($sql2);
+		$numberOfRows2 = MYSQL_NUMROWS($result2);
+		if($numberOfRows2>0){
+			$photo=MYSQL_RESULT($result2,0,"p.photo");
+			$g_name=MYSQL_RESULT($result2,0,"g.gallery_name");
+			if(file_exists($Pref.'uploads/'.$photo)&& $photo!='' ){
+				$photo2=Crop($Pref."uploads/".$photo,$w,$h,$Pref."uploads/cash/c".$w."_".$photo);
+				$res='<img src="'.$photo2.'" align="'.$al.'" border="0">';
+			}
+		}
+	}
+	return $res;
+}
+
+function Crop($img, $w,$h, $newfilename){
+	if(file_exists($newfilename)) return $newfilename;
+	checkDir($newfilename);	
+	$strY=0;
+	$strX=0;
+	//echo $w."-".$h;
+	/*if($w==$h){
+		CropSquare ($img, $w, $newfilename);
+	}
+	else*/
+	{
+	
+	//Check if GD extension is loaded
+	 if (!extension_loaded('gd') && !extension_loaded('gd2')) {
+		 trigger_error("GD is not loaded", E_USER_WARNING);
+		 return false;
+	 }
+	 //Get Image size info
+	 $imgInfo = getimagesize($img);
+	 $nHeight = $imgInfo[1];
+	 $nWidth = $imgInfo[0];
+	 switch ($imgInfo[2]) {
+		 case 1: $im = imagecreatefromgif($img); break;
+		 case 2: $im = imagecreatefromjpeg($img);  break;
+		 case 3: $im = imagecreatefrompng($img); break;
+		 default:  trigger_error('Unsupported filetype!', E_USER_WARNING);  break;
+	 }
+	 //If image dimension is smaller, do not resize
+	 
+	 if ($imgInfo[0] <= $w && $imgInfo[1] <= $h) {
+		 $nHeight = $imgInfo[1];
+		 $nWidth = $imgInfo[0];
+	 	 return $img;
+	 }else{
+		//yeah, resize it, but keep it proportional
+		if($nWidth/$w<$nHeight/$h){
+			$ww=$w;
+			$hh=($nHeight*$w)/$nWidth;
+			$strY=($hh-$h)/2;
+			$side2=($nWidth*$h)/$w;
+			$side=$nWidth;
+		}else{
+			$hh=$h;
+			$ww=($nWidth*$h)/$nHeight;
+			$strX=($ww-$w)/2;
+			$side=($nHeight*$w)/$h;
+			$side2=$nHeight;
+		}
+	 }
+	 $newImg = imagecreatetruecolor($w, $h);
+	 /* Check if this image is PNG or GIF, then set if Transparent*/  
+	 if(($imgInfo[2] == 1) OR ($imgInfo[2]==3)){
+		 imagealphablending($newImg, false);
+		 imagesavealpha($newImg,true);
+		 $transparent = imagecolorallocatealpha($newImg, 255, 255, 255, 127);
+		 imagefilledrectangle($newImg, 0, 0, $w, $h, $transparent);
+	 }
+	 imagecopyresampled($newImg, $im, 0, 0, $strX, $strY, $w, $h,$side,$side2);
+	 //Generate the file, and rename it to $newfilename
+	 switch ($imgInfo[2]) {
+		 case 1: imagegif($newImg,$newfilename); break;
+		 case 2: imagejpeg($newImg,$newfilename,100);  break;
+		 case 3: imagepng($newImg,$newfilename); break;
+		 default:  trigger_error('Failed resize image!', E_USER_WARNING);  break;
+	 }
+	 return $newfilename;
+	}
+}
+function checkDir($file){
+	$file;
+	$d=explode('/',$file);
+	$dir=$d[(count($d)-2)];
+	$d1=explode($dir,$file);
+	$F_dir=$d1[0].$dir;
+	if(!file_exists($F_dir)){
+		mkdir($F_dir."/", 0777);
+	}
+}
+function galleryComboBox($id_value, $field_name , $required="") {
+	$result = "<select name=\"$field_name\" class=\"$required\" onChange=\"if(this.options[this.selectedIndex].value=='new') winopen('../includes/gallery/enterGallery.php',600,550) \">\n";
+	$result .= "<option></option>\n";
+	$sql_combo = "SELECT id , gallery_name from galleries_galleries ORDER BY gallery_name";
+	$result_combo = MYSQL_QUERY($sql_combo);
+	checkError($result_combo, $sql_combo);
+	$rows_combo = MYSQL_NUM_ROWS($result_combo);
+	$i = 0;
+	while ($i<$rows_combo) {
+		$id = MYSQL_RESULT($result_combo, $i, 'id');
+		$filds = split(",",$value_field);
+		$ind = 0; $value="";
+		while($ind < count($filds)){
+			$value.= MYSQL_RESULT($result_combo,$i, 'gallery_name')." ";
+			$ind++;
+		}
+		$result .= "<option ";
+		if ($id_value != null && $id_value != "" && $id_value == $id) 
+			$result .= "selected ";
+		$result .= "value=\"$id\">".stripslashes($value)."</option>\n";
+		$i++;
+	}
+	$result .="<option id=\"newGal\" value=\"new\">--New Galley--</option>\n";
+	$result .= "</select>\n";
+	return $result;
+}
+
+function lookupGallery($id_value) {
+	$sql_lookup = "SELECT thumb from galleries_galleries g, galleries_photos p where g.id = '$id_value' AND p.id = g.main_photo";
+	$result_lookup = MYSQL_QUERY($sql_lookup);
+	checkError($result_lookup, $sql_lookup);
+	$rows_lookup = MYSQL_NUM_ROWS($result_lookup);
+	if ($rows_lookup == null || $rows_lookup == 0) {
+		return 0;
+	} else {
+		$value.= MYSQL_RESULT($result_lookup,0,'thumb')." ";
+		return "<img src=\""._PREF."uploads/$value\" border=\"0\" align=\"top\" /> ";
+	}
+}
+function lookupGalleryUI($id_value, $uploadPath="../uploads/") {
+	$sql_lookup = "SELECT photo from galleries_galleries g, galleries_photos p where g.id = $id_value AND p.id = g.main_photo";
+	$result_lookup = MYSQL_QUERY($sql_lookup);
+	checkError($result_lookup, $sql_lookup);
+	$rows_lookup = MYSQL_NUM_ROWS($result_lookup);
+	if ($rows_lookup == null || $rows_lookup == 0) {
+		return 0;
+	} else {
+		$value = MYSQL_RESULT($result_lookup,0,'photo');
+		//$newfilename = $uploadPath."cash/TEMP_$value";
+		//$url = resizeToFile($uploadPath."$value", 150, 135, $newfilename);
+		$url=$uploadPath.$value;
+		if($url)
+			return "<img src=\"$url\" width='600px' border=\"0\" align=\"top\"/> ";
+		else
+			return "<img src=\""._PREF."uploads/$value\" border=\"0\" align=\"top\" width=\"200\" height=\"135\"/> ";
+	}
+}
+//-------------------------------------------------------------------------------------------------------
+
+function checkError($result, $sql) {
+	if (!$result) {
+		//echo "<hr>\n" . $sql ."<br>\n"; // todo: this line should removed before final delivery.
+		//echo mysql_error() ."<hr>\n";
+	}
+}
+
+// this method will make an array from $table 
+// this array index is $coloumn1 and this array values are $coloumn2
+function  getColoumnAsArray($table,$coloumn1,$coloumn2){
+if($coloumn2){
+$sql="SELECT $coloumn1,$coloumn2 FROM $table";
+$result = MYSQL_QUERY($sql);
+$rows_result= MYSQL_NUM_ROWS($result);
+checkError($result, $sql);
+$arra=Array();
+$i=0;
+while ($i<$rows_result) {
+         $j=MYSQL_RESULT($result,$i,$coloumn2);
+        $arra[$j]=MYSQL_RESULT($result,$i,$coloumn1);
+		$i++;
+	}
+	}
+else	
+{
+$sql="SELECT $coloumn1 FROM $table";
+$result = MYSQL_QUERY($sql);
+$rows_result= MYSQL_NUM_ROWS($result);
+checkError($result, $sql);
+$arra= Array();
+$i=0;
+while ($i<$rows_result) {
+        
+        $arra[$i]=MYSQL_RESULT($result,$i,$coloumn1);
+		$i++;
+	}
+	}
+	
+	return $arra;
+	
+}
+
+//genrate random string
+function randomStringUtil(){
+  $type='num';
+  $length = 5;
+  $randstr='';
+  srand((double)microtime()*1000000);
+
+  $chars = array ( '1','2','3','4','5','6','7','8','9','0',
+  'Q','W','E','R','T','Y','U','I','O','P','L','K','J','H','G','F','D','S','A','Z','X','C','V','B','N','M',
+  'q','w','e','r','t','y','u','i','o','p','l','k','j','h','g','f','d','s','a','z','x','c','v','b','n','m'
+  );
+  if ($type == "alpha") {
+    array_push ( $chars, '1' );
+  }
+
+  for ($rand = 0; $rand < $length; $rand++)
+  {
+    $random = rand(0, count($chars) -1);
+    $randstr .= $chars[$random];
+  }
+  return $randstr;
+}
+
+//upload file
+function handleupload($fieldName, $folder) {
+	$availableEx = array("jpg","gif","png","jpeg","pdf","doc","docx","xls","xlsx");
+	$realName = str_replace(" ","_",$_FILES[$fieldName]['name']);
+	$fileNameParts = explode(".", "$realName");
+	$fileExtension = end($fileNameParts); // part behind last dot
+	$ext = $fileExtension."";
+	if(in_array($ext,$availableEx)){
+		while(file_exists($folder."/".$realName)){
+			$realName=$fileNameParts[0]."1.".$ext;
+		}
+		$uploadfile = $folder."/" . $realName;
+		if (move_uploaded_file($_FILES[$fieldName]['tmp_name'], $uploadfile)) {
+			return $realName;
+		}
+	}
+	return NULL;
+}
+
+function uploadimageToGallery($fieldName, $folder , $width, $height) {
+	$realName = str_replace(" ","_",$_FILES[$fieldName]['name']);
+  	while(file_exists($folder."/".$realName)){
+		$fileNameParts = explode(".", "$realName");
+		$fileExtension = end($fileNameParts); // part behind last dot
+		$ext = $fileExtension."";
+		$realName=$fileNameParts[0]."1.".$ext;
+	}
+	if($width && $height){
+		$uploadfile = $folder."/cash/" . $realName;
+		if (move_uploaded_file($_FILES[$fieldName]['tmp_name'], $uploadfile)) {
+			$small=resizeToFile ($folder."/cash/".$realName, $width, $height, $folder."/".$realName);		
+		}
+	}else{
+		$uploadfile = $folder."/" . $realName;
+		if (move_uploaded_file($_FILES[$fieldName]['tmp_name'], $uploadfile))
+		{
+			$small=resizeToFile ($folder."/cash/".$realName, $width, $height, $folder."/".$realName);
+		}
+	}
+	$newPhotoId=getNewId("galleries_photos", "id");
+	$sql="INSERT INTO `galleries_photos` ( `id` , `photo` , `description` , `thumb` )
+						VALUES ('$newPhotoId' , '$realName', '', '$small');";
+	if(mysql_query($sql))
+	{
+		$newGalId=getNewId("galleries_galleries", "id");
+		$sql="INSERT INTO `galleries_galleries` ( `id` , `gallery_name` , `description` , `main_photo` , `photos` )
+						VALUES ('$newGalId' , '', NULL , '$newPhotoId' , '$newPhotoId');";
+		if(mysql_query($sql))
+		{
+			return $newGalId;
+		}
+		else
+		{
+			return false;
+		}
+	}
+	else 
+	{
+		return false;
+	}
+}
+
+//upload image
+function uploadimage($fieldName, $folder , $width, $height) {
+	$realName = str_replace(" ","_",$_FILES[$fieldName]['name']);
+  	while(file_exists($folder."/".$realName)){
+		$fileNameParts = explode(".", "$realName");
+		$fileExtension = end($fileNameParts); // part behind last dot
+		$ext = $fileExtension."";
+		$realName=$fileNameParts[0]."1.".$ext;
+	}
+	if($width && $height){
+		$uploadfile = $folder."/cash/" . $realName;
+		if (move_uploaded_file($_FILES[$fieldName]['tmp_name'], $uploadfile)) {
+			resizeToFile ($folder."/cash/".$realName, $width, $height, $folder."/".$realName);
+			unlink($folder."/cash/".$realName);
+			return $realName;		
+		}
+	}else{
+		$uploadfile = $folder."/" . $realName;
+		if (move_uploaded_file($_FILES[$fieldName]['tmp_name'], $uploadfile))
+			return $realName;
+	} 
+	return NULL;
+}
+/*
+//resise image
+function resizeToFile ($img, $w, $h, $newfilename)
+{	
+	 if(file_exists($newfilename)) return $newfilename;
+	//Check if GD extension is loaded
+	 if (!extension_loaded('gd') && !extension_loaded('gd2')) {
+		 trigger_error("GD is not loaded", E_USER_WARNING);
+		 return false;
+	 }
+	 
+	 //Get Image size info
+	 $imgInfo = getimagesize($img);
+	 switch ($imgInfo[2]) {
+		 case 1: $im = imagecreatefromgif($img); break;
+		 case 2: $im = imagecreatefromjpeg($img);  break;
+		 case 3: $im = imagecreatefrompng($img); break;
+		 default:  trigger_error('Unsupported filetype!', E_USER_WARNING);  break;
+	 }
+	 //If image dimension is smaller, do not resize
+	 if ($imgInfo[0] <= $w && $imgInfo[1] <= $h) {
+		 $nHeight = $imgInfo[1];
+		 $nWidth = $imgInfo[0];
+	 	 return $img;
+	 }else{
+					//yeah, resize it, but keep it proportional
+		$rate = (($w/$imgInfo[0]) < ($h/$imgInfo[1])) ? ($w/$imgInfo[0]) : ($h/$imgInfo[1]);
+		$nWidth  = $imgInfo[0] * $rate;
+		$nHeight = $imgInfo[1] * $rate;
+	 }
+	 $nWidth = round($nWidth);
+	 $nHeight = round($nHeight);
+	 
+	 $newImg = imagecreatetruecolor($nWidth, $nHeight);
+	 
+
+	 if(($imgInfo[2] == 1) OR ($imgInfo[2]==3)){
+		 imagealphablending($newImg, false);
+		 imagesavealpha($newImg,true);
+		 $transparent = imagecolorallocatealpha($newImg, 255, 255, 255, 127);
+		 imagefilledrectangle($newImg, 0, 0, $nWidth, $nHeight, $transparent);
+	 }
+	 imagecopyresampled($newImg, $im, 0, 0, 0, 0, $nWidth, $nHeight, $imgInfo[0], $imgInfo[1]);
+	 
+	 //Generate the file, and rename it to $newfilename
+	 switch ($imgInfo[2]) {
+		 case 1: imagegif($newImg,$newfilename); break;
+		 case 2: imagejpeg($newImg,$newfilename,100);  break;
+		 case 3: imagepng($newImg,$newfilename); break;
+		 default:  trigger_error('Failed resize image!', E_USER_WARNING);  break;
+	 }
+	   
+	 return $newfilename;
+}
+*/
+
+function resizeToFile ($img, $w, $h, $newfilename){
+	if(file_exists($newfilename)) return $newfilename;
+	//Check if GD extension is loaded
+	if (!extension_loaded('gd') && !extension_loaded('gd2')) {
+	trigger_error("GD is not loaded", E_USER_WARNING);
+	return false;
+	}
+
+	//Get Image size info
+	$imgInfo = getimagesize($img);
+	switch ($imgInfo[2]) {
+	case 1: $im = imagecreatefromgif($img); break;
+	case 2: $im = imagecreatefromjpeg($img); break;
+	case 3: $im = imagecreatefrompng($img); break;
+	default: trigger_error('Unsupported filetype!', E_USER_WARNING); break;
+	}
+	//If image dimension is smaller, do not resize
+	if ($imgInfo[0] <= $w && $imgInfo[1] <= $h) {
+	$nHeight = $imgInfo[1];
+	$nWidth = $imgInfo[0];
+	return $img;
+	}else{
+	//yeah, resize it, but keep it proportional
+	$rate = (($w/$imgInfo[0]) < ($h/$imgInfo[1])) ? ($w/$imgInfo[0]) : ($h/$imgInfo[1]);
+	$nWidth = $imgInfo[0] * $rate;
+	$nHeight = $imgInfo[1] * $rate;
+	}
+	$nWidth = round($nWidth);
+	$nHeight = round($nHeight);
+
+	$newImg = imagecreatetruecolor($nWidth, $nHeight);
+
+	/* Check if this image is PNG or GIF, then set if Transparent*/
+	if(($imgInfo[2] == 1) OR ($imgInfo[2]==3)){
+	imagealphablending($newImg, false);
+	imagesavealpha($newImg,true);
+	$transparent = imagecolorallocatealpha($newImg, 255, 255, 255, 127);
+	imagefilledrectangle($newImg, 0, 0, $nWidth, $nHeight, $transparent);
+	}
+	imagecopyresampled($newImg, $im, 0, 0, 0, 0, $nWidth, $nHeight, $imgInfo[0], $imgInfo[1]);
+
+	//Generate the file, and rename it to $newfilename
+	switch ($imgInfo[2]) {
+	case 1: imagegif($newImg,$newfilename); break;
+	case 2: imagejpeg($newImg,$newfilename,100); break;
+	case 3: imagepng($newImg,$newfilename); break;
+	default: trigger_error('Failed resize image!', E_USER_WARNING); break;
+	}
+
+	return $newfilename;
+}
+
+
+
+//Show banner
+function showBanner($loc ,$w ,$h ){
+	$sql = "SELECT upload,link FROM banners WHERE (location IN ($loc)) AND (start_date<='CURDATE()') AND (end_date<='CURDATE()') ORDER BY RAND() LIMIT 1";
+	$result = MYSQL_QUERY($sql);
+	$numberOfRows = MYSQL_NUMROWS($result);
+	if ($numberOfRows>0) {
+	$i=0;
+		$upload= MYSQL_RESULT($result,$i,"upload");
+		$link= MYSQL_RESULT($result,$i,"link");
+		$fileNameParts = explode(".", "$upload");
+		$fileExtension = end($fileNameParts); // part behind last dot
+		$ext = $fileExtension."";
+		if ($ext == "swf"|| $ext == "SWF" ){
+		echo'<embed src="'._PREF.'forms/uploads/'.$upload.'" width="'.$w.'" height="'.$h.'" quality="high"  allowScriptAccess="sameDomain" type="application/x-shockwave-flash" pluginspage="http://www.adobe.com/go/getflashplayer" />';
+		}else{
+		if($link) echo'<a href="'.$link.'" target="_blank"><img src="'._PREF.'forms/uploads/'.$upload.'" width="'.$w.'" height="'.$h.'" border="0"></a>';
+		else echo'<img src="'._PREF.'forms/uploads/'.$upload.'" width="'.$w.'" height="'.$h.'" border="0">';
+		}//end else
+	}//end nuber of rows
+}
+function getBannarName($loc){
+	global $BannerLocation;
+	for($b=0;$b <count($BannerLocation);$b=$b+2){
+		if($BannerLocation[$b]==$loc){
+			echo $BannerLocation[$b+1];
+		}
+	}
+}
+function bannerLocComboBox($loc){
+	global $BannerLocation;
+	$ret='<select name="location">';
+	for($b=0;$b <count($BannerLocation);$b=$b+2){
+		$ret.='<option value="'.$BannerLocation[$b].'"';
+		if($BannerLocation[$b]==$loc){
+			$ret.= ' selected ';
+		}
+		$ret.='>'.$BannerLocation[$b+1].'</option>';
+	}
+	$ret.='</select>';
+	echo $ret;
+}
+
+
+function getEval($time,$requirment,$quality,$attitude){
+	return ((50*$requirment) + (40*$time) + (5*$quality) + (5*$attitude))/100;
+}
+
+function sendMessage($from,$to,$subject,$body,$type,$task_id){
+	$title = addslashes($subject);
+	$description = addslashes($body);
+	$sql = "INSERT INTO msgs (`title`,`description`,`create_date`,`from`,`to`,`type`,`task_id`) VALUES 
+							 ('$title','$description','".date('Y-m-d h:i:s')."','$from','$to','$type','$task_id')";
+	@mysql_query($sql);
+	
+	
+	/*Send Message As Email*/
+	$sendto = "info@voilaapps.com";
+	$res = mysql_query("SELECT email FROM employees WHERE id = '$to'");
+	if(mysql_num_rows($res))
+		$sendto.= ",".MYSQL_RESULT($res,0,"email");
+
+	/* To send HTML mail, you can set the Content-type header. */
+	$headers  = "MIME-Version: 1.0\r\n";
+	$headers .= "Content-type: text/html; charset=windows-1256\r\n";
+
+	/* additional headers */
+	$headers .= "To:".$sendto."\r\n";
+	$headers .= "From: $email \r\n";
+	
+	$bodys = split("<br>",$body);
+	$body = $bodys[0]."<br> Please login to the task manager to check it";
+	
+	mail($sendto,$subject,$body,$headers);
+		
+}
+
+// Get the filename with parameters
+function getFileName(){
+   $file  = substr(strrchr($_SERVER['REQUEST_URI'],"/"),1);
+   return $file;
+}
+
+function getScriptName(){
+   $file  = substr(strrchr($_SERVER['SCRIPT_NAME'],"/"),1);
+   return $file;
+}
+
+function getFileName_no_uri(){
+   $file  = substr(strrchr($_SERVER['PHP_SELF'],"/"),1);
+   return $file;
+}
+
+
+//Genrate the SEO 
+function getSEO($lang){
+	$res = array();
+	$currFile = getFileName();
+	$sql ="SELECT * FROM seo WHERE ('$currFile' LIKE CONCAT('%',filename) OR '$currFile' LIKE CONCAT('%',filename,'?%') OR '$currFile' LIKE CONCAT('%',filename,'&%') )And (filename<>'')";
+	$result = MYSQL_QUERY($sql);
+	$numberOfRows = MYSQL_NUMROWS($result);
+	
+	if($numberOfRows==0){
+		$sql ="SELECT * FROM seo WHERE (filename='')";
+		$result = MYSQL_QUERY($sql);
+		$numberOfRows = MYSQL_NUMROWS($result);
+	}
+	
+	if ($numberOfRows>0) {
+		$i=0;
+		$filename= MYSQL_RESULT($result,$i,"filename");
+		$res[title]= MYSQL_RESULT($result,$i,"title_".$lang);
+		$res[keywords]= MYSQL_RESULT($result,$i,"keywords_".$lang);
+		$res[description]= MYSQL_RESULT($result,$i,"description_".$lang);
+	}
+	return $res;
+}
+
+
+function print_internal_Link($link){
+	echo $link;
+	$url = "";
+	if(strpos($link,"page.php?"))
+		//27-12-2011 Ahmad mahmoud
+		$url = str_replace("view/page/page.php?","pages/editPages.php?",$link);
+	if($url)
+		echo "&nbsp;&nbsp;<a href=\"../".$url."\" target=\"_blank\">["."Edit Content"."]</a>";
+}
+
+function print_GridAdminHead($title, $module, $del, $add, $ref, $help){
+	$out .= "<div class=\"head\">";
+	$out .= "<h1 class=\"title\">".$title."</h1>";
+	if($help){		
+		//$out .= getHelp_brief();
+	}
+	if($del)
+		$out .= "<a href=\"javascript:actionf('Delete')\" class=\"delete\"><img src=\""._PREF."images/icons/Delete.png\" border='0'/></a>";
+	
+	if($add)
+		$out .= "<img src=\""._PREF."images/icons/new.png\" border='0' hspace='5' onClick=\"actionf('Enter')\" style=\"cursor:pointer\" />";
+	
+	if($ref)
+		$out .= "<img src=\""._PREF."images/icons/refresh.png\" onClick=\"actionf('Refresh')\" onMouseOver=\"over(this)\" style=\"cursor:pointer\"/>"; 
+	
+	$out .= "</div>";
+	echo $out;
+}
+
+
+
+function print_ListAdminHead($title, $module, $addUrl=0, $del=0 ,$help=1){
+	$out .= "<div class=\"head\">";
+	$out .= "<h1 class=\"title\">".$title."</h1>";
+	if($help){		
+		//$out .= "<img src=\""._PREF."images/icons/Help.png\" id='help' style=\"cursor:pointer\"/>"; 
+		//$out .= getHelp_brief();
+	}
+	if($addUrl)
+		$out .= "<a href='".$addUrl."'><img src='"._PREF."images/icons/new.png' border='0' align='left' hspace='5'/></a>";
+	
+	if($del)
+		$out .= "<a href=\"javascript:actionf('Delete')\" class=\"delete\"><img src=\""._PREF."images/icons/Delete.png\" border='0'/></a>";
+	
+	$out .="</div>";
+	echo $out;
+}
+function addToCombobox($grp_title, $pk, $title_col, $table, $cond,$url_template, $id_value ){
+	$result .= "<optgroup label=\"".$grp_title."\">\n";
+	if($cond)	$cond = "WHERE $cond";
+	$sql_p = "SELECT $pk , $title_col from $table $cond  ORDER BY $title_col ";
+	$result_p = mysql_query($sql_p);
+	$rows_p = mysql_num_rows($result_p);
+	$i = 0;
+	while ($i<$rows_p){
+		$id= MYSQL_RESULT($result_p,$i,"$pk");
+		$title= MYSQL_RESULT($result_p,$i,"$title_col");
+		$result .= "<option ";
+		$url = str_replace("#ID#",$id,$url_template);
+		if ($id_value != null && $id_value != "" && $id_value == $url ) $result .= "selected ";
+		$result .= "value=\"$url\">$title</option>\n";
+		$i++;
+	}
+	$result .= "</optgroup>\n";
+	return $result;
+}
+function getLinks($id_value , $lang, $name="item_link", $class="", $script="", $linkPref=""){
+	$result = "<select name=\"$name\"  id=\"$name\" class=\"$class\" $script>\n";
+	//if ($id_value == null || $id_value == "") $result .= "<option></option>\n";
+	$result .= "<option value='#'>--------</option>\n";
+	if($lang)	$langStmt = "lang='$lang'";
+	// Pages	
+	$result .= addToCombobox("Text Pages", "id", "title", "pages", $langStmt,$linkPref."view/page/page.php?id=#ID#", $id_value);
+	// Static Pages
+	//$result .= addToCombobox("Forms", "form_id", "form_name", "query_forms", $langStmt,$linkPref."cms/viewForm.php?id=#ID#", $id_value);
+		
+		
+	// Forms	
+	$result .= addToCombobox("Forms", "form_id", "form_name", "query_forms", $langStmt,$linkPref."view/forms/viewForm.php?id=#ID#", $id_value);	
+	
+	// Gallery	
+	$result .= addToCombobox("Galleries", "id", "gallery_name", "galleries_galleries", "isGallery=1",$linkPref."view/gallery/viewGallery.php?gid=#ID#", $id_value);	
+		
+	// Activities	
+	$result .= addToCombobox("Activities", "id", "name_en", "types", "",$linkPref."view/activities/viewAllActivities.php?type=#ID#", $id_value);	
+		
+	// Modules
+	
+	$result .= "<optgroup label=\"Modules\">\n";
+	$sql_m = "SELECT * from modules  ORDER BY name ";
+	$result_m = mysql_query($sql_m);
+	$rows_m = mysql_num_rows($result_m);
+	$i = 0;
+	while ($i<$rows_m){
+		$module_id= MYSQL_RESULT($result_m,$i,"module_id");
+		$name= MYSQL_RESULT($result_m,$i,"name");
+		$page= $linkPref.MYSQL_RESULT($result_m,$i,"page");$result .= "<option ";
+		if ($id_value != null && $id_value != "" && $id_value == $page)$result .= "selected ";
+		$result .= "value=\"$page\">$name</option>\n";
+		$i++;
+	}$result .= "</select>\n";
+	$result .= "</optgroup>\n";
+	
+	return $result;
+}// get Order
+
+function menuHasChildren($mid)
+{
+	$sql="SELECT menu_id FROM menus WHERE p_id='$mid'";
+	$res=mysql_query($sql);
+	return mysql_numrows($res)>0;
+}
+
+//***********************************************************//
+/* getGPhoto Function 
+1- $gid = gallary id
+2- $w = Photo Width
+3- $h = Photo Hight
+4- $bigSize= (if=1 onclick show photo in oregnal size);
+5- $id = to make deffernt bettwn photos put any  unic value here 
+6- $noPhoto= URL for Defult photo 
+7- $homePage = if funanction load from hom page enter "1"
+8- $resizeText = any text to add to resize name
+*/
+function getGPhoto($gid,$w,$h,$bigSize,$id,$noPhoto,$homePage,$resizeText){
+	global $HP;
+	if($HP==1){$Pref="";}else{$Pref="../";}
+	$pxx=0;
+	$res="";
+	if($gid===0){
+		$pxx=1;
+	}else{
+		$ph==0;
+		$sql2 = "SELECT * FROM galleries_galleries g , galleries_photos p where g.id =$gid and g.main_photo=p.id ";
+		$result2 = MYSQL_QUERY($sql2);
+		$numberOfRows2 = MYSQL_NUMROWS($result2);
+		if($numberOfRows2<=0){
+			$pxx=1;
+		}else{
+			
+			$photo=MYSQL_RESULT($result2,0,"p.photo");
+			if($bigSize==1){
+			$res.='<a  href="'._PREF.'uploads/'.$photo.'" id="thumb_'.$id.'" onClick="return hs.expand(this, {slideshowGroup: '.$id.'})" >';
+			}
+			$photo2 = resizeToFile($Pref."uploads/".$photo,$w,$h,$Pref."uploads/cash/".$resizeText."_".$photo);
+			$res.='<img src="'.$photo2.'" border="0" >';
+			if($bigSize==1){$res.='</a>';}
+		}
+	}
+	if($pxx==1){
+		$res="&nbsp;";
+		if($noPhoto){
+			$res='<img src="'.$noPhoto.'" >';
+		}
+		//$res='<img src="'.resizeToFile ("../images/noEvent.jpg",$width,$hight,"../images/".$id."noEvent.jpg").'" width="'.$width.'" height="'.$hight.'">';
+	}
+	return $res;
+}
+
+//***********************************************************//
+//ShowGallery2($gal_id,640,400,90,90,"g1")
+/* ShowGallery2
+1- $gid = gallary id
+2-$pw = Gallery width
+3-$ph = Gallery hight
+4-$fw = gallary width
+5-$fh = gallary hight
+6-$Resiz_name = any text to add to resize name
+CSS file: includes/gallery/jquery.galleryview/style.css
+*/
+function ShowGallery2($gid,$pw,$ph,$fw,$fh,$Resiz_name){
+	global $HP;
+	if($HP==1){$Pref="";}else{$Pref="../";}
+	$res="";
+	$d="";
+	$l="";
+	$sql2 = "SELECT * FROM galleries_galleries  where  id=$gid ";
+	$result2 = @MYSQL_QUERY($sql2);
+	$numberOfRows2 =@ MYSQL_NUMROWS($result2);
+	if($numberOfRows2>0){
+		$photos=@MYSQL_RESULT($result2,0,"photos");
+		$sqlG = "SELECT * FROM galleries_photos  where  id in ($photos) ";
+		$resultG = @MYSQL_QUERY($sqlG);
+		$numberOfRowsG = @MYSQL_NUMROWS($resultG);
+		if($numberOfRowsG>0){
+			$pxx=1;
+			$g=0;
+			$res.='<script type="text/javascript" src="'._PREF.'includes/gallery/jquery.galleryview/galleryview.js"></script>
+<script type="text/javascript" src="'._PREF.'includes/gallery/jquery.galleryview/easing.js"></script>
+<script type="text/javascript" src="'._PREF.'includes/gallery/jquery.galleryview/timers.js"></script>';
+			$res.="<script>\$(document).ready(function(){\$('#photos').galleryView({
+				panel_width:".$pw.",panel_height:".$ph.",frame_width:".$fw.",frame_height:".$fh."});});</script>";
+			$res.='<table align="center"><tr><td><DIV id=photos class=galleryview align="center">';
+			while($numberOfRowsG>$g){
+				$PHid=@MYSQL_RESULT($resultG,$g,"id");
+				$description=@MYSQL_RESULT($resultG,$g,"description");
+				$Photo=@MYSQL_RESULT($resultG,$g,"photo");
+				$photo2=_PREF."uploads/cash/galary1".$Resiz_name."_".$Photo;
+				$photo3=_PREF."uploads/cash/galary2".$Resiz_name."_".$Photo;
+				//if(file_exists(_PREF."uploads/".$Photo)){
+					Crop($Pref."uploads/".$Photo,$fw,$fh,$Pref."uploads/cash/galary1".$Resiz_name."_".$Photo);
+					Crop($Pref."uploads/".$Photo,$pw,$ph,$Pref."uploads/cash/galary2".$Resiz_name."_".$Photo);
+					$d.='<DIV class=panel><IMG src="'.$photo3.'"><DIV class=panel-overlay>'.$description.'</DIV></DIV>';
+					$l.='<li><img src="'.$photo2.'" border="0" width="'.($fw-2).'" height="'.($fh-2).'" alt="'.$description.'"  title="'.$description.'"/></li>';
+				//}
+				$g++;
+			}
+			$res.=$d;
+			$res.='<ul class="filmstrip">'.$l.'</ul>
+			';
+			$res.='</DIV></td></tr></table>';
+		}
+	}
+	return $res."&nbsp;";
+}
+
+
+function ShowGallery3($gid,$min=0){
+	global $HP;
+	//if($HP==1){$Pref="";}else{$Pref="../../";}
+	$Pref="../../";
+	$res="";
+	$sql2 = "SELECT * FROM galleries_galleries  where  id=$gid ";
+	$result2 = MYSQL_QUERY($sql2);
+	$numberOfRows2 = MYSQL_NUMROWS($result2);
+	if($numberOfRows2>0){
+		$photos=MYSQL_RESULT($result2,0,"photos");
+
+		 $sqlG = "SELECT * FROM galleries_photos  where  id in ($photos) ";
+		$resultG = MYSQL_QUERY($sqlG);
+		$numberOfRowsG = MYSQL_NUMROWS($resultG);
+		if($numberOfRowsG>$min){
+			$pxx=1;
+			$g=0;
+			while($numberOfRowsG>$g){
+				$PHid=MYSQL_RESULT($resultG,$g,"id");
+				$Photo=MYSQL_RESULT($resultG,$g,"photo");
+				$folder=MYSQL_RESULT($resultG,$g,"folder");
+				$photo2=_PREF."uploads/cash/gal3_".$Photo;
+				$upload_path = str_replace('//','/',"uploads/$folder/");
+				CropSquare($Pref.$upload_path.$Photo,100,$Pref."uploads/cash/gal3_".$Photo);
+				
+				if(strstr($Photo,'.jpg') || strstr($Photo,'.JPG') || strstr($Photo,'.png') || strstr($Photo,'.PNG') || strstr($Photo,'.gif') || strstr($Photo,'.GIF')){
+					$res.='<a  class="thumb zoombox zgallery1" href="'._PREF.$upload_path.$Photo.'" id="thumb_'.$PHid.'" rel="" >';
+					$res.='<img src="'.$photo2.'" border="0" class=""></a>';
+				}else{
+					$res.="<div class='notPhoto'>
+							<a  target='_blank' href='"._PREF.$upload_path.$Photo."'></a>
+					</div>";
+				}
+				
+				$g++;
+			}
+			
+		}
+	}
+
+	return $res."&nbsp;";
+}
+
+
+
+/**************************************************************************/
+//*************************************************************************Ahmad//
+// Crop Photo  to be Square
+function CropSquare ($img, $s, $newfilename){
+	if(file_exists($newfilename)) return $newfilename;
+	checkDir($newfilename);	
+	$strY=0;
+	$strX=0;
+	//Check if GD extension is loaded
+	 if (!extension_loaded('gd') && !extension_loaded('gd2')) {
+		 trigger_error("GD is not loaded", E_USER_WARNING);
+		 return false;
+	 }
+	 //Get Image size info
+	 $imgInfo = getimagesize($img);
+	 $nHeight = $imgInfo[1];
+	 $nWidth = $imgInfo[0];
+	 switch ($imgInfo[2]) {
+		 case 1: $im = imagecreatefromgif($img); break;
+		 case 2: $im = imagecreatefromjpeg($img);  break;
+		 case 3: $im = imagecreatefrompng($img); break;
+		 default:  trigger_error('Unsupported filetype!', E_USER_WARNING);  break;
+	 }
+	 //If image dimension is smaller, do not resize
+	 if ($imgInfo[0] <= $s && $imgInfo[1] <= $s) {
+		 $nHeight = $imgInfo[1];
+		 $nWidth = $imgInfo[0];
+	 	 return $img;
+	 }else{
+		//yeah, resize it, but keep it proportional
+		if($nHeight>$nWidth){
+			$ww=$s;
+			$hh=($nHeight*$s)/$nWidth;
+			$strY=($nHeight-$nWidth)/2;
+			$side=$imgInfo[0];
+		}else{
+			$hh=$s;
+			$ww=($nWidth*$s)/$nHeight;
+			$strX=($nWidth-$nHeight)/2;
+			$side=$imgInfo[1];
+			
+		}
+	 }
+	 $newImg = imagecreatetruecolor($s, $s);
+	 /* Check if this image is PNG or GIF, then set if Transparent*/  
+	 if(($imgInfo[2] == 1) OR ($imgInfo[2]==3)){
+		 imagealphablending($newImg, false);
+		 imagesavealpha($newImg,true);
+		 $transparent = imagecolorallocatealpha($newImg, 255, 255, 255, 127);
+		 imagefilledrectangle($newImg, 0, 0, $s, $s, $transparent);
+	 }
+	 imagecopyresampled($newImg, $im, 0, 0, $strX, $strY, $s, $s, $side, $side);
+	 //Generate the file, and rename it to $newfilename
+	 switch ($imgInfo[2]) {
+		 case 1: imagegif($newImg,$newfilename); break;
+		 case 2: imagejpeg($newImg,$newfilename,100);  break;
+		 case 3: imagepng($newImg,$newfilename); break;
+		 default:  trigger_error('Failed resize image!', E_USER_WARNING);  break;
+	 }
+
+	   
+	 return $newfilename;
+}
+/**
+ * Create paging plugin for a page
+ * @param int $tp Number of records in this page 
+ * @param int $pn Current page nummber
+ * @param int $LPP Records per page
+ * @param string $link (Optional) Additional parameters to be passed to next page 
+*/
+function createPagination($tp,$pn,$LPP,$link=""){
+	
+	
+
+	$PHP_SELF = getPageURL();
+	//Remove tp,pn and llp parameters from the URL to avoid repeating parameters
+	$pattern = '/tp=(\d+)&/i';
+	$PHP_SELF = preg_replace($pattern, "", $PHP_SELF);
+	$pattern = '/pn=(\d+)&/i';
+	$PHP_SELF = preg_replace($pattern, "", $PHP_SELF);
+	$pattern = '/llp=(\d+)&/i';
+	$PHP_SELF = preg_replace($pattern, "", $PHP_SELF);
+
+	//Trim & if found to avoid repeating 
+	$PHP_SELF = trim($PHP_SELF,"&");
+	//If last char is not ? return $PHP_SELF
+	//else : If the URI has ? then append & to it 
+	//		 else append ?
+	if($PHP_SELF[strlen($PHP_SELF)-1]!='?')
+	{
+		if(strstr($PHP_SELF, '?'))
+		{
+			$PHP_SELF .= "&";			
+		}
+		else
+		{
+			$PHP_SELF .= "?";
+		}
+	}
+
+	
+	$res = "<div align=\"right\" class=\"pagination\">";
+	$pages = ceil($tp / $LPP);
+	if(!$pn) $pn = 0;
+	
+	$start = max(0,($pn-2));
+	$end = min($pages-1,($start+5));
+	$start = max(0,($end-5));
+	
+	if($pn>0)	$res .= "<a class='page' href='{$PHP_SELF}llp=$LPP&tp=$tp&pn=".max(0,($pn-1))."&$link'>&laquo;</a>&nbsp;";
+	for($i=$start;$i<$end;$i++)
+		if($i == $pn) $res .= '[<font color="#EE4717" size="3">'.($i+1).'</font>] ';
+		else $res .= "<a class='page' href='{$PHP_SELF}llp=$LPP&tp=$tp&pn=".($i)."&$link'>".($i+1)."</a> ";
+	if($pn+1 < $pages) $res .= "&nbsp;<a class='page' href='{$PHP_SELF}llp=$LPP&tp=$tp&pn=".min(($pn+1),$pages-1)."&$link'>&raquo;</a>";
+	
+	$res .= " ".Go." ".To.":&nbsp;";
+	$res .= " <select onchange=\"location='{$PHP_SELF}llp=$LPP&tp=$tp&pn='+(options[selectedIndex].value)+'&$link'\" name='select_pn' id='select_pn' >";
+	for($i=0;$i<$pages;$i++){
+		$sel = "";
+		if($i == $pn)	$sel = "selected";
+		$res .= "<option $sel value='$i'>".($i+1)."</option>";
+	}
+	$res .= "</select>";
+	if( $tp > 10 )
+		$res .= " | <a href='{$PHP_SELF}tp=$tp&llp=10&pn=".floor($pn*$LPP/10)."&$link'>".(($LPP==10)?"<u>10</u>":"10")."</a>";
+	if( $tp > 20 )
+		$res .= " <a href='{$PHP_SELF}tp=$tp&llp=20&pn=".floor($pn*$LPP/20)."&$link'>".(($LPP==20)?"<u>20</u>":"20")."</a>";
+	if( $tp > 50 )
+		$res .= " <a href='{$PHP_SELF}tp=$tp&llp=50&pn=".floor($pn*$LPP/50)."&$link'>".(($LPP==50)?"<u>50</u>":"50")."</a>";
+	if( $tp > 100 )
+		$res .= " <a href='{$PHP_SELF}tp=$tp&llp=100&pn=".floor($pn*$LPP/100)."&$link'>".(($LPP==100)?"<u>100</u>":"100")."</a>";
+	
+	
+	
+	$res .= " ".from." $i ";
+	$res .= " <a href='{$PHP_SELF}tp=$tp&llp=".($tp+1)."&pn=".floor($pn*$LPP/($tp+1))."&$link'> &nbsp; | &nbsp; ".(($LPP==$tp+1)?"<u>".ALL."</u>":ALL)."</a> </div>";
+	
+	if($tp>0){
+		if(($tp/$LPP)>1){
+			return $res;
+		}else{
+			return '';
+		}
+	}
+	
+}
+
+
+
+function createPagination_simple($tp,$pn,$LPP,$link=""){
+	$PHP_SELF = getPageURL();
+	//Remove tp,pn and llp parameters from the URL to avoid repeating parameters
+	$pattern = '/tp=(\d+)&/i';
+	$PHP_SELF = preg_replace($pattern, "", $PHP_SELF);
+	$pattern = '/pn=(\d+)&/i';
+	$PHP_SELF = preg_replace($pattern, "", $PHP_SELF);
+	$pattern = '/llp=(\d+)&/i';
+	$PHP_SELF = preg_replace($pattern, "", $PHP_SELF);
+
+	//Trim & if found to avoid repeating 
+	$PHP_SELF = trim($PHP_SELF,"&");
+	//If last char is not ? return $PHP_SELF
+	//else : If the URI has ? then append & to it 
+	//		 else append ?
+	if($PHP_SELF[strlen($PHP_SELF)-1]!='?')
+	{
+		if(strstr($PHP_SELF, '?'))
+		{
+			$PHP_SELF .= "&";			
+		}
+		else
+		{
+			$PHP_SELF .= "?";
+		}
+	}
+
+	
+
+	$pages = ceil($tp / $LPP);
+	if(!$pn) $pn = 0;
+	
+	$start = max(0,($pn-2));
+	$end = min($pages-1,($start+5));
+	$start = max(0,($end-5));
+
+	if($_SESSION['pageLang']=='ar'){
+		$res .= "<a class='page' href='{$PHP_SELF}llp=$LPP&tp=$tp&pn=".$end."&$link'>  <img src='"._PREF."wedgits/pagination/first.png' />  </a>";
+		
+		if($pn+1 < $pages){
+			$res .= "<a class='page' href='{$PHP_SELF}llp=$LPP&tp=$tp&pn=".min(($pn+1),$pages-1)."&$link'> &nbsp; <img src='"._PREF."wedgits/pagination/prev.png' />&nbsp; </a>";
+		}else{
+			$res .= "&nbsp;<img src='"._PREF."wedgits/pagination/prev_inactive.png' />";
+		}
+			$res .= "<span class='page' > ".($pn+1)." </span>";
+		if($pn>0){	
+			$res .= "<a class='page' href='{$PHP_SELF}llp=$LPP&tp=$tp&pn=".max(0,($pn-1))."&$link'> &nbsp; <img src='"._PREF."wedgits/pagination/next.png' /> &nbsp; </a>";
+		}else{
+			$res .= "&nbsp;<img src='"._PREF."wedgits/pagination/next_inactive.png' />&nbsp;";
+		}
+		$res .= "<a class='page' href='{$PHP_SELF}llp=$LPP&tp=$tp&pn=0&$link'>  <img src='"._PREF."wedgits/pagination/last.png' />  </a>";
+	}else{
+		$res .= "<a class='page' href='{$PHP_SELF}llp=$LPP&tp=$tp&pn=0&$link'><img src='"._PREF."wedgits/pagination/first.png' /> </a>";
+		if($pn>0){	
+			$res .= "<a class='page' href='{$PHP_SELF}llp=$LPP&tp=$tp&pn=".max(0,($pn-1))."&$link'>&nbsp;<img src='"._PREF."wedgits/pagination/prev.png' />&nbsp;</a>";
+		}else{
+			$res .= "&nbsp;<img src='"._PREF."wedgits/pagination/prev_inactive.png' />&nbsp;";
+		}
+			$res .= "<span class='page' >".($pn+1)."</span>";
+		if($pn+1 < $pages){
+			$res .= "<a class='page' href='{$PHP_SELF}llp=$LPP&tp=$tp&pn=".min(($pn+1),$pages-1)."&$link'>&nbsp;<img src='"._PREF."wedgits/pagination/next.png' />&nbsp;</a>";
+		}else{
+			$res .= "&nbsp;<img src='"._PREF."wedgits/pagination/next_inactive.png' />&nbsp;";
+		}
+		$res .= "<a class='page' href='{$PHP_SELF}llp=$LPP&tp=$tp&pn=".$end."&$link'><img src='"._PREF."wedgits/pagination/last.png' /></a>";
+	}
+	
+	
+	
+	
+	
+	
+	if($tp>0){
+		if(($tp/$LPP)>1){
+			return $res;
+		}else{
+			return '';
+		}
+	}
+}
+
+
+function createPagination_ajax($tp,$pn,$LPP,$link=""){
+	
+
+	$PHP_SELF = getPageURL();
+	//Remove tp,pn and llp parameters from the URL to avoid repeating parameters
+	$pattern = '/tp=(\d+)&/i';
+	$PHP_SELF = preg_replace($pattern, "", $PHP_SELF);
+	$pattern = '/pn=(\d+)&/i';
+	$PHP_SELF = preg_replace($pattern, "", $PHP_SELF);
+	$pattern = '/llp=(\d+)&/i';
+	$PHP_SELF = preg_replace($pattern, "", $PHP_SELF);
+
+	//Trim & if found to avoid repeating 
+	$PHP_SELF = trim($PHP_SELF,"&");
+	//If last char is not ? return $PHP_SELF
+	//else : If the URI has ? then append & to it 
+	//		 else append ?
+	if($PHP_SELF[strlen($PHP_SELF)-1]!='?')
+	{
+		if(strstr($PHP_SELF, '?'))
+		{
+			$PHP_SELF .= "&";			
+		}
+		else
+		{
+			$PHP_SELF .= "?";
+		}
+	}
+
+	
+	$res = "<div align=\"center\" class=\"pagination\">";
+	$pages = ceil($tp / $LPP);
+	if(!$pn) $pn = 0;
+	
+	$start = max(0,($pn-2));
+	$end = min($pages-1,($start+5));
+	$start = max(0,min($start,($end-5)));
+	//if($pn>0)	{$res .= "<a class='page_num' id='llp=$LPP&tp=$tp&pn=".max(($pn-1),0)."&$link'><img class='left_arrow' src='"._PREF."wedgits/order_products/left_page.jpg'/></a>&nbsp;";}else{$res .= "<img class='left_arrow' src='"._PREF."wedgits/order_products/left_page.jpg'/>&nbsp;";}
+	if($pn>0)	{$res .= "<a class='page_num' id='llp=$LPP&tp=$tp&pn=".max(($pn-1),0)."&$link'> &laquo; </a>&nbsp;";}else{$res .= "<font color='#e7dbba'> &laquo; </font> &nbsp;";}
+	for($i=$start;$i<=$end;$i++)
+		if($i == $pn) $res .= '<font class="curr_num" style="">'.($i+1).'</font> ';
+		else $res .= "<a class='page_num num' id='llp=$LPP&tp=$tp&pn=".($i)."&$link'>".($i+1)."</a> ";
+	if($pn+1 < $pages){ 
+		//$res .= "&nbsp;<a class='page_num' id='llp=$LPP&tp=$tp&pn=".min(($pn+1),$pages-1)."&$link'><img class='right_arrow' src='"._PREF."wedgits/order_products/right_page.jpg'/></a>";
+		$res .= "&nbsp;<a class='page_num' id='llp=$LPP&tp=$tp&pn=".min(($pn+1),$pages-1)."&$link'> &raquo; </a>";
+	}else{
+		//$res .= "<img class='right_arrow' src='"._PREF."wedgits/order_products/right_page.jpg'/>";
+		$res .= " <font color='#e7dbba'> &raquo; </font>";
+	}
+
+	return $res;
+}
+
+function count_items($table, $cond="")
+{
+	if($cond!="")
+		$cond = "WHERE ".$cond;
+	$sql="SELECT count(*) co FROM $table $cond";
+	$res=mysql_query($sql);
+	$co= MYSQL_RESULT($res,0,"co");	
+	return $co;
+}
+
+
+function getUrlParameters(){
+	$params = array();
+	$i = 0;
+	if(!empty($_POST)){
+        foreach($_POST as $x => $y){
+			$params[$i][0] = ($x);
+			$params[$i][1] = $_POST[$x];
+			$i++;
+        }
+    }
+	if(!empty($_GET)){
+        foreach($_GET as $x => $y){
+			$params[$i][0] = ($x);
+			$params[$i][1] = $_GET[$x];
+			$i++;
+        }
+    }
+	return $params;
+}
+
+
+/**
+ * Create Filtering form and return SQL condition
+ * @param filters: (array) filtering input names starting with (# <=> equal , % <=> like)
+ * @param fields: (array) db fields 
+ * @param op: AND/OR
+ * @param with_hidden: 1/0 show url variables in SQL condition.
+ * @return SQL condition
+ */
+function createFilter($filters ,$fields , $op="AND", $extention = "", $with_hidden=1){
+	//create filter fields:
+	$params = getUrlParameters();
+	$black_list = array("action");
+	foreach( $params as $param )
+	{
+		$name = $param[0];
+		$value =  $param[1];
+		if($name=="pn")	$value=0;
+		if($name=="")	continue;
+		if(! in_array($name,$filters) && ! in_array($name,$black_list))
+			$hidden_input .= "<input type='hidden' id='$name' name='$name' value='$value'/>";
+	}
+	$result="<form method='get' action=''><u>Filtering by:</u>&nbsp;";
+	$i = 0;
+	foreach( $filters as $filter ){
+		$filter_name = ucfirst(str_replace("_"," ",$filter)).":";
+		$filter_type = "type='text'";
+		if($fields[$i][0] == '^')	continue;
+		$result .= "$filter_name&nbsp;<input $filter_type id='$filter' name='$filter' value='".$_REQUEST[$filter]."'/>&nbsp;&nbsp;";
+		$i ++;
+	}
+	$result .= $extention;
+	if($with_hidden)
+		$result .= $hidden_input;
+	$result .= "<input type='submit' value='Go' style='width:35px' class='go' /></form>";
+	echo "<div class='filtering'>".$result."</div>";
+	
+	//create filter query stmt:
+	$num = count($fields);
+	$cond = "";
+	for($i=0; $i<$num; $i++){
+		$value = $_REQUEST[$filters[$i]];
+		if($value=="")	continue;
+		
+		$fieldGrp = trim($fields[$i]);
+		$fieldArr  = explode('|', $fieldGrp);
+		$cond .= "(";
+		foreach( $fieldArr as $field ){
+			if(strlen($field)<=1)	continue;
+			$compare_type = $field[0];
+			$field = substr ($field,1);
+			switch($compare_type){
+				case "#": case "^":
+					$cond .= $field."='".$value."' ";
+					break;
+				case "%":
+					$cond .= $field." LIKE '%".$value."%'";
+					break;
+			}
+			$cond .= " OR ";
+		}
+		$cond=trim(trim($cond),"OR");
+		$cond .= ") $op ";
+	}
+	$cond=trim(trim($cond),$op);
+	return $cond;
+}
+
+function orderingUrlSuffix(){
+	$PHP_SELF = getPageURL();
+	$PHP_SELF = trim($PHP_SELF,"&");
+	
+	if($PHP_SELF[strlen($PHP_SELF)-1]!='?')
+		$PHP_SELF .= (strstr($PHP_SELF, '?'))?"&":"?";
+
+	$pattern = '/so=(\w+)&/i';
+	$orderingUrlSuffix = preg_replace($pattern, "", $PHP_SELF);
+	$pattern = '/sb=(\w+)&/i';
+	$orderingUrlSuffix = preg_replace($pattern, "", $orderingUrlSuffix);
+	return $orderingUrlSuffix;
+}
+
+function filterURL($url, $filter){
+	$pattern = '/'.$filter.'=(\w+)&/i';
+	$url = preg_replace($pattern, "", $url);
+	$pattern = '/'.$filter.'=(\w+)/i';
+	$url = preg_replace($pattern, "", $url);
+	return $url;
+}
+
+function deleteRecord($table, $cond, $conf_msg){
+	$sql = "DELETE FROM $table WHERE $cond";
+	$result = MYSQL_QUERY($sql);
+	if($result && $conf_msg)
+		echo '<script>correctMessage("'.Record_Update.'")</script>';
+	return $result;
+}
+
+
+function getCurrentFormName(){
+   $file  = substr(strrchr($_SERVER['PHP_SELF'],"/"),1);
+   $thisfile = substr($file ,0,strpos($file ,'.php'));
+   return $thisfile;
+}
+
+function getPrevFileURI(){
+   $file  = substr(strrchr($_SERVER['HTTP_REFERER'],"/"),1);
+   return $file;
+}
+
+
+function getPrevFormName(){
+   $file  = substr(strrchr($_SERVER['HTTP_REFERER'],"/"),1);
+   $thisfile = substr($file ,0,strpos($file ,'.php'));
+   return $thisfile;
+}
+
+///////////////////////////////////
+/*function getCurrentFormName(){
+   $file  = substr(strrchr($_SERVER['PHP_SELF'],"/"),1);
+   $thisfile = substr($file ,0,strpos($file ,'.php'));
+   return $thisfile;
+}*/
+
+function get_help_topics(){
+	$sql = "select * from help_tips_groups";
+	$result = mysql_query($sql);
+	$numrows = mysql_numrows($result);
+	if($numrows){
+		$i=0;
+		while($i<$numrows){
+			$group_id = mysql_result($result,$i,'id');
+			$group_label = mysql_result($result,$i,'group_title');
+			
+			$html_result="<div style='cursor:pointer' class='group_label' id='group_$group_id'><img class='status_img' style='width:5px; height:5px; margin-bottom:2px;' src='"._PREF."images/icons/start.gif'/>$group_label</div>";
+			$sql2 = "select * from help_tips where group_id = '$group_id'";
+			$result2 = mysql_query($sql2);
+			$numrows2 = mysql_numrows($result2);
+			if($numrows2){
+				$html_result.="<div class='group group_$group_id' id='closed'>";
+				$ii = 0;
+				while($ii<$numrows2){
+					$tip_id = mysql_result($result2,$ii,'id');
+					$title = mysql_result($result2,$ii,'title');
+					$html_result.="<div><a href='viewHelp.php?id=$tip_id'>$title</a></div>";
+					$ii++;
+				}
+				
+				$html_result.="</div>";
+			}
+			$html_result.="</div>";
+			$i++;
+		}
+		
+	}
+	return $html_result;
+}
+
+function getHelp_brief(){
+	$thisfile = getCurrentFormName();
+	$sql = "select tip_id from help_tips_forms where form_id = (select form_id from help_forms where `form_name` = '$thisfile')";
+	$result = mysql_query($sql);
+	$numrows = mysql_numrows($result);
+	if($numrows){
+		$tip_id = mysql_result($result,0,'tip_id');
+		$title = lookupField('help_tips','id','title',$tip_id).'<br/>';
+		$brief = lookupField('help_tips','id','brief',$tip_id).'<br/>';
+				//<a href="viewHelp.php?id='.$help_id.'">Details...</a>';
+	}{
+		$help_content = "<div class='help_content'><div class='title'>$title</div><div class='brief'>$brief<a class='details_link' target='_blank' href='../help/help.php?tip_id=$tip_id'>Details...</a></div><br/></div>";
+		$html_result = '<div id="help">
+							<img src="'._PREF.'images/icons/Help.png" title="'.$help_content.'" style="cursor:pointer" />
+						</div>';
+	}
+	return $html_result;
+}
+
+function print_AdminRecordHead($field, $head, $sb, $so, $static_order=0,$extra=null){
+	if($static_order)	return $head;
+	$out .= '<a href="'.orderingUrlSuffix().'so='.$so.'&sb='.$field.$extra.'&"><b>';
+	if($sb==$field)
+		$out .= "<u>$head</u>&nbsp;<img src='"._PREF."images/icons/".$so.".gif' alt='D' border=0>";
+	else
+		$out .= $head;
+	$out .= '</b></a>';
+	return $out;
+}
+
+function print_ViewRecordHead($field, $head, $sb, $so, $static_order=0){
+	if($static_order)	return $head;
+	$out .= '<a href="'.orderingUrlSuffix().'so='.$so.'&sb='.$field.'&"><b>';
+	if($sb==$field)
+		$out .= "<u>$head</u>&nbsp;<img src='"._PREF."images/icons/".$so.".gif' alt='D' border=0>";
+	else
+		$out .= $head;
+	$out .= '</b></a>';
+	return $out;
+}
+
+
+function print_seo_icon($filename,$lang=''){
+	if($lang){$lang_param = "lang=".$lang."&";}
+	return '<a href="../common/seo.php?'.$lang_param.'filename='.$filename.'" class="dialog-form"><img src="'._PREF.'images/icons/SEO.png" alt="'._SEO.'" border=0></a>';
+}
+function print_edit_icon($url){
+	return '<a href="'.$url.'"><img src="'._PREF.'images/icons/Edit.png" alt="'._Edit.'" border=0></a>';
+}
+function print_view_icon($url){
+	return '<a href="'.$url.'" target="_blank"><img src="'._PREF.'images/icons/View.png" alt="'._View.'" border=0></a>';
+}
+function print_delete_icon($url=""){
+	if($url != "")
+		return '<a href="'.$url.'" class="delete"><img src="'._PREF.'images/icons/Delete.png" alt="'._Delete.'" border=0></a>';
+	else
+		return '<img src="'._PREF.'images/icons/Delete_unactive.png" alt="'._Delete.'" border=0>';
+}
+function print_save_icon($action){
+	return '<img src="'._PREF.'images/icons/save.png" onClick="actionf(\''.$action.'\')" onMouseOver="over(this)" alt="Save" />';
+}
+function print_subItems_icon($url){
+	return '<a href="'.$url.'"><img src="'._PREF.'images/icons/menu.png" alt="Menus" border=0></a>&nbsp';
+}
+function print_delete_ckbox($value=""){
+	if($value!="")
+		return '<input name="rid[]" type="checkbox" value="'.$value.'"/>';
+	else
+		return '<input  type="checkbox" DISABLED/>';
+}
+
+function create_lang_switcher($lang){
+	if(count_items("languages")>1)
+	echo "<div class='lang_switcher' >".switch_Lang." ".createComboBoxScript("languages", "lang", "lang_name", $lang, "lang","","","window.location='?lang='+this.value")."</div>";
+}
+
+function createLangCombo($items,$values,$name,$class,$selected_item){
+	$items = trim($items);
+	$itemsArr  = explode('|', $items);
+	$valuesArr  = explode('|', $values);
+	$i=0;
+	echo "<select name='".$name."' class='".$class."'>";
+	
+	foreach( $itemsArr as $item ){
+		if($valuesArr[$i] == $selected_item){
+			echo "<option selected value='".$valuesArr[$i]."'>$item</option>";
+		}else{
+			echo "<option value='".$valuesArr[$i]."'>$item</option>";
+		}
+		
+		$i++;
+		
+	}
+	echo "</select>";
+}
+
+//////////////////////////////Ordering function//////////////////////////////////
+
+function getNewItemOrder($table, $ordering_col, $unique_cond){
+	if($unique_cond)	$unique_cond = "WHERE ".$unique_cond;
+	$sql = "SELECT MAX($ordering_col) AS max FROM $table $unique_cond ";
+	$result = mysql_query($sql);
+	if ($result) return $max = MYSQL_RESULT($result,0,'max')+1;
+	else return 1;
+}
+
+function changeOrder($table, $pk, $ordering_col, $new_ord ){
+	$action = cleanString($_REQUEST['action']);
+	if($action!='up' && $action!='down') return;
+	$id = cleanString($_REQUEST['id']);
+	$sid = addslashes(cleanString($_REQUEST['sid']));
+	$o = addslashes(cleanString($_REQUEST['o']));
+	$so = addslashes(cleanString($_REQUEST['so']));
+	if($id !="" && $sid !="" && $o !="" && $so !="" ){
+		if($so==$o){$so=$new_ord;$o=$new_ord+1;}
+		$res = mysql_query("UPDATE $table SET $ordering_col='$so' WHERE $pk='$id'");
+		$res1 = mysql_query("UPDATE $table SET $ordering_col='$o'  WHERE $pk='$sid'");
+		if($res && $res1)
+		echo '<script>correctMessageWithoutBack("'.Record_Update.'")</script>';
+	}
+}
+
+function showUpDownIcons($result, $i, $pk, $ordering_col, $url_prefix){
+	$menu_id= MYSQL_RESULT($result,$i,$pk);
+	$ord= MYSQL_RESULT($result,$i,$ordering_col);
+	$numberOfRows = MYSQL_NUMROWS($result);
+	echo '<TD align="center" WIDTH="35">';
+	if($i!='0'){
+		$So= MYSQL_RESULT($result,$i-1,$ordering_col);
+		$Sid= MYSQL_RESULT($result,$i-1,$pk);
+		echo '<a href="'.$_SERVER['PHP_SELF'].'?action=up&id='.$menu_id.'&sid='.$Sid.'&o='.$ord.'&so='.$So.'&'.$url_prefix.'">';
+		echo '<img src="'._PREF.'images/icons/up.png" alt="Up" border=0>';
+		echo '</a>';
+	}else echo "&nbsp";
+	echo '</TD>';
+	echo '<TD align="center" WIDTH="34">';
+	if($i+1!=$numberOfRows){
+		$So= MYSQL_RESULT($result,$i+1,$ordering_col);
+		$Sid= MYSQL_RESULT($result,$i+1,$pk);
+		echo '<a href="'.$_SERVER['PHP_SELF'].'?action=down&id='.$menu_id.'&sid='.$Sid.'&o='.$ord.'&so='.$So.'&'.$url_prefix.'">';
+		echo '<img src="'._PREF.'images/icons/down.png" alt="Down" border=0>';
+		echo '</a>';
+	}else echo "&nbsp";
+	echo '</TD>';
+}
+
+function myFormate($number){
+	return number_format(round($number,2), 2, '.', ',');
+}
+///////////////////////////////////////////////////////////////////////////
+?>

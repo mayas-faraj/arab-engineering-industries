@@ -1,4 +1,4 @@
-<? if(!$_SESSION["us_id"]){echo"<script>document.location='"._PREF."index.php'</script>";} ?>	
+<?php if(!$_SESSION["us_id"]){echo"<script>document.location='"._PREF."index.php'</script>";} ?>	
 <link rel="stylesheet" type="text/css" href='<?php echo _PREF; ?>wedgits/forum/articles_<?php echo $pageLang; ?>.css'/>
 <div class= "page_content">
 	<?$user_name = lookupField('users','user_id','full_name',$_SESSION["us_id"]);
@@ -15,7 +15,7 @@
 
 
 	
-<?
+<?php
 	$user_id = $_SESSION["us_id"];
 	if($_REQUEST['pn'])	$pn = $_REQUEST['pn'];
 	$LPP = 20;
@@ -54,7 +54,7 @@
 			<td class='art_date'><a href="viewMyArticles.php?cat_id=<?php echo $_REQUEST['id']; ?>&so=<?php echo $soo; ?>&sb=publish_date"><?php echo publish_date; ?></a></td>
 			<td class='art_date'><?php echo last_comment_date; ?></td>
 		</tr>
-	<?
+	<?php
 		while ($i<$numrows){
 			$id=mysql_result($result, $i,"id");
 			$title=mysql_result($result, $i,"title");
@@ -71,7 +71,7 @@
 					<td class='art_autor'><?php echo $author; ?></td>
 					<td class='art_date'><?php echo $publish_date; ?></td>
 					<td class='last_art_date'>
-						<?
+						<?php
 							$com_sql =  "SELECT max(publish_date) FROM art_comments where art_id = '$id'";
 							$com_result = MYSQL_QUERY($com_sql);
 							$com_numrows = MYSQL_NUMROWS($com_result);
@@ -91,7 +91,7 @@
 				</tr>
 			
 		
-			<?
+			<?php
 			$i++;
 		}
 		echo "</table>";

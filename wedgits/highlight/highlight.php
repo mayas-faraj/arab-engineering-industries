@@ -2,7 +2,7 @@
 <script type="text/javascript" src="<?php echo _PREF; ?>wedgits/highlight/highlight.js"></script>
  
 	
-<?
+<?php
 $item_counts =3;
 $root_path ="uploads/";
 if($pageLang=='ar'){$brief_count = 1150;}else{$brief_count = 600;}
@@ -111,7 +111,7 @@ if($numrows> 3 OR $numrows ==3){
 				<div class='nav_buttons'>
 					
 					
-					<?
+					<?php
 					if($numrows>2){
 						for($i=0; $i<20; $i++){
 							echo $buttons;
@@ -126,7 +126,7 @@ if($numrows> 3 OR $numrows ==3){
 			</div>
 			<div class='heighlight_switcher'>
 				<div class='nav'>
-					<?
+					<?php
 						if($numrows>2){?>
 							<img class='go_up' onClick='switch_highlight(<?php echo $item_num; ?>,"prev")' src='<?php echo _PREF; ?>wedgits/highlight/left_arrow_<?php echo $pageLang; ?>.png'/>
 							<span class='high_nums'><span class='curr_high'>2</span> <?php echo of; ?> <?php echo $item_num; ?></span>
@@ -158,7 +158,7 @@ if($numrows> 3 OR $numrows ==3){
 				$('.nav_buttons').css('top',-count+'px');
 			});
 		</script>
-		<? echo"<script>var timer_news = setTimeout('switch_highlight($numrows,\"next\")',7000);</script>"?>
+		<?php echo"<script>var timer_news = setTimeout('switch_highlight($numrows,\"next\")',7000);</script>"?>
 	<?}elseif($numrows==2){?>
 		<script>
 			count = <?php echo (73*$numrows)*10-73; ?>;
@@ -169,7 +169,7 @@ if($numrows> 3 OR $numrows ==3){
 			});
 			
 		</script>
-		<? echo"<script>var timer_news = setTimeout('switch_highlights($numrows,\"next\")',7000);</script>"?>
+		<?php echo"<script>var timer_news = setTimeout('switch_highlights($numrows,\"next\")',7000);</script>"?>
 	<?}else{?>
 		<script>
 			$('documents').ready(function(){

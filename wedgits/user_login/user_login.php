@@ -1,6 +1,6 @@
 <script src="<?php echo _PREF; ?>wedgits/user_login/user_login.js" language="javascript" type="text/javascript"></script>
 <link rel="stylesheet" type="text/css" href='<?php echo _PREF; ?>wedgits/user_login/user_login_<?php echo $pageLang; ?>.css'/>
-<?
+<?php
 $page_name = getCurrentFormName();
 	if($page_name=='index'){
 		$path='';

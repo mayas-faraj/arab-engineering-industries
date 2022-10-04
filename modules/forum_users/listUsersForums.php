@@ -1,4 +1,4 @@
-<? include_once("../common/header-admin.php");
+<?php include_once("../common/header-admin.php");
 
 echo print_GridAdminHead("Forum group users","Forum group users", 1, 1, 1, 1);
 
@@ -70,7 +70,7 @@ function actionf(act){
 </TR>
 </thead>
 <tbody>
-<? if($action=="Enter"){ ?>
+<?php if($action=="Enter"){ ?>
 <TR>
 	<td><?php echo createComboBox("forum_group" , "id", "name_en" , $grp_id , "grp_id", "required");; ?></td>
 	<TD><?php echo print_save_icon("Insert"); ?></TD>
@@ -108,4 +108,4 @@ while ($i<$numberOfRows){
 </form>
 </div>
 <input type='button' onClick='document.location="listUsers.php"' value='Back'/>
-<? include_once("../common/footer-admin.php"); ?>
+<?php include_once("../common/footer-admin.php"); ?>

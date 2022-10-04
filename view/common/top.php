@@ -1,4 +1,4 @@
-<?
+<?php
 session_start();
 $HP=1;
 if(!$_SESSION[SESSION_PREF.'pageLang']){ $_SESSION[SESSION_PREF.'pageLang']="en";}

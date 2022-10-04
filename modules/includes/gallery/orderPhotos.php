@@ -1,4 +1,4 @@
-<?
+<?php
 session_start();
 header("cache-control: no-cache"); 
 require_once("../../../config.php");

@@ -33,23 +33,23 @@ if($currentTip){
 								$j=0;
 								?>
 								<ul>
-								<?
+								<?php
 								while ($j<$tips_numRows){
 									$tip_id=mysql_result($tips_result, $j,"id");
 									$title =mysql_result($tips_result, $j,"title");
 									$tipStyle=($tip_id==$currentTip)?"style='font-weight:bold'":"";
 									?>
 									<li id="<?php echo "tip_$tip_id"; ?>" <?php echo $tipStyle; ?> ><a href="<?php echo $_SERVER['PHP_SELF']; ?>?tip_id=<?php echo $tip_id; ?>"><?php echo $title; ?></a></li>
-									<?
+									<?php
 									$j++;
 								}
 								?>
 								</ul>
-								<?
+								<?php
 							}
 							?>
 							</li>
-							<?
+							<?php
 							$i++;
 						}
 					}				

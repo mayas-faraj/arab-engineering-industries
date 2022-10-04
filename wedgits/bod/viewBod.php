@@ -1,7 +1,7 @@
 <link rel="stylesheet" type="text/css" href='<?php echo _PREF; ?>wedgits/bod/bod_<?php echo $pageLang; ?>.css'/>	
 <div class="page_content" dir='<?php echo _DIR; ?>'>
 
-	<?
+	<?php
 $photo_path ="../../uploads/";
 $id = cleanString($_REQUEST['id']);
 
@@ -54,7 +54,7 @@ if ($numrows>0) {
 				<td rowspan="7" valign="top">
 				<table class="term_block"><tr><td valign="top">	
 				<h2><?php echo TERMS; ?></h2>
-				<?
+				<?php
 					$sql =  "SELECT * FROM  terms t, term_members tm where tm.term_id=t.id AND tm.member_id='$id' ORDER BY t.id DESC";
 					$result = MYSQL_QUERY($sql);
 					$numrows = MYSQL_NUMROWS($result);
@@ -97,7 +97,7 @@ if ($numrows>0) {
 		
 
 
-		<?
+		<?php
 		$i++;
 	}
 }

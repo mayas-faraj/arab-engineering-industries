@@ -1,6 +1,6 @@
 <link rel="stylesheet" type="text/css" href='<?php echo _PREF; ?>wedgits/pages/page_<?php echo $pageLang; ?>.css'/>	
 
-<?
+<?php
 if($pageLang=='en'){
 	$id = 1;
 	$count = 640;

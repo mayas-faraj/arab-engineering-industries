@@ -71,4 +71,4 @@ function formValidator(){
 </script>
 </body>
 </html>
-<? }?>
+<?php }?>

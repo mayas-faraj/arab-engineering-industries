@@ -1,7 +1,7 @@
-<? include_once("../common/header-admin.php");
+<?php include_once("../common/header-admin.php");
 ?>
 
-<?
+<?php
 
 
 echo print_GridAdminHead("Site Settings","Site Settings", 0, 0, 0, 1);
@@ -78,7 +78,7 @@ function addDel(par){
 		<th colspan="1">Controls  </th>
 	</tr>
 </TR>
-</thead><tbody><? 
+</thead><tbody><?php 
 
 while ($i<$numberOfRows){
 	$id= MYSQL_RESULT($result,$i,"id");
@@ -99,7 +99,7 @@ while ($i<$numberOfRows){
 			<TD><img src="<?php echo _PREF; ?>images/icons/save.png" onClick="actionf('Update')" onMouseOver="over(this)" alt="<?php echo _Save; ?>" /></TD>
 			
 		</TR>
-   	  <? 
+   	  <?php 
 }// Edit record
 else{?>
 <TR>
@@ -111,14 +111,14 @@ else{?>
 	<?//}?>
 	
 
-	<TD align="center" WIDTH="20"><?=print_edit_icon($_SERVER['PHP_SELF']."?action=Edit&id=".$id);?></TD>
+	<TD align="center" WIDTH="20"><?php echo print_edit_icon($_SERVER['PHP_SELF']."?action=Edit&id=".$id);?></TD>
 	
 </TR>
-<? 	
+<?php 	
 }//end else
 $i++;
 }//End While?>
 </tbody>
 </TABLE>
 </form>
-<? include_once("../common/footer-admin.php"); ?>
+<?php include_once("../common/footer-admin.php"); ?>

@@ -1,4 +1,4 @@
-<?
+<?php
 include_once("../common/header-admin.php");
 
 /***********Print Header*************/
@@ -76,10 +76,10 @@ echo createPagination($tp,$pn,$LPP);
 <TR>
 <th><?php echo print_AdminRecordHead("form_name", "Form Name", $sb, $so); ?></th>
 <th><?php echo print_AdminRecordHead("send_mail_to", "Send Mail To", $sb, $so); ?></th>
-<?
+<?php
 ?>
 <th><?php echo print_AdminRecordHead("lang", "Lang", $sb, $so); ?></th>
-<?
+<?php
 ?>
 <th colspan="4">&nbsp;</th>
 </TR>
@@ -89,10 +89,10 @@ if($action=="Enter"){ ?>
 <TR>
 <TD><input type="Text" name="form_name" size="20" value="<?php echo stripslashes($form_name)?>" /></TD>
 <TD><input type="Text" name="send_mail_to" size="20" value="<?php echo stripslashes($send_mail_to)?>" /></TD>
-<?
+<?php
 ?>
 <TD><?php echo createComboBox("languages" , "lang", "lang_name" , $lang , "lang");?></TD>
-<?
+<?php
 ?>
 <TD>&nbsp;</TD>
 <TD><?php echo print_save_icon("Insert"); ?></TD>
@@ -109,29 +109,29 @@ if($action=="Edit"  && $_REQUEST['form_id'] == $form_id){?>
 <TR>
 <TD><input type="Text" name="form_name" size="20" value="<?php echo stripslashes($form_name)?>" /></TD>
 <TD><input type="Text" name="send_mail_to" size="20" value="<?php echo stripslashes($send_mail_to)?>" /></TD>
-<?
+<?php
 ?>
 <TD><?php echo createComboBox("languages" , "lang", "lang_name" , $lang , "lang");?></TD>
-<?
+<?php
 ?>
 <TD>&nbsp;</TD>
 <TD><?php echo print_save_icon("Update"); ?></TD>
 <TD colspan="2">&nbsp;</TD>
-</TR><?
+</TR><?php
 }else{?>
 <TR>
 <TD width="196"><?php echo stripslashes($form_name)?></TD>
 <TD width="261"><?php echo stripslashes($send_mail_to)?></TD>
-<?
+<?php
 ?>
 <TD width="193"><?php echo stripslashes($lang)?></TD>
-<?
+<?php
 ?>
 <TD width="299" align="center"><a href="listForm_fields.php?form_id=<?php echo $form_id?>"><?php echo Form_fields?></a></TD>
-<TD width="42" align="center"><?=print_edit_icon($_SERVER['PHP_SELF']."?action=Edit&form_id=".$form_id)?></TD>
-<TD align="center" WIDTH="42"><?=print_view_icon(_PREF."view/forms/viewForm.php?id=".$form_id);?></TD>
+<TD width="42" align="center"><?php echo print_edit_icon($_SERVER['PHP_SELF']."?action=Edit&form_id=".$form_id)?></TD>
+<TD align="center" WIDTH="42"><?php echo print_view_icon(_PREF."view/forms/viewForm.php?id=".$form_id);?></TD>
 <TD width="29" align="center"><?php echo print_delete_ckbox($form_id); ?></TD>
-</TR><?
+</TR><?php
 }//end else
 $i++;
 }//End While

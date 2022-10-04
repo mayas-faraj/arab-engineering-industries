@@ -1,6 +1,6 @@
 <link rel="stylesheet" type="text/css" href='<?php echo _PREF; ?>wedgits/blocks/blocks_<?php echo $pageLang; ?>.css'/>
 
-	<?
+	<?php
 		if($pageLang=='en'){
 			$ids = array(3,5,7);
 		}else{

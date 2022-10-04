@@ -1,4 +1,4 @@
-<? session_start();
+<?php session_start();
 header("cache-control: no-cache"); 
 require_once("../../../config.php");
 require_once("../../common/dbConnection.php"); 

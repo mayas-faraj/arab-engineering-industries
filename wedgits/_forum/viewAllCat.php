@@ -1,4 +1,4 @@
-<? 
+<?php 
 if(!$_SESSION["us_id"]){echo"<script>document.location='"._PREF."index.php'</script>";} 
 
 ?>	
@@ -8,7 +8,7 @@ if(!$_SESSION["us_id"]){echo"<script>document.location='"._PREF."index.php'</scr
 	<div class="title2"><?php echo Topics; ?> <span><?echo Welcome.' <font><a href="myPage.php?mem_id='.$_SESSION["us_id"].'&cat_id='.$_REQUEST['cat_id'].'">'.$user_name.'</a></font></font>'?></span></div>
 
 	
-<?
+<?php
 
 	if($_REQUEST['pn'])	$pn = $_REQUEST['pn'];
 	$LPP = 20;
@@ -47,7 +47,7 @@ if(!$_SESSION["us_id"]){echo"<script>document.location='"._PREF."index.php'</scr
 					<td><?php echo $grp_admin; ?></td>
 					<td width='100px' align='center'><a class='forum_admin' href='viewAllForumMembers.php?id=<?php echo $id; ?>'><img src='../../wedgits/forum/members_ico.png'/></a></td>
 				</tr>
-			<?
+			<?php
 			$i++;
 		}
 		echo "</table>";

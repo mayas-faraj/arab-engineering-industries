@@ -1,4 +1,4 @@
-<? 
+<?php 
 include_once("../common/header.php");
 
 $thisAction=$_REQUEST['action'];
@@ -23,12 +23,12 @@ if ($numberOfRows > 0 ){
  $result1 = MYSQL_QUERY($sql1);
  checkerror($result1,$sql1);?>
  <b  class="stylev"  > your password has been sent successfully</b>
- <?
+ <?php
 }
 else{
   ?>
 <b class="stylev"  > wrong user name</b>
-<?
+<?php
    }
 }
 else
@@ -61,6 +61,6 @@ else
      </tr>
   </table>
 </form>
-<? }
+<?php }
 include_once("../common/footer.php");
 ?>

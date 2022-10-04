@@ -50,7 +50,7 @@ if(checkGallogin()){
 		})
 	})
 	</script>
-	<input name="des2" type="hidden" id="des2" value="d" size="100"><?
+	<input name="des2" type="hidden" id="des2" value="d" size="100"><?php
 	$sql = "SELECT * FROM galleries_galleries  where id=$gid limit 0,1";
 	$result = mysql_query($sql);
 	$numberOfRows = mysql_numrows($result);
@@ -68,7 +68,7 @@ if(checkGallogin()){
 			$numberOfRows = MYSQL_NUMROWS($result);
 			$i=0;
 			
-			?><div id="gal_order"><?
+			?><div id="gal_order"><?php
 			while ($i<$numberOfRows){
 				$id= MYSQL_RESULT($result,$i,"id");
 				$photo= MYSQL_RESULT($result,$i,"photo");
@@ -92,7 +92,7 @@ if(checkGallogin()){
 				onMouseOut="viewDes(<?php echo $id; ?>,0)"><div><?php echo $photo.'<br>'.stripslashes($description); ?></div></div>
 				<div class="thumb_img" align="center" style="background-image:url(<?php echo $thumbN; ?>)" 
 				onMouseOver="viewDes(<?php echo $id; ?>,1)"></div>
-				<? 
+				<?php 
 				$bgcol='abe656';
 				$checked='checked';?>
 				<div class="thumb_tools" style="background-color:#<?php echo $bgcol; ?>" id="tools_<?php echo $id; ?>" >
@@ -106,10 +106,10 @@ if(checkGallogin()){
 				onClick="edit_photo(<?php echo $id; ?>,'<?php echo $description; ?>','<?php echo $thumb; ?>',2)"/>
 				</div></div>
 				</div>
-				<?
+				<?php
 				$i++;
 			} 
-			?></div><? 
+			?></div><?php 
 		}
 	}
 }

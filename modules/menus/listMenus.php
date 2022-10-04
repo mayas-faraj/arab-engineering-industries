@@ -1,4 +1,4 @@
-<? include_once("../common/header-admin.php");
+<?php include_once("../common/header-admin.php");
 
 echo print_GridAdminHead("Menus","Menus", 1, 1, 1, 1);
 
@@ -75,22 +75,22 @@ main.submit();
 <TABLE CELLSPACING="0" CELLPADDING="0" BORDER="0" WIDTH="100%" ID="list">
 <thead>
 <TR>
-<?
+<?php
 ?>
 <th width="100px;"><?php echo print_AdminRecordHead("item_label", "Item Label", $sb, $so, $static_order); ?></th>
-<?
+<?php
 ?>
 <th><?php echo print_AdminRecordHead("item_link", "Item Link", $sb, $so, $static_order); ?></th>
 <th colspan="5">&nbsp;</th>
 </TR>
 </thead>
 <tbody>
-<? if($action=="Enter"){ ?>
+<?php if($action=="Enter"){ ?>
 <TR>
-<?
+<?php
 ?>
 <TD><input type="Text" name="item_label" size="20" value="<?php echo stripslashes($item_label); ?>"/></TD>
-<?
+<?php
 ?>
 <TD><?php echo getLinks($item_link , $lang);; ?></TD>
 <TD><?php echo print_save_icon("Insert"); ?></TD>
@@ -107,12 +107,12 @@ $p_id= MYSQL_RESULT($result,$i,"p_id");
 $ord= MYSQL_RESULT($result,$i,"item_order");
 if($action=="Edit"  && $_REQUEST['menu_id'] == $menu_id){?>
 <TR>
-<?
+<?php
 ?>
 <TD><input type="Text" name="item_label" size="20" value="<?php echo stripslashes($item_label); ?>" />
 <input type="Hidden" name="menu_id" size="20" value="<?php echo $menu_id; ?>" />
 </TD>
-<?
+<?php
 ?>
 <TD><?php echo getLinks($item_link , $lang);; ?></TD>
 <TD><?php echo print_save_icon("Update"); ?></TD>
@@ -121,19 +121,19 @@ if($action=="Edit"  && $_REQUEST['menu_id'] == $menu_id){?>
 <?}// Edit record
 else{?>
 <TR>
-<?
+<?php
 ?>
 <TD><?php echo stripslashes($item_label); ?></TD>
-<?
+<?php
 ?>
 <TD>&nbsp;<?php echo print_internal_Link($item_link);; ?></TD>
-<?
+<?php
 /**Ordering_functions(part 2 of 2)********************************************/
 showUpDownIcons($result, $i, "menu_id", "item_order", "&p_id=".$p_id);
 /**Ordering_functions********************************************/
 ?>
-<TD width="42" align="center"><?=print_subItems_icon("listMenus.php?p_id=$menu_id")?></TD>
-<TD width="42" align="center"><?=print_edit_icon($_SERVER['PHP_SELF']."?action=Edit&menu_id=".$menu_id."&p_id=".$p_id)?></TD>
+<TD width="42" align="center"><?php echo print_subItems_icon("listMenus.php?p_id=$menu_id")?></TD>
+<TD width="42" align="center"><?php echo print_edit_icon($_SERVER['PHP_SELF']."?action=Edit&menu_id=".$menu_id."&p_id=".$p_id)?></TD>
 <?/**delete_grp_functions(part 1 of 2)********************************************/?>
 <TD width="29" align="center"><?php echo print_delete_ckbox($menu_id); ?></TD>
 <?//-------------------------------------------------------?>
@@ -144,9 +144,9 @@ $i++;
 </tbody>
 </TABLE>
 <br><br>
-<div align="CENTER"><?
+<div align="CENTER"><?php
 if($p_id){ ?>
-<input type="button" value="<?php echo _GoBack; ?>" onClick="document.location='listMenus.php?p_id=<?php echo lookupField('menus','menu_id','p_id',$p_id); ?>';" /><? } ?></div>
+<input type="button" value="<?php echo _GoBack; ?>" onClick="document.location='listMenus.php?p_id=<?php echo lookupField('menus','menu_id','p_id',$p_id); ?>';" /><?php } ?></div>
 </form>
 </div>
-<? include_once("../common/footer-admin.php"); ?>
+<?php include_once("../common/footer-admin.php"); ?>

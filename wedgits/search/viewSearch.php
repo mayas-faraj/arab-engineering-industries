@@ -3,7 +3,7 @@
     <div class="title2"><?php echo  search_result ; ?></div>
     <div class="search_result">
         <TABLE CELLSPACING="0" CELLPADDING="0" BORDER="0" WIDTH="100%" >
-            <?
+            <?php
             if (cleanString($_REQUEST['word']) != "") {
                 $s = (cleanString($_REQUEST['word']));
                 //-----------Pages--------------------------------------------------------------------
@@ -14,7 +14,7 @@
                 $color = 0;
                 if ($rows_pages > 0) {
                     ?>
-                    <TR  height="40"><td colspan="2" class="subtitle"><?php echo  Pages . " (" . ($rows_pages) . ")" ; ?></td></TR><?
+                    <TR  height="40"><td colspan="2" class="subtitle"><?php echo  Pages . " (" . ($rows_pages) . ")" ; ?></td></TR><?php
                     if ($rows_pages > 0) {
                         $i = 0;
                         while ($i < $rows_pages) {
@@ -35,7 +35,7 @@
                                 </TD>
                             </TR>
 
-                            <?
+                            <?php
                             $i++;
                         }
                     }
@@ -53,7 +53,7 @@
                 $rows_news = mysql_num_rows($res_news);
                 if ($rows_news > 0) {
                     ?>
-                    <TR height="40"><td colspan="2" class="subtitle"><?php echo  Announcements ; ?> (<?php echo  $rows_news ; ?>)</td></TR><?
+                    <TR height="40"><td colspan="2" class="subtitle"><?php echo  Announcements ; ?> (<?php echo  $rows_news ; ?>)</td></TR><?php
                     $i = 0;
                     while ($i < $rows_news) {
                         if ($color) {
@@ -80,7 +80,7 @@
                                     <!--a href='<?php echo  _PREF ; ?>view/Anouncements/viewAnnounceDetails.php?id=<?php echo  $id ; ?>' class='more'><?php echo  _View ; ?></a-->
                             </TD>
                         </TR>
-                        <?
+                        <?php
                         $i++;
                     }
                 }
@@ -96,7 +96,7 @@
                 $rows_activities = mysql_num_rows($res_activities);
                 if ($rows_activities > 0) {
                     ?>
-                    <TR height="40"><td colspan="2" class="subtitle"><?php echo  Activities ; ?> (<?php echo  $rows_activities ; ?>)</td></TR><?
+                    <TR height="40"><td colspan="2" class="subtitle"><?php echo  Activities ; ?> (<?php echo  $rows_activities ; ?>)</td></TR><?php
                     $i = 0;
                     while ($i < $rows_activities) {
                         if ($color) {
@@ -121,7 +121,7 @@
                                     <!--a href='<?php echo  _PREF ; ?>view/activities/viewActivities.php?id=<?php echo  $id ; ?>' class='more'><?php echo  _View ; ?></a-->
                             </TD>
                         </TR>
-                        <?
+                        <?php
                         $i++;
                     }
                 }
@@ -132,7 +132,7 @@
                 $rows_committees = mysql_num_rows($res_committees);
                 if ($rows_committees > 0) {
                     ?>
-                    <TR height="40"><td colspan="2" class="subtitle"><?php echo  Committees ; ?> (<?php echo  $rows_committees ; ?>)</td></TR><?
+                    <TR height="40"><td colspan="2" class="subtitle"><?php echo  Committees ; ?> (<?php echo  $rows_committees ; ?>)</td></TR><?php
             $i = 0;
             while ($i < $rows_committees) {
                 if ($color) {
@@ -153,7 +153,7 @@
                                     <!--a href='<?php echo  _PREF ; ?>view/committees/viewCommittees.php?id=<?php echo  $id ; ?>' class='more'><?php echo  _View ; ?></a-->
                             </TD>
                         </TR>
-                        <?
+                        <?php
                         $i++;
                     }
                 }
@@ -166,7 +166,7 @@
                 $rows_members = mysql_num_rows($res_members);
                 if ($rows_members > 0) {
                     ?>
-                    <TR height="40"><td colspan="2" class="subtitle"><?php echo  MEMBERS ; ?> (<?php echo  $rows_members ; ?>)</td></TR><?
+                    <TR height="40"><td colspan="2" class="subtitle"><?php echo  MEMBERS ; ?> (<?php echo  $rows_members ; ?>)</td></TR><?php
             $i = 0;
             while ($i < $rows_members) {
                 if ($color) {
@@ -187,7 +187,7 @@
                                     <!--a href='<?php echo  _PREF ; ?>view/members/viewMember.php?id=<?php echo  $id ; ?>' class='more'><?php echo  _View ; ?></a-->
                             </TD>
                         </TR>
-                        <?
+                        <?php
                         $i++;
                     }
                 }
@@ -200,7 +200,7 @@
                 $rows_bod = mysql_num_rows($res_bod);
                 if ($rows_bod > 0) {
                     ?>
-                    <TR height="40"><td colspan="2" class="subtitle"><?php echo  bod ; ?> (<?php echo  $rows_bod ; ?>)</td></TR><?
+                    <TR height="40"><td colspan="2" class="subtitle"><?php echo  bod ; ?> (<?php echo  $rows_bod ; ?>)</td></TR><?php
             $i = 0;
             while ($i < $rows_bod) {
                 if ($color) {
@@ -222,7 +222,7 @@
                                     <!--a href='<?php echo  _PREF ; ?>view/bod/viewBod.php?id=<?php echo  $id ; ?>' class='more'><?php echo  _View ; ?></a-->
                             </TD>
                         </TR>
-                        <?
+                        <?php
                         $i++;
                     }
                 }

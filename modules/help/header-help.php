@@ -1,4 +1,4 @@
-<? include_once("../common/top-admin.php"); ?>
+<?php include_once("../common/top-admin.php"); ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"
 "http://www.w3.org/TR/REC-html40/loose.dtd">
 <html>
@@ -49,6 +49,6 @@ var _userPages=false;
     <td colspan="3" style="background:url(<?php echo _PREF; ?>images/icons/VOILA-LINE-CMS.gif) repeat-x"><img src="<?php echo _PREF; ?>images/icons/VOILA-LOGO-CMS.gif" height="100"/></td>
   </tr>
  <tr>
-    <td width="200" height="100%" valign="top"><? include("menu-left.php")?></td>
+    <td width="200" height="100%" valign="top"><?php include("menu-left.php")?></td>
     <td width="100%" height="100%" valign="top" class="content">
 	 	<!--------------------------------->

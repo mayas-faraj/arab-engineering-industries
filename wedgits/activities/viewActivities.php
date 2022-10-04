@@ -3,7 +3,7 @@
 <script src="<?php echo  _PREF ; ?>wedgits/gallery/zoombox/zoombox.js" language="javascript" type="text/javascript"></script>
 <script src="<?php echo  _PREF ; ?>wedgits/gallery/gallery.js" language="javascript" type="text/javascript"></script>
 <div class='page_content'>
-    <?
+    <?php
     $id = cleanString($_REQUEST['id']);
     $currentdate = date("Y-m-d");
     if ($_SESSION['pageLang'] == 'ar') {

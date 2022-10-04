@@ -1,6 +1,6 @@
 <?include_once("../common/header-admin.php");?>
 <div class='head'><h1 class='title'>BOD Terms</h1></div>
-<?
+<?php
 /***********Print Header*************/
 //print_ListAdminHead("BOD Terms","",  "enterNewCouncilMember.php",0, 0);
 /***********Delete Option:*************/
@@ -26,7 +26,7 @@ $i=0;?>
 </tr>
 </thead>
 <tbody>
-<?
+<?php
 while ($i<$numberOfRows){
 $id= MYSQL_RESULT($result,$i,"id");
 $start_year= MYSQL_RESULT($result,$i,"start_year");
@@ -38,10 +38,10 @@ $end_year= MYSQL_RESULT($result,$i,"end_year");
 </tbody>
 </TABLE>
 
-<?
+<?php
 
-?><br/><?
+?><br/><?php
 }?>
 <br/><br/>
-<?
+<?php
 include_once("../common/footer-admin.php"); ?>

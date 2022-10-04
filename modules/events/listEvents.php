@@ -1,4 +1,4 @@
-<? 
+<?php 
 include_once("../common/header-admin.php");
 
 
@@ -52,7 +52,7 @@ if ($numberOfRows>0) {
 	</tr>
 	</thead>
 	<tbody>
-	<?
+	<?php
     while ($i<$numberOfRows){
         $id= MYSQL_RESULT($result,$i,"id");
         $subject= MYSQL_RESULT($result,$i,"subject");
@@ -67,17 +67,17 @@ if ($numberOfRows>0) {
 			<TD><?php echo stripslashes($publish_date); ?></TD>
 			<!--td><a href="../includes/checkbox.php?t=events_events&fn=active&idn=id&idv=<?php echo $id; ?>&fv=<?php echo !($active); ?>" class="checkb" ><img src="<?php echo _PREF; ?>images/icons/_<?php echo $active?>_.png" border="0"  fv="<?php echo !($active); ?>"/></a></td-->
 
-			<!--td align="center" width="30"><?=print_seo_icon("viewEvents.php?id=".$id);?></td-->
-			<TD align="center" WIDTH="42"><?=print_edit_icon("editEvents.php?cat_id=$cat_id&id=".$id);?></TD>
-			<TD align="center" WIDTH="42"><?=print_delete_icon("?id=".$id."&sub=del");?></TD>
-			<!--TD align="center" WIDTH="42"><?=print_view_icon("../../view/events/viewEvents.php?id=".$id);?></TD-->
+			<!--td align="center" width="30"><?php echo print_seo_icon("viewEvents.php?id=".$id);?></td-->
+			<TD align="center" WIDTH="42"><?php echo print_edit_icon("editEvents.php?cat_id=$cat_id&id=".$id);?></TD>
+			<TD align="center" WIDTH="42"><?php echo print_delete_icon("?id=".$id."&sub=del");?></TD>
+			<!--TD align="center" WIDTH="42"><?php echo print_view_icon("../../view/events/viewEvents.php?id=".$id);?></TD-->
         </TR>
 		<?$i++;
     }//End While?>
     </tbody>
 	</TABLE>
 	
-	<?
+	<?php
 	/***********Bottom pagination*************/
 	echo createPagination($tp,$pn,$LPP);
 	

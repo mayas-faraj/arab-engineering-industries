@@ -1,4 +1,4 @@
-<?
+<?php
 function ShowGallery3($gid,$min=0){
 	global $HP;
         echo $min;

@@ -1,5 +1,5 @@
 <link rel="stylesheet" type="text/css" href='<?php echo _PREF; ?>wedgits/header/index_header_<?php echo $pageLang; ?>.css'/>	
-<?
+<?php
 if($_REQUEST['word']){
 	$search = $_REQUEST['word'];
 }else{
@@ -22,7 +22,7 @@ if($_REQUEST['word']){
 					<a id="header_icon4" href="#" class='show_m_form'></a>
 				<?}?>
 				
-				<a class="lang_sw" href="<?php echo _PREF; ?>index.php?pageLang=<?php echo _SLANG; ?>"><?=($pageLang=='ar')?_SLANGUAGE:''?></a>
+				<a class="lang_sw" href="<?php echo _PREF; ?>index.php?pageLang=<?php echo _SLANG; ?>"><?php echo ($pageLang=='ar')?_SLANGUAGE:''?></a>
 				
 			</div>
 			<div id="header_search">

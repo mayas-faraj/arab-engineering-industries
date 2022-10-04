@@ -1,4 +1,4 @@
-<? if(!$_SESSION["us_id"]){echo"<script>document.location='"._PREF."index.php'</script>";} ?>	
+<?php if(!$_SESSION["us_id"]){echo"<script>document.location='"._PREF."index.php'</script>";} ?>	
 <link rel="stylesheet" type="text/css" href='<?php echo _PREF; ?>wedgits/forum/articles_<?php echo $pageLang; ?>.css'/>
 
 <script src="<?php echo _PREF; ?>wedgits/forum/articles.js" language="javascript" type="text/javascript"></script>	
@@ -136,7 +136,7 @@ if($sub){
 
 <div class="page_content" dir='<?php echo _DIR; ?>'>
 
-	<?
+	<?php
 //$photo_path ="../../uploads/";
 
 
@@ -174,7 +174,7 @@ if ($numrows>0) {
 		<div class="annonce_details_body">
 			<!--div class="annonce_details_txt"><?php echo $details; ?></div-->
 			<div class="annonce_details_txt">
-				<?
+				<?php
 					$attach_sql =  "SELECT * FROM art_articles_files WHERE (art_id=$article_id) ";
 					$attach_result = MYSQL_QUERY($attach_sql);
 					$attach_numrows = MYSQL_NUMROWS($attach_result);
@@ -196,7 +196,7 @@ if ($numrows>0) {
 	
                          
 	
-<? 
+<?php 
 	/*************************View Comments***********************/
 	
 ?>
@@ -205,7 +205,7 @@ if ($numrows>0) {
 	<div class="progList_comments_title"><?php echo Comments; ?> :
 	
 	</div>
-	 <?
+	 <?php
 	$sql="select * from art_comments where art_id = $article_id  AND active=1 order by publish_date ASC";
 	
 	$result=mysql_query($sql);
@@ -242,7 +242,7 @@ if ($numrows>0) {
 					</div>
 					<div class="comment_body">
 						<?php echo $comment; ?>
-						<?
+						<?php
 							$attach_sql =  "SELECT * FROM art_comments_files WHERE (comment_id=$id) ";
 							$attach_result = MYSQL_QUERY($attach_sql);
 							$attach_numrows = MYSQL_NUMROWS($attach_result);
@@ -258,7 +258,7 @@ if ($numrows>0) {
 						?>
 					</div>
 				</div>
-			<?
+			<?php
 			}
 			if($i==($rows-6)){echo "</div>";}
 			$i++;
@@ -269,7 +269,7 @@ if ($numrows>0) {
 	?>
 
 	</div>
-		<?
+		<?php
 		$i++;
 	}
 }
@@ -300,7 +300,7 @@ if ($numrows>0) {
 
 
 
-	<? /*************************Add Comments***********************/?>
+	<?php /*************************Add Comments***********************/?>
 	<div class="com_add">
 		<?if($publish && $publish_comment){?><a href="#" onclick="$('.progList_Addcomment').show();return false;"><?php echo AddComment; ?></a><?}?>
 	</div>

@@ -82,9 +82,9 @@ if($action){
     <div style="clear:both">
     <div class="next" onClick="document.location='editGallery.php?gid=<?php echo $gid; ?>'">Back</div>
     <div class="next"  style="margin-left:10px;" onClick="document.location='saveGallery.php'">Next</div>
-    </div><?
+    </div><?php
 	} 
 }?>
 </body>
 </html>
-<? }?>
+<?php }?>

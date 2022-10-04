@@ -10,7 +10,7 @@ window.realAlert = window.alert;
 window.alert = function() {};
 //-->
 </script>
-<?
+<?php
 include_once("login.inc.php");
 
 if($_SESSION['pageLang']=="") $_SESSION['pageLang']="en";

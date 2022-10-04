@@ -1,4 +1,4 @@
-<?
+<?php
 header("cache-control: no-cache"); 
 include_once("../../config.php");
 include_once("../../modules/common/dbConnection.php");
@@ -149,7 +149,7 @@ $previous_year_text = date("F \'y", $previous_year);
 <tr id='days_title'><td><?php echo $days[0]; ?></td><td><?php echo $days[1]; ?></td><td><?php echo $days[2]; ?></td><td><?php echo $days[3]; ?></td><td><?php echo $days[4]; ?></td><td><?php echo $days[5]; ?></td><td><?php echo $days[6]; ?></td></tr>
 <tr style="height:5px;"></tr>
 <tr class="first_row">
-<?
+<?php
 for($i=0; $i< $total_rows; $i++){
 	$ee='';
 	for($j=0; $j<7;$j++){
@@ -208,7 +208,7 @@ for($i=0; $i< $total_rows; $i++){
 			//alert($('#eee<?php echo $day; ?>').css('background-color','red'))//innerHTML= '<?php echo $ee; ?>';
 			//alert('<?php echo $day; ?>');
 		}
-        </script> <?
+        </script> <?php
 	}
 	echo "</tr><tr>";
 	

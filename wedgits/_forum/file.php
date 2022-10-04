@@ -1,4 +1,4 @@
-<?
+<?php
     $type = 'html';//$_POST['mimetype'];
     $xhr = $_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest';
 

@@ -53,12 +53,12 @@ function getMainPhoto($gallery,$width,$height,$photos_path,$thumb_prefex,$defaul
 
 function returnImplode_ids($table,$condition,$imploded_field){
 	$sql = "SELECT * FROM  $table  where $condition";
-	$result = MYSQL_QUERY($sql);
-	$numberOfRows = MYSQL_NUMROWS($result);
+	$result = mysqli_QUERY($GLOBALS["db_link_conn"], $sql);
+	$numberOfRows = mysqli_num_rows( $result);
 	$i=0;
 	$fields = '';
 	while ($i<$numberOfRows){
-		$field = MYSQL_RESULT($result,$i,$imploded_field);
+		$field = mysqli_RESULT($GLOBALS["db_link_conn"], $result,$i,$imploded_field);
 		if($fields==''){
 			$fields = $field;
 		}else{
@@ -448,8 +448,8 @@ function get_parent_link($current_form){
 
 function getMagOrder($mm){
 	$sql = "SELECT MAX(ord) AS max FROM magz_pages where magz_id='$mm'";
-	$result = mysql_query($sql);
-	if ($result) return $max = MYSQL_RESULT($result,0,'max')+1;
+	$result = mysqli_query($GLOBALS["db_link_conn"], $sql);
+	if ($result) return $max = mysqli_RESULT($GLOBALS["db_link_conn"], $result,0,'max')+1;
 	else return 1;
 }
 
@@ -477,14 +477,14 @@ function exportDataToExcel($table,$fields="*",$condition="",$orderBy="",$outputF
  * @param string $outputFilename (Optional) The name of the excel file to be exported 
  */
 function exportSqlToExcel($sql,$outputFilename="default.xls"){
-	$result=mysql_query($sql);
-	$numRows=mysql_num_rows($result);
+	$result=mysqli_query($GLOBALS["db_link_conn"], $sql);
+	$numRows=mysqli_num_rows($result);
 	$excelArray=array();
 	if($numRows>0){
 		$i = 0;
 		$headerRow=array();
-		while ($i < mysql_num_fields($result)) {
-			$meta = mysql_fetch_field($result, $i);
+		while ($i < mysqli_num_fields($GLOBALS["db_link_conn"], $result)) {
+			$meta = mysqli_fetch_field($GLOBALS["db_link_conn"], $result, $i);
 			$headerRow[]=$meta->name;
 			$i++;
 		}
@@ -492,7 +492,7 @@ function exportSqlToExcel($sql,$outputFilename="default.xls"){
 		$i=0;
 		while($i<$numRows){
 			$arr=array();
-			$arr=mysql_fetch_array($result,MYSQL_NUM);
+			$arr=mysqli_fetch_array($GLOBALS["db_link_conn"], $result,MYSQL_NUM);
 			$excelArray[]=$arr;
 			$i++;
 		}
@@ -567,11 +567,11 @@ function getCatSuccessor($cat_id,$withMe=true){
 		return $Successors;
 	}
 	$sql="SELECT `cat_id` FROM `products_categories` WHERE `parent_cat`=$cat_id";
-	$result=mysql_query($sql);
-	$numRows=mysql_num_rows($result);
+	$result=mysqli_query($GLOBALS["db_link_conn"], $sql);
+	$numRows=mysqli_num_rows($result);
 	$i=0;
 	while($i<$numRows){
-		$son=mysql_result($result,$i,"cat_id");
+		$son=mysqli_result($GLOBALS["db_link_conn"], $result,$i,"cat_id");
 		$Successors.=", ".getCatSuccessor($son)."";
 		$i++;
 	}
@@ -584,8 +584,8 @@ function getCatSuccessor($cat_id,$withMe=true){
  */
 function isLeaf($cat_id){
 	$sql="SELECT * FROM `products_categories` WHERE `parent_cat`='$cat_id';";
-	$result=mysql_query($sql);
-	$numRows=mysql_num_rows($result);
+	$result=mysqli_query($GLOBALS["db_link_conn"], $sql);
+	$numRows=mysqli_num_rows($result);
 	if($numRows>0)
 	{
 		return false;
@@ -673,13 +673,13 @@ function getFileURI(){
 //  
 function getColumnMax($table, $column) {
 	$sql_max = "SELECT MAX($column) AS 'max' FROM $table";
-	$result_max = MYSQL_QUERY($sql_max);
+	$result_max = mysqli_QUERY($GLOBALS["db_link_conn"], $sql_max);
 	checkError($result_max, $sql_max);
-	$rows_max = MYSQL_NUM_ROWS($result_max);
+	$rows_max = mysqli_num_rows($result_max);
 	if ($rows_max == null || $rows_max = 0) {
 		return 0;
 	} else {
-		return MYSQL_RESULT($result_max,"max");
+		return mysqli_RESULT($GLOBALS["db_link_conn"], $result_max,"max");
 	}
 }
 // this method will get the maximum number of this &coloumn  from this $table
@@ -702,8 +702,8 @@ else
 function getOrder($table , $cond){
 	if($cond) $cond = "WHERE ".$cond;
 	$sql = "SELECT MAX(item_order) AS max FROM $table $cond";
-	$result = mysql_query($sql);
-	if ($result) return $max = MYSQL_RESULT($result,0,'max')+1;
+	$result = mysqli_query($GLOBALS["db_link_conn"], $sql);
+	if ($result) return $max = mysqli_RESULT($GLOBALS["db_link_conn"], $result,0,'max')+1;
 	else return 1;
 }
 
@@ -753,12 +753,12 @@ function getNwords($str,$n){
 function getObjectsCount($table,$condition="1>0")
 {
 	$sql="SELECT COUNT(*) AS co FROM `$table` WHERE $condition";
-	$resultCount = MYSQL_QUERY($sql);
-	$rowsCount = MYSQL_NUM_ROWS($resultCount);
+	$resultCount = mysqli_QUERY($GLOBALS["db_link_conn"], $sql);
+	$rowsCount = mysqli_num_rows($resultCount);
 	if ($rowsCount == null || $rowsCount = 0) {
 		return null;
 	} else {
-		$count= MYSQL_RESULT($resultCount,0,"co");
+		$count= mysqli_RESULT($GLOBALS["db_link_conn"], $resultCount,0,"co");
 		return trim($count);
 	}
 }
@@ -772,12 +772,12 @@ function getObjectsCount($table,$condition="1>0")
 function getObjectsMax($table,$field,$condition="1>0")
 {
 	$sql="SELECT MAX($field) AS max FROM `$table` WHERE $condition";
-	$resultMax = MYSQL_QUERY($sql);
-	$rowsMax = MYSQL_NUM_ROWS($resultMax);
+	$resultMax = mysqli_QUERY($GLOBALS["db_link_conn"], $sql);
+	$rowsMax = mysqli_num_rows($resultMax);
 	if ($rowsMax == null || $rowsMax = 0) {
 		return null;
 	} else {
-		$Max= MYSQL_RESULT($resultMax,0,"max");
+		$Max= mysqli_RESULT($GLOBALS["db_link_conn"], $resultMax,0,"max");
 		return trim($Max);
 	}
 }
@@ -785,16 +785,16 @@ function getObjectsMax($table,$field,$condition="1>0")
 ///------------------------------------------------
 function lookupField($table, $id_field, $lookup_field, $id_value) {
 	$sql_lookup = "SELECT `$lookup_field` from `$table` where `$id_field` = '$id_value'";
-	$result_lookup = MYSQL_QUERY($sql_lookup);
+	$result_lookup = mysqli_QUERY($GLOBALS["db_link_conn"], $sql_lookup);
 	checkError($result_lookup, $sql_lookup);
-	$rows_lookup = MYSQL_NUM_ROWS($result_lookup);
+	$rows_lookup = mysqli_num_rows($result_lookup);
 	if ($rows_lookup == null || $rows_lookup = 0) {
 		return 0;
 	} else {
 		$filds = split(",",$lookup_field);
 		$ind = 0; $value="";
 		while($ind < count($filds)){
-			$value.= stripslashes(MYSQL_RESULT($result_lookup,0,$filds[$ind])." ");
+			$value.= stripslashes(mysqli_RESULT($GLOBALS["db_link_conn"], $result_lookup,0,$filds[$ind])." ");
 			$ind++;
 		}
 		return trim($value);
@@ -804,12 +804,12 @@ function lookupField($table, $id_field, $lookup_field, $id_value) {
 function lookupFieldAll($table, $id_field, $lookup_field, $id_value) {
 	if(trim($id_value)=="")	return;
 	$sql_lookup = "SELECT `$lookup_field` from `$table` where `$id_field` in($id_value)";
-	$result_lookup = MYSQL_QUERY($sql_lookup);
+	$result_lookup = mysqli_QUERY($GLOBALS["db_link_conn"], $sql_lookup);
 	checkError($result_lookup, $sql_lookup);
-	$rows_lookup = MYSQL_NUM_ROWS($result_lookup);
+	$rows_lookup = mysqli_num_rows($result_lookup);
 	$i = 0;
 	while($i < $rows_lookup){
-		$value.= stripslashes(MYSQL_RESULT($result_lookup,$i,$lookup_field));
+		$value.= stripslashes(mysqli_RESULT($GLOBALS["db_link_conn"], $result_lookup,$i,$lookup_field));
 		$i ++;
 		if($i < $rows_lookup)	$value.= " / ";
 	}
@@ -824,31 +824,31 @@ function lookupFieldFiltered($table, $id_field, $lookup_field, $id_value, $condi
 		$sql_lookup = "SELECT $lookup_field from $table where ($id_field = $id_value) and $condition";
 	}
 	
-	$result_lookup = MYSQL_QUERY($sql_lookup);
+	$result_lookup = mysqli_QUERY($GLOBALS["db_link_conn"], $sql_lookup);
 	checkError($result_lookup, $sql_lookup);
-	$rows_lookup = MYSQL_NUM_ROWS($result_lookup);
+	$rows_lookup = mysqli_num_rows($result_lookup);
 	if ($rows_lookup == null || $rows_lookup = 0) {
 		return 0;
 	} else {
-		return MYSQL_RESULT($result_lookup, $lookup_field);
+		return mysqli_RESULT($GLOBALS["db_link_conn"], $result_lookup, $lookup_field);
 	}
 }
 
 
 function createCheckBox($table, $id_field, $value_field, $id_value, $field_name, $col=3 ) {
 	$sql_combo = "SELECT $id_field , $value_field from $table ORDER BY $id_field";
-	$result_combo = MYSQL_QUERY($sql_combo);
+	$result_combo = mysqli_QUERY($GLOBALS["db_link_conn"], $sql_combo);
 	//$result="<input type=\"checkbox\" name=\"all$field_name\" id=\"all$field_name\" onclick=\"jqCheckAll2( this.id, '$field_name' )\"/> ".Select_All."<br />";
 	checkError($result_combo, $sql_combo);
-	$rows_combo = MYSQL_NUM_ROWS($result_combo);
+	$rows_combo = mysqli_num_rows($result_combo);
 	$i = 0;
 	$result .= "<table ><tr>";
 	while ($i<$rows_combo) {
-		$id = MYSQL_RESULT($result_combo, $i, $id_field);
+		$id = mysqli_RESULT($GLOBALS["db_link_conn"], $result_combo, $i, $id_field);
 		$filds = split(",",$value_field);
 		$ind = 0; $value="";
 		while($ind < count($filds)){
-			$value.= MYSQL_RESULT($result_combo,$i, $filds[$ind])." ";
+			$value.= mysqli_RESULT($GLOBALS["db_link_conn"], $result_combo,$i, $filds[$ind])." ";
 			$ind++;
 		}
 		$result .= "<td><label><input type=\"Checkbox\" name=\"".$field_name."[]\" ";
@@ -870,16 +870,16 @@ function createComboBoxFiltered($table, $id_field, $value_field, $id_value, $fie
 	$sql_combo = "SELECT $id_field , $value_field from $table ";
 	if ($condition != null && $condition != "") $sql_combo .= " WHERE $condition ";
 	$sql_combo .= " ORDER BY $value_field";
-	$result_combo = MYSQL_QUERY($sql_combo);
+	$result_combo = mysqli_QUERY($GLOBALS["db_link_conn"], $sql_combo);
 	checkError($result_combo, $sql_combo);
-	$rows_combo = MYSQL_NUM_ROWS($result_combo);
+	$rows_combo = mysqli_num_rows($result_combo);
 	$i = 0;
 	while ($i<$rows_combo) {
-		$id = MYSQL_RESULT($result_combo, $i, $id_field);
+		$id = mysqli_RESULT($GLOBALS["db_link_conn"], $result_combo, $i, $id_field);
 		$filds = split(",",$value_field);
 		$ind = 0; $value="";
 		while($ind < count($filds)){
-			$value.= MYSQL_RESULT($result_combo,$i, $filds[$ind])." ";
+			$value.= mysqli_RESULT($GLOBALS["db_link_conn"], $result_combo,$i, $filds[$ind])." ";
 			$ind++;
 		}
 		$result .= "<option ";
@@ -896,16 +896,16 @@ function createComboBox($table, $id_field, $value_field, $id_value, $field_name 
 	$result = "<select name=\"$field_name\" id=\"$field_name\" class=\"$required\" $actions>\n";
 	$result .= "<option value=''>$defOP</option>\n";
 	$sql_combo = "SELECT $id_field , $value_field from $table $cond ORDER BY $value_field";
-	$result_combo = MYSQL_QUERY($sql_combo);
+	$result_combo = mysqli_QUERY($GLOBALS["db_link_conn"], $sql_combo);
 	checkError($result_combo, $sql_combo);
-	$rows_combo = MYSQL_NUM_ROWS($result_combo);
+	$rows_combo = mysqli_num_rows($result_combo);
 	$i = 0;
 	while ($i<$rows_combo) {
-		$id = MYSQL_RESULT($result_combo, $i, $id_field);
+		$id = mysqli_RESULT($GLOBALS["db_link_conn"], $result_combo, $i, $id_field);
 		$filds = split(",",$value_field);
 		$ind = 0; $value="";
 		while($ind < count($filds)){
-			$value.= MYSQL_RESULT($result_combo,$i, $filds[$ind])." ";
+			$value.= mysqli_RESULT($GLOBALS["db_link_conn"], $result_combo,$i, $filds[$ind])." ";
 			$ind++;
 		}
 		$result .= "<option ";
@@ -926,16 +926,16 @@ function createComboBoxNew($table, $id_field, $value_field, $id_value, $field_na
 	$sql_combo = "SELECT $id_field , $value_field from $table ";
 	if ($condition != null && $condition != "") $sql_combo .= " WHERE $condition GROUP BY $value_field";
 	$sql_combo .= " ORDER BY $value_field";
-	$result_combo = MYSQL_QUERY($sql_combo);
+	$result_combo = mysqli_QUERY($GLOBALS["db_link_conn"], $sql_combo);
 	checkError($result_combo, $sql_combo);
-	$rows_combo = MYSQL_NUM_ROWS($result_combo);
+	$rows_combo = mysqli_num_rows($result_combo);
 	$i = 0;
 	while ($i<$rows_combo) {
-		$id = MYSQL_RESULT($result_combo, $i, $id_field);
+		$id = mysqli_RESULT($GLOBALS["db_link_conn"], $result_combo, $i, $id_field);
 		$filds = split(",",$value_field);
 		$ind = 0; $value="";
 		while($ind < count($filds)){
-			$value.= MYSQL_RESULT($result_combo,$i, $filds[$ind])." ";
+			$value.= mysqli_RESULT($GLOBALS["db_link_conn"], $result_combo,$i, $filds[$ind])." ";
 			$ind++;
 		}
 		$result .= "<option ";
@@ -954,13 +954,13 @@ function createComboBoxValue($table, $id_field, $value_field, $id_value, $field_
 	if ($id_value == null || $id_value == "") 
 		$result .= "<option></option>\n";
 	$sql_combo = "SELECT $id_field , $value_field from $table ORDER BY $value_field";
-	$result_combo = MYSQL_QUERY($sql_combo);
+	$result_combo = mysqli_QUERY($GLOBALS["db_link_conn"], $sql_combo);
 	checkError($result_combo, $sql_combo);
-	$rows_combo = MYSQL_NUM_ROWS($result_combo);
+	$rows_combo = mysqli_num_rows($result_combo);
 	$i = 0;
 	while ($i<$rows_combo) {
-		$id = MYSQL_RESULT($result_combo, $i, $id_field);
-		$value = MYSQL_RESULT($result_combo,$i,$value_field);
+		$id = mysqli_RESULT($GLOBALS["db_link_conn"], $result_combo, $i, $id_field);
+		$value = mysqli_RESULT($GLOBALS["db_link_conn"], $result_combo,$i,$value_field);
 		$result .= "<option ";
 		if ($id_value != null && $id_value != "" && $id_value == $id) 
 			$result .= "selected ";
@@ -983,14 +983,14 @@ function createComboBoxScript($table, $id_field, $value_field, $id_value, $field
 	$sql_combo = "SELECT $id_field , $value_field from $table";
 	if ($condition != null && $condition != "") $sql_combo .= " WHERE $condition ";
 	$sql_combo .= " ORDER BY $value_field";
-	$result_combo = MYSQL_QUERY($sql_combo);
+	$result_combo = mysqli_QUERY($GLOBALS["db_link_conn"], $sql_combo);
 	checkError($result_combo, $sql_combo);
-	$rows_combo = MYSQL_NUM_ROWS($result_combo);
+	$rows_combo = mysqli_num_rows($result_combo);
 	$i = 0;
 	
 	while ($i<$rows_combo) {
-		$id = MYSQL_RESULT($result_combo, $i, $id_field);
-		$value = MYSQL_RESULT($result_combo,$i,$value_field);
+		$id = mysqli_RESULT($GLOBALS["db_link_conn"], $result_combo, $i, $id_field);
+		$value = mysqli_RESULT($GLOBALS["db_link_conn"], $result_combo,$i,$value_field);
 		$result .= "<option ";
 		if ($id_value != null && $id_value != "" && $id_value == $id) 
 			$result .= "selected ";
@@ -1034,14 +1034,14 @@ function createComboUlBoxScript($table, $id_field, $value_field, $id_value, $fie
 	$sql_combo = "SELECT $id_field , $value_field from $table";
 	if ($condition != null && $condition != "") $sql_combo .= " WHERE $condition ";
 	$sql_combo .= " ORDER BY $value_field";
-	$result_combo = MYSQL_QUERY($sql_combo);
+	$result_combo = mysqli_QUERY($GLOBALS["db_link_conn"], $sql_combo);
 	checkError($result_combo, $sql_combo);
-	$rows_combo = MYSQL_NUM_ROWS($result_combo);
+	$rows_combo = mysqli_num_rows($result_combo);
 	$i = 0;
 	
 	while ($i<$rows_combo) {
-		$id = MYSQL_RESULT($result_combo, $i, $id_field);
-		$value = MYSQL_RESULT($result_combo,$i,$value_field);
+		$id = mysqli_RESULT($GLOBALS["db_link_conn"], $result_combo, $i, $id_field);
+		$value = mysqli_RESULT($GLOBALS["db_link_conn"], $result_combo,$i,$value_field);
 		
 		//if ($id_value != null && $id_value != "" && $id_value == $id) 
 			//$selected_value = $value;
@@ -1072,11 +1072,11 @@ function adminGetGPhoto($gid,$w=100,$h=100, $al=""){
 	$res="&nbsp;";
 	if($gid!=0){
 		$sql2 = "SELECT * FROM galleries_galleries g , galleries_photos p where g.id =$gid and g.main_photo=p.id ";
-		$result2 = MYSQL_QUERY($sql2);
-		$numberOfRows2 = MYSQL_NUMROWS($result2);
+		$result2 = mysqli_QUERY($GLOBALS["db_link_conn"], $sql2);
+		$numberOfRows2 = mysqli_num_rows( $result2);
 		if($numberOfRows2>0){
-			$photo=MYSQL_RESULT($result2,0,"p.photo");
-			$g_name=MYSQL_RESULT($result2,0,"g.gallery_name");
+			$photo=mysqli_RESULT($GLOBALS["db_link_conn"], $result2,0,"p.photo");
+			$g_name=mysqli_RESULT($GLOBALS["db_link_conn"], $result2,0,"g.gallery_name");
 			if(file_exists($Pref.'uploads/'.$photo)&& $photo!='' ){
 				$photo2=Crop($Pref."uploads/".$photo,$w,$h,$Pref."uploads/cash/c".$w."_".$photo);
 				$res='<img src="'.$photo2.'" align="'.$al.'" border="0">';
@@ -1168,16 +1168,16 @@ function galleryComboBox($id_value, $field_name , $required="") {
 	$result = "<select name=\"$field_name\" class=\"$required\" onChange=\"if(this.options[this.selectedIndex].value=='new') winopen('../includes/gallery/enterGallery.php',600,550) \">\n";
 	$result .= "<option></option>\n";
 	$sql_combo = "SELECT id , gallery_name from galleries_galleries ORDER BY gallery_name";
-	$result_combo = MYSQL_QUERY($sql_combo);
+	$result_combo = mysqli_QUERY($GLOBALS["db_link_conn"], $sql_combo);
 	checkError($result_combo, $sql_combo);
-	$rows_combo = MYSQL_NUM_ROWS($result_combo);
+	$rows_combo = mysqli_num_rows($result_combo);
 	$i = 0;
 	while ($i<$rows_combo) {
-		$id = MYSQL_RESULT($result_combo, $i, 'id');
+		$id = mysqli_RESULT($GLOBALS["db_link_conn"], $result_combo, $i, 'id');
 		$filds = split(",",$value_field);
 		$ind = 0; $value="";
 		while($ind < count($filds)){
-			$value.= MYSQL_RESULT($result_combo,$i, 'gallery_name')." ";
+			$value.= mysqli_RESULT($GLOBALS["db_link_conn"], $result_combo,$i, 'gallery_name')." ";
 			$ind++;
 		}
 		$result .= "<option ";
@@ -1193,25 +1193,25 @@ function galleryComboBox($id_value, $field_name , $required="") {
 
 function lookupGallery($id_value) {
 	$sql_lookup = "SELECT thumb from galleries_galleries g, galleries_photos p where g.id = '$id_value' AND p.id = g.main_photo";
-	$result_lookup = MYSQL_QUERY($sql_lookup);
+	$result_lookup = mysqli_QUERY($GLOBALS["db_link_conn"], $sql_lookup);
 	checkError($result_lookup, $sql_lookup);
-	$rows_lookup = MYSQL_NUM_ROWS($result_lookup);
+	$rows_lookup = mysqli_num_rows($result_lookup);
 	if ($rows_lookup == null || $rows_lookup == 0) {
 		return 0;
 	} else {
-		$value.= MYSQL_RESULT($result_lookup,0,'thumb')." ";
+		$value.= mysqli_RESULT($GLOBALS["db_link_conn"], $result_lookup,0,'thumb')." ";
 		return "<img src=\""._PREF."uploads/$value\" border=\"0\" align=\"top\" /> ";
 	}
 }
 function lookupGalleryUI($id_value, $uploadPath="../uploads/") {
 	$sql_lookup = "SELECT photo from galleries_galleries g, galleries_photos p where g.id = $id_value AND p.id = g.main_photo";
-	$result_lookup = MYSQL_QUERY($sql_lookup);
+	$result_lookup = mysqli_QUERY($GLOBALS["db_link_conn"], $sql_lookup);
 	checkError($result_lookup, $sql_lookup);
-	$rows_lookup = MYSQL_NUM_ROWS($result_lookup);
+	$rows_lookup = mysqli_num_rows($result_lookup);
 	if ($rows_lookup == null || $rows_lookup == 0) {
 		return 0;
 	} else {
-		$value = MYSQL_RESULT($result_lookup,0,'photo');
+		$value = mysqli_RESULT($GLOBALS["db_link_conn"], $result_lookup,0,'photo');
 		//$newfilename = $uploadPath."cash/TEMP_$value";
 		//$url = resizeToFile($uploadPath."$value", 150, 135, $newfilename);
 		$url=$uploadPath.$value;
@@ -1226,7 +1226,7 @@ function lookupGalleryUI($id_value, $uploadPath="../uploads/") {
 function checkError($result, $sql) {
 	if (!$result) {
 		//echo "<hr>\n" . $sql ."<br>\n"; // todo: this line should removed before final delivery.
-		//echo mysql_error() ."<hr>\n";
+		//echo mysqli_error() ."<hr>\n";
 	}
 }
 
@@ -1235,28 +1235,28 @@ function checkError($result, $sql) {
 function  getColoumnAsArray($table,$coloumn1,$coloumn2){
 if($coloumn2){
 $sql="SELECT $coloumn1,$coloumn2 FROM $table";
-$result = MYSQL_QUERY($sql);
-$rows_result= MYSQL_NUM_ROWS($result);
+$result = mysqli_QUERY($GLOBALS["db_link_conn"], $sql);
+$rows_result= mysqli_num_rows($result);
 checkError($result, $sql);
 $arra=Array();
 $i=0;
 while ($i<$rows_result) {
-         $j=MYSQL_RESULT($result,$i,$coloumn2);
-        $arra[$j]=MYSQL_RESULT($result,$i,$coloumn1);
+         $j=mysqli_RESULT($GLOBALS["db_link_conn"], $result,$i,$coloumn2);
+        $arra[$j]=mysqli_RESULT($GLOBALS["db_link_conn"], $result,$i,$coloumn1);
 		$i++;
 	}
 	}
 else	
 {
 $sql="SELECT $coloumn1 FROM $table";
-$result = MYSQL_QUERY($sql);
-$rows_result= MYSQL_NUM_ROWS($result);
+$result = mysqli_QUERY($GLOBALS["db_link_conn"], $sql);
+$rows_result= mysqli_num_rows($result);
 checkError($result, $sql);
 $arra= Array();
 $i=0;
 while ($i<$rows_result) {
         
-        $arra[$i]=MYSQL_RESULT($result,$i,$coloumn1);
+        $arra[$i]=mysqli_RESULT($GLOBALS["db_link_conn"], $result,$i,$coloumn1);
 		$i++;
 	}
 	}
@@ -1330,12 +1330,12 @@ function uploadimageToGallery($fieldName, $folder , $width, $height) {
 	$newPhotoId=getNewId("galleries_photos", "id");
 	$sql="INSERT INTO `galleries_photos` ( `id` , `photo` , `description` , `thumb` )
 						VALUES ('$newPhotoId' , '$realName', '', '$small');";
-	if(mysql_query($sql))
+	if(mysqli_query($GLOBALS["db_link_conn"], $sql))
 	{
 		$newGalId=getNewId("galleries_galleries", "id");
 		$sql="INSERT INTO `galleries_galleries` ( `id` , `gallery_name` , `description` , `main_photo` , `photos` )
 						VALUES ('$newGalId' , '', NULL , '$newPhotoId' , '$newPhotoId');";
-		if(mysql_query($sql))
+		if(mysqli_query($GLOBALS["db_link_conn"], $sql))
 		{
 			return $newGalId;
 		}
@@ -1486,12 +1486,12 @@ function resizeToFile ($img, $w, $h, $newfilename){
 //Show banner
 function showBanner($loc ,$w ,$h ){
 	$sql = "SELECT upload,link FROM banners WHERE (location IN ($loc)) AND (start_date<='CURDATE()') AND (end_date<='CURDATE()') ORDER BY RAND() LIMIT 1";
-	$result = MYSQL_QUERY($sql);
-	$numberOfRows = MYSQL_NUMROWS($result);
+	$result = mysqli_QUERY($GLOBALS["db_link_conn"], $sql);
+	$numberOfRows = mysqli_num_rows( $result);
 	if ($numberOfRows>0) {
 	$i=0;
-		$upload= MYSQL_RESULT($result,$i,"upload");
-		$link= MYSQL_RESULT($result,$i,"link");
+		$upload= mysqli_RESULT($GLOBALS["db_link_conn"], $result,$i,"upload");
+		$link= mysqli_RESULT($GLOBALS["db_link_conn"], $result,$i,"link");
 		$fileNameParts = explode(".", "$upload");
 		$fileExtension = end($fileNameParts); // part behind last dot
 		$ext = $fileExtension."";
@@ -1535,14 +1535,14 @@ function sendMessage($from,$to,$subject,$body,$type,$task_id){
 	$description = addslashes($body);
 	$sql = "INSERT INTO msgs (`title`,`description`,`create_date`,`from`,`to`,`type`,`task_id`) VALUES 
 							 ('$title','$description','".date('Y-m-d h:i:s')."','$from','$to','$type','$task_id')";
-	@mysql_query($sql);
+	@mysqli_query($GLOBALS["db_link_conn"], $sql);
 	
 	
 	/*Send Message As Email*/
 	$sendto = "info@voilaapps.com";
-	$res = mysql_query("SELECT email FROM employees WHERE id = '$to'");
-	if(mysql_num_rows($res))
-		$sendto.= ",".MYSQL_RESULT($res,0,"email");
+	$res = mysqli_query($GLOBALS["db_link_conn"], "SELECT email FROM employees WHERE id = '$to'");
+	if(mysqli_num_rows($res))
+		$sendto.= ",".mysqli_RESULT($GLOBALS["db_link_conn"], $res,0,"email");
 
 	/* To send HTML mail, you can set the Content-type header. */
 	$headers  = "MIME-Version: 1.0\r\n";
@@ -1581,21 +1581,21 @@ function getSEO($lang){
 	$res = array();
 	$currFile = getFileName();
 	$sql ="SELECT * FROM seo WHERE ('$currFile' LIKE CONCAT('%',filename) OR '$currFile' LIKE CONCAT('%',filename,'?%') OR '$currFile' LIKE CONCAT('%',filename,'&%') )And (filename<>'')";
-	$result = MYSQL_QUERY($sql);
-	$numberOfRows = MYSQL_NUMROWS($result);
+	$result = mysqli_QUERY($GLOBALS["db_link_conn"], $sql);
+	$numberOfRows = mysqli_num_rows( $result);
 	
 	if($numberOfRows==0){
 		$sql ="SELECT * FROM seo WHERE (filename='')";
-		$result = MYSQL_QUERY($sql);
-		$numberOfRows = MYSQL_NUMROWS($result);
+		$result = mysqli_QUERY($GLOBALS["db_link_conn"], $sql);
+		$numberOfRows = mysqli_num_rows( $result);
 	}
 	
 	if ($numberOfRows>0) {
 		$i=0;
-		$filename= MYSQL_RESULT($result,$i,"filename");
-		$res[title]= MYSQL_RESULT($result,$i,"title_".$lang);
-		$res[keywords]= MYSQL_RESULT($result,$i,"keywords_".$lang);
-		$res[description]= MYSQL_RESULT($result,$i,"description_".$lang);
+		$filename= mysqli_RESULT($GLOBALS["db_link_conn"], $result,$i,"filename");
+		$res["title"]= mysqli_RESULT($GLOBALS["db_link_conn"], $result,$i,"title_".$lang);
+		$res["keywords"]= mysqli_RESULT($GLOBALS["db_link_conn"], $result,$i,"keywords_".$lang);
+		$res["description"]= mysqli_RESULT($GLOBALS["db_link_conn"], $result,$i,"description_".$lang);
 	}
 	return $res;
 }
@@ -1652,12 +1652,12 @@ function addToCombobox($grp_title, $pk, $title_col, $table, $cond,$url_template,
 	$result .= "<optgroup label=\"".$grp_title."\">\n";
 	if($cond)	$cond = "WHERE $cond";
 	$sql_p = "SELECT $pk , $title_col from $table $cond  ORDER BY $title_col ";
-	$result_p = mysql_query($sql_p);
-	$rows_p = mysql_num_rows($result_p);
+	$result_p = mysqli_query($GLOBALS["db_link_conn"], $sql_p);
+	$rows_p = mysqli_num_rows($result_p);
 	$i = 0;
 	while ($i<$rows_p){
-		$id= MYSQL_RESULT($result_p,$i,"$pk");
-		$title= MYSQL_RESULT($result_p,$i,"$title_col");
+		$id= mysqli_RESULT($GLOBALS["db_link_conn"], $result_p,$i,"$pk");
+		$title= mysqli_RESULT($GLOBALS["db_link_conn"], $result_p,$i,"$title_col");
 		$result .= "<option ";
 		$url = str_replace("#ID#",$id,$url_template);
 		if ($id_value != null && $id_value != "" && $id_value == $url ) $result .= "selected ";
@@ -1691,13 +1691,13 @@ function getLinks($id_value , $lang, $name="item_link", $class="", $script="", $
 	
 	$result .= "<optgroup label=\"Modules\">\n";
 	$sql_m = "SELECT * from modules  ORDER BY name ";
-	$result_m = mysql_query($sql_m);
-	$rows_m = mysql_num_rows($result_m);
+	$result_m = mysqli_query($GLOBALS["db_link_conn"], $sql_m);
+	$rows_m = mysqli_num_rows($result_m);
 	$i = 0;
 	while ($i<$rows_m){
-		$module_id= MYSQL_RESULT($result_m,$i,"module_id");
-		$name= MYSQL_RESULT($result_m,$i,"name");
-		$page= $linkPref.MYSQL_RESULT($result_m,$i,"page");$result .= "<option ";
+		$module_id= mysqli_RESULT($GLOBALS["db_link_conn"], $result_m,$i,"module_id");
+		$name= mysqli_RESULT($GLOBALS["db_link_conn"], $result_m,$i,"name");
+		$page= $linkPref.mysqli_RESULT($GLOBALS["db_link_conn"], $result_m,$i,"page");$result .= "<option ";
 		if ($id_value != null && $id_value != "" && $id_value == $page)$result .= "selected ";
 		$result .= "value=\"$page\">$name</option>\n";
 		$i++;
@@ -1710,8 +1710,8 @@ function getLinks($id_value , $lang, $name="item_link", $class="", $script="", $
 function menuHasChildren($mid)
 {
 	$sql="SELECT menu_id FROM menus WHERE p_id='$mid'";
-	$res=mysql_query($sql);
-	return mysql_numrows($res)>0;
+	$res=mysqli_query($GLOBALS["db_link_conn"], $sql);
+	return mysqli_num_rows( $res)>0;
 }
 
 //***********************************************************//
@@ -1735,13 +1735,13 @@ function getGPhoto($gid,$w,$h,$bigSize,$id,$noPhoto,$homePage,$resizeText){
 	}else{
 		$ph==0;
 		$sql2 = "SELECT * FROM galleries_galleries g , galleries_photos p where g.id =$gid and g.main_photo=p.id ";
-		$result2 = MYSQL_QUERY($sql2);
-		$numberOfRows2 = MYSQL_NUMROWS($result2);
+		$result2 = mysqli_QUERY($GLOBALS["db_link_conn"], $sql2);
+		$numberOfRows2 = mysqli_num_rows( $result2);
 		if($numberOfRows2<=0){
 			$pxx=1;
 		}else{
 			
-			$photo=MYSQL_RESULT($result2,0,"p.photo");
+			$photo=mysqli_RESULT($GLOBALS["db_link_conn"], $result2,0,"p.photo");
 			if($bigSize==1){
 			$res.='<a  href="'._PREF.'uploads/'.$photo.'" id="thumb_'.$id.'" onClick="return hs.expand(this, {slideshowGroup: '.$id.'})" >';
 			}
@@ -1778,13 +1778,13 @@ function ShowGallery2($gid,$pw,$ph,$fw,$fh,$Resiz_name){
 	$d="";
 	$l="";
 	$sql2 = "SELECT * FROM galleries_galleries  where  id=$gid ";
-	$result2 = @MYSQL_QUERY($sql2);
-	$numberOfRows2 =@ MYSQL_NUMROWS($result2);
+	$result2 = @mysqli_QUERY($GLOBALS["db_link_conn"], $sql2);
+	$numberOfRows2 =@ mysqli_num_rows( $result2);
 	if($numberOfRows2>0){
-		$photos=@MYSQL_RESULT($result2,0,"photos");
+		$photos=@mysqli_RESULT($GLOBALS["db_link_conn"], $result2,0,"photos");
 		$sqlG = "SELECT * FROM galleries_photos  where  id in ($photos) ";
-		$resultG = @MYSQL_QUERY($sqlG);
-		$numberOfRowsG = @MYSQL_NUMROWS($resultG);
+		$resultG = @mysqli_QUERY($GLOBALS["db_link_conn"], $sqlG);
+		$numberOfRowsG = @mysqli_num_rows( $resultG);
 		if($numberOfRowsG>0){
 			$pxx=1;
 			$g=0;
@@ -1795,9 +1795,9 @@ function ShowGallery2($gid,$pw,$ph,$fw,$fh,$Resiz_name){
 				panel_width:".$pw.",panel_height:".$ph.",frame_width:".$fw.",frame_height:".$fh."});});</script>";
 			$res.='<table align="center"><tr><td><DIV id=photos class=galleryview align="center">';
 			while($numberOfRowsG>$g){
-				$PHid=@MYSQL_RESULT($resultG,$g,"id");
-				$description=@MYSQL_RESULT($resultG,$g,"description");
-				$Photo=@MYSQL_RESULT($resultG,$g,"photo");
+				$PHid=@mysqli_RESULT($GLOBALS["db_link_conn"], $resultG,$g,"id");
+				$description=@mysqli_RESULT($GLOBALS["db_link_conn"], $resultG,$g,"description");
+				$Photo=@mysqli_RESULT($GLOBALS["db_link_conn"], $resultG,$g,"photo");
 				$photo2=_PREF."uploads/cash/galary1".$Resiz_name."_".$Photo;
 				$photo3=_PREF."uploads/cash/galary2".$Resiz_name."_".$Photo;
 				//if(file_exists(_PREF."uploads/".$Photo)){
@@ -1824,21 +1824,21 @@ function ShowGallery3($gid,$min=0){
 	$Pref="../../";
 	$res="";
 	$sql2 = "SELECT * FROM galleries_galleries  where  id=$gid ";
-	$result2 = MYSQL_QUERY($sql2);
-	$numberOfRows2 = MYSQL_NUMROWS($result2);
+	$result2 = mysqli_QUERY($GLOBALS["db_link_conn"], $sql2);
+	$numberOfRows2 = mysqli_num_rows( $result2);
 	if($numberOfRows2>0){
-		$photos=MYSQL_RESULT($result2,0,"photos");
+		$photos=mysqli_RESULT($GLOBALS["db_link_conn"], $result2,0,"photos");
 
 		 $sqlG = "SELECT * FROM galleries_photos  where  id in ($photos) ";
-		$resultG = MYSQL_QUERY($sqlG);
-		$numberOfRowsG = MYSQL_NUMROWS($resultG);
+		$resultG = mysqli_QUERY($GLOBALS["db_link_conn"], $sqlG);
+		$numberOfRowsG = mysqli_num_rows( $resultG);
 		if($numberOfRowsG>$min){
 			$pxx=1;
 			$g=0;
 			while($numberOfRowsG>$g){
-				$PHid=MYSQL_RESULT($resultG,$g,"id");
-				$Photo=MYSQL_RESULT($resultG,$g,"photo");
-				$folder=MYSQL_RESULT($resultG,$g,"folder");
+				$PHid=mysqli_RESULT($GLOBALS["db_link_conn"], $resultG,$g,"id");
+				$Photo=mysqli_RESULT($GLOBALS["db_link_conn"], $resultG,$g,"photo");
+				$folder=mysqli_RESULT($GLOBALS["db_link_conn"], $resultG,$g,"folder");
 				$photo2=_PREF."uploads/cash/gal3_".$Photo;
 				$upload_path = str_replace('//','/',"uploads/$folder/");
 				CropSquare($Pref.$upload_path.$Photo,100,$Pref."uploads/cash/gal3_".$Photo);
@@ -2152,8 +2152,8 @@ function count_items($table, $cond="")
 	if($cond!="")
 		$cond = "WHERE ".$cond;
 	$sql="SELECT count(*) co FROM $table $cond";
-	$res=mysql_query($sql);
-	$co= MYSQL_RESULT($res,0,"co");	
+	$res=mysqli_query($GLOBALS["db_link_conn"], $sql);
+	$co= mysqli_RESULT($GLOBALS["db_link_conn"], $res,0,"co");	
 	return $co;
 }
 
@@ -2270,7 +2270,7 @@ function filterURL($url, $filter){
 
 function deleteRecord($table, $cond, $conf_msg){
 	$sql = "DELETE FROM $table WHERE $cond";
-	$result = MYSQL_QUERY($sql);
+	$result = mysqli_QUERY($GLOBALS["db_link_conn"], $sql);
 	if($result && $conf_msg)
 		echo '<script>correctMessage("'.Record_Update.'")</script>';
 	return $result;
@@ -2304,24 +2304,24 @@ function getPrevFormName(){
 
 function get_help_topics(){
 	$sql = "select * from help_tips_groups";
-	$result = mysql_query($sql);
-	$numrows = mysql_numrows($result);
+	$result = mysqli_query($GLOBALS["db_link_conn"], $sql);
+	$numrows = mysqli_num_rows( $result);
 	if($numrows){
 		$i=0;
 		while($i<$numrows){
-			$group_id = mysql_result($result,$i,'id');
-			$group_label = mysql_result($result,$i,'group_title');
+			$group_id = mysqli_result($GLOBALS["db_link_conn"], $result,$i,'id');
+			$group_label = mysqli_result($GLOBALS["db_link_conn"], $result,$i,'group_title');
 			
 			$html_result="<div style='cursor:pointer' class='group_label' id='group_$group_id'><img class='status_img' style='width:5px; height:5px; margin-bottom:2px;' src='"._PREF."images/icons/start.gif'/>$group_label</div>";
 			$sql2 = "select * from help_tips where group_id = '$group_id'";
-			$result2 = mysql_query($sql2);
-			$numrows2 = mysql_numrows($result2);
+			$result2 = mysqli_query($GLOBALS["db_link_conn"], $sql2);
+			$numrows2 = mysqli_num_rows( $result2);
 			if($numrows2){
 				$html_result.="<div class='group group_$group_id' id='closed'>";
 				$ii = 0;
 				while($ii<$numrows2){
-					$tip_id = mysql_result($result2,$ii,'id');
-					$title = mysql_result($result2,$ii,'title');
+					$tip_id = mysqli_result($GLOBALS["db_link_conn"], $result2,$ii,'id');
+					$title = mysqli_result($GLOBALS["db_link_conn"], $result2,$ii,'title');
 					$html_result.="<div><a href='viewHelp.php?id=$tip_id'>$title</a></div>";
 					$ii++;
 				}
@@ -2339,10 +2339,10 @@ function get_help_topics(){
 function getHelp_brief(){
 	$thisfile = getCurrentFormName();
 	$sql = "select tip_id from help_tips_forms where form_id = (select form_id from help_forms where `form_name` = '$thisfile')";
-	$result = mysql_query($sql);
-	$numrows = mysql_numrows($result);
+	$result = mysqli_query($GLOBALS["db_link_conn"], $sql);
+	$numrows = mysqli_num_rows( $result);
 	if($numrows){
-		$tip_id = mysql_result($result,0,'tip_id');
+		$tip_id = mysqli_result($GLOBALS["db_link_conn"], $result,0,'tip_id');
 		$title = lookupField('help_tips','id','title',$tip_id).'<br/>';
 		$brief = lookupField('help_tips','id','brief',$tip_id).'<br/>';
 				//<a href="viewHelp.php?id='.$help_id.'">Details...</a>';
@@ -2437,8 +2437,8 @@ function createLangCombo($items,$values,$name,$class,$selected_item){
 function getNewItemOrder($table, $ordering_col, $unique_cond){
 	if($unique_cond)	$unique_cond = "WHERE ".$unique_cond;
 	$sql = "SELECT MAX($ordering_col) AS max FROM $table $unique_cond ";
-	$result = mysql_query($sql);
-	if ($result) return $max = MYSQL_RESULT($result,0,'max')+1;
+	$result = mysqli_query($GLOBALS["db_link_conn"], $sql);
+	if ($result) return $max = mysqli_RESULT($GLOBALS["db_link_conn"], $result,0,'max')+1;
 	else return 1;
 }
 
@@ -2451,21 +2451,21 @@ function changeOrder($table, $pk, $ordering_col, $new_ord ){
 	$so = addslashes(cleanString($_REQUEST['so']));
 	if($id !="" && $sid !="" && $o !="" && $so !="" ){
 		if($so==$o){$so=$new_ord;$o=$new_ord+1;}
-		$res = mysql_query("UPDATE $table SET $ordering_col='$so' WHERE $pk='$id'");
-		$res1 = mysql_query("UPDATE $table SET $ordering_col='$o'  WHERE $pk='$sid'");
+		$res = mysqli_query($GLOBALS["db_link_conn"], "UPDATE $table SET $ordering_col='$so' WHERE $pk='$id'");
+		$res1 = mysqli_query($GLOBALS["db_link_conn"], "UPDATE $table SET $ordering_col='$o'  WHERE $pk='$sid'");
 		if($res && $res1)
 		echo '<script>correctMessageWithoutBack("'.Record_Update.'")</script>';
 	}
 }
 
 function showUpDownIcons($result, $i, $pk, $ordering_col, $url_prefix){
-	$menu_id= MYSQL_RESULT($result,$i,$pk);
-	$ord= MYSQL_RESULT($result,$i,$ordering_col);
-	$numberOfRows = MYSQL_NUMROWS($result);
+	$menu_id= mysqli_RESULT($GLOBALS["db_link_conn"], $result,$i,$pk);
+	$ord= mysqli_RESULT($GLOBALS["db_link_conn"], $result,$i,$ordering_col);
+	$numberOfRows = mysqli_num_rows( $result);
 	echo '<TD align="center" WIDTH="35">';
 	if($i!='0'){
-		$So= MYSQL_RESULT($result,$i-1,$ordering_col);
-		$Sid= MYSQL_RESULT($result,$i-1,$pk);
+		$So= mysqli_RESULT($GLOBALS["db_link_conn"], $result,$i-1,$ordering_col);
+		$Sid= mysqli_RESULT($GLOBALS["db_link_conn"], $result,$i-1,$pk);
 		echo '<a href="'.$_SERVER['PHP_SELF'].'?action=up&id='.$menu_id.'&sid='.$Sid.'&o='.$ord.'&so='.$So.'&'.$url_prefix.'">';
 		echo '<img src="'._PREF.'images/icons/up.png" alt="Up" border=0>';
 		echo '</a>';
@@ -2473,8 +2473,8 @@ function showUpDownIcons($result, $i, $pk, $ordering_col, $url_prefix){
 	echo '</TD>';
 	echo '<TD align="center" WIDTH="34">';
 	if($i+1!=$numberOfRows){
-		$So= MYSQL_RESULT($result,$i+1,$ordering_col);
-		$Sid= MYSQL_RESULT($result,$i+1,$pk);
+		$So= mysqli_RESULT($GLOBALS["db_link_conn"], $result,$i+1,$ordering_col);
+		$Sid= mysqli_RESULT($GLOBALS["db_link_conn"], $result,$i+1,$pk);
 		echo '<a href="'.$_SERVER['PHP_SELF'].'?action=down&id='.$menu_id.'&sid='.$Sid.'&o='.$ord.'&so='.$So.'&'.$url_prefix.'">';
 		echo '<img src="'._PREF.'images/icons/down.png" alt="Down" border=0>';
 		echo '</a>';

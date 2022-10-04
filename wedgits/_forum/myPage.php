@@ -1,4 +1,4 @@
-<? if(!$_SESSION["us_id"]){echo"<script>document.location='"._PREF."index.php'</script>";} ?>	
+<?php if(!$_SESSION["us_id"]){echo"<script>document.location='"._PREF."index.php'</script>";} ?>	
 <link rel="stylesheet" type="text/css" href='<?php echo _PREF; ?>wedgits/forum/articles_<?php echo $pageLang; ?>.css' />
 <script src="<?php echo _PREF; ?>wedgits/forum/articles.js" language="javascript" type="text/javascript"></script>
 <script type="text/javascript" src="<?php echo _PREF; ?>modules/includes/tinymce/jscripts/tiny_mce/tiny_mce.js"></script>
@@ -69,7 +69,7 @@ if($sub){
 		});
 		
 	</script>
-	<?	
+	<?php	
 	
 }
 

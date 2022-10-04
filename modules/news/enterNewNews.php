@@ -1,9 +1,9 @@
-<?  include_once("../common/header-admin.php");
+<?php  include_once("../common/header-admin.php");
 
 /***********Print Header*************/
 print_ListAdminHead("Announcements: Insert Announcements Item", "News", "", 0);
 
-?><div id="output1"></div><?
+?><div id="output1"></div><?php
 
 $sub = $_REQUEST['sub'];
 if($sub){
@@ -61,7 +61,7 @@ else echo '<script>errorMessage("'.CantInsert.'")</script>' ;
 if((!$sub) || (!$result)){ ?>
 <form name="subForm" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>" enctype="multipart/form-data">
 <input type="Hidden" name="id" size="20" value="<?php echo $id; ?>" />
-<?
+<?php
 ?>
 <table>
 
@@ -81,7 +81,7 @@ if((!$sub) || (!$result)){ ?>
 	<td width="5" class="required">*</td>
 	<td><input type="Text" name="link" size="20" value="<?php echo stripslashes($link); ?>" class="required" /></td>
 </tr-->
-<?
+<?php
 ?>
 <tr>
 <td align="<?php echo _ALI; ?>"><span class="field_title"> publish date :</span></td>
@@ -129,13 +129,13 @@ if((!$sub) || (!$result)){ ?>
 	<td><?php echo galleryComboBox($gallery, "gallery");?> &nbsp; &nbsp; Minimum photo size: 220px x 130px</td>
 </tr>
 
-<?
+<?php
 ?>
 </table>
 <input name="sub" type="submit" id="sub" value="Save">
-<?
+<?php
 ?>
 <input name="sub4" type="button" id="sub3" value="<?php echo Back; ?>" onClick=" document.location='listNews.php?<?php echo $url; ?>'">
-</form></div><?
+</form></div><?php
 }
 include_once("../common/footer-admin.php"); ?>

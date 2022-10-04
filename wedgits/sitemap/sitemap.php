@@ -5,7 +5,7 @@
 <table width="100%" border="0" cellspacing="0" dir='<?php echo _DIR; ?>' cellpadding="0">
 
 
-<?
+<?php
 $i=0;
 $sql = "SELECT * FROM menus WHERE (lang = '$pageLang') ORDER BY p_id ,item_order ASC";
 $menu = MYSQL_QUERY($sql);

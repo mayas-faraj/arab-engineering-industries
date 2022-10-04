@@ -88,7 +88,7 @@ Show Report From:
 	myChart.setLineWidth(2);
 	myChart.setFlagColor('#9D12FD');
 	myChart.setFlagRadius(4);
-	<?
+	<?php
 	
 	for($i=0; $i<=$wid; $i++)
 		echo "myChart.setTooltip([$i, '$i']);";

@@ -1,4 +1,4 @@
-<?
+<?php
 function availableForm($formName){
 	$thisUserId = getCurrentUserId();
 	if($thisUserId=="") checkCurrentUser();

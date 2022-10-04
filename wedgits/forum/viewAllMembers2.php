@@ -18,7 +18,7 @@ $cat_id = cleanString($_REQUEST['id']);
 
 
 	
-<?
+<?php
 
 if(cleanString($_REQUEST['pn']))	$pn = cleanString($_REQUEST['pn']);
 	$LPP = 10;
@@ -70,7 +70,7 @@ if(cleanString($_REQUEST['pn']))	$pn = cleanString($_REQUEST['pn']);
 						<td ><?php echo $signature; ?></td>
 						<td><?php echo $email; ?></td>
 						<td width='100px' align='center'>
-							<?
+							<?php
 								if($photo){
 									$thumb = resizeToFile('../../uploads/'.$photo, 100 , 100 , '../../uploads/cash/admin_forum_user_'.$photo);
 									echo "<img src='$thumb'/>";
@@ -80,7 +80,7 @@ if(cleanString($_REQUEST['pn']))	$pn = cleanString($_REQUEST['pn']);
 							?>						
 						</td>
 					</tr>
-				<?
+				<?php
 				$i++;
 			}
 			echo "</table>";

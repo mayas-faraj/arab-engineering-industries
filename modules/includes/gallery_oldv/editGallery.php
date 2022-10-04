@@ -150,7 +150,7 @@ function formValidator(){
 	}
 }
 </script>
-	<br><?
+	<br><?php
 	} 
 }?>
 </body>

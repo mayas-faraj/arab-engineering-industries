@@ -1,4 +1,4 @@
-<? if(!cleanString($_SESSION["us_id"])){echo"<script>document.location='"._PREF."index.php'</script>";exit();} ?>	
+<?php if(!cleanString($_SESSION["us_id"])){echo"<script>document.location='"._PREF."index.php'</script>";exit();} ?>	
 <link rel="stylesheet" type="text/css" href='<?php echo _PREF; ?>wedgits/forum/articles_<?php echo $pageLang; ?>.css'/>
 
 <script src="<?php echo _PREF; ?>wedgits/forum/articles.js" language="javascript" type="text/javascript"></script>	
@@ -97,7 +97,7 @@ if($sub){
 
 <div class="page_content" dir='<?php echo _DIR; ?>'>
 
-	<?
+	<?php
 //$photo_path ="../../uploads/";
 
 
@@ -129,7 +129,7 @@ if ($numrows>0) {
 		<div class="annonce_details_body">
 			<!--div class="annonce_details_txt"><?php echo $details; ?></div-->
 			<div class="">
-				<?
+				<?php
 					$attach_sql =  "SELECT * FROM art_articles_files WHERE (art_id=$article_id) ";
 					$attach_result = MYSQL_QUERY($attach_sql);
 					$attach_numrows = MYSQL_NUMROWS($attach_result);
@@ -151,7 +151,7 @@ if ($numrows>0) {
 	
                          
 	
-<? 
+<?php 
 	/*************************View Comments***********************/
 	
 	$sql="select * from art_comments where art_id = $article_id  AND active=1 order by publish_date ASC";
@@ -165,7 +165,7 @@ if ($numrows>0) {
 		<?if($rows>3){echo "<div class='see_more_com'>".see_more_com." ($rows)</div>";}?>
 		
 	</div>
-	<?
+	<?php
 	if($rows){
 		$i=0;
 		if($rows>3){echo "<div class='hidden_comments'>";}
@@ -203,7 +203,7 @@ if ($numrows>0) {
 					</div>
 					<div class="comment_body">
 						<?php echo $comment; ?>
-						<?
+						<?php
 							$attach_sql =  "SELECT * FROM art_comments_files WHERE (comment_id=$id) ";
 							$attach_result = MYSQL_QUERY($attach_sql);
 							$attach_numrows = MYSQL_NUMROWS($attach_result);
@@ -220,7 +220,7 @@ if ($numrows>0) {
 						?>
 					</div>
 				</div>
-			<?
+			<?php
 			}
 			if($i==($rows-4)){echo "</div>";}
 			$i++;
@@ -231,7 +231,7 @@ if ($numrows>0) {
 	?>
 
 	</div>
-		<?
+		<?php
 		$i++;
 	}
 }
@@ -262,7 +262,7 @@ if ($numrows>0) {
 
 
 
-	<? /*************************Add Comments***********************/?>
+	<?php /*************************Add Comments***********************/?>
 	<div class="com_add">
 		<?/*if($publish && $publish_comment){?><a href="#" onclick="$('.progList_Addcomment').show();return false;"><?php echo AddComment; ?></a><?}*/?>
 
@@ -365,7 +365,7 @@ if ($numrows>0) {
 	<?php echo $alert_results; ?>
 </div> 
 
-<?
+<?php
 if($alert_results){?>
 
 	<script>

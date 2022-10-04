@@ -1,11 +1,11 @@
-<?  include_once("../common/header-admin.php");
+<?php  include_once("../common/header-admin.php");
 
 /***********Print Header*************/
 print_ListAdminHead("FYI: Update", "FYI", "", 0);
 
 ?>
 <div id="output1"></div>
-<?
+<?php
 $sub = $_REQUEST['sub'];
 if($sub){
 $id = addslashes($_REQUEST['id']);
@@ -105,9 +105,9 @@ $private= MYSQL_RESULT($result,$i,"private");
 </table>
 
 <input name="sub" type="submit" id="sub" value="Save">
-<?
+<?php
 ?>
 <input name="sub2" type="button" id="sub2" value="Back" onClick=" document.location='listResources.php?<?php echo $url; ?>'">
-</form><?
+</form><?php
 }
 include_once("../common/footer-admin.php"); ?>

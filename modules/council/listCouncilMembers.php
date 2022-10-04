@@ -1,4 +1,4 @@
-<?
+<?php
 include_once("../common/header-admin.php");
 /***********Print Header*************/
 print_ListAdminHead("BOD","",  "enterNewCouncilMember.php",0, 1);
@@ -60,10 +60,10 @@ $i=0;?>
 <thead>
 <tr>
 <th width="277"><?php echo print_AdminRecordHead("name_en", "Name", $sb, $so); ?></th>
-<?
+<?php
 ?>
 <th width="277"><?php echo print_AdminRecordHead("position_en", "Position", $sb, $so); ?></th>
-<?
+<?php
 ?>
 <th width="277"><?php echo print_AdminRecordHead("company_en", "Company", $sb, $so); ?></th>
 
@@ -73,7 +73,7 @@ $i=0;?>
 </tr>
 </thead>
 <tbody>
-<?
+<?php
 while ($i<$numberOfRows){
 $id= MYSQL_RESULT($result,$i,"id");
 $name_en= MYSQL_RESULT($result,$i,"name_en");
@@ -87,10 +87,10 @@ $ord= MYSQL_RESULT($result,$i,"ord");
 ?>
 <TR>
 <TD><?php echo stripslashes($name_en); ?><br/><?php echo stripslashes($name_ar); ?></TD>
-<?
+<?php
 ?>
 <TD><?php echo stripslashes($position_en); ?><br/><?php echo stripslashes($position_ar); ?></TD>
-<?
+<?php
 ?>
 <TD><?php echo $company_en; ?></TD>
 
@@ -99,19 +99,19 @@ $ord= MYSQL_RESULT($result,$i,"ord");
 
 
 <?//=showUpDownIcons($result, $i, "id", "ord", "&term=".$term);?>
-<TD align="center" WIDTH="42"><?=print_edit_icon("editCouncil.php?cat_id=$cat_id&id=".$id."&term=".$term);?></TD>
-<TD align="center" WIDTH="42"><?=print_delete_icon("?id=".$id."&sub=del&sub=del");?></TD>
+<TD align="center" WIDTH="42"><?php echo print_edit_icon("editCouncil.php?cat_id=$cat_id&id=".$id."&term=".$term);?></TD>
+<TD align="center" WIDTH="42"><?php echo print_delete_icon("?id=".$id."&sub=del&sub=del");?></TD>
 </TR>
 <?$i++;
 }//End While?>
 </tbody>
 </TABLE>
 
-<?
+<?php
 /***********Bottom pagination*************/
 echo createPagination($tp,$pn,$LPP);
-?><br/><?
+?><br/><?php
 }?>
 <br/><br/>
-<?
+<?php
 include_once("../common/footer-admin.php"); ?>

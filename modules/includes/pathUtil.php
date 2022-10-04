@@ -1,30 +1,30 @@
-<?
+<?php
 function getParent($id){
 	$psql = "SELECT p_id from menus WHERE menu_id= $id";
-	$presult = mysql_query($psql);
-	$prows = mysql_num_rows($presult);
+	$presult = mysqli_query($GLOBALS["db_link_conn"], $psql);
+	$prows = mysqli_num_rows($presult);
 	while ($prows > 0){
-		$pid= MYSQL_RESULT($presult,$i,"p_id");
+		$pid= mysqli_RESULT($GLOBALS["db_link_conn"], $presult,$i,"p_id");
 		return $pid;
 	}
 	return 0;
 }
 function hasSub($id){
 	$psql = "SELECT count(*) c from menus WHERE p_id= $id";
-	$presult = mysql_query($psql);
-	$prows = mysql_num_rows($presult);
+	$presult = mysqli_query($GLOBALS["db_link_conn"], $psql);
+	$prows = mysqli_num_rows($presult);
 	while ($prows > 0){
-		$c= MYSQL_RESULT($presult,$i,"c");
+		$c= mysqli_RESULT($GLOBALS["db_link_conn"], $presult,$i,"c");
 		return $c;
 	}
 	return 0;
 }
 function getName($id){
 	$psql = "SELECT item_label from menus WHERE menu_id= $id";
-	$presult = mysql_query($psql);
-	$prows = mysql_num_rows($presult);
+	$presult = mysqli_query($GLOBALS["db_link_conn"], $psql);
+	$prows = mysqli_num_rows($presult);
 	while ($prows > 0){
-		$pid= MYSQL_RESULT($presult,$i,"item_label");
+		$pid= mysqli_RESULT($GLOBALS["db_link_conn"], $presult,$i,"item_label");
 		return $pid;
 	}
 	return 0;
@@ -32,20 +32,20 @@ function getName($id){
 function getMenuId($link,$pageLang='ar'){
 	$psql = "SELECT menu_id from menus WHERE item_link like '%$link%' and lang='$pageLang'";
 	
-	$presult = mysql_query($psql);
-	$prows = mysql_num_rows($presult);
+	$presult = mysqli_query($GLOBALS["db_link_conn"], $psql);
+	$prows = mysqli_num_rows($presult);
 	while ($prows > 0){
-		$pid= MYSQL_RESULT($presult,$i,"menu_id");
+		$pid= mysqli_RESULT($GLOBALS["db_link_conn"], $presult,$i,"menu_id");
 		return $pid;
 	}
 	$link  = $_SERVER['REQUEST_URI'];//////////
 	
 	//By Ahmad Hajjar : I modified this statement to NOT retrieve menus with NULL or EMPTY links.
 	$psql = "SELECT menu_id from menus WHERE '$link' like concat('%',item_link ,'%') and lang='$pageLang' and (item_link is not null) and item_link <> '' ";
-	$presult = mysql_query($psql);
-	$prows = mysql_num_rows($presult);
+	$presult = mysqli_query($GLOBALS["db_link_conn"], $psql);
+	$prows = mysqli_num_rows($presult);
 	while ($prows > 0){
-		$pid= MYSQL_RESULT($presult,$i,"menu_id");
+		$pid= mysqli_RESULT($GLOBALS["db_link_conn"], $presult,$i,"menu_id");
 		return $pid;
 	}
 	
@@ -53,10 +53,10 @@ function getMenuId($link,$pageLang='ar'){
 }
 function getLink($id){
 	$psql = "SELECT item_link from menus WHERE menu_id= $id";
-	$presult = mysql_query($psql);
-	$prows = mysql_num_rows($presult);
+	$presult = mysqli_query($GLOBALS["db_link_conn"], $psql);
+	$prows = mysqli_num_rows($presult);
 	while ($prows > 0){
-		$pid= MYSQL_RESULT($presult,$i,"item_link");
+		$pid= mysqli_RESULT($GLOBALS["db_link_conn"], $presult,$i,"item_link");
 		if( $pid == '#')	return '';
 		return $pid;
 	}
@@ -92,8 +92,8 @@ switch( $thisfile ){
 	case "viewSPage":	 
 		$id = addslashes($_REQUEST['id']);
 		$query = "SELECT * FROM misc_pages where id=$id and lang='$pageLang'" ;
-		$result = mysql_query($query);
-		if (mysql_num_rows($result) >0 )  $title = MYSQL_RESULT($result, 0, "title");
+		$result = mysqli_query($GLOBALS["db_link_conn"], $query);
+		if (mysqli_num_rows($result) >0 )  $title = MYSQL_RESULT($result, 0, "title");
 		break;
 	case "viewAllNews":
 		if($_REQUEST['cat_id']==2)	$title = Circulars;
@@ -105,8 +105,8 @@ switch( $thisfile ){
 	case "viewPage":	 
 		$id = addslashes($_REQUEST['id']);
 		$query = "SELECT * FROM pages where id=$id and lang='$pageLang'" ;
-		$result = mysql_query($query);
-		if (mysql_num_rows($result) >0 )  $title = MYSQL_RESULT($result, 0, "title");
+		$result = mysqli_query($GLOBALS["db_link_conn"], $query);
+		if (mysqli_num_rows($result) >0 )  $title = MYSQL_RESULT($result, 0, "title");
 		break;
 	case "contactUs":
 		$title = Contact_Us;
@@ -114,68 +114,68 @@ switch( $thisfile ){
 	case "viewEvents":	 
 		//$id = addslashes($_REQUEST['id']);
 		//$query = "SELECT title_$pageLang FROM event where id=$id" ;
-		//$result = mysql_query($query);
-		//if (mysql_num_rows($result) >0 )  $title = MYSQL_RESULT($result, 0, "title_$pageLang");
+		//$result = mysqli_query($GLOBALS["db_link_conn"], $query);
+		//if (mysqli_num_rows($result) >0 )  $title = MYSQL_RESULT($result, 0, "title_$pageLang");
 		break;
 	case "viewNews":	 
 		$id = addslashes($_REQUEST['id']);
 		$query = "SELECT subject FROM news where id=$id" ;
-		$result = mysql_query($query);
-		if (mysql_num_rows($result) >0 )  $title = MYSQL_RESULT($result, 0, "subject");
+		$result = mysqli_query($GLOBALS["db_link_conn"], $query);
+		if (mysqli_num_rows($result) >0 )  $title = MYSQL_RESULT($result, 0, "subject");
 		break;
 	case "viewForm":	 
 		$id = addslashes($_REQUEST['id']);
 		$query = "SELECT form_name FROM query_forms where form_id=$id" ;
-		$result = mysql_query($query);
-		if (mysql_num_rows($result) >0 )  $title = MYSQL_RESULT($result, 0, "form_name");
+		$result = mysqli_query($GLOBALS["db_link_conn"], $query);
+		if (mysqli_num_rows($result) >0 )  $title = MYSQL_RESULT($result, 0, "form_name");
 		break;
 	case "viewMembers":	 
 		$id = addslashes($_REQUEST['member_id']);
 		$query = "SELECT full_name_$pageLang name FROM members where member_id=$id" ;
-		$result = mysql_query($query);
-		if (mysql_num_rows($result) >0 )  $title = MYSQL_RESULT($result, 0, "name");
+		$result = mysqli_query($GLOBALS["db_link_conn"], $query);
+		if (mysqli_num_rows($result) >0 )  $title = MYSQL_RESULT($result, 0, "name");
 		break;
 	case "viewCompany":	 
 		$id = addslashes($_REQUEST['id']);
 		$query = "SELECT name_$pageLang name FROM company WHERE id=$id" ;
-		$result = mysql_query($query);
-		if (mysql_num_rows($result) >0 )  $title = MYSQL_RESULT($result, 0, "name");
+		$result = mysqli_query($GLOBALS["db_link_conn"], $query);
+		if (mysqli_num_rows($result) >0 )  $title = MYSQL_RESULT($result, 0, "name");
 		break;
 	case "viewActivities":	 
 		$id = addslashes($_REQUEST['id']);
 		$query = "SELECT title name FROM activities where id=$id" ;
-		$result = mysql_query($query);
-		if (mysql_num_rows($result) >0 )  $title = MYSQL_RESULT($result, 0, "name");
+		$result = mysqli_query($GLOBALS["db_link_conn"], $query);
+		if (mysqli_num_rows($result) >0 )  $title = MYSQL_RESULT($result, 0, "name");
 		break;
 	case "viewCommittees":
 		$com_id = addslashes($_REQUEST['com_id']);
 		$query = "SELECT com_name_$pageLang name FROM committees where com_id=$com_id" ;
-		$result = mysql_query($query);
-		if (mysql_num_rows($result) >0 )  $title = MYSQL_RESULT($result, 0, "name");
+		$result = mysqli_query($GLOBALS["db_link_conn"], $query);
+		if (mysqli_num_rows($result) >0 )  $title = MYSQL_RESULT($result, 0, "name");
 		break;
 	case "viewArticles":	 
 		$id = addslashes($_REQUEST['id']);
 		$query = "SELECT title name FROM articles where id=$id" ;
-		$result = mysql_query($query);
-		if (mysql_num_rows($result) >0 )  $title = MYSQL_RESULT($result, 0, "name");
+		$result = mysqli_query($GLOBALS["db_link_conn"], $query);
+		if (mysqli_num_rows($result) >0 )  $title = MYSQL_RESULT($result, 0, "name");
 		break;
 	case "viewAllLinks":	 
 		$id = addslashes($_REQUEST['category']);
 		$query = "SELECT name_$pageLang name FROM links_cat where cat_id=$id" ;
-		$result = mysql_query($query);
-		if (mysql_num_rows($result) >0 )  $title = MYSQL_RESULT($result, 0, "name");
+		$result = mysqli_query($GLOBALS["db_link_conn"], $query);
+		if (mysqli_num_rows($result) >0 )  $title = MYSQL_RESULT($result, 0, "name");
 		break;
 	case "viewAssociations":	 
 		$id = addslashes($_REQUEST['ass_id']);
 		$query = "SELECT ass_name_$pageLang name FROM associations where ass_id=$id" ;
-		$result = mysql_query($query);
-		if (mysql_num_rows($result) >0 )  $title = MYSQL_RESULT($result, 0, "name");
+		$result = mysqli_query($GLOBALS["db_link_conn"], $query);
+		if (mysqli_num_rows($result) >0 )  $title = MYSQL_RESULT($result, 0, "name");
 		break;
 	case "viewAssociations":	 
 		$id = addslashes($_REQUEST['ass_id']);
 		$query = "SELECT ass_name_$pageLang name FROM associations where ass_id=$id" ;
-		$result = mysql_query($query);
-		if (mysql_num_rows($result) >0 )  $title = MYSQL_RESULT($result, 0, "name");
+		$result = mysqli_query($GLOBALS["db_link_conn"], $query);
+		if (mysqli_num_rows($result) >0 )  $title = MYSQL_RESULT($result, 0, "name");
 		break;
 		
 	case "enterNewComplaints":	 
@@ -202,9 +202,9 @@ switch( $thisfile ){
 	case "viewSessions":	 
 		$id = addslashes($_REQUEST['id']);
 		$query = "SELECT session_name name FROM sessions where id=$id" ;
-		$result = mysql_query($query);
-		if (mysql_num_rows($result) >0 ){
-			$title = MYSQL_RESULT($result, 0, "name");
+		$result = mysqli_query($GLOBALS["db_link_conn"], $query);
+		if (mysqli_num_rows($result) >0 ){
+			$title = mysqli_RESULT($GLOBALS["db_link_conn"], $result, 0, "name");
 			if($_REQUEST['pr']) $title .= "-".Session_program;
 			else  $title .= "-".Session_report;
 		}
@@ -231,9 +231,9 @@ switch( $thisfile ){
 	case "viewProducts":
 		$pro_id=$_REQUEST['pro_id'];
 		$query = "SELECT pro_name_$pageLang FROM products where pro_id=$pro_id" ;
-		$result = mysql_query($query);
-		if (mysql_num_rows($result) >0 ){
-			$title = MYSQL_RESULT($result, 0, "pro_name_$pageLang");
+		$result = mysqli_query($GLOBALS["db_link_conn"], $query);
+		if (mysqli_num_rows($result) >0 ){
+			$title = mysqli_RESULT($GLOBALS["db_link_conn"], $result, 0, "pro_name_$pageLang");
 		}
 		else 
 		{
@@ -248,9 +248,9 @@ switch( $thisfile ){
 			break;
 		}
 		$query = "SELECT cat_name_$pageLang FROM products_categories where cat_id=$cat_id" ;
-		$result = mysql_query($query);
-		if (mysql_num_rows($result) >0 ){
-			$title = MYSQL_RESULT($result, 0, "cat_name_$pageLang");
+		$result = mysqli_query($GLOBALS["db_link_conn"], $query);
+		if (mysqli_num_rows($result) >0 ){
+			$title = mysqli_RESULT($GLOBALS["db_link_conn"], $result, 0, "cat_name_$pageLang");
 		}
 		else 
 		{
@@ -266,9 +266,9 @@ function getSPath($thisfile,$pageLang){
 		case "viewNews":	 
 			$id=$_REQUEST['id'];
 			$query = "SELECT * FROM `news` where id=$id" ;
-			$result = mysql_query($query);
+			$result = mysqli_query($GLOBALS["db_link_conn"], $query);
 			$path="";
-			if (mysql_num_rows($result) >0 ){
+			if (mysqli_num_rows($result) >0 ){
 				$mid=getMenuId("news/viewAllNews.php",$pageLang);
 				$path=getMenuPath($mid);
 				//$path.="<a href='"._PREF."forms/news/viewNews.php?id=$id'> ".getTitle("viewNews", $pageLang)." </a>";
@@ -281,9 +281,9 @@ function getSPath($thisfile,$pageLang){
 		case "viewEvents":	 
 			$id=$_REQUEST['id'];
 			$query = "SELECT * FROM `events` where id=$id" ;
-			$result = mysql_query($query);
+			$result = mysqli_query($GLOBALS["db_link_conn"], $query);
 			$path="";
-			if (mysql_num_rows($result) >0 ){
+			if (mysqli_num_rows($result) >0 ){
 				$mid=getMenuId("events/viewAllEvents.php",$pageLang);
 				$path=getMenuPath($mid);
 				//$path.="<a href='"._PREF."forms/news/viewNews.php?id=$id'> ".getTitle("viewNews", $pageLang)." </a>";
@@ -296,9 +296,9 @@ function getSPath($thisfile,$pageLang){
 		case "viewTeam_work":
 			$id=$_REQUEST['id'];
 			$query = "SELECT * FROM `team_work` where id=$id" ;
-			$result = mysql_query($query);
+			$result = mysqli_query($GLOBALS["db_link_conn"], $query);
 			$path="";
-			if (mysql_num_rows($result) >0 ){
+			if (mysqli_num_rows($result) >0 ){
 				$mid=getMenuId("team_work/viewAllTeam_work.php",$pageLang);
 				$path=getMenuPath($mid);
 			}
@@ -311,9 +311,9 @@ function getSPath($thisfile,$pageLang){
 		case "jobsApply":
 			$id=($_REQUEST['jobId']=="")?$_REQUEST['id']:$_REQUEST['jobId'];
 			$query = "SELECT * FROM `jobs` where id=$id" ;
-			$result = mysql_query($query);
+			$result = mysqli_query($GLOBALS["db_link_conn"], $query);
 			$path="";
-			if (mysql_num_rows($result) >0 ){
+			if (mysqli_num_rows($result) >0 ){
 				$mid=getMenuId("jobs/viewAllJobs.php",$pageLang);
 				$path=getMenuPath($mid);
 				//$path.="<a href='"._PREF."forms/news/viewNews.php?id=$id'> ".getTitle("viewNews", $pageLang)." </a>";
@@ -326,9 +326,9 @@ function getSPath($thisfile,$pageLang){
 		case "viewModuleData":
 			$id=$_REQUEST['module_id'];
 			$query = "SELECT * FROM `modules` where `module_id`=$id" ;
-			$result = mysql_query($query);
+			$result = mysqli_query($GLOBALS["db_link_conn"], $query);
 			$path="";
-			if (mysql_num_rows($result) >0 ){
+			if (mysqli_num_rows($result) >0 ){
 				$mid=getMenuId("cmodules/viewAllModuleData.php?module_id=$id",$pageLang);
 				$path=getMenuPath($mid);
 			}
@@ -364,10 +364,10 @@ function getSPath($thisfile,$pageLang){
 		case "viewProducts":
 			$pro_id=$_REQUEST['pro_id'];
 			$query = "SELECT * FROM products where pro_id=$pro_id" ;
-			$result = mysql_query($query);
+			$result = mysqli_query($GLOBALS["db_link_conn"], $query);
 			$path="";
-			if (mysql_num_rows($result) >0 ){
-				$cat_id= MYSQL_RESULT($result, 0, "cat_id");
+			if (mysqli_num_rows($result) >0 ){
+				$cat_id= mysqli_RESULT($GLOBALS["db_link_conn"], $result, 0, "cat_id");
 				//$mid=getMenuId("products/viewAllProducts.php?cat=$cat_id",$pageLang);
 				//$path=getMenuPath($mid);
 				$path="<a href='"._PREF."'>".Homepage."</a> ";
@@ -383,10 +383,10 @@ function getSPath($thisfile,$pageLang){
 		case "viewAllProducts":
 			$cat_id=$_REQUEST['cat'];
 			$query = "SELECT * FROM products_categories where cat_id='$cat_id'";
-			$result = mysql_query($query);
+			$result = mysqli_query($GLOBALS["db_link_conn"], $query);
 			$path="";
-			if (mysql_num_rows($result) >0 ){
-				$cat_name= MYSQL_RESULT($result, 0, "cat_name_$pageLang");
+			if (mysqli_num_rows($result) >0 ){
+				$cat_name= mysqli_RESULT($GLOBALS["db_link_conn"], $result, 0, "cat_name_$pageLang");
 				$path="<a href='"._PREF."'>".Homepage."</a> ";
 				$path.="<a href='"._PREF."forms/products/viewAllProducts.php?cat=$cat_id'> ".$cat_name." </a>";
 			}
@@ -435,10 +435,10 @@ function addParToLink($link, $par){
 function getTopParent($pageLang, $menu_id){
 	$curr = $menu_id;
 	while($curr!=0){
-		$menu = MYSQL_QUERY("SELECT p_id FROM menus WHERE (lang = '$pageLang') AND menu_id=$curr");
+		$menu = mysqli_QUERY($GLOBALS["db_link_conn"], "SELECT p_id FROM menus WHERE (lang = '$pageLang') AND menu_id=$curr");
 		//echo ("SELECT p_id FROM menus WHERE (lang = '$pageLang') AND menu_id=$curr");
-		if(MYSQL_NUMROWS($menu)==0) return 0;
-		$p_id= MYSQL_RESULT($menu,0,"p_id");
+		if(mysqli_num_rows($menu)==0) return 0;
+		$p_id= mysqli_RESULT($GLOBALS["db_link_conn"], $menu,0,"p_id");
 		if($p_id == 0)	return $curr;
 		else	$curr=$p_id;
 	}

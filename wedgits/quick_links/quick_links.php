@@ -1,5 +1,5 @@
 <link rel="stylesheet" type="text/css" href='<?php echo _PREF; ?>wedgits/quick_links/quick_links_<?php echo $pageLang; ?>.css'/>	
-<?
+<?php
 
 if($pageLang=='en'){
 	$ids = array(3,5,7);

@@ -1,7 +1,7 @@
 <link rel="stylesheet" type="text/css" href='<?php echo _PREF; ?>wedgits/members/members_<?php echo $pageLang; ?>.css'/>
 <div class="page_content" dir='<?php echo _DIR; ?>'>
 	<div class="title2"><?php echo MEMBERS; ?></div>
-	<?
+	<?php
 	$pn = 0;
 	if(cleanString($_REQUEST['pn']))	$pn = cleanString($_REQUEST['pn']);
 	$LPP = 15;
@@ -67,7 +67,7 @@
 					
 				</tr>
 			
-			<?
+			<?php
 			$i++;
 		}
 		echo "</table>";

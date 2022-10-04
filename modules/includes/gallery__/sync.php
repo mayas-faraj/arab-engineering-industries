@@ -1,11 +1,11 @@
-<?
+<?php
 session_start();
 header("cache-control: no-cache"); 
 require_once("../../../config.php");
 require_once("../../common/dbConnection.php"); 
 require_once("dbUtilsGallary.php");
 if(checkGallogin()){  
-?><div style=" margin:10px;" align="left"><?
+?><div style=" margin:10px;" align="left"><?php
 /************** check deleted images***************/
 $sql="select * from galleries_photos ";
 $res=mysql_query($sql);

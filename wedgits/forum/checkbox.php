@@ -1,4 +1,4 @@
-<?
+<?php
 include("../../config.php");
 include("../../modules/common/dbConnection.php");
 $table = $_GET['t'];

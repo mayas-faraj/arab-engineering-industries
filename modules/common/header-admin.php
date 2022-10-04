@@ -1,6 +1,6 @@
-<? include_once("../common/top-admin.php"); ?>
+<?php include_once("../common/top-admin.php"); ?>
 
-<?
+<?php
 /* if($_SESSION["UFM_USER"] != 'admin'){echo"<script>document.location='"._PREF."modules/login/'</script>";}
 */ ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
@@ -34,6 +34,6 @@
     <td colspan="3" class="header"></td>
   </tr>
   <tr>
-    <td width="200" height="100%" valign="top"><? include("menu-left.php")?></td>
+    <td width="200" height="100%" valign="top"><?php include("menu-left.php")?></td>
     <td width="100%" height="100%" valign="top" class="content">
 	 	<!--------------------------------->

@@ -2,7 +2,7 @@
 <div class="page_content" dir='<?php echo _DIR; ?>'>
 	<div class="title2"><?php echo bod; ?></div>
 
-	<?
+	<?php
 $photo_path ="../../uploads/";
 
 $brief_count = 150;
@@ -88,7 +88,7 @@ if ($numrows>0) {
 
 	
 	</div>
-		<?
+		<?php
 		$i++;
 	}
 	/*$tp = count_items("mem_council", str_replace("WHERE", "", $whereStm));

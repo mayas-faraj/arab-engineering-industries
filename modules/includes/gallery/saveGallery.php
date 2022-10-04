@@ -45,12 +45,12 @@ $(document).ready(function(){
 
 <div style="margin-top:10px;">
 <div class="next" onClick="document.location='photosGallery.php'">Back</div>
-<? if(isset($_SESSION['entergid']) && $_SESSION['entergid']==$gid){
-	?><div class="next" style="margin-left:10px;" onClick="window.close()">Finsh</div><?
+<?php if(isset($_SESSION['entergid']) && $_SESSION['entergid']==$gid){
+	?><div class="next" style="margin-left:10px;" onClick="window.close()">Finsh</div><?php
 	}else{?>
 <div class="next" style="margin-left:10px;" onClick="opener.document.location.reload(true);window.close()">Finsh</div>
-<? }?>
+<?php }?>
 </div>
 </body>
 </html>
-<? } }}?>
+<?php } }}?>

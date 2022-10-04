@@ -81,19 +81,19 @@ else
 		<div class="head"><h1 class="title"><?php echo $group_title; ?></h1></div>
 		<TABLE CELLSPACING="0" CELLPADDING="0" BORDER="0" WIDTH="100%">
 		<tbody>
-		<?
+		<?php
 		while ($j<$tips_numRows){
 			$tip_id=mysql_result($tips_result, $j,"id");
 			$title =mysql_result($tips_result, $j,"title");
 			?>
 			<tr><TD width="100%">* &nbsp;<a href="<?php echo $_SERVER['PHP_SELF']; ?>?tip_id=<?php echo $tip_id; ?>"><?php echo $title; ?></a></TD></tr>
-			<?
+			<?php
 			$j++;
 		}
 		?>
 		</tbody>
 		</TABLE>
-		<?
+		<?php
 	}
 }
 ?>

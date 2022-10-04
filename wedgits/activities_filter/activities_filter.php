@@ -1,4 +1,4 @@
-<?
+<?php
 	$page_name = getCurrentFormName();
 	if($page_name=='index'){
 		$path='';
@@ -15,12 +15,12 @@
 	
 	?>
 	<div class="side_filter">
-	<?
+	<?php
 	echo "<input type='button' value='".reset_filter."' onClick='document.location=\"viewAllActivities.php\"' class='filter' />";
 	echo "<input type='submit' value='".Filter."' class='filter' />";
 	?>
 	</div>
-	<?
+	<?php
 	echo "</form>";
 	
 ?>

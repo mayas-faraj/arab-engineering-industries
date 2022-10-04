@@ -1,7 +1,7 @@
 <link rel="stylesheet" type="text/css" href='<?php echo _PREF; ?>wedgits/members/members_<?php echo $pageLang; ?>.css'/>
 <div class="page_content" dir='<?php echo _DIR; ?>'>
 	
-	<?
+	<?php
 	$mid = cleanString($_REQUEST['id']);
 	$sql = "SELECT * FROM mem_members WHERE id = '$mid'";
 	$result = MYSQL_QUERY($sql);

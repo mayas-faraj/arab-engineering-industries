@@ -41,7 +41,7 @@ function edit_file(){
 	});
 }
 var dleID=0;
-<? if(isset($_REQUEST['f'])){ ?>
+<?php if(isset($_REQUEST['f'])){ ?>
 $(document).ready(function(){
 	$('#delDiv').dialog({
 		autoOpen: false,
@@ -66,7 +66,7 @@ $(document).ready(function(){
 });
 	
 });
-<? }?>
+<?php }?>
 </script>
 <input name="des2" type="hidden" id="des2" value="d" size="100">
 <?php
@@ -103,7 +103,7 @@ while ($i<$numberOfRows){
         onMouseOut="viewDes(<?php echo $id; ?>,0)"><div><?php echo $photo.'<br>'.stripslashes($description); ?></div></div>
         <div class="thumb_img" align="center" style="background-image:url(<?php echo $thumbN; ?>)" 
         onMouseOver="viewDes(<?php echo $id; ?>,1)" ></div>
-        <? 
+        <?php 
 		$bgcol='ccc';
 		$checked='';
 		if(in_array($id,$photos)){
@@ -120,7 +120,7 @@ while ($i<$numberOfRows){
         <img src="../css/images/icons/Edit.png" width="20" hspace="3" style="cursor:pointer" 
         onClick="edit_photo(<?php echo $id; ?>,'<?php echo $description; ?>','<?php echo $thumb; ?>',1)"/>
         </div></div>
-        </div><?		
+        </div><?php		
 	}
 	$i++;
 }//end for
