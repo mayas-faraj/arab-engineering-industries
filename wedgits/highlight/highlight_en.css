@@ -1,3 +1,7 @@
+.main .highlight {
+	display: none;
+}
+
 .highlight a{color:#58595b; text-decoration:none;}
 .highlight{
 	float:left;
