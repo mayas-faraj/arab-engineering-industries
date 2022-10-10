@@ -6,10 +6,10 @@ $dots='../../';
 <html xmlns="http://www.w3.org/1999/xhtml"  charset="utf-8">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <head>
-	<TITLE><?php echo $seo[title]; ?></TITLE>
-	<meta name="title" content="<?php echo $seo[title]; ?>">
-	<meta name="keywords" content="<?php echo $seo[keywords]; ?>">
-	<meta name="description" content="<?php echo $seo[description]; ?>">
+	<TITLE><?php echo $seo["title"]; ?></TITLE>
+	<meta name="title" content="<?php echo $seo["title"]; ?>">
+	<meta name="keywords" content="<?php echo $seo["keywords"]; ?>">
+	<meta name="description" content="<?php echo $seo["description"]; ?>">
 	<link rel="stylesheet" type="text/css" href='<?php echo _PREF; ?>css/main_<?php echo $pageLang; ?>.css'/>
 	<script type="text/javascript" src="<?php echo _PREF; ?>js/jquery-1.6.3.js"></script>
 	<script type="text/javascript" src="<?php echo _PREF; ?>modules/includes/jquery/jconfirmaction.jquery.js" ></script>

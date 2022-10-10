@@ -492,7 +492,7 @@ function exportSqlToExcel($sql,$outputFilename="default.xls"){
 		$i=0;
 		while($i<$numRows){
 			$arr=array();
-			$arr=mysqli_fetch_array($GLOBALS["db_link_conn"], $result,MYSQL_NUM);
+			$arr=mysqli_fetch_array($result,MYSQL_NUM);
 			$excelArray[]=$arr;
 			$i++;
 		}
@@ -787,7 +787,7 @@ function lookupField($table, $id_field, $lookup_field, $id_value) {
 	$sql_lookup = "SELECT `$lookup_field` from `$table` where `$id_field` = '$id_value'";
 	$result_lookup = mysqli_QUERY($GLOBALS["db_link_conn"], $sql_lookup);
 	checkError($result_lookup, $sql_lookup);
-	$rows_lookup = mysqli_num_rows($result_lookup);
+	if($result_lookup) $rows_lookup = mysqli_num_rows($result_lookup);
 	if ($rows_lookup == null || $rows_lookup = 0) {
 		return 0;
 	} else {
@@ -971,7 +971,7 @@ function createComboBoxValue($table, $id_field, $value_field, $id_value, $field_
 	return $result;
 }
 
-function createComboBoxScript($table, $id_field, $value_field, $id_value, $field_name,$condition, $required="",$scriptFunc,$first_text=null) {
+function createComboBoxScript($table, $id_field, $value_field, $id_value, $field_name,$condition, $required="",$scriptFunc=null,$first_text=null) {
 	$result = "<select name=\"$field_name\" class=\"$required\" onChange=\"$scriptFunc\">\n";
 	//if ($id_value == null || $id_value == "") 
 		if($first_text){
@@ -1001,7 +1001,7 @@ function createComboBoxScript($table, $id_field, $value_field, $id_value, $field
 	return $result;
 }
 
-function createComboUlBoxScript($table, $id_field, $value_field, $id_value, $field_name,$condition, $html_id="",$ajax_loader,$load_pros=null) {
+function createComboUlBoxScript($table, $id_field, $value_field, $id_value, $field_name,$condition, $html_id="",$ajax_loader=null,$load_pros=null) {
 
 	
 	$result ='<div class="dropdown"  onclick="hide_list(); show_dropdown('.$html_id.')" >';

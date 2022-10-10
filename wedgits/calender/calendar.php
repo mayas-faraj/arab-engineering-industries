@@ -1,6 +1,7 @@
 <?php
 header("cache-control: no-cache"); 
 include_once("../../config.php");
+include_once("../../lang/label_$pageLang.inc.php");
 include_once("../../modules/common/dbConnection.php");
 include_once("../../modules/includes/dbUtils.php");
 //check if time is set in the URL
@@ -38,7 +39,7 @@ $events_type = array();
 
 $result = mysqli_query($GLOBALS["db_link_conn"], "SELECT * FROM events_events " );
 $mn=mysqli_num_rows($result);
-while($row_event = mysqli_fetch_array($GLOBALS["db_link_conn"], $result)){
+while($row_event = mysqli_fetch_array($result)){
 	/*$Eid=$row_event['id'];
 	$Es=$row_event['start_date'];
 	$Ee=$row_event['start_date'];

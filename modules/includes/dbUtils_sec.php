@@ -3,6 +3,7 @@ $old_error_handler = set_error_handler("myErrorHandler");
 $err_msg = "";
 function myErrorHandler($errno, $errstr, $errfile, $errline)
 {
+	if(!isset($err_msg)) $err_msg="";
 	if (!(error_reporting() & $errno)) {
 		// This error code is not included in error_reporting
 		return;
@@ -26,7 +27,7 @@ function myErrorHandler($errno, $errstr, $errfile, $errline)
 	return true;
 }
 function addToLogFile($msg=""){
-	mysqli_query($GLOBALS["db_link_conn"], "INSERT INTO log SET `user`='".$_SESSION[".SESSION_USER_NAME."] ."',`ip`='".VisitorIP()."',`datetime_stamp`='".date('Y-m-d H:i:s')."',`page`='".$_SERVER['REQUEST_URI']."', msg='$msg'");
+	mysqli_query($GLOBALS["db_link_conn"], "INSERT INTO log SET `user`=system',`ip`='".VisitorIP()."',`datetime_stamp`='".date('Y-m-d H:i:s')."',`page`='".$_SERVER['REQUEST_URI']."', msg='$msg'");
 }
 function VisitorIP(){
 	if(isset($_SERVER['HTTP_X_FORWARDED_FOR']))

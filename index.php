@@ -1,18 +1,24 @@
 <?php
 session_start();
+include_once("config.php");
 $HP=1;
 $dots='';
-if(!isset($pageLang)) $pageLang="ar";
-include_once("config.php");
+if(!$_SESSION[SESSION_PREF.'pageLang']){ $_SESSION[SESSION_PREF.'pageLang']="en";}
+if(isset($_REQUEST['pageLang']) AND ($_REQUEST['pageLang']=='en' OR $_REQUEST['pageLang']=='ar'))
+{ 
+	$pageLang=$_SESSION[SESSION_PREF.'pageLang']=$_REQUEST['pageLang'];
+}
+else
+	$pageLang=$_SESSION[SESSION_PREF.'pageLang']=$_REQUEST['pageLang']="en";
+
+$pageLang=$_SESSION[SESSION_PREF.'pageLang'];
+$_SESSION['pageLang']=$_SESSION[SESSION_PREF.'pageLang'];
+
 include_once("modules/common/dbConnection.php");
 include_once("lang/label_$pageLang.inc.php");
 require_once("modules/includes/dbUtils.php");
 include_once("modules/includes/pathUtil.php");
 
-if(!$_SESSION[SESSION_PREF.'pageLang']){ $_SESSION[SESSION_PREF.'pageLang']="en";}
-if($_REQUEST['pageLang']=='en' OR $_REQUEST['pageLang']=='ar'){ $pageLang=$_SESSION[SESSION_PREF.'pageLang']=$_REQUEST['pageLang'];}
-$pageLang=$_SESSION[SESSION_PREF.'pageLang'];
-$_SESSION['pageLang']=$_SESSION[SESSION_PREF.'pageLang'];
 $seo = getSEO($pageLang);
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">

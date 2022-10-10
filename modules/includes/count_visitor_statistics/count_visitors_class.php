@@ -57,7 +57,7 @@ class Count_visitors {
 	function check_last_visit() {
 		$check_sql = sprintf("SELECT time + 0 FROM %s WHERE visit_date = CURDATE() AND ip_adr = '%s' ORDER BY time DESC LIMIT 0, 1", $this->table_name, $_SERVER['REMOTE_ADDR']);
 		$check_visit = mysqli_query($GLOBALS["db_link_conn"], $check_sql);
-		$check_row = mysqli_fetch_array($GLOBALS["db_link_conn"], $check_visit);
+		$check_row = mysqli_fetch_array($check_visit);
 		if (mysqli_num_rows($check_visit) != 0) {
 			$last_hour = date("H") - $this->delay; 
 			$check_time = date($last_hour."is");

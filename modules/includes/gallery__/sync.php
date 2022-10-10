@@ -11,7 +11,7 @@ $sql="select * from galleries_photos ";
 $res=mysqli_query($GLOBALS["db_link_conn"], $sql);
 $deletedRecs=0;
 $missinFiles='';
-while($row=mysqli_fetch_array($GLOBALS["db_link_conn"], $res)){
+while($row=mysqli_fetch_array($res)){
 	$file='../../../uploads/'.$row['folder'].$row['photo'];	
 	if(!file_exists($file)){
 		delPhoto($row['id']);

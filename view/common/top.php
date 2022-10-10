@@ -1,4 +1,5 @@
 <?php
+$pageLang=$_SESSION['pageLang'];
 
 include_once("../../config.php");
 include_once("../../modules/common/dbConnection.php");
