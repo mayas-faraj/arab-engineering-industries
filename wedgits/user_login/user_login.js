@@ -62,6 +62,7 @@ function submitMemForm(ajax_label,ajax_suc,ajax_fail){
 
 $('document').ready(function(){
 	$('.show_m_form').click(function(){
+		return;
 		mask_width = $(window).width();
 		mask_height = $(window).height();
 		$('.login_form').fadeIn('fast');

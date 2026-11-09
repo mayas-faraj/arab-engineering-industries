@@ -15,7 +15,7 @@ function logfnc($user,$pass) {
   $passwd = md5($pass);
   $query = "SELECT * FROM users u WHERE (u.username='$user') AND (u.password = '$passwd') " ;
   $result = mysqli_query($GLOBALS["db_link_conn"], $query);
-  if (mysqli_num_rows($result) <=0 ) {
+  if (!mysqli_num_rows($result) <=0 ) {
 	echo'<script>
 			alert("'.LoginError.'");
 			document.location="../login/login.php"

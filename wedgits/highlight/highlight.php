@@ -128,11 +128,11 @@ if($numrows> 3 OR $numrows ==3){
 				<div class='nav'>
 					<?php if($numrows>2): ?>
 							<img class='go_up' onClick='switch_highlight(<?php echo $item_num; ?>,"prev")' src='<?php echo _PREF; ?>wedgits/highlight/left_arrow_<?php echo $pageLang; ?>.png'/>
-							<span class='high_nums'><span class='curr_high'>2</span> <?php echo of; ?> <?php echo $item_num; ?></span>
+							<span class='high_nums'><span class='curr_high'>2</span> <?php echo "of"; ?> <?php echo $item_num; ?></span>
 							<img class='go_down' onClick='switch_highlight(<?php echo $item_num; ?>,"next")' src='<?php echo _PREF; ?>wedgits/highlight/right_arrow_<?php echo $pageLang; ?>.png'/>
 						<?php elseif($numrows==2): ?>
 							<img class='go_up' onClick='switch_highlights(<?php echo $item_num; ?>,"prev")' src='<?php echo _PREF; ?>wedgits/highlight/left_arrow_<?php echo $pageLang; ?>.png'/>
-							<span class='high_nums'><span class='curr_high'>2</span> <?php echo of; ?> <?php echo $item_num; ?></span>
+							<span class='high_nums'><span class='curr_high'>2</span> <?php echo "of"; ?> <?php echo $item_num; ?></span>
 							<img class='go_down' onClick='switch_highlights(<?php echo $item_num; ?>,"next")' src='<?php echo _PREF; ?>wedgits/highlight/right_arrow_<?php echo $pageLang; ?>.png'/>
 						<?php endif; ?>
 					
